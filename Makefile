@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/10 14:38:17 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/10 16:37:09 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 NAME = minishell
 INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
-SRC = $(addprefix $(SRC_PATH), 00_main.c)
+SRC = $(addprefix $(SRC_PATH), 00_constructors.c 01_main.c)
 OBJ = $(SRC:.c=.o)
 
 LIBFT_DIR = ./inc/libft/
