@@ -6,19 +6,12 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 16:23:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:15:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	main(void)
-{
-	ft_printf("hello it's working\n");
-	return (0);
-}
-
-/*
 int	main(int ac, char *av, char **envp)
 {	
 	t_minishell	*msh;
@@ -29,15 +22,7 @@ int	main(int ac, char *av, char **envp)
 	return(0);
 }
 
-void ft_init_msh(t_minishell *msh, char **envp)
-{
-	//if stdin not terminal
-	if (!isatty(STDIN_FILENO))
-		exit(1); //change to exit function when we have one
-	ft_bzero(&msh, sizeof(t_minishell));
-	dup_envp(&msh->envp, envp); //create dup_envp
-}
-*/
+
 
 /*
 int	main(void)

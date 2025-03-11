@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/11 15:50:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:44:53 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define RES "\033[0m"
 //error messages
 # define ERR_MEM "Error allocating memory\n"
+# define ERR_STDIN "Error with stdin\n"
 //constants
 #define WHITESPACE " \t\n\r\v\f"
 #define TOKENS "| < > >>"
@@ -130,11 +131,13 @@ typedef struct s_minishell
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
 //00_main.c
-int	main(void);
-
+int	main(int ac, char *av, char **envp);
 
 //get_cmd
 //parse_cmd
 //run_cmd
+
+//10_close_msh.c
+void	close_minishell(t_minishell	*msh, char *err_msg, int fd);
 
 #endif
