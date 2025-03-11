@@ -6,12 +6,34 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/10 17:39:10 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:56:10 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+
+int	main(int ac, char *av, char **envp)
+{	
+	t_minishell	*msh;
+	(void)ac;
+	(void)av;
+	
+	ft_init_msh(&msh, envp);
+	return(0);
+}
+
+void ft_init_msh(t_minishell *msh, char **envp)
+{
+	//if stdin not terminal
+	if (!isatty(STDIN_FILENO))
+		exit(1); //change to exit function when we have one
+	ft_bzero(&msh, sizeof(t_minishell));
+	dup_envp(&msh->envp, envp); //create dup_envp
+}
+	
+
+/*
 int	main(void)
 {	
 	static char *buffer;
@@ -57,7 +79,7 @@ int	error_exit(char *message)
 	ft_putstr_fd(message, 2);
 	exit(1);
 }
-
+*/
 
 /*
 create get_cmd

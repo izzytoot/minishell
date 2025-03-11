@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/11 11:42:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:50:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@
 # define RES "\033[0m"
 //error messages
 # define ERR_MEM "Error allocating memory\n"
-//etc.
-# define MAXCMD 10 //ver se posso
+//constants
+#define WHITESPACE " \t\n\r\v\f"
+#define TOKENS "| < > >>"
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
@@ -63,44 +64,68 @@ typedef enum e_cmd_type
 	//PATH
 }	t_cmd_type;
 
+/*
 typedef enum	e_node_type
 {
 	PIPE,
-	SEQ,
-	BACK,
 	EXEC,
 	REDIR,
 }	t_node_type;
+*/
+
+typedef enum	e_token_type
+{
+	PIPE,
+	EXEC,
+	REDIR_L_1,
+	REDIR_R_1,
+	REDIR_L_2,
+	HD,
+}	t_token_type;
 
 typedef struct s_cmd
 {
-	t_node_type	type;
+	t_token_type	type;
 }	t_cmd;
 
 typedef struct s_pipe_cmd // |
 {
-	t_node_type	type;
-	t_cmd 		*left;
-	t_cmd		*right;
+	t_token_type	type;
+	t_cmd 			*left;
+	t_cmd			*right;
 }	t_pipe_cmd;
 
 typedef struct	s_exec
 {
-	t_node_type	type;
-	char		**s_av;
-	char		**e_av;
+	t_token_type	type;
+	char			**s_av;
+	char			**e_av;
 }	t_exec;
 
 typedef struct	s_red
 {
-	t_node_type	type;
-	t_cmd		*r_cmd;
-	char		*file;
-	char		*e_file;
-	int			fd_mode;
-	int			fd;
+	t_token_type	type;
+	t_cmd			*r_cmd;
+	char			*file;
+	char			*e_file;
+	int				fd_mode;
+	int				fd;
 	
 }	t_red;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*symbol;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
+
+typedef struct s_minishell
+{
+	t_list	envp;
+}	t_minishell;
+
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
