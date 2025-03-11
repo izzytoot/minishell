@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/10 17:40:08 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:42:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,6 @@ typedef struct s_pipe_cmd // |
 	t_cmd 		*left;
 	t_cmd		*right;
 }	t_pipe_cmd;
-
-typedef struct s_seq // ; ver se este entra
-{
-	t_node_type	type;
-	t_cmd		*left;
-	t_cmd		*right;
-}	t_seq;
-
-typedef struct s_back //& ver se este entra
-{
-	t_node_type	type;
-	t_cmd		*b_cmd;
-}	t_back;
 
 typedef struct	s_exec
 {

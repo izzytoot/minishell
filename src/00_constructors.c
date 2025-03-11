@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:36:50 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/10 17:00:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:41:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,6 @@ t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right)
 	cmd->type = PIPE;
 	cmd->left = left;
 	cmd->right = right;
-	return ((t_cmd *)cmd);
-}
-
-t_cmd	*seq_cmd(t_cmd *left, t_cmd *right)
-{
-	t_seq	*cmd;
-	
-	cmd = malloc(sizeof(*cmd));
-	cmd->type = SEQ;
-	cmd->left = left;
-	cmd->right = right;
-	return ((t_cmd *)cmd);
-}
-
-t_cmd	*back_cmd(t_cmd *bg_cmd)
-{
-	t_back	*cmd;
-	
-	cmd = malloc(sizeof(*cmd));
-	cmd->type = BACK;
-	cmd->b_cmd = bg_cmd;
 	return ((t_cmd *)cmd);
 }
 
