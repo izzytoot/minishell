@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/11 17:35:22 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/11 17:36:54 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ fclean:
 	@echo $(RED) "$(NAME) was deleted!" $(RESET)
 
 fcleanall: fclean
-	@$(MAKE) $(NODIR)  -C $(LIBFT_DIR) fclean
+	@$(MAKE) $(NODIR) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
