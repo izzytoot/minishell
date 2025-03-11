@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/10 16:37:09 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/11 13:39:29 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 NAME = minishell
 INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
-SRC = $(addprefix $(SRC_PATH), 00_constructors.c 01_main.c)
+SRC = $(addprefix $(SRC_PATH), 00_constructors.c 01_main.c 02_tokenizer.c)
 OBJ = $(SRC:.c=.o)
 
 LIBFT_DIR = ./inc/libft/
@@ -40,7 +40,8 @@ MAKE = make
 #==============================================================================#
 RED		= "\033[0;31m"
 GREEN		= "\033[0;32m"  
-YELLOW		= "\033[0;33m" 
+YELLOW		= "\033[0;33m"
+BLUE		= "\033[0;34m"
 RESET		= "\033[0m"
 #==============================================================================#
 #                               RULES & DEPS                                   #
@@ -56,6 +57,7 @@ $(LIBFT):
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME)
 	@echo $(GREEN) "$(NAME) was created successfully!" $(RESET)
+	@echo $(BLUE) "This $(NAME) program was created by icunha-t and ddo-carm! ✨" $(RESET)
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
