@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/11 13:39:29 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/11 16:57:07 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 NAME = minishell
 INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
-SRC = $(addprefix $(SRC_PATH), 00_constructors.c 01_main.c 02_tokenizer.c)
+SRC = $(addprefix $(SRC_PATH), 01_main.c)
 OBJ = $(SRC:.c=.o)
 
 LIBFT_DIR = ./inc/libft/
@@ -39,31 +39,44 @@ MAKE = make
 #                                  COLORS                                      #
 #==============================================================================#
 RED		= "\033[0;31m"
-GREEN		= "\033[0;32m"  
-YELLOW		= "\033[0;33m"
-BLUE		= "\033[0;34m"
-RESET		= "\033[0m"
+GRN		= "\033[0;32m"  
+YEL		= "\033[0;33m"
+BLU		= "\033[0;34m"
+BLA		= "\033[0;30m"
+CYA		= "\033[0;36m"
+GREY	= "\033[0;90m"
+BBLA	= "\033[30;1m"
+BRED 	= "\033[31;1m"
+BGRN	= "\033[32;1m"
+BYEL	= "\033[33;1m"
+BBLU	= "\033[34;1m"
+BMAG	= "\033[35;1m"
+BCYA	= "\033[36;1m"
+BWHI	= "\033[37;1m"
+RESET	= "\033[0m"
 #==============================================================================#
 #                               RULES & DEPS                                   #
 #==============================================================================#
-all: $(LIBFT) $(NAME)
-
+all: $(LIBFT) $(NAME) clean msg
 %.o: %.c 
 	@$(C_COMP) $(FLAGS) -c $< -o $@
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
-
+	
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME)
-	@echo $(GREEN) "$(NAME) was created successfully!" $(RESET)
-	@echo $(BLUE) "This $(NAME) program was created by icunha-t and ddo-carm! ✨" $(RESET)
+	@echo $(BGRN)" $(NAME) was created successfully!" $(RESET)
+
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
+msg:
+	@echo $(BCYA)" This $(NAME) program was created by icunha-t and ddo-carm! ✨" $(RESET)
+	
 clean:
 	@$(RM) $(OBJ)
-	@echo $(RED) "All .o files were deleted!" $(RESET)
+	@echo $(RED) "All minishell .o files were deleted!" $(RESET)
 
 cleanall: clean
 	@$(MAKE) clean -C $(LIBFT_DIR)

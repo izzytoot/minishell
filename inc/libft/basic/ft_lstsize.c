@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:21:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 16:21:31 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:32:14 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_libftlist *lst)
 {
 	int	count;
 

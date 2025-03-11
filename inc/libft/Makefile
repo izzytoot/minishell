@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 13:30:18 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/11 16:21:51 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/11 16:57:37 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,31 +45,43 @@ MAKE = make
 #                                  COLORS                                      #
 #==============================================================================#
 RED		= "\033[0;31m"
-GREEN		= "\033[0;32m"  
-YELLOW		= "\033[0;33m" 
-RESET		= "\033[0m"
+GRN		= "\033[0;32m"  
+YEL		= "\033[0;33m"
+BLU		= "\033[0;34m"
+BLA		= "\033[0;30m"
+CYA		= "\033[0;36m"
+GREY	= "\033[0;90m"
+BBLA	= "\033[30;1m"
+BRED 	= "\033[31;1m"
+BGRN	= "\033[32;1m"
+BYEL	= "\033[33;1m"
+BBLU	= "\033[34;1m"
+BMAG	= "\033[35;1m"
+BCYA	= "\033[36;1m"
+BWHI	= "\033[37;1m"
+RESET	= "\033[0m"
 #==============================================================================#
 #                                  RULES                                       #
 #==============================================================================#
-all: extra $(NAME)
+all: extra $(NAME) clean
 
 %.o: %.c $(HEADER_PATH)
 	$(C_COMP) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
-	@echo $(GREEN) "$(NAME) was created successfully!" $(RESET)
-
+	@echo $(BGRN) "$(NAME) was created successfully!" $(RESET)
+	
 extra: $(OBJS) $(PRINTF_OBJS) $(GNL_OBJS)
 	@$(AR) $(NAME) $(OBJS) $(PRINTF_OBJS) $(GNL_OBJS)
-	@echo $(GREEN) "$(NAME) was created with extras successfully!" $(RESET)
+	@echo $(BGRN) "$(NAME) was created with extras successfully!" $(RESET)
 
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
 clean:
 	@$(RM) -f $(OBJS) $(PRINTF_OBJS) $(GNL_OBJS)
-	@echo $(RED) "All .o files were deleted!" $(RESET)
+	@echo $(RED) "All libft .o files were deleted!" $(RESET)
 	
 fclean: clean
 	@$(RM) $(NAME)

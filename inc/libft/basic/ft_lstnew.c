@@ -6,17 +6,17 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:01:58 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 16:20:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:32:03 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_libftlist	*ft_lstnew(void *content)
 {
-	t_list	*mynode;
+	t_libftlist	*mynode;
 
-	mynode = (t_list *)malloc(sizeof(t_list));
+	mynode = (t_libftlist *)malloc(sizeof(t_libftlist));
 	if (!mynode)
 		return (NULL);
 	mynode->content = content;
