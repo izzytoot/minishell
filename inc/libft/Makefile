@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 13:30:18 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/11 16:57:37 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/11 17:34:31 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ clean:
 	@$(RM) -f $(OBJS) $(PRINTF_OBJS) $(GNL_OBJS)
 	@echo $(RED) "All libft .o files were deleted!" $(RESET)
 	
-fclean: clean
+fclean:
 	@$(RM) $(NAME)
 	@echo $(RED) "$(NAME) was deleted!" $(RESET)
 

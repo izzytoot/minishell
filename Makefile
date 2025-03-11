@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/11 16:57:07 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/11 17:35:22 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ RM = rm -f
 AR = ar rcs
 
 MAKE = make
+
+NODIR = --no-print-directory
 #==============================================================================#
 #                                  COLORS                                      #
 #==============================================================================#
@@ -58,11 +60,12 @@ RESET	= "\033[0m"
 #                               RULES & DEPS                                   #
 #==============================================================================#
 all: $(LIBFT) $(NAME) clean msg
+
 %.o: %.c 
 	@$(C_COMP) $(FLAGS) -c $< -o $@
 
 $(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) $(NODIR) -C $(LIBFT_DIR)
 	
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME)
@@ -78,15 +81,12 @@ clean:
 	@$(RM) $(OBJ)
 	@echo $(RED) "All minishell .o files were deleted!" $(RESET)
 
-cleanall: clean
-	@$(MAKE) clean -C $(LIBFT_DIR)
-
-fclean: clean
+fclean:
 	@$(RM) $(NAME)
 	@echo $(RED) "$(NAME) was deleted!" $(RESET)
 
-fcleanall: cleanall fclean
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+fcleanall: fclean
+	@$(MAKE) $(NODIR)  -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
