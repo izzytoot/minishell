@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_close_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 18:42:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:02:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code)
 {
-	int	i;
-
-	i = 0;
-	if (msh)
-		free_msh(&msh);
+	if (msh->active)
+		free_msh(&(*msh));
 	if (err_msg)
 		ft_putstr_fd(err_msg, 2);
 	exit(exit_code);
@@ -26,5 +23,16 @@ void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code)
 
 void	free_msh(t_minishell *msh)
 {
-	ft_lstclear(&msh->envp, free);
+	free(msh->prog_name);
+	ft_lstclear(&msh->l_envp, free);
+	free(msh);
+}
+
+void	handle_envp_failure(t_minishell *msh, char *str, t_list *list_node)
+{
+	if (str)
+		free(str);
+	if (list_node)
+		free(list_node);
+	close_minishell(msh, RED ERR_ENVP RES, EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_constructors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:36:50 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 11:41:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:58:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ t_cmd	*exec_cmd(void)
 	t_exec	*cmd;
 	
 	cmd = malloc(sizeof(*cmd));
-	memset(cmd, 0, sizeof(cmd));
+	memset(cmd, 0, sizeof(*cmd));
 	cmd->type = EXEC;
 	return ((t_cmd *)cmd);
 }
 
-t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd)
+t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_token_type type)
 {
 	t_red	*cmd;
 	
 	cmd = malloc(sizeof(*cmd));
-	memset(cmd, 0, sizeof(cmd));
-	cmd->type = RED;
+	memset(cmd, 0, sizeof(*cmd));
+	cmd->type = type;
 	cmd->r_cmd = sub_cmd;
 	cmd->file = file;
 	cmd->e_file = e_file;

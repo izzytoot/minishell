@@ -23,21 +23,21 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-typedef struct s_list
+typedef struct s_gnllist
 {
 	char			*str_buff;
-	struct s_list	*next;
-}				t_list;
+	struct s_gnllist	*next;
+}				t_gnllist;
 
-int		ft_newline(t_list *list);
-t_list	*find_last_node(t_list *list);
-char	*ft_get_line(t_list *list);
-void	ft_copy_str(t_list *list, char *str);
-int		len_new_line(t_list *list);
-void	ft_polish_list(t_list **list);
-char	*get_next_line(int fd);
-void	ft_dealloc(t_list **list, t_list *clean_node, char *buffer);
-void	ft_new_list(t_list **list, int fd);
-void	ft_put_buffer_in_list(t_list **list, char *buffer);
+int			ft_newline(t_gnllist *list);
+t_gnllist	*find_last_node(t_gnllist *list);
+char		*ft_get_line(t_gnllist *list);
+void		ft_copy_str(t_gnllist *list, char *str);
+int			len_new_line(t_gnllist *list);
+void		ft_polish_list(t_gnllist **list);
+char		*get_next_line(int fd);
+void		ft_dealloc(t_gnllist **list, t_gnllist *clean_node, char *buffer);
+void		ft_new_list(t_gnllist **list, int fd);
+void		ft_put_buffer_in_list(t_gnllist **list, char *buffer);
 
 #endif

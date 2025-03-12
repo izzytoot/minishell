@@ -14,8 +14,8 @@
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list[MAX_FD];
-	char			*next_line;
+	static t_gnllist	*list[MAX_FD];
+	char				*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -27,7 +27,7 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-void	ft_new_list(t_list **list, int fd)
+void	ft_new_list(t_gnllist **list, int fd)
 {
 	int		nb_chars;
 	char	*buffer;
@@ -55,13 +55,13 @@ void	ft_new_list(t_list **list, int fd)
 	}
 }
 
-void	ft_put_buffer_in_list(t_list **list, char *buffer)
+void	ft_put_buffer_in_list(t_gnllist **list, char *buffer)
 {
-	t_list	*new_node;
-	t_list	*last_node;
+	t_gnllist	*new_node;
+	t_gnllist	*last_node;
 
 	last_node = find_last_node(*list);
-	new_node = malloc(sizeof(t_list));
+	new_node = malloc(sizeof(t_gnllist));
 	if (new_node == NULL)
 		return ;
 	if (last_node == NULL)
@@ -72,7 +72,7 @@ void	ft_put_buffer_in_list(t_list **list, char *buffer)
 	new_node->next = NULL;
 }
 
-char	*ft_get_line(t_list *list)
+char	*ft_get_line(t_gnllist *list)
 {
 	int		str_len;
 	char	*next_str;
@@ -87,16 +87,16 @@ char	*ft_get_line(t_list *list)
 	return (next_str);
 }
 
-void	ft_polish_list(t_list **list)
+void	ft_polish_list(t_gnllist **list)
 {
-	t_list	*last_node;
-	t_list	*clean_node;
-	int		i;
-	int		j;
-	char	*buffer;
+	t_gnllist	*last_node;
+	t_gnllist	*clean_node;
+	int			i;
+	int			j;
+	char		*buffer;
 
-	buffer = malloc(sizeof(t_list) * (BUFFER_SIZE + 1));
-	clean_node = malloc(sizeof(t_list));
+	buffer = malloc(sizeof(t_gnllist) * (BUFFER_SIZE + 1));
+	clean_node = malloc(sizeof(t_gnllist));
 	if (buffer == NULL || clean_node == NULL)
 		return ;
 	last_node = find_last_node(*list);

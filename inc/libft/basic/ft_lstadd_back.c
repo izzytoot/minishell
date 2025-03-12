@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:09:03 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 16:32:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:49:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstadd_back(t_libftlist **lst, t_libftlist *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_libftlist	*last;
+	t_list	*last;
 
 	if (!lst || !new)
 		return ;

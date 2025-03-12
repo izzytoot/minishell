@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/11 18:44:53 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:01:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <readline/history.h> //shell history
 # include <readline/readline.h> //readline
 # include <signal.h> // signal()
+# include <stdbool.h> //bools
 # include "libft/libft.h"
 /* ************************************************************************** */
 /*                                    MACROS                                  */
@@ -43,6 +44,8 @@
 //error messages
 # define ERR_MEM "Error allocating memory\n"
 # define ERR_STDIN "Error with stdin\n"
+# define ERR_PRC "Error creating process\n"
+# define ERR_ENVP "Error duplicating environment variables\n"
 //constants
 #define WHITESPACE " \t\n\r\v\f"
 #define TOKENS "| < > >>"
@@ -124,20 +127,35 @@ typedef struct s_token
 
 typedef struct s_minishell
 {
-	t_list	envp;
+	bool	active;
+	int		msh_pid;
+	char	*prog_name;
+	t_list	*l_envp; //enviroment variables line user, home, path, etc
 }	t_minishell;
 
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
-//00_main.c
-int	main(int ac, char *av, char **envp);
+//00_constructors.c
+t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right);
+t_cmd	*exec_cmd(void);
+t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_token_type type);
+
+//01_main.c
+int		main(int ac, char **av, char **envp);
+
+//02_msh_init.c
+void	ft_init_msh(t_minishell *msh, int ac, char **av, char **envp);
+int		my_getpid(t_minishell *msh);
+void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
 
 //get_cmd
 //parse_cmd
 //run_cmd
 
 //10_close_msh.c
-void	close_minishell(t_minishell	*msh, char *err_msg, int fd);
+void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code);
+void	free_msh(t_minishell *msh);
+void	handle_envp_failure(t_minishell *msh, char *str, t_list *list_node);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:21:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 16:32:14 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:50:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_lstsize(t_libftlist *lst)
+int	ft_lstsize(t_list *lst)
 {
 	int	count;
 

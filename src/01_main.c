@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   01_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 18:15:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:51:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	main(int ac, char *av, char **envp)
-{	
+int		main(int ac, char **av, char **envp)
+{
 	t_minishell	*msh;
-	(void)ac;
-	(void)av;
 	
-	ft_init_msh(&msh, envp);
+	msh = ft_calloc(1, sizeof(t_minishell));
+	if (!msh)
+		close_minishell(msh, RED ERR_MEM RES, EXIT_FAILURE);
+	msh->active = true;
+	ft_init_msh(&(*msh), ac, av, envp);
 	return(0);
 }
 

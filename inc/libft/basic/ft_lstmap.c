@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:16:46 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/11 16:31:29 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:49:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static t_libftlist	*ft_lstcreate(t_libftlist *list, void *(*f)(void *),
+static t_list	*ft_lstcreate(t_list *list, void *(*f)(void *),
 					void (*del)(void *))
 {
-	t_libftlist	*new_l;
+	t_list	*new_l;
 	void	*content;
 
 	if (!list || !f || !del)
@@ -30,10 +30,10 @@ static t_libftlist	*ft_lstcreate(t_libftlist *list, void *(*f)(void *),
 	return (new_l);
 }
 
-t_libftlist	*ft_lstmap(t_libftlist *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_libftlist	*new_l;
-	t_libftlist	*head;
+	t_list	*new_l;
+	t_list	*head;
 
 	new_l = ft_lstcreate(lst, f, del);
 	if (!new_l)

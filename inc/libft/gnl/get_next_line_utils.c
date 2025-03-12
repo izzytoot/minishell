@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int	ft_newline(t_list *list)
+int	ft_newline(t_gnllist *list)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int	ft_newline(t_list *list)
 	return (0);
 }
 
-t_list	*find_last_node(t_list *list)
+t_gnllist	*find_last_node(t_gnllist *list)
 {
 	if (list == NULL)
 		return (NULL);
@@ -41,7 +41,7 @@ t_list	*find_last_node(t_list *list)
 	return (list);
 }
 
-int	len_new_line(t_list *list)
+int	len_new_line(t_gnllist *list)
 {
 	int	i;
 	int	len;
@@ -67,7 +67,7 @@ int	len_new_line(t_list *list)
 	return (len);
 }
 
-void	ft_copy_str(t_list *list, char *str)
+void	ft_copy_str(t_gnllist *list, char *str)
 {
 	int	i;
 	int	j;
@@ -93,9 +93,9 @@ void	ft_copy_str(t_list *list, char *str)
 	str[j] = '\0';
 }
 
-void	ft_dealloc(t_list **list, t_list *clean_node, char *buffer)
+void	ft_dealloc(t_gnllist **list, t_gnllist *clean_node, char *buffer)
 {
-	t_list	*temp;
+	t_gnllist	*temp;
 
 	if (*list == NULL)
 		return ;
