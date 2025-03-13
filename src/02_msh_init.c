@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_msh_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/12 17:06:11 by root             ###   ########.fr       */
+/*   Updated: 2025/03/13 11:30:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@ void ft_init_msh(t_minishell *msh, int ac, char **av, char **envp)
 	else
 		msh->prog_name = NULL; //no program, right?
 	dup_envp(msh, &msh->l_envp, envp);
-	/*
-	ft_printf("minishel:\npid: $d\nprog name: %s\n", msh->msh_pid, msh->prog_name);
-	while(msh->l_envp)
-	{
-		ft_printf("%s\n", msh->l_envp->content);
-		msh->l_envp = msh->l_envp->next;
-	}
-	*/
 	close_minishell(msh, NULL, EXIT_SUCCESS);
 }
 

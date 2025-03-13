@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/12 17:01:07 by root             ###   ########.fr       */
+/*   Updated: 2025/03/13 12:57:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,9 @@ typedef struct s_token
 typedef struct s_minishell
 {
 	bool	active;
+	char	*dir;
 	int		msh_pid;
+	char	*promt_line;
 	char	*prog_name;
 	t_list	*l_envp; //enviroment variables line user, home, path, etc
 }	t_minishell;
@@ -143,12 +145,15 @@ t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_tok
 
 //01_main.c
 int		main(int ac, char **av, char **envp);
+void	prompt_loop(t_minishell *msh);
 
 //02_msh_init.c
 void	ft_init_msh(t_minishell *msh, int ac, char **av, char **envp);
 int		my_getpid(t_minishell *msh);
 void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
 
+//03_tokenizer.c
+void get_tokens(t_minishell *msh);
 //get_cmd
 //parse_cmd
 //run_cmd

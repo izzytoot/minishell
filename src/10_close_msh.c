@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_close_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/12 17:02:27 by root             ###   ########.fr       */
+/*   Updated: 2025/03/13 12:41:35 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code)
 		free_msh(&(*msh));
 	if (err_msg)
 		ft_putstr_fd(err_msg, 2);
+	clear_history();
 	exit(exit_code);
 }
 
 void	free_msh(t_minishell *msh)
 {
 	free(msh->prog_name);
+	free(msh->dir);
 	ft_lstclear(&msh->l_envp, free);
 	free(msh);
 }

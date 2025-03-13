@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/12 17:01:26 by root             ###   ########.fr        #
+#    Updated: 2025/03/13 12:20:36 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ C_COMP = cc
 
 FLAGS = -Wall -Werror -Wextra
 FLAGS += -g
-
+LDFLAGS = -lreadline
 RM = rm -f
 
 AR = ar rcs
@@ -67,14 +67,18 @@ $(LIBFT):
 	@$(MAKE) $(NODIR) -C $(LIBFT_DIR)
 	
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(LDFLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
 	@echo $(BGRN)" $(NAME) was created successfully!" $(RESET)
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
 msg:
 	@echo $(BCYA)" This $(NAME) program was created by icunha-t and ddo-carm! ✨" $(RESET)
-	
+
+valgrind:
+	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
+	/usr/bin/valgrind --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
+
 clean:
 	@$(RM) $(OBJ)
 	@echo $(RED) "All minishell .o files were deleted!" $(RESET)
