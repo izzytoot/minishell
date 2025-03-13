@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/13 12:57:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:56:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ typedef enum	e_node_type
 typedef enum	e_token_type
 {
 	PIPE,
-	EXEC,
+	CMD,
 	REDIR_L_1,
 	REDIR_R_1,
 	REDIR_L_2,
 	HD,
 }	t_token_type;
-
+/*
 typedef struct s_cmd
 {
 	t_token_type	type;
@@ -116,44 +116,48 @@ typedef struct	s_red
 	int				fd;
 	
 }	t_red;
-
-typedef struct s_token
+*/
+typedef struct s_token_lst
 {
-	t_token_type	type;
-	char			*symbol;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
+	t_token_type		type;
+	char				*content;
+	struct s_token_lst	*next;
+	struct s_token_lst	*prev;
+}	t_token_lst;
 
 typedef struct s_minishell
 {
-	bool	active;
-	char	*dir;
-	int		msh_pid;
-	char	*promt_line;
-	char	*prog_name;
-	t_list	*l_envp; //enviroment variables line user, home, path, etc
+	bool		active;
+	char		*dir;
+	int			msh_pid;
+	char		*promt_line;
+	char		*prog_name;
+	t_token_lst	*token_list;
+	t_list		*l_envp; //enviroment variables line user, home, path, etc
 }	t_minishell;
 
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
 //00_constructors.c
-t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right);
-t_cmd	*exec_cmd(void);
-t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_token_type type);
+//t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right);
+//t_cmd	*exec_cmd(void);
+//t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_token_type type);
 
 //01_main.c
 int		main(int ac, char **av, char **envp);
-void	prompt_loop(t_minishell *msh);
+void	prompt_loop(t_minishell **msh);
 
 //02_msh_init.c
-void	ft_init_msh(t_minishell *msh, int ac, char **av, char **envp);
+void	ft_init_msh(t_minishell **msh, int ac, char **av, char **envp);
 int		my_getpid(t_minishell *msh);
 void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
 
 //03_tokenizer.c
-void get_tokens(t_minishell *msh);
+void 		get_tokens(t_minishell **msh);
+void		add_token(t_minishell **msh, t_token_lst *new_token, char *content, t_token_type type);
+t_token_lst	*find_last_token(t_token_lst *token_list);
+
 //get_cmd
 //parse_cmd
 //run_cmd

@@ -6,24 +6,24 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/13 11:30:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:37:13 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void ft_init_msh(t_minishell *msh, int ac, char **av, char **envp)
+void ft_init_msh(t_minishell **msh, int ac, char **av, char **envp)
 {
 	(void)ac;
 	if (!isatty(STDIN_FILENO))
-		close_minishell(msh, RED ERR_STDIN RES, EXIT_FAILURE);
-	msh->msh_pid = my_getpid(msh);
+		close_minishell(*msh, RED ERR_STDIN RES, EXIT_FAILURE);
+	(*msh)->msh_pid = my_getpid(*msh);
 	if (av[0][0] == '.' && av[0][1] == '/')
-		msh->prog_name = ft_strdup(av[0] + 2);
+		(*msh)->prog_name = ft_strdup(av[0] + 2);
 	else
-		msh->prog_name = NULL; //no program, right?
-	dup_envp(msh, &msh->l_envp, envp);
-	close_minishell(msh, NULL, EXIT_SUCCESS);
+		(*msh)->prog_name = NULL; //no program, right?
+	dup_envp(*msh, &(*msh)->l_envp, envp);
+	prompt_loop(&(*msh));
 }
 
 int	my_getpid(t_minishell *msh)
@@ -58,5 +58,31 @@ void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp)
 		if (!next_envp)
 			handle_envp_failure(msh, NULL, next_envp);
 		ft_lstadd_back(l_envp, next_envp);
+	}
+}
+
+void	prompt_loop(t_minishell **msh)
+{
+	char *line;
+	char buffer[1024];
+	int	i;
+	
+	(*msh)->dir = getcwd(NULL, 1024); //perceber 1024
+	i = 0;
+	while ((line = readline("$ ")) != NULL)
+	{
+		strncpy(buffer, line, 1024);
+		add_history(buffer);
+		(*msh)->promt_line = buffer;
+		if (strncmp(buffer, "pwd", 3) == 0)
+			printf("%s\n", (*msh)->dir);
+		if (strncmp(buffer, "exit", 4) == 0)
+		{
+			ft_printf("exit\n");
+			free(line);
+			close_minishell(*msh, NULL, EXIT_SUCCESS);
+		}
+		get_tokens(&(*msh));
+		free(line);
 	}
 }

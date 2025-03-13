@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/13 12:56:46 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:36:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,13 @@ int		main(int ac, char **av, char **envp)
 {
 	t_minishell	*msh;
 	
-	
 	msh = ft_calloc(1, sizeof(t_minishell));
 	if (!msh)
 		close_minishell(msh, RED ERR_MEM RES, EXIT_FAILURE);
 	msh->active = true;
-	prompt_loop(&(*msh));
-	ft_init_msh(&(*msh), ac, av, envp);
+	ft_init_msh(&msh, ac, av, envp);
+	close_minishell(msh, NULL, EXIT_SUCCESS);
 	return(0);
-}
-
-void	prompt_loop(t_minishell *msh)
-{
-	char *line;
-	char buffer[1024];
-	int	i;
-	
-	msh->dir = getcwd(NULL, 1024); //perceber 1024
-	i = 0;
-	while ((line = readline("$ ")) != NULL)
-	{
-		strncpy(buffer, line, 1024);
-		add_history(buffer);
-		msh->promt_line = buffer;
-		get_tokens(msh);
-		if (strncmp(buffer, "pwd", 3) == 0)
-			printf("%s\n", msh->dir);
-		if (strncmp(buffer, "exit", 4) == 0)
-		{
-			ft_printf("exit\n");
-			free(line);
-			close_minishell(msh, NULL, EXIT_SUCCESS);
-		}
-		free(line);
-	}
 }
 
 /*

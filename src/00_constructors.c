@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   00_constructors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:36:50 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/12 16:58:52 by root             ###   ########.fr       */
+/*   Updated: 2025/03/13 16:02:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
+/*
 t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right)
 {
 	t_pipe_cmd	*cmd;
@@ -29,7 +29,7 @@ t_cmd	*exec_cmd(void)
 	
 	cmd = malloc(sizeof(*cmd));
 	memset(cmd, 0, sizeof(*cmd));
-	cmd->type = EXEC;
+	cmd->type = CMD;
 	return ((t_cmd *)cmd);
 }
 
@@ -47,3 +47,4 @@ t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_tok
 	cmd->fd = fd;
 	return ((t_cmd *)cmd);
 }
+*/
