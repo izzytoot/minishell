@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/13 16:56:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:52:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,11 @@ void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
 
 //03_tokenizer.c
 void 		get_tokens(t_minishell **msh);
-void		add_token(t_minishell **msh, t_token_lst *new_token, char *content, t_token_type type);
+int	token_is_cmd(t_minishell **msh, int start);
+int	token_is_pipe(t_minishell **msh, int start);
+int	token_is_redir_r(t_minishell **msh, int start);
+int	token_is_redir_l(t_minishell **msh, int start);
+void	add_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
 t_token_lst	*find_last_token(t_token_lst *token_list);
 
 //get_cmd

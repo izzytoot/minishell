@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_msh_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/13 16:37:13 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:15:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,8 @@ void	prompt_loop(t_minishell **msh)
 {
 	char *line;
 	char buffer[1024];
-	int	i;
 	
 	(*msh)->dir = getcwd(NULL, 1024); //perceber 1024
-	i = 0;
 	while ((line = readline("$ ")) != NULL)
 	{
 		strncpy(buffer, line, 1024);

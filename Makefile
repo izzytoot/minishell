@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/13 12:20:36 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/14 15:26:51 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 NAME = minishell
 INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
-SRC = $(addprefix $(SRC_PATH), 00_constructors.c 01_main.c 02_msh_init.c 03_tokenizer.c 10_close_msh.c)
+SRC = $(addprefix $(SRC_PATH), 00_constructors.c 01_main.c 02_msh_init.c 03_syntax_check.c 04_tokenizer.c 10_close_msh.c)
 OBJ = $(SRC:.c=.o)
 
 LIBFT_DIR = ./inc/libft/
