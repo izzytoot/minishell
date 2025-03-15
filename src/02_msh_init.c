@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/14 15:15:28 by root             ###   ########.fr       */
+/*   Updated: 2025/03/15 16:53:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ void	prompt_loop(t_minishell **msh)
 			close_minishell(*msh, NULL, EXIT_SUCCESS);
 		}
 		get_tokens(&(*msh));
+		int n = 0;
+		while((*msh)->token_list)
+		{
+			ft_printf("token %d is %s\n", n, (*msh)->token_list->content);	
+			(*msh)->token_list = (*msh)->token_list->next;
+			n++;
+		}		
 		free(line);
 	}
 }

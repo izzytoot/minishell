@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/14 17:53:39 by root             ###   ########.fr       */
+/*   Updated: 2025/03/15 16:44:23 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ void	get_tokens(t_minishell	**msh)
 {
 	int			i;
 
-	i = -1;
-	while((*msh)->promt_line[++i])
+	i = 0;
+	while((*msh)->promt_line[i])
 	{
 		if ((*msh)->promt_line[i] != '|' && (*msh)->promt_line[i] != '<' && (*msh)->promt_line[i] != '>')
 			i = token_is_cmd(msh, i);
-		else if ((*msh)->promt_line[i] == '|')
+		if ((*msh)->promt_line[i] == '|')
 			i = token_is_pipe(msh, i);
-		else if ((*msh)->promt_line[i] == '>')
+		if ((*msh)->promt_line[i] == '>')
 			i = token_is_redir_r(msh, i);
-		else if ((*msh)->promt_line[i] == '<')
+		if ((*msh)->promt_line[i] == '<')
 			i = token_is_redir_l(msh, i);
+		if ((*msh)->promt_line[i] == ' ')
+			i++;
 		else
 			return ;
 	}
@@ -40,11 +42,12 @@ int	token_is_cmd(t_minishell **msh, int start)
 	t_token_lst	*new_token;
 	
 	i = start;
-	j = -1;
+	j = 0;
 	while((*msh)->promt_line[i] && (*msh)->promt_line[i] != '|' && (*msh)->promt_line[i] != '<' && (*msh)->promt_line[i] != '>')
 	{
-		cmd[++j] = (*msh)->promt_line[i];
+		cmd[j] = (*msh)->promt_line[i];
 		i++;
+		j++;
 	}
 	cmd[j++] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
@@ -58,13 +61,14 @@ int	token_is_pipe(t_minishell **msh, int start)
 	int			j;
 	char		pipe[100];
 	t_token_lst	*new_token;
-	
+
 	i = start;
-	j = -1;
+	j = 0;
 	while((*msh)->promt_line[i] && (*msh)->promt_line[i] == '|')
 	{
-		pipe[++j] = (*msh)->promt_line[i];
+		pipe[j] = (*msh)->promt_line[i];
 		i++;
+		j++;
 	}
 	pipe[j++] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
@@ -80,11 +84,12 @@ int	token_is_redir_r(t_minishell **msh, int start)
 	t_token_lst	*new_token;
 	
 	i = start;
-	j = -1;
+	j = 0;
 	while((*msh)->promt_line[i] && (*msh)->promt_line[i] == '>')
 	{
-		redir_r[++j] = (*msh)->promt_line[i];
+		redir_r[j] = (*msh)->promt_line[i];
 		i++;
+		j++;
 	}
 	redir_r[j++] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
@@ -101,13 +106,14 @@ int	token_is_redir_l(t_minishell **msh, int start)
 	t_token_lst	*new_token;
 	
 	i = start;
-	j = -1;
+	j = 0;
 	if ((*msh)->promt_line[i + 1] == '<')
 	{
 		while((*msh)->promt_line[i] && (*msh)->promt_line[i] == '<')
 		{
-			redir_l_2[++j] = (*msh)->promt_line[i];
+			redir_l_2[j] = (*msh)->promt_line[i];
 			i++;
+			j++;
 		}
 		redir_l_2[j++] = '\0';
 		new_token = calloc(1, sizeof(t_token_lst));
@@ -117,8 +123,9 @@ int	token_is_redir_l(t_minishell **msh, int start)
 	{
 		while((*msh)->promt_line[i] && (*msh)->promt_line[i] == '<')
 		{
-			redir_l_1[++j] = (*msh)->promt_line[i];
+			redir_l_1[j] = (*msh)->promt_line[i];
 			i++;
+			j++;
 		}
 		redir_l_1[j++] = '\0';
 		new_token = calloc(1, sizeof(t_token_lst));
@@ -139,7 +146,6 @@ void	add_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_
 	msh->token_list->content = calloc(ft_strlen(content) + 1, sizeof(char));
 	while(content[++i])
 		msh->token_list->content[i] = content[i];
-	ft_printf("token is %s\n", msh->token_list->content);
 }
 
 t_token_lst	*find_last_token(t_token_lst *token_list)
