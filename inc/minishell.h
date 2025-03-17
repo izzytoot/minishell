@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/14 17:52:30 by root             ###   ########.fr       */
+/*   Updated: 2025/03/17 11:35:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define ERR_ENVP "Error duplicating environment variables\n"
 //constants
 #define WHITESPACE " \t\n\r\v\f"
-#define TOKENS "| < > >>"
+#define TOKENS "|<>"
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
@@ -79,12 +79,13 @@ typedef enum	e_node_type
 
 typedef enum	e_token_type
 {
-	PIPE,
-	CMD,
-	REDIR_L_1,
-	REDIR_R_1,
-	REDIR_L_2,
-	HD,
+	PIPE, // |
+	WORD, // cmd or arg
+	REDIR_IN, // < (input)
+	REDIR_OUT, // > (output)
+	REDIR_APP, // >> (append)
+	REDIR_HD, // << (heredoc)
+	ENV_VAR, // envirm. variables
 }	t_token_type;
 /*
 typedef struct s_cmd
@@ -155,11 +156,11 @@ void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
 
 //03_tokenizer.c
 void 		get_tokens(t_minishell **msh);
-int	token_is_cmd(t_minishell **msh, int start);
-int	token_is_pipe(t_minishell **msh, int start);
-int	token_is_redir_r(t_minishell **msh, int start);
-int	token_is_redir_l(t_minishell **msh, int start);
-void	add_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
+int			token_is_word(t_minishell **msh, int start);
+int			token_is_pipe(t_minishell **msh, int start);
+int			token_is_redir_r(t_minishell **msh, int start);
+int			token_is_redir_l(t_minishell **msh, int start);
+void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
 t_token_lst	*find_last_token(t_token_lst *token_list);
 
 //get_cmd

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_msh_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/15 16:58:30 by root             ###   ########.fr       */
+/*   Updated: 2025/03/17 10:38:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	prompt_loop(t_minishell **msh)
 		(*msh)->promt_line = buffer;
 		if (strncmp(buffer, "pwd", 3) == 0)
 			printf("%s\n", (*msh)->dir);
-		if (strncmp(buffer, "exit", 4) == 0)
+		else if (strncmp(buffer, "exit", 4) == 0)
 		{
 			ft_printf("exit\n");
 			free(line);
