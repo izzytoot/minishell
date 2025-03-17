@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_msh_init.c                                      :+:      :+:    :+:   */
+/*   10_msh_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/17 12:01:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:50:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void ft_init_msh(t_minishell **msh, int ac, char **av, char **envp)
 	else
 		(*msh)->prog_name = NULL; //no program, right?
 	dup_envp(*msh, &(*msh)->l_envp, envp);
-	prompt_loop(&(*msh));
+	prompt_and_read(&(*msh));
 }
 
 int	my_getpid(t_minishell *msh)
@@ -61,7 +61,7 @@ void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp)
 	}
 }
 
-void	prompt_loop(t_minishell **msh)
+void	prompt_and_read(t_minishell **msh)
 {
 	char *line;
 	char buffer[1024];
@@ -80,14 +80,8 @@ void	prompt_loop(t_minishell **msh)
 			free(line);
 			close_minishell(*msh, NULL, EXIT_SUCCESS);
 		}
-		get_tokens(&(*msh));
-		int n = 0;
-		while((*msh)->token_list)
-		{
-			ft_printf("token %d is %s\n", n, (*msh)->token_list->content);	
-			(*msh)->token_list = (*msh)->token_list->next;
-			n++;
-		}		
+		if (syntax_is_ok(&(*msh)))
+			get_tokens(&(*msh));
 		free(line);
 	}
 }

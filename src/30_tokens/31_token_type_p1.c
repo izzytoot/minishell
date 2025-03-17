@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/17 13:44:37 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:23:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	token_is_word(t_minishell **msh, int start)
 	i = start;
 	j = 0;
 	line = (*msh)->promt_line;
-	while(line[i] && !ft_strchr(TOKENS, line[i]))
+	while(line[i] && !ft_strchr(OPERATOR, line[i]))
 	{
 		if (line [i] == '\\' && line[i + 1])
 			word[j++] = line[++i];

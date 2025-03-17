@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/17 13:46:02 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:16:34 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,14 @@
 # define ERR_STDIN "Error with stdin\n"
 # define ERR_PRC "Error creating process\n"
 # define ERR_ENVP "Error duplicating environment variables\n"
+# define ERR_SYN_QT "Syntax error: unclosed quote\n"
+# define ERR_SYN_MS_OP "Syntax error: misplaced operator\n"
+# define ERR_SYN_INV_RED "Syntax error: invalid redirection\n"
+# define ERR_SYN_UNS_OP "Syntax error: unsupported operator\n"
 //constants
 #define WHITESPACE " \t\n\r\v\f"
-#define TOKENS "|<>"
+#define OPERATOR "|<>"
+#define QUOTE "\"\'"
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
@@ -147,17 +152,22 @@ typedef struct s_minishell
 //t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_token_type type);
 
 //01_main.c
-int		main(int ac, char **av, char **envp);
-void	prompt_loop(t_minishell **msh);
+int			main(int ac, char **av, char **envp);
+void		prompt_and_read(t_minishell **msh);
 
 /************ 10_init ************/
 //10_msh_init.c
-void	ft_init_msh(t_minishell **msh, int ac, char **av, char **envp);
-int		my_getpid(t_minishell *msh);
-void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
+void		ft_init_msh(t_minishell **msh, int ac, char **av, char **envp);
+int			my_getpid(t_minishell *msh);
+void		dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
 
 /************ 20_syntax ************/
 //20_syntax_check.c
+bool		syntax_is_ok(t_minishell **msh);
+bool		unclosed_sing_quotes(const char *line);
+bool		unclosed_doub_quotes(const char *line);
+bool		misplaced_operators(const char *line);
+bool		unsupported_operators(const char *line);
 
 /************ 30_tokens ************/
 //30_tokenizer.c
@@ -179,8 +189,8 @@ int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int
 
 /************ others ************/
 //10_close_msh.c
-void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code);
-void	free_msh(t_minishell *msh);
-void	handle_envp_failure(t_minishell *msh, char *str, t_list *list_node);
+void		close_minishell(t_minishell	*msh, char *err_msg, int exit_code);
+void		free_msh(t_minishell *msh);
+void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node);
 
 #endif

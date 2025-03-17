@@ -2,6 +2,17 @@
 	"files.associations": {
 		"system_error": "c",
 		"random": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"array": "c",
+		"chrono": "c",
+		"deque": "c",
+		"string": "c",
+		"unordered_map": "c",
+		"vector": "c",
+		"string_view": "c",
+		"format": "c",
+		"initializer_list": "c",
+		"span": "c",
+		"text_encoding": "c"
 	}
 }

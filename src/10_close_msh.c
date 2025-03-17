@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/17 10:38:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:05:10 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code)
 	if (msh->active)
 		free_msh(&(*msh));
 	if (err_msg)
-		ft_putstr_fd(err_msg, 2);
+		ft_putstr_fd(err_msg, STDERR_FILENO);
 	clear_history();
 	exit(exit_code);
 }
