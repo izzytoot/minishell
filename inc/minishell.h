@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/17 11:35:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:46:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_minishell
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
+/************ 00_main ************/
 //00_constructors.c
 //t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right);
 //t_cmd	*exec_cmd(void);
@@ -149,24 +150,34 @@ typedef struct s_minishell
 int		main(int ac, char **av, char **envp);
 void	prompt_loop(t_minishell **msh);
 
-//02_msh_init.c
+/************ 10_init ************/
+//10_msh_init.c
 void	ft_init_msh(t_minishell **msh, int ac, char **av, char **envp);
 int		my_getpid(t_minishell *msh);
 void	dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
 
-//03_tokenizer.c
+/************ 20_syntax ************/
+//20_syntax_check.c
+
+/************ 30_tokens ************/
+//30_tokenizer.c
 void 		get_tokens(t_minishell **msh);
-int			token_is_word(t_minishell **msh, int start);
-int			token_is_pipe(t_minishell **msh, int start);
-int			token_is_redir_r(t_minishell **msh, int start);
-int			token_is_redir_l(t_minishell **msh, int start);
 void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
 t_token_lst	*find_last_token(t_token_lst *token_list);
 
-//get_cmd
-//parse_cmd
-//run_cmd
+//31_token_type_p1.c
+int			token_is_word(t_minishell **msh, int start);
+int			token_is_pipe(t_minishell **msh, int start);
+int			redir_r(t_minishell **msh, int start);
+int			token_is_redir_app(t_minishell **msh, const char *line, char *redir_app, int i);
+int			token_is_redir_out(t_minishell **msh, const char *line, char *redir_out, int i);
 
+//32_token_type_p2.c
+int			redir_l(t_minishell **msh, int start);
+int			token_is_redir_hd(t_minishell **msh, const char *line, char *redir_hd, int i);
+int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int i);
+
+/************ others ************/
 //10_close_msh.c
 void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code);
 void	free_msh(t_minishell *msh);

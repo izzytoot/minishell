@@ -3,12 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   03_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/03/14 15:26:30 by root             ###   ########.fr       */
+/*   Updated: 2025/03/17 12:00:57 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../inc/minishell.h"
+#include	"../../inc/minishell.h"
 

@@ -6,11 +6,11 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:36:50 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/13 16:02:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:02:27 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 /*
 t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right)
 {
