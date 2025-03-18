@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/17 15:05:10 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:08:23 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code)
 
 void	free_msh(t_minishell *msh)
 {
-	free(msh->prog_name);
+
 	free(msh->dir);
 	ft_lstclear(&msh->l_envp, free);
 	free(msh);

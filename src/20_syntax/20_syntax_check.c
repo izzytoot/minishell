@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/03/17 18:15:34 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:47:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ bool	syntax_is_ok(t_minishell **msh)
 		ft_putstr_fd(ERR_SYN_QT, STDERR_FILENO);
 	if (unclosed_doub_quotes(line))
 		ft_putstr_fd(ERR_SYN_QT, STDERR_FILENO);
-	if (misplaced_operators(line))
+	if (misplaced_pipe(line))
+		ft_putstr_fd(ERR_SYN_PIPE, STDERR_FILENO); //done
+	if (misplaced_redir(line))
+		ft_putstr_fd(ERR_SYN_REDIR_END, STDERR_FILENO); //a fazer este
+	if (conseq_operators(line))
 		ft_putstr_fd(ERR_SYN_MS_OP, STDERR_FILENO);
 	else if (unsupported_operators(line))
 		ft_putstr_fd(ERR_SYN_UNS_OP, STDERR_FILENO);
@@ -72,6 +76,26 @@ bool	unclosed_doub_quotes(const char *line)
 	return (false);
 }
 
+bool	misplaced_pipe(const char *line)
+{
+	int	i;
+	int	len;
+	int	last;
+	
+	i = 0;
+	len = ft_strlen(line);
+	last = len - 1;
+	while (line[i] && (ft_strchr(WHITESPACE, line[i]) || ft_strchr(QUOTE, line[i])))
+		i++;
+	if (line[i] && (ft_strchr("|", line[i])))
+		return (true);
+	while(line[last] && (ft_strchr(WHITESPACE, line[last]) || ft_strchr(QUOTE, line[last])))
+		last--;
+	if (line[i] && ft_strchr("|", line[last]))	
+		return (true);
+	return (false);
+}
+/*
 bool	misplaced_operators(const char *line)
 {
 	int	i;
@@ -86,8 +110,28 @@ bool	misplaced_operators(const char *line)
 	if (line[i] && (ft_strchr("|", line[i]) || (line[i] == '<' && line[i + 1] == '<')))
 		return (true);
 	while(line[last] && (ft_strchr(WHITESPACE, line[last]) || ft_strchr(QUOTE, line[last])))
-		last--;;
+		last--;
 	if (line[i] && ft_strchr(OPERATOR, line[last]))	
+		return (true);
+	return (false);
+}
+*/
+bool	misplaced_redir(const char *line) // a fazer este
+{
+	int	i;
+	int	len;
+	int	last;
+	
+	i = 0;
+	len = ft_strlen(line);
+	last = len - 1;
+	while (line[i] && (ft_strchr(WHITESPACE, line[i]) || ft_strchr(QUOTE, line[i])))
+		i++;
+	if (line[i] && (line[i] == '<' && line[i + 1] == '<'))
+		return (true);
+	while(line[last] && (ft_strchr(WHITESPACE, line[last]) || ft_strchr(QUOTE, line[last])))
+		last--;
+	if (line[i] && ft_strchr("|", line[last]))	
 		return (true);
 	return (false);
 }
@@ -101,7 +145,9 @@ bool	conseq_operators(const char *line)
 	{
 		if (ft_strchr(OPERATOR, line[i]))
 		{
-			if (line[i] != '|' || (line[i] == '|' && line[i + 1] != '|'))
+			if (line[i] == '|' && line[i + 1] == '|')
+				return (false);
+			else
 			{
 				while (line[i] && ft_strchr(WHITESPACE, line[i]))
 					i++;

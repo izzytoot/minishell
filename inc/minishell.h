@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/17 18:16:34 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:12:17 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@
 # define ERR_SYN_MS_OP "Syntax error: misplaced operator\n"
 # define ERR_SYN_INV_RED "Syntax error: invalid redirection\n"
 # define ERR_SYN_UNS_OP "Syntax error: unsupported operator\n"
+
+#define ERR_SYN_PIPE "minishell: syntax error near unexpected token `|'"
+#define ERR_SYN_REDIR_END "minishell: syntax error near unexpected token `newline'"
+
 //constants
 #define WHITESPACE " \t\n\r\v\f"
 #define OPERATOR "|<>"
@@ -137,7 +141,6 @@ typedef struct s_minishell
 	char		*dir;
 	int			msh_pid;
 	char		*promt_line;
-	char		*prog_name;
 	t_token_lst	*token_list;
 	t_list		*l_envp; //enviroment variables line user, home, path, etc
 }	t_minishell;
@@ -157,17 +160,22 @@ void		prompt_and_read(t_minishell **msh);
 
 /************ 10_init ************/
 //10_msh_init.c
-void		ft_init_msh(t_minishell **msh, int ac, char **av, char **envp);
+void		ft_init_msh(t_minishell **msh, char **envp);
+void		prompt_and_read(t_minishell **msh);
+
+//11_init_utils.c
 int			my_getpid(t_minishell *msh);
-void		dup_envp(t_minishell *msh, t_list **l_envp, char **envp);
+void		copy_envp(t_minishell *msh, char **envp);
 
 /************ 20_syntax ************/
 //20_syntax_check.c
 bool		syntax_is_ok(t_minishell **msh);
 bool		unclosed_sing_quotes(const char *line);
 bool		unclosed_doub_quotes(const char *line);
-bool		misplaced_operators(const char *line);
+bool		misplaced_pipe(const char *line);
+bool		misplaced_redir(const char *line);
 bool		unsupported_operators(const char *line);
+bool		conseq_operators(const char *line);
 
 /************ 30_tokens ************/
 //30_tokenizer.c
