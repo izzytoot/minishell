@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/19 18:16:24 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/19 18:45:39 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
 SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./00_main/01_main.c \
-							./10_init/10_msh_init.c \
-							./10_init/11_init_utils.c \
+							./10_init/10_init_msh.c \
+							./10_init/11_envp_copies.c\
+							./10_init/12_init_utils.c \
 							./20_syntax/20_syntax_check.c \
 							./20_syntax/21_syntax_quotes_and_unsuported.c \
 							./20_syntax/22_syntax_misplaced_and_conseq.c \

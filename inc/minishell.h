@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/19 18:10:17 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:46:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,37 +101,7 @@ typedef enum	e_token_type
 	REDIR_HD, // << (heredoc)
 	ENV_VAR, // envirm. variables
 }	t_token_type;
-/*
-typedef struct s_cmd
-{
-	t_token_type	type;
-}	t_cmd;
 
-typedef struct s_pipe_cmd // |
-{
-	t_token_type	type;
-	t_cmd 			*left;
-	t_cmd			*right;
-}	t_pipe_cmd;
-
-typedef struct	s_exec
-{
-	t_token_type	type;
-	char			**s_av;
-	char			**e_av;
-}	t_exec;
-
-typedef struct	s_red
-{
-	t_token_type	type;
-	t_cmd			*r_cmd;
-	char			*file;
-	char			*e_file;
-	int				fd_mode;
-	int				fd;
-	
-}	t_red;
-*/
 typedef struct s_token_lst
 {
 	t_token_type		type;
@@ -147,6 +117,7 @@ typedef struct s_minishell
 	int			msh_pid;
 	char		*promt_line;
 	t_token_lst	*token_list;
+	char		**envp;
 	t_list		*l_envp; //enviroment variables line user, home, path, etc
 }	t_minishell;
 
@@ -154,23 +125,22 @@ typedef struct s_minishell
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
 /************ 00_main ************/
-//00_constructors.c
-//t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right);
-//t_cmd	*exec_cmd(void);
-//t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_token_type type);
-
 //01_main.c
 int			main(int ac, char **av, char **envp);
 void		prompt_and_read(t_minishell **msh);
 
 /************ 10_init ************/
-//10_msh_init.c
+//10_init_msh.c
 void		ft_init_msh(t_minishell **msh, char **envp);
 void		prompt_and_read(t_minishell **msh);
 
-//11_init_utils.c
-int			my_getpid(t_minishell *msh);
+//11_envp_copies.c
 void		copy_envp(t_minishell *msh, char **envp);
+char		**envp_to_array(t_minishell *msh, char **envp);
+void		envp_to_list(t_minishell *msh, char **envp);
+
+//12_init_utils.c
+int			my_getpid(t_minishell *msh);
 
 /************ 20_syntax ************/
 //20_syntax_check.c
@@ -216,6 +186,44 @@ int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int
 //10_close_msh.c
 void		close_minishell(t_minishell	*msh, char *err_msg, int exit_code);
 void		free_msh(t_minishell *msh);
-void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node);
+void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node, char *array);
 
 #endif
+
+
+/*
+typedef struct s_cmd
+{
+	t_token_type	type;
+}	t_cmd;
+
+typedef struct s_pipe_cmd // |
+{
+	t_token_type	type;
+	t_cmd 			*left;
+	t_cmd			*right;
+}	t_pipe_cmd;
+
+typedef struct	s_exec
+{
+	t_token_type	type;
+	char			**s_av;
+	char			**e_av;
+}	t_exec;
+
+typedef struct	s_red
+{
+	t_token_type	type;
+	t_cmd			*r_cmd;
+	char			*file;
+	char			*e_file;
+	int				fd_mode;
+	int				fd;
+	
+}	t_red;
+*/
+
+//00_constructors.c
+//t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right);
+//t_cmd	*exec_cmd(void);
+//t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_token_type type);

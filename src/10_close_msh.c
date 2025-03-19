@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/18 17:08:23 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:35:54 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void	free_msh(t_minishell *msh)
 	free(msh);
 }
 
-void	handle_envp_failure(t_minishell *msh, char *str, t_list *list_node)
+void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node, char *array)
 {
 	if (str)
 		free(str);
 	if (list_node)
 		free(list_node);
+	if (array)
+		free(array);
 	close_minishell(msh, RED ERR_ENVP RES, EXIT_FAILURE);
 }

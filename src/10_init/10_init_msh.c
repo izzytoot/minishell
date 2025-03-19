@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   10_msh_init.c                                      :+:      :+:    :+:   */
+/*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/19 16:53:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:53:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void ft_init_msh(t_minishell **msh, char **envp)
 {
 	if (!isatty(STDIN_FILENO))
 		close_minishell(*msh, RED ERR_STDIN RES, EXIT_FAILURE);
-	//(*msh)->msh_pid = my_getpid(*msh);
+	//(*msh)->msh_pid = my_getpid(*msh); // needs 2 exit when activated
 	copy_envp(*msh, envp);
 	prompt_and_read(&(*msh));
 }
