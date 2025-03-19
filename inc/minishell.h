@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/18 18:12:17 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:22:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,22 @@
 # define ERR_STDIN "Error with stdin\n"
 # define ERR_PRC "Error creating process\n"
 # define ERR_ENVP "Error duplicating environment variables\n"
-# define ERR_SYN_QT "Syntax error: unclosed quote\n"
-# define ERR_SYN_MS_OP "Syntax error: misplaced operator\n"
-# define ERR_SYN_INV_RED "Syntax error: invalid redirection\n"
-# define ERR_SYN_UNS_OP "Syntax error: unsupported operator\n"
+# define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
+# define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
+#define ERR_SYN_PIPE "msh: syntax error near unexpected token `|'\n"
+#define ERR_SYN_REDIR_NL "msh: syntax error near unexpected token `newline'\n"
+#define ERR_SYN_REDIR_HD "msh: syntax error near unexpected token `<<'\n"
+#define ERR_SYN_REDIR_HD_OPEN "msh: syntax error here doc open `<<'\n"
+#define ERR_SYN_REDIR_IN "msh: syntax error near unexpected token `<'\n"
+#define ERR_SYN_REDIR_OUT "msh: syntax error near unexpected token `>'\n"
+#define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
+# define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
 
-#define ERR_SYN_PIPE "minishell: syntax error near unexpected token `|'"
-#define ERR_SYN_REDIR_END "minishell: syntax error near unexpected token `newline'"
 
 //constants
 #define WHITESPACE " \t\n\r\v\f"
 #define OPERATOR "|<>"
+#define REDIR "<>"
 #define QUOTE "\"\'"
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
@@ -172,11 +177,18 @@ void		copy_envp(t_minishell *msh, char **envp);
 bool		syntax_is_ok(t_minishell **msh);
 bool		unclosed_sing_quotes(const char *line);
 bool		unclosed_doub_quotes(const char *line);
+bool		hd_open(const char *line);
 bool		misplaced_pipe(const char *line);
-bool		misplaced_redir(const char *line);
+bool		misplaced_redir_nl(const char *line) ;
+bool		misplaced_redir_hd(const char *line);
+bool		consec_operators_pipe(const char *line);
+bool		conseq_operators_redir(const char *line);
 bool		unsupported_operators(const char *line);
-bool		conseq_operators(const char *line);
 
+//21_syntax_utils.c
+bool		look_for_pipe(const char *line, int i);
+void	conseq_redir_l_case(const char *line, int i);
+void	conseq_redir_r_case(const char *line, int i);
 /************ 30_tokens ************/
 //30_tokenizer.c
 void 		get_tokens(t_minishell **msh);
