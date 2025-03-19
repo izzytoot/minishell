@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/19 17:22:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:10:17 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,20 +175,25 @@ void		copy_envp(t_minishell *msh, char **envp);
 /************ 20_syntax ************/
 //20_syntax_check.c
 bool		syntax_is_ok(t_minishell **msh);
+bool		hd_open(const char *line); // para remover quando resolvermos heredoc
+
+//21_syntax_quotes_and_unsuported.c
 bool		unclosed_sing_quotes(const char *line);
 bool		unclosed_doub_quotes(const char *line);
-bool		hd_open(const char *line);
+bool		unsupported_operators(const char *line);
+
+//22_syntax_misplaced_and_conseq.c
 bool		misplaced_pipe(const char *line);
-bool		misplaced_redir_nl(const char *line) ;
+bool		misplaced_redir_nl(const char *line);
 bool		misplaced_redir_hd(const char *line);
 bool		consec_operators_pipe(const char *line);
 bool		conseq_operators_redir(const char *line);
-bool		unsupported_operators(const char *line);
 
-//21_syntax_utils.c
+//23_syntax_utils.c
 bool		look_for_pipe(const char *line, int i);
-void	conseq_redir_l_case(const char *line, int i);
-void	conseq_redir_r_case(const char *line, int i);
+void		conseq_redir_l_case(const char *line, int i);
+void		conseq_redir_r_case(const char *line, int i);
+
 /************ 30_tokens ************/
 //30_tokenizer.c
 void 		get_tokens(t_minishell **msh);
