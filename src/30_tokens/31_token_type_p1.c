@@ -6,63 +6,31 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/20 18:38:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 19:25:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	token_is_word_q(t_minishell **msh, int start)
+int	token_is_word(t_minishell **msh, int start)
 {
-	int		i;
-	int		j;
-	char	word[1000];
+	const char	*line;
+	char		word[1000];
+	int			i;
+	int			j;
+	bool		in_quotes;
+	char		quote_char;
 	t_token_lst	*new_token;
-	const char *line;
-	bool	in_quotes;
-	char	quote_char;
-
-	i = start;
-	j = 0;
+	
 	line = (*msh)->promt_line;
 	in_quotes = false;
 	quote_char = '\0';
-	while(line[i] && !ft_strchr(OPERATOR, line[i]))
-	{
-		in_quotes = check_quote(line[i], &in_quotes, &quote_char);
-		if (in_quotes)
-		{
-			handle_quotes(msh, &*word, quote_char, start);
-		}
-		else
-		{
-			if (line[i] == '\\' && line[i + 1]) //check if needed
-				word[j++] = line[++i];
-			else
-				word[j++] = line[i];	
-		}
-		i++;
-	}
-	word[j] = '\0';
-	new_token = calloc(1, sizeof(t_token_lst));
-	append_token(*msh, new_token, word, WORD);
-	return(i - 1);
-}
-int	token_is_word(t_minishell **msh, int start)
-{
-	int		i;
-	int		j;
-	char	word[100];
-	t_token_lst	*new_token;
-	const char *line;
-	
 	i = start;
 	j = 0;
-	line = (*msh)->promt_line;
-	while(line[i] && !ft_strchr(OPERATOR, line[i]))
+    while (line[i] && (!ft_strchr(OPERATOR, line[i]) || in_quotes) && (!ft_strchr(WHITESPACE, line[i]) || in_quotes))	
 	{
-		if (line [i] == '\\' && line[i + 1])
-			word[j++] = line[++i];
+		if (ft_strchr(QUOTE, line[i]))
+			check_quote(&in_quotes, &quote_char, line[i]);
 		else
 			word[j++] = line[i];
 		i++;

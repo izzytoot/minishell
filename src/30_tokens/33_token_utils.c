@@ -6,27 +6,26 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/20 18:06:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 19:25:20 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool	check_quote(char c, bool *quote_check, char *quote_char)
+void	check_quote(bool *in_quotes, char *quote_char, char c)
 {
-	bool	ret;
-
-	ret = false;
-	if (!*quote_check && (c == '\'' || c == '\"'))
-	{
-		ret = true;
+	if (!(*in_quotes))
+    {
+		*in_quotes = true;
 		*quote_char = c;
 	}
-	else if (*quote_check && c == *quote_char)
-		ret = false;
-	return (ret);
+	else if (*in_quotes && c == *quote_char)
+	{
+		*in_quotes = false;
+		*quote_char = '\0';
+	}
 }
-
+/*
 int	handle_quotes(t_minishell **msh,  char *word, char quote_char, int start)
 {
 	int			i;
@@ -43,7 +42,7 @@ int	handle_quotes(t_minishell **msh,  char *word, char quote_char, int start)
 	if (quote_char == '\'')
 	{
 		while(line[i] && line[i] != quote_char)
-			word[j++] = line[++i];
+			word[j++] = line[i];
 	}
 	return (i);
 }
@@ -51,3 +50,5 @@ int	handle_quotes(t_minishell **msh,  char *word, char quote_char, int start)
 
 		//ft_printf("%c", line[i]);
 		//ft_printf("word is %s\n", word);
+
+		*/

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/20 18:13:31 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 19:25:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,6 @@ t_token_lst	*find_last_token(t_token_lst *token_list);
 
 //31_token_type_p1.c
 int			token_is_word(t_minishell **msh, int start);
-int	token_is_word_q(t_minishell **msh, int start);
 int			token_is_pipe(t_minishell **msh, int start);
 int			redir_r(t_minishell **msh, int start);
 int			token_is_redir_app(t_minishell **msh, const char *line, char *redir_app, int i);
@@ -199,8 +198,7 @@ int			token_is_redir_hd(t_minishell **msh, const char *line, char *redir_hd, int
 int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int i);
 
 //33_token_utils.c
-bool		check_quote(char c, bool *quote_check, char *quote_char);
-int			handle_quotes(t_minishell **msh, char *word, char quote_char, int start);
+void		check_quote(bool *in_quotes, char *quote_char, char c);
 
 /************ others ************/
 //10_close_msh.c
