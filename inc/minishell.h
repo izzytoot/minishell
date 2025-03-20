@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/20 11:24:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:28:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ typedef struct s_minishell
 	char		*promt_line;
 	t_token_lst	*token_list;
 	char		**envp;
-	t_list		*l_envp; //enviroment variables line user, home, path, etc
+	t_list		*envp_list; //enviroment variables line user, home, path, etc
+	bool		debug_mode;
 }	t_minishell;
 
 /* ************************************************************************** */
@@ -140,6 +141,7 @@ char		**envp_to_array(t_minishell *msh, char **envp);
 void		envp_to_list(t_minishell *msh, char **envp);
 
 //12_init_utils.c
+void		init_all_null (t_minishell **msh);
 int			my_getpid(t_minishell *msh);
 
 /************ 20_syntax ************/
@@ -187,6 +189,10 @@ int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int
 void		close_minishell(t_minishell	*msh, char *err_msg, int exit_code);
 void		free_msh(t_minishell *msh);
 void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node, char *array);
+
+//11_debug_utils.c
+void		print_tokens(t_minishell **msh);
+void		print_envp_in_struct(t_minishell **msh);
 
 #endif
 

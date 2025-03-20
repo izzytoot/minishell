@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/19 18:51:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:23:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	copy_envp(t_minishell *msh, char **envp)
 	if (!envp)
 		return ;
 	msh->envp = envp_to_array(msh, envp);
-	msh->l_envp = NULL;
+	msh->envp_list = NULL;
 	envp_to_list(msh, envp);
 }
 
@@ -70,6 +70,6 @@ void	envp_to_list(t_minishell *msh, char **envp)
 			free(temp_envp);
 			handle_envp_failure(msh, NULL, new_node, NULL);
 		}
-		ft_lstadd_back(&msh->l_envp, new_node);
+		ft_lstadd_back(&msh->envp_list, new_node);
 	}
 }

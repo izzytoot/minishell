@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/19 18:53:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:35:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ void ft_init_msh(t_minishell **msh, char **envp)
 {
 	if (!isatty(STDIN_FILENO))
 		close_minishell(*msh, RED ERR_STDIN RES, EXIT_FAILURE);
+	init_all_null(&(*msh));
 	//(*msh)->msh_pid = my_getpid(*msh); // needs 2 exit when activated
 	copy_envp(*msh, envp);
+	if ((*msh)->debug_mode)
+		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
 	prompt_and_read(&(*msh));
 }
+
 
 void	prompt_and_read(t_minishell **msh)
 {
@@ -30,6 +34,7 @@ void	prompt_and_read(t_minishell **msh)
 	{
 		line = readline("$ ");
 		add_history(line);
+		(*msh)->token_list = NULL;
 		(*msh)->promt_line = line;
 		if (strncmp(line, "pwd", 3) == 0) // ???
 			printf("%s\n", (*msh)->dir);
@@ -41,6 +46,8 @@ void	prompt_and_read(t_minishell **msh)
 		}
 		if (syntax_is_ok(&(*msh)))
 			get_tokens(&(*msh));
+		if ((*msh)->debug_mode)
+			print_tokens(&(*msh)); //DEBUG TO DELETE
 		free(line);
 	}
 }

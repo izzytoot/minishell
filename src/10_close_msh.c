@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/19 18:35:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:32:54 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_msh(t_minishell *msh)
 {
 
 	free(msh->dir);
-	ft_lstclear(&msh->l_envp, free);
+	ft_lstclear(&msh->envp_list, free);
 	free(msh);
 }
 

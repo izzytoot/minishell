@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/19 18:45:39 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/20 11:45:19 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./30_tokens/30_tokenizer.c \
 							./30_tokens/31_token_type_p1.c \
 							./30_tokens/32_token_type_p2.c \
-							10_close_msh.c)
+							10_close_msh.c\
+							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
 
 LIBFT_DIR = ./inc/libft/
