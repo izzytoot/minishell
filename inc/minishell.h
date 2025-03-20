@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/19 18:46:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 11:24:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 #define ERR_SYN_PIPE "msh: syntax error near unexpected token `|'\n"
 #define ERR_SYN_REDIR_NL "msh: syntax error near unexpected token `newline'\n"
 #define ERR_SYN_REDIR_HD "msh: syntax error near unexpected token `<<'\n"
-#define ERR_SYN_REDIR_HD_OPEN "msh: syntax error here doc open `<<'\n"
+#define ERR_SYN_REDIR_HD_OPEN "msh: syntax error heredoc open `<<'\n"
 #define ERR_SYN_REDIR_IN "msh: syntax error near unexpected token `<'\n"
 #define ERR_SYN_REDIR_OUT "msh: syntax error near unexpected token `>'\n"
 #define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
