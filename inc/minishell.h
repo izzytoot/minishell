@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/20 12:28:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:07:00 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,22 @@
 /* ************************************************************************** */
 //colors
 # define RED "\033[0;31m"
-# define GR "\033[0;32m"  
-# define YLL "\033[0;33m" 
+# define GR	"\033[0;32m"  
+# define YLL "\033[0;33m"
+# define BLU "\033[0;34m"
+# define BLA "\033[0;30m"
+# define CYA "\033[0;36m"
+# define GREY "\033[0;90m"
+# define BBLA "\033[30;1m"
+# define BRED "\033[31;1m"
+# define BGR "\033[32;1m"
+# define BYLL "\033[33;1m"
+# define BBLU "\033[34;1m"
+# define BMAG "\033[35;1m"
+# define BCYA "\033[36;1m"
+# define BWHI "\033[37;1m"
 # define RES "\033[0m"
+
 //error messages
 # define ERR_MEM "Error allocating memory\n"
 # define ERR_STDIN "Error with stdin\n"
@@ -183,6 +196,10 @@ int			token_is_redir_out(t_minishell **msh, const char *line, char *redir_out, i
 int			redir_l(t_minishell **msh, int start);
 int			token_is_redir_hd(t_minishell **msh, const char *line, char *redir_hd, int i);
 int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int i);
+
+//33_token_utils.c
+bool		check_quote(char c, bool *quote_check, char *quote_char);
+int			handle_quotes(t_minishell **msh, char *word, char quote_char, int start);
 
 /************ others ************/
 //10_close_msh.c

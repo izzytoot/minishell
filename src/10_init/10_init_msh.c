@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/20 12:35:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:10:40 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void ft_init_msh(t_minishell **msh, char **envp)
 	init_all_null(&(*msh));
 	//(*msh)->msh_pid = my_getpid(*msh); // needs 2 exit when activated
 	copy_envp(*msh, envp);
-	if ((*msh)->debug_mode)
-		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
+//	if ((*msh)->debug_mode)
+//		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
 	prompt_and_read(&(*msh));
 }
 

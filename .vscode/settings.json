@@ -14,6 +14,14 @@
 		"initializer_list": "c",
 		"span": "c",
 		"text_encoding": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"charconv": "c",
+		"compare": "c",
+		"functional": "c",
+		"ratio": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"utility": "c",
+		"variant": "c"
 	}
 }

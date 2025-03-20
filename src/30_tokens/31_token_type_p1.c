@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/20 14:03:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:08:48 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,31 @@ int	token_is_word(t_minishell **msh, int start)
 {
 	int		i;
 	int		j;
-	char	word[100];
+	char	word[1000];
 	t_token_lst	*new_token;
 	const char *line;
-	
+	bool	in_quotes;
+	char	quote_char;
+
 	i = start;
 	j = 0;
 	line = (*msh)->promt_line;
+	in_quotes = false;
+	quote_char = '\0';
 	while(line[i] && !ft_strchr(OPERATOR, line[i]) && !ft_strchr(WHITESPACE, line[i]))
 	{
-		if (line [i] == '\\' && line[i + 1])
-			word[j++] = line[++i];
+		in_quotes = check_quote(line[i], &in_quotes, &quote_char);
+		if (in_quotes)
+		{
+			handle_quotes(msh, &*word, quote_char, start);
+		}
 		else
-			word[j++] = line[i];
+		{
+			if (line[i] == '\\' && line[i + 1])
+				word[j++] = line[++i];
+			else
+				word[j++] = line[i];	
+		}
 		i++;
 	}
 	word[j] = '\0';
@@ -41,7 +53,7 @@ int	token_is_pipe(t_minishell **msh, int start)
 {
 	int			i;
 	int			j;
-	char		pipe[100];
+	char		pipe[5];
 	t_token_lst	*new_token;
 	const char *line;
 	
@@ -63,8 +75,8 @@ int	redir_r(t_minishell **msh, int start)
 {
 	int			i;
 	const char *line;
-	char		redir_app[100];
-	char		redir_out[100];
+	char		redir_app[5];
+	char		redir_out[5];
 	
 	i = start;
 	line = (*msh)->promt_line;

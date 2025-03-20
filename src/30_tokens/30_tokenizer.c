@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/17 16:16:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:46:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	get_tokens(t_minishell	**msh)
 	int			i;
 	const char *line;
 	
-	i = 0;
+	i = -1;
 	line = (*msh)->promt_line;
-	while((*msh)->promt_line[i])
+	while(line[++i])
 	{
 		if (line[i] && !ft_strchr(OPERATOR, line[i]) && !ft_strchr(WHITESPACE, line[i]))
 			i = token_is_word(msh, i);
@@ -32,8 +32,9 @@ void	get_tokens(t_minishell	**msh)
 		else if (ft_strchr(WHITESPACE, line[i]))
 			i++;
 		else
-			return ;
+			break ;
 	}
+	return ;
 }
 
 void	append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type)
