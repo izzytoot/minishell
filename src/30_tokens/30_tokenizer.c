@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/20 16:46:02 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:26:35 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	get_tokens(t_minishell	**msh)
 	line = (*msh)->promt_line;
 	while(line[++i])
 	{
-		if (line[i] && !ft_strchr(OPERATOR, line[i]) && !ft_strchr(WHITESPACE, line[i]))
+		while (line[i] && ft_strchr(WHITESPACE, line[i]))
+        	i++;
+		if (line[i] && !ft_strchr(OPERATOR, line[i]))
 			i = token_is_word(msh, i);
 		else if (line[i] == '|')
 			i = token_is_pipe(msh, i);

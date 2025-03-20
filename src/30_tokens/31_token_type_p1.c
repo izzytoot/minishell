@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/20 18:08:48 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:38:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	token_is_word(t_minishell **msh, int start)
+int	token_is_word_q(t_minishell **msh, int start)
 {
 	int		i;
 	int		j;
@@ -27,7 +27,7 @@ int	token_is_word(t_minishell **msh, int start)
 	line = (*msh)->promt_line;
 	in_quotes = false;
 	quote_char = '\0';
-	while(line[i] && !ft_strchr(OPERATOR, line[i]) && !ft_strchr(WHITESPACE, line[i]))
+	while(line[i] && !ft_strchr(OPERATOR, line[i]))
 	{
 		in_quotes = check_quote(line[i], &in_quotes, &quote_char);
 		if (in_quotes)
@@ -36,7 +36,7 @@ int	token_is_word(t_minishell **msh, int start)
 		}
 		else
 		{
-			if (line[i] == '\\' && line[i + 1])
+			if (line[i] == '\\' && line[i + 1]) //check if needed
 				word[j++] = line[++i];
 			else
 				word[j++] = line[i];	
@@ -46,7 +46,31 @@ int	token_is_word(t_minishell **msh, int start)
 	word[j] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
 	append_token(*msh, new_token, word, WORD);
-	return(i);
+	return(i - 1);
+}
+int	token_is_word(t_minishell **msh, int start)
+{
+	int		i;
+	int		j;
+	char	word[100];
+	t_token_lst	*new_token;
+	const char *line;
+	
+	i = start;
+	j = 0;
+	line = (*msh)->promt_line;
+	while(line[i] && !ft_strchr(OPERATOR, line[i]))
+	{
+		if (line [i] == '\\' && line[i + 1])
+			word[j++] = line[++i];
+		else
+			word[j++] = line[i];
+		i++;
+	}
+	word[j] = '\0';
+	new_token = calloc(1, sizeof(t_token_lst));
+	append_token(*msh, new_token, word, WORD);
+	return(i - 1);
 }
 
 int	token_is_pipe(t_minishell **msh, int start)
@@ -68,7 +92,7 @@ int	token_is_pipe(t_minishell **msh, int start)
 	pipe[j] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
 	append_token(*msh, new_token, pipe, PIPE);
-	return(i);
+	return(i - 1);
 }
 
 int	redir_r(t_minishell **msh, int start)
@@ -101,7 +125,7 @@ int	token_is_redir_app(t_minishell **msh, const char *line, char *redir_app, int
 	redir_app[j] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
 	append_token(*msh, new_token, redir_app, REDIR_APP);
-	return (i);
+	return (i - 1);
 }
 
 int	token_is_redir_out(t_minishell **msh, const char *line, char *redir_out, int i)
@@ -118,5 +142,5 @@ int	token_is_redir_out(t_minishell **msh, const char *line, char *redir_out, int
 	redir_out[j] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
 	append_token(*msh, new_token, redir_out, REDIR_OUT);
-	return (i);
+	return (i - 1);
 }

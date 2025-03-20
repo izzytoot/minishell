@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/17 13:44:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:40:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	token_is_redir_hd(t_minishell **msh, const char *line, char *redir_hd, int i
 	redir_hd[j] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
 	append_token(*msh, new_token, redir_hd, REDIR_HD);
-	return (i);
+	return (i - 1);
 }
 
 int	token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int i)
@@ -59,5 +59,5 @@ int	token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int i
 	redir_in[j] = '\0';
 	new_token = calloc(1, sizeof(t_token_lst));
 	append_token(*msh, new_token, redir_in, REDIR_IN);
-	return (i);
+	return (i - 1);
 }

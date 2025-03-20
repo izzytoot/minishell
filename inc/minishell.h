@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/20 18:07:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:13:31 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ t_token_lst	*find_last_token(t_token_lst *token_list);
 
 //31_token_type_p1.c
 int			token_is_word(t_minishell **msh, int start);
+int	token_is_word_q(t_minishell **msh, int start);
 int			token_is_pipe(t_minishell **msh, int start);
 int			redir_r(t_minishell **msh, int start);
 int			token_is_redir_app(t_minishell **msh, const char *line, char *redir_app, int i);
