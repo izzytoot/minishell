@@ -1,107 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   22_syntax_misplaced_and_conseq.c                   :+:      :+:    :+:   */
+/*   23_syntax_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 18:07:29 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/21 15:19:07 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/03/21 15:19:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../inc/minishell.h"
 
-bool	misplaced_pipe(const char *line)
-{
-	int	i;
-	int	len;
-	int	last;
-	bool	in_quotes;
-	
-	i = 0;
-	len = ft_strlen(line);
-	last = len - 1;
-	in_quotes = false;
-	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
-		i++;
-	if (pipe_at_beginning(line))
-		return (true);
-	else if (pipe_at_end(line))
-		return (true);
-	return (false);
-}
-
-bool	pipe_at_beginning(const char *line)
-{
-	int	i;
-	bool	in_quotes;
-	
-	i = 0;
-	in_quotes = false;
-
-	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
-		i++;
-	check_in_quotes(line[i], &in_quotes);
-	if (in_quotes)
-		return (false);
-	else if (line[i] && !in_quotes && (ft_strchr("|", line[i])))
-	{
-		ft_putstr_fd(ERR_SYN_PIPE, STDERR_FILENO);
-		return (true);
-	}
-	return (false);
-}
- 
-bool	pipe_at_end(const char *line)
-{
-	int		len;
-	int		i;
-	bool	in_quotes;
-
-	len = ft_strlen(line);
-	i = len - 1;
-	in_quotes = false;
-	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
-		i--;
-	check_in_quotes(line[i], &in_quotes);
-	if (in_quotes)
-		return (false);
-	else if (line[i] && !in_quotes && (ft_strchr("|", line[i])))
-	{
-		ft_putstr_fd(ERR_SYN_PIPE, STDERR_FILENO);
-		return (true);
-	}
-	return (false);
-}
-
-bool	consec_operators_pipe(const char *line)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (line[i] && ft_strchr(OPERATOR, line[i]))
-		{
-			if(ft_strchr("|", line[i]))
-			{
-				if (look_for_pipe(line, i))
-					return (true);
-			}	
-			else if (ft_strchr(REDIR, line[i]))
-			{
-				if (line[i] == line[i + 1])
-					i++;
-				if (look_for_pipe(line, i))
-					return (true);
-			}
-		}
-	}
-	return (false);
-}
-
-bool	misplaced_redir_nl(const char *line) 
+bool	misplaced_redir_at_end(const char *line) 
 {
 	int	len;
 	int	last;
@@ -166,3 +77,4 @@ bool	conseq_operators_redir(const char *line)
 	}
 	return (false);
 }
+

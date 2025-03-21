@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/03/21 11:15:33 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:11:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ bool	syntax_is_ok(t_minishell **msh)
 	const char *line;
 	
 	line = (*msh)->promt_line;
-	if (unclosed_sing_quotes(line))
+	if (unclosed_quotes(line))
 		return (false);
-	if (unclosed_doub_quotes(line))
-		return (false);
+	//if (unclosed_doub_quotes(line))
+	//	return (false);
 	if (hd_open(line)) // << + word // para tirar
 		return (false);
 	if (misplaced_pipe(line)) // | at beginning or end
@@ -31,7 +31,7 @@ bool	syntax_is_ok(t_minishell **msh)
 		return (false);
 	if (consec_operators_pipe(line)) // any oper + | //pipe + redir is ok (except << HD)
 		return (false);
-	if (misplaced_redir_nl(line)) // < > << >> at the end
+	if (misplaced_redir_at_end(line)) // < > << >> at the end
 		return (false);
 	if (unsupported_operators(line))
 		return (false);
@@ -42,15 +42,20 @@ bool	syntax_is_ok(t_minishell **msh)
 
 bool	hd_open(const char *line) 
 {
-	int	i;
-
+	int		i;
+	bool	in_quotes;
+	char	quote_char;
+	
 	i = -1;
+	in_quotes = false;
+	quote_char = '\0';
 	while (line[++i])
 	{
-		if (line[i] == '<' && line[i + 1] == '<')
+		check_in_quotes(line[i], &in_quotes, &quote_char);
+		if (line[i] && !in_quotes && line[i] == '<' && line[i + 1] == '<')
 		{
 			i = i + 2;
-			while (line[i] && (ft_strchr(WHITESPACE, line[i]) || ft_strchr(QUOTE, line[i])))
+			while (line[i] && (ft_strchr(WHITESPACE, line[i])))
 				i++;
 			if (line[i] && !ft_strchr(OPERATOR, line[i]))
 			{
