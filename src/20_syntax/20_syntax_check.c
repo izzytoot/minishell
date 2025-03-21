@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/03/21 15:11:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:25:45 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ bool	hd_open(const char *line)
 {
 	int		i;
 	bool	in_quotes;
-	char	quote_char;
 	
 	i = -1;
 	in_quotes = false;
-	quote_char = '\0';
 	while (line[++i])
 	{
-		check_in_quotes(line[i], &in_quotes, &quote_char);
+		check_in_quotes(line[i], &in_quotes);
 		if (line[i] && !in_quotes && line[i] == '<' && line[i + 1] == '<')
 		{
 			i = i + 2;

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/21 15:16:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:26:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ bool	look_for_pipe(const char *line, int i)
 	return (false);
 }
 
-bool	check_in_quotes(char c, bool *in_quotes, char quote_char)
+bool	check_in_quotes(char c, bool *in_quotes)
 {
+	static char quote_char;
+	
  	if (!(*in_quotes) && ft_strchr(QUOTE, c))
 	{
 		*in_quotes = true;
