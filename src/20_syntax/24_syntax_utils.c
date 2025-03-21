@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21_syntax_utils.c                                  :+:      :+:    :+:   */
+/*   24_syntax_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/19 17:34:28 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:26:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,19 @@ bool	look_for_pipe(const char *line, int i)
 	return (false);
 }
 
-void	conseq_redir_l_case(const char *line, int i)
-{				
-	if (line[i + 1] == '<')
-		ft_putstr_fd(ERR_SYN_REDIR_HD, STDERR_FILENO);
-	else
-		ft_putstr_fd(ERR_SYN_REDIR_IN, STDERR_FILENO);
-}
-
-void	conseq_redir_r_case(const char *line, int i)
+bool	check_in_quotes(char c, bool *in_quotes)
 {
-	if (line[i + 1] == '>')
-		ft_putstr_fd(ERR_SYN_REDIR_APP, STDERR_FILENO);
-	else
-		ft_putstr_fd(ERR_SYN_REDIR_OUT, STDERR_FILENO);
+	static char quote_char;
+	
+ 	if (!(*in_quotes) && ft_strchr(QUOTE, c))
+	{
+		*in_quotes = true;
+		quote_char = c;
+	}
+	else if (*in_quotes && c == quote_char)
+	{
+		*in_quotes = false;
+		quote_char = '\0';
+	}
+	return (in_quotes);
 }
