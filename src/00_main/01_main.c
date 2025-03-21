@@ -25,5 +25,6 @@ int		main(int ac, char **av, char **envp)
 	msh->debug_mode = true; //DELETE BEFORE SUMISSION
 	ft_init_msh(&msh, envp);
 	close_minishell(msh, NULL, EXIT_SUCCESS);
+	ft_printf("exp\n");
 	return(0);
 }
