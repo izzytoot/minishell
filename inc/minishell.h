@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/20 19:25:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:35:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 # define ERR_STDIN "Error with stdin\n"
 # define ERR_PRC "Error creating process\n"
 # define ERR_ENVP "Error duplicating environment variables\n"
+# define ERR_SYN_EMPT "Command '' not found\n"
 # define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
 # define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
 #define ERR_SYN_PIPE "msh: syntax error near unexpected token `|'\n"
@@ -163,6 +164,7 @@ bool		syntax_is_ok(t_minishell **msh);
 bool		hd_open(const char *line); // para remover quando resolvermos heredoc
 
 //21_syntax_quotes_and_unsuported.c
+bool		empty_quotes(const char *line);
 bool		unclosed_sing_quotes(const char *line);
 bool		unclosed_doub_quotes(const char *line);
 bool		unsupported_operators(const char *line);

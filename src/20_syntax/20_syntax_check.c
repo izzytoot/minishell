@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/03/20 16:14:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:15:33 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ bool	syntax_is_ok(t_minishell **msh)
 		return (false);
 	if (misplaced_redir_nl(line)) // < > << >> at the end
 		return (false);
-	else if (unsupported_operators(line))
+	if (unsupported_operators(line))
+		return (false);
+	else if (empty_quotes(line))
 		return (false);
 	return (true);
 }
