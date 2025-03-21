@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/20 13:39:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:04:10 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ int		main(int ac, char **av, char **envp)
 	msh->debug_mode = true; //DELETE BEFORE SUMISSION
 	ft_init_msh(&msh, envp);
 	close_minishell(msh, NULL, EXIT_SUCCESS);
-	ft_printf("exp\n");
 	return(0);
 }
