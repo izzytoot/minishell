@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/21 15:29:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:35:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,7 @@ bool		hd_open(const char *line); // para remover quando resolvermos heredoc
 
 //21_syntax_quotes_and_unsuported.c
 bool		empty_quotes(const char *line);
-bool		unclosed_quotes(const char *line);
-bool		unclosed_doub_quotes(const char *line); //del
+bool 		unclosed_quotes(const char *line);
 bool		unsupported_operators(const char *line);
 
 //22_syntax_pipes.c

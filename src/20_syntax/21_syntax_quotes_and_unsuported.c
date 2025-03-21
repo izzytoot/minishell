@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:05:45 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/21 15:18:34 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:35:46 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,76 +28,51 @@ bool	empty_quotes(const char *line)
 	return (false);
 }
 
-bool	unclosed_quotes(const char *line)
+bool unclosed_quotes(const char *line)
 {
+	bool in_quotes;
+	char last_quote_c;
 	int	i;
-	bool in_quotes = false;
-	char quote_char = '\0';
-
+	bool prev_in_quotes;
+	
+	in_quotes = false;
+	last_quote_c = '\0';
 	i = 0;
     while (line[i])
     {
-		check_in_quotes(line[i], &in_quotes);
+        prev_in_quotes = in_quotes;
+        check_in_quotes(line[i], &in_quotes);
+        if (!prev_in_quotes && in_quotes)
+            last_quote_c = line[i];
         i++;
     }
-	if(in_quotes)
-	{
-		if (quote_char == '\'')
-			ft_putstr_fd(ERR_SYN_SQT, STDERR_FILENO);
-		else if (quote_char == '\"')
-			ft_putstr_fd(ERR_SYN_DQT, STDERR_FILENO);
-	}
-    return (in_quotes);
-}
-
-bool	unclosed_sing_quotes_1(const char *line)
-{
-	const char *ptr = line;
-	
-	while((ptr = ft_strchr(ptr, '\'')))
-	{
-		ptr = ft_strchr(ptr + 1, '\'');
-		if (!ptr)
-		{
-			ft_putstr_fd(ERR_SYN_SQT, STDERR_FILENO);
-			return (true);
-		}
-		ptr++;
-	}
-	return (false);
-}
-
-bool	unclosed_doub_quotes(const char *line)
-{
-	const char *ptr = line;
-	
-	while((ptr = ft_strchr(ptr, '\"')))
-	{
-		ptr = ft_strchr(ptr + 1, '\"');
-		if (!ptr)
-		{
-			ft_putstr_fd(ERR_SYN_DQT, STDERR_FILENO);
-			return (true);
-		}
-		ptr++;
-	}
-	return (false);
+    if (in_quotes)
+    {
+        if (last_quote_c == '\'')
+            ft_putstr_fd(ERR_SYN_SQT, STDERR_FILENO);
+        else if (last_quote_c == '\"')
+            ft_putstr_fd(ERR_SYN_DQT, STDERR_FILENO);
+        return (true);
+    }
+    return (false);
 }
 
 bool	unsupported_operators(const char *line)
 {
 	int		i;
+	bool	in_quotes;
 
 	i = -1;
+	in_quotes = false;
 	while(line[++i])
 	{
-		if (line[i] == '|' && line[i + 1] == '|')
+		check_in_quotes(line[i], &in_quotes);
+		if (!in_quotes && (line[i] == '|' && line[i + 1] == '|'))
 		{
 			ft_putstr_fd(ERR_SYN_UNS_OP, STDERR_FILENO);
 			return (true);
-		}	
-			
-		if (line[i] == '&' && line[i + 1] == '&')
+		}
+		if (!in_quotes && (line[i] == '&' && line[i + 1] == '&'))
 		{
 			ft_putstr_fd(ERR_SYN_UNS_OP, STDERR_FILENO);
 			return (true);

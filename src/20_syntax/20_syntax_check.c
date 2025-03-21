@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/03/21 15:25:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:35:37 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ bool	syntax_is_ok(t_minishell **msh)
 	const char *line;
 	
 	line = (*msh)->promt_line;
-	if (unclosed_quotes(line))
+	if (unclosed_quotes(line)) //except if within quotes
 		return (false);
-	//if (unclosed_doub_quotes(line))
-	//	return (false);
 	if (hd_open(line)) // << + word // para tirar
 		return (false);
 	if (misplaced_pipe(line)) // | at beginning or end

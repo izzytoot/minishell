@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:07:29 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/21 15:31:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:21:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,8 @@
 bool	misplaced_pipe(const char *line)
 {
 	int	i;
-	int	len;
-	int	last;
-	bool	in_quotes;
 	
 	i = 0;
-	len = ft_strlen(line);
-	last = len - 1;
-	in_quotes = false;
 	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
 		i++;
 	if (pipe_at_beginning(line))
@@ -39,7 +33,6 @@ bool	pipe_at_beginning(const char *line)
 	
 	i = 0;
 	in_quotes = false;
-
 	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
 		i++;
 	check_in_quotes(line[i], &in_quotes);
@@ -78,13 +71,16 @@ bool	pipe_at_end(const char *line)
 bool	consec_operators_pipe(const char *line)
 {
 	int	i;
+	bool	in_quotes;
 
 	i = -1;
+	in_quotes = false;
 	while (line[++i])
 	{
-		if (line[i] && ft_strchr(OPERATOR, line[i]))
+		check_in_quotes(line[i], &in_quotes);
+		if (line[i] && !in_quotes && ft_strchr(OPERATOR, line[i]))
 		{
-			if(ft_strchr("|", line[i]))
+			if(ft_strchr("|", line[i]) && !ft_strchr("|", line[i + 1]))
 			{
 				if (look_for_pipe(line, i))
 					return (true);
