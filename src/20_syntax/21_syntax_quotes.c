@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21_syntax_quotes_and_unsuported.c                  :+:      :+:    :+:   */
+/*   21_syntax_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:05:45 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/21 18:35:46 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:14:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../inc/minishell.h"
-
-bool	empty_quotes(const char *line)
-{
-	int	i;
-	
-	i = -1;
-	while(line[++i])
-	{
-		if (ft_strchr(QUOTE, line[i]) && line[i + 1] == line[i])
-		{
-			ft_putstr_fd(ERR_SYN_EMPT, STDERR_FILENO);
-			return (true);
-		}
-	}
-	return (false);
-}
 
 bool unclosed_quotes(const char *line)
 {
@@ -57,26 +41,18 @@ bool unclosed_quotes(const char *line)
     return (false);
 }
 
-bool	unsupported_operators(const char *line)
+bool	empty_quotes(const char *line)
 {
-	int		i;
-	bool	in_quotes;
-
+	int	i;
+	
 	i = -1;
-	in_quotes = false;
 	while(line[++i])
 	{
-		check_in_quotes(line[i], &in_quotes);
-		if (!in_quotes && (line[i] == '|' && line[i + 1] == '|'))
+		if (ft_strchr(QUOTE, line[i]) && line[i + 1] == line[i])
 		{
-			ft_putstr_fd(ERR_SYN_UNS_OP, STDERR_FILENO);
+			ft_putstr_fd(ERR_SYN_EMPT, STDERR_FILENO);
 			return (true);
 		}
-		if (!in_quotes && (line[i] == '&' && line[i + 1] == '&'))
-		{
-			ft_putstr_fd(ERR_SYN_UNS_OP, STDERR_FILENO);
-			return (true);
-		}	
 	}
 	return (false);
 }

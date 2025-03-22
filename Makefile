@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/21 14:09:46 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/03/22 19:27:58 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,15 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./10_init/11_envp_copies.c\
 							./10_init/12_init_utils.c \
 							./20_syntax/20_syntax_check.c \
-							./20_syntax/21_syntax_quotes_and_unsuported.c \
-							./20_syntax/22_syntax_misplaced_and_conseq.c \
+							./20_syntax/21_syntax_quotes.c \
+							./20_syntax/22_syntax_pipes.c \
 							./20_syntax/23_syntax_redir.c \
 							./20_syntax/24_syntax_utils.c \
 							./30_tokens/30_tokenizer.c \
-							./30_tokens/31_token_type_p1.c \
-							./30_tokens/32_token_type_p2.c \
-							./30_tokens/33_token_in_quotes.c\
+							./30_tokens/31_token_words.c \
+							./30_tokens/32_token_pipes_and_redir_r.c \
+							./30_tokens/33_token_redir_l.c\
+							./30_tokens/34_token_utils.c\
 							10_close_msh.c\
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)

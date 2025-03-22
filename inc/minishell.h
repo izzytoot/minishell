@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/21 18:35:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:52:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,11 +162,11 @@ int			my_getpid(t_minishell *msh);
 //20_syntax_check.c
 bool		syntax_is_ok(t_minishell **msh);
 bool		hd_open(const char *line); // para remover quando resolvermos heredoc
-
-//21_syntax_quotes_and_unsuported.c
-bool		empty_quotes(const char *line);
-bool 		unclosed_quotes(const char *line);
 bool		unsupported_operators(const char *line);
+
+//21_syntax_quotes.c
+bool 		unclosed_quotes(const char *line);
+bool		empty_quotes(const char *line);
 
 //22_syntax_pipes.c
 bool		misplaced_pipe(const char *line);
@@ -175,11 +175,11 @@ bool		pipe_at_end(const char *line);
 bool		consec_operators_pipe(const char *line);
 
 //23_syntax_redir.c
-bool		misplaced_redir_at_end(const char *line);
 bool		conseq_operators_redir(const char *line);
 void		conseq_redir_r_case(const char *line, int i);
 void		conseq_redir_l_case(const char *line, int i);
 bool		misplaced_redir_hd(const char *line);
+bool		misplaced_redir_at_end(const char *line);
 
 //24_syntax_utils.c
 bool		look_for_pipe(const char *line, int i);
@@ -188,23 +188,25 @@ bool		check_in_quotes(char c, bool *in_quotes);
 /************ 30_tokens ************/
 //30_tokenizer.c
 void 		get_tokens(t_minishell **msh);
-void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
-t_token_lst	*find_last_token(t_token_lst *token_list);
 
-//31_token_type_p1.c
-int			token_is_word(t_minishell **msh, int start);
+//31_token_words.c
+int	token_is_word(t_minishell **msh, int start, bool *in_quotes);
+
+//32_token_pipes_and_redir_r.c
 int			token_is_pipe(t_minishell **msh, int start);
 int			redir_r(t_minishell **msh, int start);
 int			token_is_redir_app(t_minishell **msh, const char *line, char *redir_app, int i);
 int			token_is_redir_out(t_minishell **msh, const char *line, char *redir_out, int i);
 
-//32_token_type_p2.c
+//33_token_redir_l.c
 int			redir_l(t_minishell **msh, int start);
 int			token_is_redir_hd(t_minishell **msh, const char *line, char *redir_hd, int i);
 int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int i);
 
-//33_token_utils.c
+//34_token_utils.c
 void		check_quote(bool *in_quotes, char *quote_char, char c);
+void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
+t_token_lst	*find_last_token(t_token_lst *token_list);
 
 /************ others ************/
 //10_close_msh.c

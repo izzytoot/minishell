@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   31_token_type_p1.c                                 :+:      :+:    :+:   */
+/*   32_token_pipes_and_redir_r.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/20 19:25:49 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/03/22 19:20:33 by root              #+#    #+#             */
+/*   Updated: 2025/03/22 19:21:21 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	token_is_word(t_minishell **msh, int start)
-{
-	const char	*line;
-	char		word[1000];
-	int			i;
-	int			j;
-	bool		in_quotes;
-	char		quote_char;
-	t_token_lst	*new_token;
-	
-	line = (*msh)->promt_line;
-	in_quotes = false;
-	quote_char = '\0';
-	i = start;
-	j = 0;
-    while (line[i] && (!ft_strchr(OPERATOR, line[i]) || in_quotes) && (!ft_strchr(WHITESPACE, line[i]) || in_quotes))	
-	{
-		if (ft_strchr(QUOTE, line[i]))
-			check_quote(&in_quotes, &quote_char, line[i]);
-		else
-			word[j++] = line[i];
-		i++;
-	}
-	word[j] = '\0';
-	new_token = calloc(1, sizeof(t_token_lst));
-	append_token(*msh, new_token, word, WORD);
-	return(i - 1);
-}
 
 int	token_is_pipe(t_minishell **msh, int start)
 {

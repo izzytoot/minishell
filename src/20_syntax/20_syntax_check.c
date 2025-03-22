@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/03/21 18:35:37 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:11:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,28 @@ bool	hd_open(const char *line)
 		}
 	}
 	return(false);
+}
+
+bool	unsupported_operators(const char *line)
+{
+	int		i;
+	bool	in_quotes;
+
+	i = -1;
+	in_quotes = false;
+	while(line[++i])
+	{
+		check_in_quotes(line[i], &in_quotes);
+		if (!in_quotes && (line[i] == '|' && line[i + 1] == '|'))
+		{
+			ft_putstr_fd(ERR_SYN_UNS_OP, STDERR_FILENO);
+			return (true);
+		}
+		if (!in_quotes && (line[i] == '&' && line[i + 1] == '&'))
+		{
+			ft_putstr_fd(ERR_SYN_UNS_OP, STDERR_FILENO);
+			return (true);
+		}	
+	}
+	return (false);
 }
