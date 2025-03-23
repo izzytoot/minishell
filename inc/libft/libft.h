@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/12 15:48:47 by root             ###   ########.fr       */
+/*   Updated: 2025/03/23 23:47:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_lstsize(t_list *lst);
+int		ft_atoi_base(const char *str, int base);
+int		ft_is_space(char c);
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
+size_t  ft_strlen_until(const char *s, char c);
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
@@ -67,6 +70,10 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+void	ft_free_arrays(void **array);
+void	ft_free_matrix(void ***matrix);
+void	ft_error_msg(char *message, char *complete, int if_exit);
+void	ft_close_pipe(int *fd);
 
 t_list	*ft_lstnew(void *data);
 t_list	*ft_lstlast(t_list *lst);
