@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/22 19:52:17 by root             ###   ########.fr       */
+/*   Updated: 2025/03/23 18:25:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,12 @@ bool		check_in_quotes(char c, bool *in_quotes);
 
 /************ 30_tokens ************/
 //30_tokenizer.c
-void 		get_tokens(t_minishell **msh);
+void		get_tokens(t_minishell **msh, int i, char quote_char);
+int			token_is_word_in_quotes(t_minishell **msh, int start, bool *in_quotes, char *quote_char);
 
 //31_token_words.c
-int	token_is_word(t_minishell **msh, int start, bool *in_quotes);
+int	token_is_word(t_minishell **msh, int start);
+
 
 //32_token_pipes_and_redir_r.c
 int			token_is_pipe(t_minishell **msh, int start);
