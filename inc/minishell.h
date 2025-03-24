@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/24 00:04:36 by root             ###   ########.fr       */
+/*   Updated: 2025/03/24 14:21:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef enum	e_token_type
 {
 	PIPE, // |
 	WORD, // cmd or arg
+	W_SPACE,
 	REDIR_IN, // < (input)
 	REDIR_OUT, // > (output)
 	REDIR_APP, // >> (append)
@@ -193,6 +194,7 @@ bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote
 //31_token_words.c
 int			token_is_word(t_minishell **msh, int start);
 int			token_is_word_in_quotes(t_minishell **msh, int start, bool *in_quotes, char *quote_char);
+int 		token_is_space(t_minishell **msh, int start);
 
 
 //32_token_pipes_and_redir_r.c

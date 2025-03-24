@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/24 13:28:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:07:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 	in_quotes = false;
 	while(line[++i])
 	{
-		while (line[i] && ft_strchr(WHITESPACE, line[i]))
-        	i++;
+		//while (line[i] && ft_strchr(WHITESPACE, line[i]))
+        //	i++;
 		if (!in_quotes && ft_strchr(QUOTE, line[i]))
 		{
 			check_in_quotes(line[i], &in_quotes);
@@ -85,7 +85,9 @@ bool	any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_
 	
 	tmp_in_quotes = in_quotes;
 	tmp_qt_char = quote_char;
-	if (!ft_strchr(OPERATOR, c) && !tmp_in_quotes)
+	if (ft_strchr(WHITESPACE, c) && !tmp_in_quotes)
+		*i = token_is_space(msh, *i);
+	else if (!ft_strchr(OPERATOR, c) && !tmp_in_quotes)
 		*i = token_is_word(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && tmp_in_quotes)	
 		*i = token_is_word_in_quotes(msh, *i, &tmp_in_quotes, &tmp_qt_char);
