@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/24 00:11:54 by root             ###   ########.fr       */
+/*   Updated: 2025/03/24 13:28:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 		}
 		else
 		 check_in_quotes(line[i], &in_quotes);
+		if (!in_quotes && ft_strchr(QUOTE, line[i]))
+			i++;
 		if (any_of_these(&(*msh), &i, line[i], in_quotes, quote_char))
 		;
 		else
@@ -93,8 +95,6 @@ bool	any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_
 		*i = redir_r(msh, *i);
 	else if (c == '<' && !tmp_in_quotes)
 		*i = redir_l(msh, *i);
-	else if (ft_strchr(WHITESPACE, c))
-		*i = *i + 1;
 	else
 		return (false);
 	return (true);

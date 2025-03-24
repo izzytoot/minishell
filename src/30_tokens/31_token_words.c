@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   31_token_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/23 18:24:21 by root             ###   ########.fr       */
+/*   Updated: 2025/03/24 12:11:46 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int	token_is_word_in_quotes(t_minishell **msh, int start, bool *in_quotes, char 
 	new_token = calloc(1, sizeof(t_token_lst));
 	append_token(*msh, new_token, word, WORD);
 	*in_quotes = false;
-	return(i);
+	return(i - 1);
 }
