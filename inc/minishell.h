@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/24 14:21:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:12:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,13 @@ typedef enum e_cmd_type
 	//PATH
 }	t_cmd_type;
 
-/*
-typedef enum	e_node_type
-{
-	PIPE,
-	EXEC,
-	REDIR,
-}	t_node_type;
-*/
 
 typedef enum	e_token_type
 {
 	PIPE, // |
 	WORD, // cmd or arg
+	W_CMD,
+	W_ARG,
 	W_SPACE,
 	REDIR_IN, // < (input)
 	REDIR_OUT, // > (output)
@@ -124,6 +118,16 @@ typedef struct s_token_lst
 	struct s_token_lst	*next;
 	struct s_token_lst	*prev;
 }	t_token_lst;
+
+typedef struct s_tree_node
+{
+    t_token_type		type;
+    char				**args;
+	char				*file; //for redirections
+    int					fd;
+	struct s_tree_node	*left;
+    struct s_tree_node	*right;
+}   t_tree_node;
 
 typedef struct s_minishell
 {
@@ -211,7 +215,12 @@ int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int
 //34_token_utils.c
 void		check_quote(bool *in_quotes, char *quote_char, char c);
 void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
-t_token_lst	*find_last_token(t_token_lst *token_list);
+
+/************ 40_parsing ************/
+//40_parse_tokens.c
+void		parse_line(t_minishell **msh);
+t_token_lst *build_tree(t_token_lst **tokens);
+t_tree_node *add_node_to_tree(t_token_type *type);
 
 /************ others ************/
 //10_close_msh.c

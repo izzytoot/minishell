@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/24 14:14:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:31:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_tokens(t_minishell **msh)
 {
 	t_token_lst	*current = (*msh)->token_list;
 	int n = 0;
-	char *token_type[] = {"PIPE", "WORD", "W_SPACE", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_VAR"};
+	char *token_type[] = {"PIPE", "WORD", "W_CMD", "W_ARG", "W_SPACE", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_VAR"};
 	while(current)
 	{
 		ft_printf(YLL"token %d is"RES, ++n);

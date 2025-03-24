@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/22 19:27:58 by root             ###   ########.fr        #
+#    Updated: 2025/03/24 15:08:31 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./30_tokens/32_token_pipes_and_redir_r.c \
 							./30_tokens/33_token_redir_l.c\
 							./30_tokens/34_token_utils.c\
+							./40_parsing/40_parse_tokens.c\
 							10_close_msh.c\
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
