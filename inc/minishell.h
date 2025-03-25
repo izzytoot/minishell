@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/25 17:01:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:20:40 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,21 @@
 # define ERR_SYN_EMPT "Command '' not found\n"
 # define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
 # define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
-#define ERR_SYN_PIPE "msh: syntax error near unexpected token `|'\n"
-#define ERR_SYN_REDIR_NL "msh: syntax error near unexpected token `newline'\n"
-#define ERR_SYN_REDIR_HD "msh: syntax error near unexpected token `<<'\n"
-#define ERR_SYN_REDIR_HD_OPEN "msh: syntax error heredoc open `<<'\n"
-#define ERR_SYN_REDIR_IN "msh: syntax error near unexpected token `<'\n"
-#define ERR_SYN_REDIR_OUT "msh: syntax error near unexpected token `>'\n"
-#define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
+# define ERR_SYN_PIPE "msh: syntax error near unexpected token `|'\n"
+# define ERR_SYN_REDIR_NL "msh: syntax error near unexpected token `newline'\n"
+# define ERR_SYN_REDIR_HD "msh: syntax error near unexpected token `<<'\n"
+# define ERR_SYN_REDIR_HD_OPEN "msh: syntax error heredoc open `<<'\n"
+# define ERR_SYN_REDIR_IN "msh: syntax error near unexpected token `<'\n"
+# define ERR_SYN_REDIR_OUT "msh: syntax error near unexpected token `>'\n"
+# define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
-
+# define ERR_MANY_ARGS "Error: too many arguments\n"
 
 //constants
-#define WHITESPACE " \t\n\r\v\f"
-#define OPERATOR "|<>"
-#define REDIR "<>"
-#define QUOTE "\"\'"
+# define WHITESPACE " \t\n\r\v\f"
+# define OPERATOR "|<>"
+# define REDIR "<>"
+# define QUOTE "\"\'"
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
@@ -230,6 +230,7 @@ char **conv_list_to_array(t_list *list);
 
 /************ 50_built_ins ************/
 void	print_work_dir(void);
+int		print_env(t_minishell **msh);
 
 /************ others ************/
 //10_close_msh.c

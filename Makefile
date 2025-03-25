@@ -6,7 +6,7 @@
 #    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/25 16:56:04 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/03/25 18:05:22 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./40_parsing/40_parse_tokens.c\
 							./40_parsing/41_parse_utils.c\
 							./50_built_ins/pwd.c\
+							./50_built_ins/env.c\
 							10_close_msh.c\
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
