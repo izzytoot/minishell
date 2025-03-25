@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/24 17:10:32 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:35:46 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	prompt_and_read(t_minishell **msh)
 {
 	char *line;
 	
-	(*msh)->dir = getcwd(NULL, 1024); //perceber 1024
 	while (1)
 	{
 		line = readline("$ ");
@@ -37,7 +36,9 @@ void	prompt_and_read(t_minishell **msh)
 		(*msh)->token_list = NULL;
 		(*msh)->promt_line = line;
 		if (strncmp(line, "pwd", 3) == 0) // ???
-			printf("%s\n", (*msh)->dir);
+			print_work_dir();
+		if (strncmp(line, "env", 3) == 0) // ???
+			env();
 		if (strncmp(line, "exit", 4) == 0) // ??
 		{
 			ft_printf("exit\n");

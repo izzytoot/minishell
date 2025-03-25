@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/25 12:04:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:01:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # include <readline/readline.h> //readline
 # include <signal.h> // signal()
 # include <stdbool.h> //bools
+# include <errno.h> //strerror, errno
+# include <limits.h> //macros
 # include "libft/libft.h"
 /* ************************************************************************** */
 /*                                    MACROS                                  */
@@ -225,6 +227,9 @@ void handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
 //41_parse_utils.c
 t_tree_node *new_tree_node(t_token_type *type, t_tree_node *left, t_tree_node *right);
 char **conv_list_to_array(t_list *list);
+
+/************ 50_built_ins ************/
+void	print_work_dir(void);
 
 /************ others ************/
 //10_close_msh.c
