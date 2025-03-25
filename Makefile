@@ -29,11 +29,11 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./30_tokens/30_tokenizer.c \
 							./30_tokens/31_token_words.c \
 							./30_tokens/32_token_pipes_and_redir_r.c \
-							./30_tokens/33_token_redir_l.c\
-							./30_tokens/34_token_utils.c\
-							./40_parsing/40_parse_tokens.c\
-							./40_parsing/41_parse_utils.c\
-							10_close_msh.c\
+							./30_tokens/33_token_redir_l.c \
+							./30_tokens/34_token_utils.c \
+							./40_parsing/40_parse_tokens.c \
+							./40_parsing/41_parse_utils.c \
+							10_close_msh.c \
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
 

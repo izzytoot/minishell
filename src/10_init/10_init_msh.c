@@ -15,7 +15,7 @@
 void ft_init_msh(t_minishell **msh, char **envp)
 {
 	if (!isatty(STDIN_FILENO))
-		close_minishell(*msh, RED ERR_STDIN RES, EXIT_FAILURE);
+		close_minishell(*msh, EXIT_FAILURE);
 	init_all_null(&(*msh));
 	//(*msh)->msh_pid = my_getpid(*msh); // needs 2 exit when activated
 	copy_envp(*msh, envp);
@@ -42,13 +42,10 @@ void	prompt_and_read(t_minishell **msh)
 		{
 			ft_printf("exit\n");
 			free(line);
-			close_minishell(*msh, NULL, EXIT_SUCCESS);
+			close_minishell(*msh, EXIT_SUCCESS);
 		}
 		if (syntax_is_ok(&(*msh)))
-		{
 			get_tokens(&(*msh), -1, '\0');
-			//parse_line(&(*msh));
-		}
 		if ((*msh)->debug_mode)
 			print_tokens(&(*msh)); //DEBUG TO DELETE
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/24 14:31:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:03:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,37 @@ void	print_tokens(t_minishell **msh)
 		ft_printf(BMAG" %s\n"RES, token_type[current->type]);
 		current = current->next;
 	}
+}
+
+void	print_tree(t_tree_node *node, int depth)
+{
+	int	i = -1;
+
+	if (!node) 
+		return ;
+	while(++i < depth)
+		ft_printf("  ");
+	i = 0;
+	if (node->args != NULL)
+	{
+		ft_printf(GR"args - "RES);
+		while (node->args[i])
+		{
+			ft_printf(BGR"[%s] "RES, node->args[i]);
+			i++;
+		}
+		ft_printf("\n");
+    }
+	if (node->fd != 0)
+	{
+		ft_printf(GR"fd -"RES);
+		ft_printf(BMAG" %i\n"RES, node->fd);
+	}
+	if (node->file != NULL)
+	{
+		ft_printf(GR"file -"RES);
+		ft_printf(BMAG" %s\n"RES, node->file);
+	}
+	print_tree(node->left, (depth + 1));
+    print_tree(node->right, (depth + 1));
 }

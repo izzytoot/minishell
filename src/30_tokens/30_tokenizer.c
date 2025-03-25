@@ -15,14 +15,14 @@
 void	get_tokens(t_minishell **msh, int i, char quote_char)
 {
 	const char *line;
-	bool	in_quotes;
-	
+	bool		in_quotes;
+	t_tree_node *tree_root;
+
 	line = (*msh)->promt_line;
 	in_quotes = false;
+	tree_root = NULL;
 	while(line[++i])
 	{
-		//while (line[i] && ft_strchr(WHITESPACE, line[i]))
-        //	i++;
 		if (!in_quotes && ft_strchr(QUOTE, line[i]))
 		{
 			check_in_quotes(line[i], &in_quotes);
@@ -38,6 +38,7 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 		else
 			break ;
 	}
+	parse_line(&(*msh));
 	return ;
 }
 

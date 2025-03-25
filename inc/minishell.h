@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/25 12:04:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:55:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <readline/readline.h> //readline
 # include <signal.h> // signal()
 # include <stdbool.h> //bools
+# include <errno.h>
 # include "libft/libft.h"
 /* ************************************************************************** */
 /*                                    MACROS                                  */
@@ -55,10 +56,12 @@
 # define RES "\033[0m"
 
 //error messages
+/*
 # define ERR_MEM "Error allocating memory\n"
 # define ERR_STDIN "Error with stdin\n"
 # define ERR_PRC "Error creating process\n"
 # define ERR_ENVP "Error duplicating environment variables\n"
+*/
 # define ERR_SYN_EMPT "Command '' not found\n"
 # define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
 # define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
@@ -138,6 +141,7 @@ typedef struct s_minishell
 	t_token_lst	*token_list;
 	char		**envp;
 	t_list		*envp_list; //enviroment variables line user, home, path, etc
+	t_tree_node *tree_root;
 	bool		debug_mode;
 }	t_minishell;
 
@@ -220,58 +224,22 @@ void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_to
 void		parse_line(t_minishell **msh);
 t_tree_node *build_tree(t_token_lst **tokens);
 t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list);
-void handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
+void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
 
 //41_parse_utils.c
-t_tree_node *new_tree_node(t_token_type *type, t_tree_node *left, t_tree_node *right);
-char **conv_list_to_array(t_list *list);
+t_tree_node *new_tree_node(t_token_type *type, char **args, char *file);
+char 		**conv_list_to_array(t_list *list);
+char		**ft_arraydup(char **array);
 
 /************ others ************/
 //10_close_msh.c
-void		close_minishell(t_minishell	*msh, char *err_msg, int exit_code);
+void		close_minishell(t_minishell	*msh, int exit_code);
 void		free_msh(t_minishell *msh);
 void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node, char *array);
 
 //11_debug_utils.c
 void		print_tokens(t_minishell **msh);
 void		print_envp_in_struct(t_minishell **msh);
+void		print_tree(t_tree_node *node, int depth);
 
 #endif
-
-
-/*
-typedef struct s_cmd
-{
-	t_token_type	type;
-}	t_cmd;
-
-typedef struct s_pipe_cmd // |
-{
-	t_token_type	type;
-	t_cmd 			*left;
-	t_cmd			*right;
-}	t_pipe_cmd;
-
-typedef struct	s_exec
-{
-	t_token_type	type;
-	char			**s_av;
-	char			**e_av;
-}	t_exec;
-
-typedef struct	s_red
-{
-	t_token_type	type;
-	t_cmd			*r_cmd;
-	char			*file;
-	char			*e_file;
-	int				fd_mode;
-	int				fd;
-	
-}	t_red;
-*/
-
-//00_constructors.c
-//t_cmd	*pipe_cmd(t_cmd *left, t_cmd *right);
-//t_cmd	*exec_cmd(void);
-//t_cmd	*red_cmd(t_cmd *sub_cmd, char *file, char *e_file, int mode, int fd, t_token_type type);
