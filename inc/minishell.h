@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/24 17:12:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:04:47 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,6 @@ int			token_is_word(t_minishell **msh, int start);
 int			token_is_word_in_quotes(t_minishell **msh, int start, bool *in_quotes, char *quote_char);
 int 		token_is_space(t_minishell **msh, int start);
 
-
 //32_token_pipes_and_redir_r.c
 int			token_is_pipe(t_minishell **msh, int start);
 int			redir_r(t_minishell **msh, int start);
@@ -219,8 +218,13 @@ void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_to
 /************ 40_parsing ************/
 //40_parse_tokens.c
 void		parse_line(t_minishell **msh);
-t_token_lst *build_tree(t_token_lst **tokens);
-t_tree_node *add_node_to_tree(t_token_type *type);
+t_tree_node *build_tree(t_token_lst **tokens);
+t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list);
+void handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
+
+//41_parse_utils.c
+t_tree_node *new_tree_node(t_token_type *type, t_tree_node *left, t_tree_node *right);
+char **conv_list_to_array(t_list *list);
 
 /************ others ************/
 //10_close_msh.c
