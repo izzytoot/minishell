@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/26 13:18:42 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:04:00 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,11 @@ char		**ft_arraydup(char **array);
 /************ 50_built_ins ************/
 void		print_work_dir(void);
 int			print_env(t_minishell **msh);
+
+int	ft_cd(t_minishell **msh);
+int execute_cd(t_minishell **msh, char *path);
+int update_dir(char *old_dir, t_list **envp);
+void	update_env_var(char *var_name, char *new_data, t_list *envp);
 
 /************ others ************/
 //10_close_msh.c

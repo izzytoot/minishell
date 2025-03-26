@@ -6,11 +6,13 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/03/26 12:13:02 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:13:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+//info --> prints env list
 
 int	print_env(t_minishell **msh)
 {

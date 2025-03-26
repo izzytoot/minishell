@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/26 12:06:07 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:46:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	prompt_and_read(t_minishell **msh)
 			print_work_dir();
 		if (strncmp(line, "env", 3) == 0) // ???
 			print_env(msh);
+		if (strncmp(line, "cd", 2) == 0) // ???
+			ft_cd(msh);
 		if (strncmp(line, "exit", 4) == 0) // ??
 		{
 			ft_printf("exit\n");
