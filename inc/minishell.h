@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/25 17:55:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/26 00:43:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef enum	e_token_type
 	W_CMD,
 	W_ARG,
 	W_SPACE,
+	FILE_NAME,
 	REDIR_IN, // < (input)
 	REDIR_OUT, // > (output)
 	REDIR_APP, // >> (append)
@@ -198,6 +199,7 @@ bool		check_in_quotes(char c, bool *in_quotes);
 //30_tokenizer.c
 void		get_tokens(t_minishell **msh, int i, char quote_char);
 bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char);
+void		change_filename_type(t_token_lst *token_list);
 
 //31_token_words.c
 int			token_is_word(t_minishell **msh, int start);
@@ -227,7 +229,7 @@ t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list);
 void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
 
 //41_parse_utils.c
-t_tree_node *new_tree_node(t_token_type *type, char **args, char *file);
+t_tree_node *new_tree_node(t_token_type *type);
 char 		**conv_list_to_array(t_list *list);
 char		**ft_arraydup(char **array);
 
@@ -240,6 +242,6 @@ void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node, char *
 //11_debug_utils.c
 void		print_tokens(t_minishell **msh);
 void		print_envp_in_struct(t_minishell **msh);
-void		print_tree(t_tree_node *node, int depth);
+void		print_tree(t_tree_node *node);
 
 #endif

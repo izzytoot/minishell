@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/24 17:10:32 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:36:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	prompt_and_read(t_minishell **msh)
 		}
 		if (syntax_is_ok(&(*msh)))
 			get_tokens(&(*msh), -1, '\0');
-		if ((*msh)->debug_mode)
-			print_tokens(&(*msh)); //DEBUG TO DELETE
 		free(line);
 	}
 }

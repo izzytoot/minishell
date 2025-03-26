@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   41_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:36:26 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/25 18:38:36 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:09:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_node *new_tree_node(t_token_type *type, char **args, char *file)
+t_tree_node *new_tree_node(t_token_type *type)
 {
 	t_tree_node *new_node;
 
@@ -20,11 +20,7 @@ t_tree_node *new_tree_node(t_token_type *type, char **args, char *file)
 	if (!new_node)
 		return (NULL);
 	new_node->type = *type;
-		new_node->args = args;
-	if (file)
-		new_node->file = ft_strdup(file);
-	else
-		new_node->file = NULL;
+	new_node->args = NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->fd = 0;

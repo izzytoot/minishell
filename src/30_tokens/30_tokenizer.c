@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/24 15:56:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/26 00:44:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 {
 	const char *line;
 	bool		in_quotes;
-	t_tree_node *tree_root;
 
 	line = (*msh)->promt_line;
 	in_quotes = false;
-	tree_root = NULL;
 	while(line[++i])
 	{
 		if (!in_quotes && ft_strchr(QUOTE, line[i]))
@@ -38,8 +36,29 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 		else
 			break ;
 	}
+	change_filename_type((*msh)->token_list);
+	if ((*msh)->debug_mode)
+			print_tokens(&(*msh)); //DEBUG TO DELETE
 	parse_line(&(*msh));
 	return ;
+}
+
+void	change_filename_type(t_token_lst *token_list)
+{
+	t_token_lst *current;
+
+	current = token_list;
+	while (current)
+	{
+		if (current->type == REDIR_APP || current->type == REDIR_IN || current->type == REDIR_OUT)
+		{
+			if (current->prev->type == W_SPACE && current->prev->prev->type == WORD)
+				current->prev->prev->type = FILE_NAME;
+			else if (current->prev->type == WORD)
+				current->prev->type = FILE_NAME;
+		}
+		current = current->next;
+	}
 }
 
 bool	any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char)
