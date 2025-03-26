@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/26 12:28:37 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:18:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@
 # define ERR_SYN_REDIR_OUT "msh: syntax error near unexpected token `>'\n"
 # define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
+# define ERR_CD_MANY_ARGS "bash: cd: too many arguments\n"
 
 //constants
 # define WHITESPACE " \t\n\r\v\f"
