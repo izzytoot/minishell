@@ -12,12 +12,15 @@
 
 #include "../inc/minishell.h"
 
-void	close_minishell(t_minishell	*msh, char *err_msg, int exit_code)
+void	close_minishell(t_minishell	*msh, int exit_code)
 {
 	if (msh->active)
 		free_msh(&(*msh));
+	/*
 	if (err_msg)
 		ft_putstr_fd(err_msg, STDERR_FILENO);
+	*/
+	strerror(errno);
 	clear_history();
 	exit(exit_code);
 }
@@ -38,5 +41,5 @@ void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node, char *
 		free(list_node);
 	if (array)
 		free(array);
-	close_minishell(msh, RED ERR_ENVP RES, EXIT_FAILURE);
+	close_minishell(msh, EXIT_FAILURE);
 }

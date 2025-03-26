@@ -20,10 +20,10 @@ int		main(int ac, char **av, char **envp)
 	(void)av;
 	msh = ft_calloc(1, sizeof(t_minishell));
 	if (!msh)
-		close_minishell(msh, RED ERR_MEM RES, EXIT_FAILURE);
+		close_minishell(msh, EXIT_FAILURE);
 	msh->active = true;
 	msh->debug_mode = true; //DELETE BEFORE SUMISSION
 	ft_init_msh(&msh, envp);
-	close_minishell(msh, NULL, EXIT_SUCCESS);
+	close_minishell(msh, EXIT_SUCCESS);
 	return(0);
 }
