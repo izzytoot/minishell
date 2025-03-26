@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/03/25 19:04:05 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:05:25 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,29 @@
 
 int	print_env(t_minishell **msh)
 {
-	int	i;
-	t_list *temp;
+	t_list	*temp;
+	char	**args;
 	
-	// if ((*msh)->token_list->content && (*msh)->token_list->next)
-	// 	return (ft_putstr_fd(ERR_MANY_ARGS, STDERR_FILENO), 1);
-	i = 0;
+	args = ft_split((*msh)->promt_line, ' ');
+	if (args && args[1])
+	{
+		if (access(args[1], F_OK) == -1)
+		{
+			errno = ENOENT;
+			ft_putstr_fd("env: '", STDERR_FILENO);
+			ft_putstr_fd(args[1], STDERR_FILENO);
+			ft_putstr_fd("': ", STDERR_FILENO);
+			ft_putstr_fd(strerror(errno), STDERR_FILENO);
+			return(ft_putstr_fd("\n", STDERR_FILENO), 1);
+		}
+	}
 	if (!(*msh)->envp_list)
 		return (EXIT_FAILURE);
 	temp = (*msh)->envp_list;
-	while(temp)
+	while (temp)
 	{
 		ft_putstr_fd(temp->content, STDOUT_FILENO);
 		temp = temp->next;
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
