@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/26 12:07:19 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:28:37 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ void		prompt_and_read(t_minishell **msh);
 void		copy_envp(t_minishell *msh, char **envp);
 char		**envp_to_array(t_minishell *msh, char **envp);
 void		envp_to_list(t_minishell *msh, char **envp);
+char 		*add_envp_newline(char *envp);
 
 //12_init_utils.c
 void		init_all_null (t_minishell **msh);
@@ -234,8 +235,8 @@ char 		**conv_list_to_array(t_list *list);
 char		**ft_arraydup(char **array);
 
 /************ 50_built_ins ************/
-void	print_work_dir(void);
-int		print_env(t_minishell **msh);
+void		print_work_dir(void);
+int			print_env(t_minishell **msh);
 
 /************ others ************/
 //10_close_msh.c
