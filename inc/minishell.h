@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/26 18:19:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:09:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,15 @@ typedef enum	e_token_type
 {
 	PIPE, // |
 	WORD, // cmd or arg
-	W_CMD,
-	W_ARG,
+	BT_CMD,
+	ARG,
 	W_SPACE,
 	FILE_NAME,
 	REDIR_IN, // < (input)
 	REDIR_OUT, // > (output)
 	REDIR_APP, // >> (append)
 	REDIR_HD, // << (heredoc)
-	ENV_VAR, // envirm. variables
+	ENV_CMD, // envirm. variables
 }	t_token_type;
 
 typedef struct s_token_lst
@@ -201,7 +201,9 @@ bool		check_in_quotes(char c, bool *in_quotes);
 //30_tokenizer.c
 void		get_tokens(t_minishell **msh, int i, char quote_char);
 bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char);
-void		change_filename_type(t_token_lst *token_list);
+void		sub_tokenize(t_minishell **msh);
+void		handle_filename(t_token_lst *token_list);
+int			check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
 int			token_is_word(t_minishell **msh, int start);
@@ -222,6 +224,7 @@ int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int
 //34_token_utils.c
 void		check_quote(bool *in_quotes, char *quote_char, char c);
 void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
+char		*get_path(t_list *envp_list);
 
 /************ 40_parsing ************/
 //40_parse_tokens.c
@@ -240,16 +243,17 @@ void		print_work_dir(void);
 int			print_env(t_minishell **msh);
 void		ft_echo(t_minishell **msh);
 
-int	ft_cd(t_minishell **msh);
-int execute_cd(t_minishell **msh, char *path);
-int update_dir(char *old_dir, t_list **envp);
-void	update_env_var(char *var_name, char *new_data, t_list *envp);
+int			ft_cd(t_minishell **msh);
+int 		execute_cd(t_minishell **msh, char *path);
+int 		update_dir(char *old_dir, t_list **envp);
+void		update_env_var(char *var_name, char *new_data, t_list *envp);
 
 /************ others ************/
 //10_close_msh.c
 void		close_minishell(t_minishell	*msh, int exit_code);
 void		free_msh(t_minishell *msh);
 void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node, char *array);
+void		free_tokens(t_token_lst *token_list);
 
 //11_debug_utils.c
 void		print_tokens(t_minishell **msh);

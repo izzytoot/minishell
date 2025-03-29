@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   40_parse_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/26 00:46:11 by root             ###   ########.fr       */
+/*   Updated: 2025/03/29 17:07:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list)
 			else
 				current_token = current_token->next->next;
 		}
-		else if (current_token->type == WORD)
+		else if (current_token->type == WORD || current_token->type == BT_CMD || current_token->type == ENV_CMD)
 		{
 			ft_lstadd_back(&args, ft_lstnew(ft_strdup(current_token->content)));
 			current_token = current_token->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/26 00:44:22 by root             ###   ########.fr       */
+/*   Updated: 2025/03/29 18:09:45 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,11 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 		else
 			break ;
 	}
-	change_filename_type((*msh)->token_list);
+	sub_tokenize(&(*msh));
 	if ((*msh)->debug_mode)
 			print_tokens(&(*msh)); //DEBUG TO DELETE
 	parse_line(&(*msh));
 	return ;
-}
-
-void	change_filename_type(t_token_lst *token_list)
-{
-	t_token_lst *current;
-
-	current = token_list;
-	while (current)
-	{
-		if (current->type == REDIR_APP || current->type == REDIR_IN || current->type == REDIR_OUT)
-		{
-			if (current->prev->type == W_SPACE && current->prev->prev->type == WORD)
-				current->prev->prev->type = FILE_NAME;
-			else if (current->prev->type == WORD)
-				current->prev->type = FILE_NAME;
-		}
-		current = current->next;
-	}
 }
 
 bool	any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char)
@@ -83,4 +65,75 @@ bool	any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_
 	else
 		return (false);
 	return (true);
+}
+
+void	sub_tokenize(t_minishell **msh)
+{
+	t_token_lst *current;
+	char		*word;
+	char	*env_path;
+
+	handle_filename((*msh)->token_list);
+	current = (*msh)->token_list;
+	word = NULL;
+	env_path = get_path((*msh)->envp_list);
+	while(current)
+	{
+		if (current->type == WORD)
+		{
+			word = current->content;
+			if (!ft_strcmp(word, "echo") || !ft_strcmp(word, "cd") || !ft_strcmp(word, "pwd") || !ft_strcmp(word, "export") || 
+				!ft_strcmp(word, "unset") || !ft_strcmp(word, "env") || !ft_strcmp(word, "exit"))
+				current->type = BT_CMD;
+			else if (check_env_cmd(word, env_path, -1))
+				current->type = ENV_CMD;
+			else
+				current->type = ARG;
+		}
+		current = current->next;
+	}
+}
+
+void	handle_filename(t_token_lst *token_list)
+{
+	t_token_lst *current;
+
+	current = token_list;
+	while (current)
+	{
+		if (current->type == REDIR_APP || current->type == REDIR_IN || current->type == REDIR_OUT)
+		{
+			if (current->prev->type == W_SPACE && current->prev->prev->type == WORD)
+				current->prev->prev->type = FILE_NAME;
+			else if (current->prev->type == WORD)
+				current->prev->type = FILE_NAME;
+		}
+		current = current->next;
+	}
+}
+
+int	check_env_cmd(char *cmd, char *env_path, int i)
+{
+	char	**paths;
+	char	*part_path;
+	char	*exec;
+	
+	paths = ft_split(env_path, ':');
+	if (!paths)
+		return (0);
+	while(paths[++i])
+	{
+		part_path = ft_strjoin(paths[i], "/");
+		exec = ft_strjoin(part_path, cmd);
+		free(part_path);
+		if (access(exec, F_OK | X_OK) == 0)
+		{
+			free(exec);
+			ft_free_arrays((void **)paths);
+			return(1);
+		}
+		free(exec);
+	}
+	ft_free_arrays((void **)paths);
+	return(0);	
 }

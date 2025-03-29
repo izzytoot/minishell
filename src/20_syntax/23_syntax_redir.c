@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   23_syntax_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/22 19:14:50 by root             ###   ########.fr       */
+/*   Updated: 2025/03/29 14:37:25 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	misplaced_redir_hd(const char *line)
 	int	i;
 	bool	in_quotes;
 	
-	i = -1;
+	i = 0;
 	in_quotes = false;
 	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
 		i++;

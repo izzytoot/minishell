@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/26 18:18:39 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/29 16:42:28 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	prompt_and_read(t_minishell **msh)
 			ft_echo(msh);
 		if (strncmp(line, "exit", 4) == 0) // ??
 		{
+			if (syntax_is_ok(&(*msh)))
+				get_tokens(&(*msh), -1, '\0');
 			ft_printf("exit\n");
 			free(line);
 			close_minishell(*msh, EXIT_SUCCESS);
