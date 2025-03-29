@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/03/26 18:05:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/29 16:47:43 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,29 @@
 
 int	ft_cd(t_minishell **msh)
 {
-	char	**args;
+	int		i;
 	char 	cwd[PATH_MAX];
-	
-	args = ft_split((*msh)->promt_line, ' ');
-	if (args[2])
-		return(ft_putstr_fd(ERR_CD_MANY_ARGS, STDERR_FILENO), EXIT_FAILURE);
-	if (getcwd(cwd, PATH_MAX) == NULL)
-		return (ft_putstr_fd("error to fix", STDERR_FILENO), errno);
-	return (execute_cd(msh, cwd));
+
+	i = 0;
+	while ((*msh)->tree_root->args[i])
+	{
+		if ((*msh)->tree_root->type == WORD && ft_strncmp((*msh)->tree_root->args[0], "cd", 2) == 0)
+		{
+			if ((*msh)->tree_root->args[2]) 
+			{
+                ft_putstr_fd(ERR_CD_MANY_ARGS, STDERR_FILENO);
+                return (EXIT_FAILURE);
+            }
+			if (getcwd(cwd, PATH_MAX) == NULL) 
+			{
+                ft_putstr_fd("error to fix", STDERR_FILENO);
+                return (errno);
+            }
+			return execute_cd(msh, cwd);
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }
 
 //info --> changes dir and updates OLDPWD
@@ -36,6 +50,11 @@ int execute_cd(t_minishell **msh, char *path)
 	args = ft_split((*msh)->promt_line, ' ');
 	if (chdir(args[1]) == EXIT_SUCCESS)
 		update_dir(path, &(*msh)->envp_list);
+	else
+	{
+		perror("cd");
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 //info --> updates OLDPWD and PWD
@@ -54,27 +73,41 @@ int update_dir(char *old_dir, t_list **envp)
 
 //info --> updates a env var with a new value
 
-void	update_env_var(char *var_name, char *new_data, t_list *envp)
+int	update_env_var(char *var_name, char *new_data, t_list *envp)
 {
 	char	*current_env;
 	char	*temp;
-	int		i;
+	char *new_content;
 
 	while (envp)
 	{
-		i = 0;
 		current_env = (char *)envp->content;
-		while (var_name[i] && current_env[i] && (var_name[i] == current_env[i]))
-			i++;
-		if (!var_name[i] && (current_env[i] == '='))
+		if (ft_strncmp(current_env, var_name, ft_strlen(var_name)) == 0 &&
+			current_env[ft_strlen(var_name)] == '=') 
 		{
 			temp = ft_strjoin(var_name, "=");
-			if (!temp)
-				exit(EXIT_FAILURE);
-			envp->content = ft_strjoin(temp, new_data);
-			if (!envp->content)
-				exit(EXIT_FAILURE);
+            if (!temp)
+                return EXIT_FAILURE;
+			new_content = ft_strjoin(temp, new_data);
 			free(temp);
+			if (!new_content)
+                return EXIT_FAILURE;
+				free(envp->content);
+            envp->content = new_content;
+            return EXIT_SUCCESS;
 		}
 	}
-}
+		envp = envp->next;
+		temp = ft_strjoin(var_name, "=");
+		if (!temp)
+    		return EXIT_FAILURE;
+		new_content = ft_strjoin(temp, new_data);
+		free(temp);
+		if (!new_content)
+        	return EXIT_FAILURE;
+		t_list *new_node = ft_lstnew(new_content);
+		if (!new_node)
+			return EXIT_FAILURE;
+		ft_lstadd_back(&envp, new_node);
+		return EXIT_SUCCESS;
+	}
