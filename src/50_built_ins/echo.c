@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/03/29 15:05:16 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/29 16:05:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,20 @@
 
 void	ft_echo(t_minishell **msh)
 {
-	int	i;
-	char **args;
+	int i;
 
-	args = ft_split((*msh)->promt_line, ' ');
-	i = 1;
-	while (args[i])
+	i = 0;
+	while ((*msh)->tree_root->args[i])
 	{
-		// ft_putstr_fd("\n", STDOUT_FILENO);
-		ft_putstr_fd(args[i], STDOUT_FILENO);
-		if (args [i + 1])
-			ft_putstr_fd(" ", STDOUT_FILENO);
-		if (!args [i + 1])
-			ft_putstr_fd("\n", STDOUT_FILENO);
+		if ((*msh)->tree_root->type == WORD && ft_strncmp((*msh)->tree_root->args[2], "echo", 4))
+		{
+			
+			ft_putstr_fd((*msh)->tree_root->args[i], STDOUT_FILENO);
+			if ((*msh)->tree_root->args[i + 1])
+				ft_putstr_fd(" ", STDOUT_FILENO);
+			if (!(*msh)->tree_root->args[i + 1])
+				ft_putstr_fd("\n", STDOUT_FILENO);
+		}
 		i++;
 	}
 }

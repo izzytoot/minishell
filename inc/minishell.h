@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/26 18:19:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/29 16:08:14 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct s_token_lst
 	char				*content;
 	struct s_token_lst	*next;
 	struct s_token_lst	*prev;
-}	t_token_lst;
+}	t_token_lst; 
 
 typedef struct s_tree_node
 {
