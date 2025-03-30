@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/03/29 16:34:54 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/30 14:37:02 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,28 @@
 
 void	ft_echo(t_minishell **msh)
 {
-	int i;
+	int 		i;
+	int			newline;
+	t_tree_node	*current;
+	
 
-	i = 0;
-	while ((*msh)->tree_root->args[i])
+	i = 1;
+	newline = 1;
+	current = (*msh)->tree_root;
+	if (current->type == PIPE)
+		current = current->left;
+	if (current->args[1] && ft_strcmp(current->args[1], "-n") == 0)
 	{
-		if ((*msh)->tree_root->type == WORD && ft_strncmp((*msh)->tree_root->args[2], "echo", 4) == 0)
-		{
-			
-			ft_putstr_fd((*msh)->tree_root->args[i], STDOUT_FILENO);
-			if ((*msh)->tree_root->args[i + 1])
-				ft_putstr_fd(" ", STDOUT_FILENO);
-			if (!(*msh)->tree_root->args[i + 1])
-				ft_putstr_fd("\n", STDOUT_FILENO);
-		}
+		newline = 0;
 		i++;
 	}
+	while (current->args[i])
+	{
+		ft_putstr_fd(current->args[i], STDOUT_FILENO);
+		if ((*msh)->tree_root->args[i + 1])
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		i++;
+	}
+	if (newline)
+		ft_putstr_fd("\n", STDOUT_FILENO);
 }
