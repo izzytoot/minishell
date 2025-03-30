@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   40_parse_tokens.c                                  :+:      :+:    :+:   */
+/*   40_tokens_to_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/29 17:07:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:12:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_tree_node *build_tree(t_token_lst **token_list)
 {
 	t_token_lst *current_token;
 	t_tree_node	*pipe_node;
-	t_token_lst *right_tokens;
+	t_token_lst *left_tokens;
 	t_token_lst *prev_token;
 	 
 	current_token = *token_list;
@@ -40,10 +40,10 @@ t_tree_node *build_tree(t_token_lst **token_list)
 		{
 			pipe_node = new_tree_node(&current_token->type);
 			current_token = current_token->next;
-			right_tokens = current_token;
-			prev_token->next = NULL; // cut left list
-			pipe_node->right = build_tree (&right_tokens);
-			pipe_node->left = build_tree(token_list);
+			left_tokens = current_token;
+			prev_token->next = NULL; // cut right list
+			pipe_node->left = build_tree (&left_tokens);
+			pipe_node->right = build_tree(token_list);
 			return (pipe_node);
 		}
 		prev_token = current_token;
@@ -73,7 +73,7 @@ t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list)
 			else
 				current_token = current_token->next->next;
 		}
-		else if (current_token->type == WORD || current_token->type == BT_CMD || current_token->type == ENV_CMD)
+		else if (current_token->type == ARG || current_token->type == BT_CMD || current_token->type == ENV_CMD)
 		{
 			ft_lstadd_back(&args, ft_lstnew(ft_strdup(current_token->content)));
 			current_token = current_token->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/30 12:34:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:08:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,14 +227,14 @@ void		check_quote(bool *in_quotes, char *quote_char, char c);
 void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
 char		*get_path(t_list *envp_list);
 
-/************ 40_parsing ************/
-//40_parse_tokens.c
+/************ 40_build_tree ************/
+//40_tokens_to_tree.c
 void		parse_line(t_minishell **msh);
 t_tree_node *build_tree(t_token_lst **tokens);
 t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list);
 void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
 
-//41_parse_utils.c
+//41_tree_utils.c
 t_tree_node *new_tree_node(t_token_type *type);
 char 		**conv_list_to_array(t_list *list);
 char		**ft_arraydup(char **array);

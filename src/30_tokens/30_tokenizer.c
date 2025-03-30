@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/29 18:09:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/30 14:47:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	check_env_cmd(char *cmd, char *env_path, int i)
 {
 	char	**paths;
 	char	*part_path;
-	char	*exec;
+	char	*cmd_path;
 	
 	paths = ft_split(env_path, ':');
 	if (!paths)
@@ -124,15 +124,15 @@ int	check_env_cmd(char *cmd, char *env_path, int i)
 	while(paths[++i])
 	{
 		part_path = ft_strjoin(paths[i], "/");
-		exec = ft_strjoin(part_path, cmd);
+		cmd_path = ft_strjoin(part_path, cmd);
 		free(part_path);
-		if (access(exec, F_OK | X_OK) == 0)
+		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-			free(exec);
+			free(cmd_path);
 			ft_free_arrays((void **)paths);
 			return(1);
 		}
-		free(exec);
+		free(cmd_path);
 	}
 	ft_free_arrays((void **)paths);
 	return(0);	
