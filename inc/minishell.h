@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/30 12:34:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:39:11 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,9 +245,8 @@ int			print_env(t_minishell **msh);
 void		ft_echo(t_minishell **msh);
 
 int			ft_cd(t_minishell **msh);
-int 		execute_cd(t_minishell **msh, char *path);
-int 		update_dir(char *old_dir, t_list **envp);
-int			update_env_var(char *var_name, char *new_data, t_list *envp);
+int  		cd_home(char **args, char *target_dir);
+int			change_dir(char **args, char *target_dir);
 
 /************ others ************/
 //10_close_msh.c
