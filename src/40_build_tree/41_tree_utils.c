@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   41_parse_utils.c                                   :+:      :+:    :+:   */
+/*   41_tree_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:36:26 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/25 23:09:01 by root             ###   ########.fr       */
+/*   Updated: 2025/03/30 16:31:08 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_tree_node *new_tree_node(t_token_type *type)
 	new_node->args = NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
+	new_node->straight = NULL;
 	new_node->fd = 0;
 	return (new_node);
 }

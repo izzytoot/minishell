@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/30 15:08:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:30:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct s_tree_node
     int					fd;
 	struct s_tree_node	*left;
     struct s_tree_node	*right;
+	struct s_tree_node	*straight;
 }   t_tree_node;
 
 typedef struct s_minishell
@@ -231,7 +232,10 @@ char		*get_path(t_list *envp_list);
 //40_tokens_to_tree.c
 void		parse_line(t_minishell **msh);
 t_tree_node *build_tree(t_token_lst **tokens);
-t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list);
+t_tree_node *build_redir_node(t_token_lst **token_list);
+t_tree_node *build_cmd_node(t_token_lst **token_list);
+
+//t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list);
 void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
 
 //41_tree_utils.c
