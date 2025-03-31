@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/30 14:47:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:47:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 			break ;
 	}
 	sub_tokenize(&(*msh));
-	if ((*msh)->debug_mode)
-			print_tokens(&(*msh)); //DEBUG TO DELETE
+//	if ((*msh)->debug_mode)
+//			print_tokens(&(*msh)); //DEBUG TO DELETE
 	parse_line(&(*msh));
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/30 17:31:50 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:48:28 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	parse_line(t_minishell **msh)
 	
 	if (!(*msh)->token_list)
 		return ;
-	(*msh)->tree_root = build_tree(&(*msh)->token_list);
+	(*msh)->tree_root = build_pipe_node(&(*msh)->token_list);
 	tree_root = (*msh)->tree_root;
 	if ((*msh)->debug_mode)
 		print_tree(tree_root);
 }
 
-t_tree_node *build_tree(t_token_lst **token_list)
+t_tree_node *build_pipe_node(t_token_lst **token_list)
 {
 	t_token_lst *curr_token;
 	t_tree_node	*pipe_node;
@@ -34,16 +34,17 @@ t_tree_node *build_tree(t_token_lst **token_list)
 	curr_token = *token_list;
 	pipe_node = NULL;
 	prev_token = NULL;
-	while(curr_token && curr_token->next)
+	while(curr_token)
 	{
 		if (curr_token->type == PIPE)
 		{
-			pipe_node = new_tree_node(&curr_token->type);
+			pipe_node = new_tree_node(&curr_token->type, &curr_token->content[0]);
 			curr_token = curr_token->next;
 			left_tokens = curr_token;
 			prev_token->next = NULL; // cut right list
-			pipe_node->left = build_tree (&left_tokens);
-			pipe_node->right = build_tree(token_list);
+			left_tokens->prev = NULL;// cut left list
+			pipe_node->right = build_redir_node(token_list);
+			pipe_node->left = build_pipe_node (&left_tokens);
 			return (pipe_node);
 		}
 		prev_token = curr_token;
@@ -68,8 +69,7 @@ t_tree_node *build_redir_node(t_token_lst **token_list)
 			break;
 		if(curr_token->type == REDIR_OUT || curr_token->type == REDIR_IN || curr_token->type == REDIR_APP)
 		{
-			printf("entered in redir loop\n");
-			redir_node = new_tree_node(&curr_token->type);
+			redir_node = new_tree_node(&curr_token->type, &curr_token->content[0]);
 			handle_redir(redir_node, curr_token);
 			if (curr_token->next->type == W_SPACE)
 				curr_token = curr_token->next->next; //to skip filename token
@@ -80,7 +80,6 @@ t_tree_node *build_redir_node(t_token_lst **token_list)
 			curr_token = curr_token->next;
 	}
 	*token_list = curr_token;
-	printf("token list is now %s\n", (*token_list)->content);
 	cmd_node = build_cmd_node(token_list);
 	if (redir_node)
 	{
@@ -99,22 +98,26 @@ t_tree_node *build_cmd_node(t_token_lst **token_list)
 	curr_token = *token_list;
 	if (!curr_token)
         return NULL;
+/*
+	if (!curr_token->prev)
+	{
+		while(curr_token)
+			curr_token = curr_token->next;
+	}
+*/
 	args = NULL;
-	cmd_node = new_tree_node(&curr_token->type);
+	cmd_node = new_tree_node(&curr_token->type, &curr_token->content[0]);
 	while(curr_token)
 	{
 		if (curr_token->type == ARG || curr_token->type == BT_CMD || curr_token->type == ENV_CMD)
 		{
-			printf("cmd is %s\n", curr_token->content);
 			ft_lstadd_back(&args, ft_lstnew(ft_strdup(curr_token->content)));
-			printf("args are %s\n", (char *)args->content);
-			curr_token = curr_token->next;
+			curr_token = curr_token->prev; //HERE ONLY WORKS FOR RIGHT BRANCH WHEN SPACES AFTER PIPE
 		}
 		else
-			curr_token = curr_token->next;
+			curr_token = curr_token->prev;
 	}
 	cmd_node->args = conv_list_to_array(args);
-	printf("array args are %s\n", cmd_node->args[0]);
 	if (curr_token)
 		*token_list = curr_token;
 	return(cmd_node);

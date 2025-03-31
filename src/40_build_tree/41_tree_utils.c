@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:36:26 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/30 16:31:08 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/31 12:42:37 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_node *new_tree_node(t_token_type *type)
+t_tree_node *new_tree_node(t_token_type *type, char *content)
 {
 	t_tree_node *new_node;
 
@@ -21,6 +21,7 @@ t_tree_node *new_tree_node(t_token_type *type)
 		return (NULL);
 	new_node->type = *type;
 	new_node->args = NULL;
+	new_node->content = content;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->straight = NULL;
@@ -79,4 +80,20 @@ char	**ft_arraydup(char **array)
     }
     new_array[size] = NULL;
     return (new_array);
+}
+
+bool	tk_is_redir(t_token_type *type)
+{
+	if (*type == REDIR_APP || *type == REDIR_HD || *type == REDIR_IN || *type == REDIR_OUT)
+		return(true);
+	else
+		return (false);
+}
+
+bool	tk_is_cmd(t_token_type *type)
+{
+	if (*type == WORD || *type ==  ARG || *type == BT_CMD || *type == ENV_CMD)
+		return(true);
+	else
+		return (false);
 }
