@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/30 17:33:04 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/31 10:35:46 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void	print_tree(t_tree_node *node)
 			ft_printf(BMAG" %s "RES, node->right->args[i]);
 		ft_printf("\n");
 	}
-	print_tree(node->left);
-    print_tree(node->right);
-	print_tree(node->straight);
+	if (node->left)
+		print_tree(node->left);
+    if (node->right)
+		print_tree(node->right);
+	if (node->straight)
+		print_tree(node->straight);
 }
