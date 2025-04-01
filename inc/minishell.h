@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/31 12:40:50 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:02:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,10 +239,10 @@ void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
 
 //41_tree_utils.c
 t_tree_node *new_tree_node(t_token_type *type, char *content);
-char 		**conv_list_to_array(t_list *list);
 char		**ft_arraydup(char **array);
 bool		tk_is_redir(t_token_type *type);
 bool		tk_is_cmd(t_token_type *type);
+t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
 
 /************ 50_built_ins ************/
 void		print_work_dir(void);

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:36:26 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/31 12:42:37 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:33:25 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,39 +19,14 @@ t_tree_node *new_tree_node(t_token_type *type, char *content)
 	new_node = ft_calloc(1, sizeof(t_tree_node));
 	if (!new_node)
 		return (NULL);
+	new_node->content = content;
 	new_node->type = *type;
 	new_node->args = NULL;
-	new_node->content = content;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->straight = NULL;
 	new_node->fd = 0;
 	return (new_node);
-}
-
-char **conv_list_to_array(t_list *list)
-{
-	char 	**array;
-	t_list *current_node;
-	int		size;
-	int		i;
-	
-	size = ft_lstsize(list);
-	array = malloc(sizeof(char *) * (size + 1));
-	if (!array)
-		return (NULL);
-	current_node = list;
-	i = 0;
-	while(current_node && i < size)
-	{
-		array[i] = ft_strdup(current_node->content);
-		current_node = current_node->next;
-		i++;
-	}
-	array[i] = NULL;
-	i = 0;
-	ft_lstclear(&list, free);
-	return (array);
 }
 
 char	**ft_arraydup(char **array)
@@ -81,7 +56,24 @@ char	**ft_arraydup(char **array)
     new_array[size] = NULL;
     return (new_array);
 }
+/*
+t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir)
+{
+    if (!redir_node) 
+        return (new_redir);
+    redir_node->left = new_redir;
+    return (redir_node);
+}
+*/
 
+t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir)
+{
+    if (!redir_node) 
+        return (new_redir);
+	else
+		redir_node->left = attach_redir(redir_node->left, new_redir);
+    return (redir_node);
+}
 bool	tk_is_redir(t_token_type *type)
 {
 	if (*type == REDIR_APP || *type == REDIR_HD || *type == REDIR_IN || *type == REDIR_OUT)
