@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/29 17:12:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:37:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,46 +46,105 @@ void	print_tokens(t_minishell **msh)
 void	print_tree(t_tree_node *node)
 {
 	int	i = -1;
-
+	
 	if (!node) 
 		return ;
-	i = 0;
-	if (node->args)
-	{
-		ft_printf(GR"args - "RES);
-		while (node->args[i])
-		{
-			ft_printf(BMAG"[%s] "RES, node->args[i]);
-			i++;
-		}
-		ft_printf("\n");
-    }
-	if (node->fd)
-	{
-		ft_printf(GR"fd -"RES);
-		ft_printf(BMAG" %i\n"RES, node->fd);
-	}
-	if (node->file)
-	{
-		ft_printf(GR"file -"RES);
-		ft_printf(BMAG" %s\n"RES, node->file);
-	}
 	i = -1;
+	if (!node->left && !node->right)
+	{
+		ft_printf(YLL"deatils of branch"RES);
+		if (node->type == PIPE)
+			ft_printf(BMAG" %s \n"RES, node->content);
+		else if(tk_is_cmd(&node->type))
+		{
+			while (node->args[++i])
+				ft_printf(BMAG" %s "RES, node->args[i]);
+			ft_printf("\n");
+			i = -1;
+			if (node->args)
+			{
+				ft_printf(GR"args - "RES);
+				while (node->args[++i])
+					ft_printf(BMAG"[%s] "RES, node->args[i]);
+			}
+			ft_printf("\n");
+		}
+		else if(tk_is_redir(&node->type))
+		{
+			ft_printf(BMAG" %s %s "RES, node->content, node->file);
+			ft_printf("\n");
+			if (node->fd == 0 || node->fd)
+			{
+				ft_printf(GR"fd -"RES);
+				ft_printf(BMAG" %i\n"RES, node->fd);
+			}
+			if (node->file)
+			{
+				ft_printf(GR"file -"RES);
+				ft_printf(BMAG" %s"RES, node->file);
+				ft_printf("\n");
+			}
+		}
+		if(node->straight)
+		{
+			i = -1;
+			ft_printf(GR"straight branch - "RES);
+			while (node->straight->args[++i])
+				ft_printf(BMAG"[%s] "RES, node->straight->args[i]);
+			ft_printf("\n");
+		}
+	}
+	else
+	{
+		if (node->right)
+		{
+			ft_printf(GR"right branch of [%s] is:"RES, node->content);
+			if (tk_is_redir(&node->right->type))
+				ft_printf(BMAG" %s %s "RES, node->right->content, node->right->file);
+			else
+				ft_printf(BMAG" %s "RES, node->right->content);
+			ft_printf("\n");
+			if (node->right->straight && tk_is_cmd(&node->right->straight->type))
+			{
+				ft_printf(GR"straight branch of [%s] is:"RES, node->right->content);
+				i = -1;
+				while (node->right->straight->args[++i])
+					ft_printf(BMAG" %s "RES, node->right->straight->args[i]);
+				ft_printf("\n");
+			}
+		}
+		if (node->left)
+		{
+			ft_printf(GR"left branch of [%s] is:"RES, node->content);
+			if (tk_is_redir(&node->left->type))
+				ft_printf(BMAG" %s %s "RES, node->left->content, node->left->file);
+			else
+				ft_printf(BMAG" %s "RES, node->left->content);
+			ft_printf("\n");
+			if (node->left->straight && tk_is_cmd(&node->left->straight->type))
+			{
+				ft_printf(GR"straight branch of [%s] is:"RES, node->left->content);
+				i = -1;
+				while (node->left->straight->args[++i])
+					ft_printf(BMAG" %s "RES, node->left->straight->args[i]);
+				ft_printf("\n");
+			}
+		}
+	}
+   	if (node->right)
+	{
+		ft_printf(BBLU"-----------------------------\n"RES);
+		print_tree(node->right);
+	}
 	if (node->left)
 	{
-		ft_printf(GR"left branch is:\n"RES);
-		while (node->left->args[++i])
-			ft_printf(BMAG" %s "RES, node->left->args[i]);
-		ft_printf("\n");
+		ft_printf(BBLU"-----------------------------\n"RES);
+		print_tree(node->left);
 	}
-	i = -1;
-	if (node->right)
+	if (node->straight)
 	{
-		ft_printf(GR"right branch is:\n"RES);
-		while (node->left->args[++i])
-			ft_printf(BMAG" %s "RES, node->right->args[i]);
-		ft_printf("\n");
+		ft_printf(BBLU"-----------------------------\n"RES);
+		print_tree(node->straight);
 	}
-	print_tree(node->left);
-    print_tree(node->right);
 }
+

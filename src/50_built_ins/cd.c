@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/03/30 19:05:23 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:15:33 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_cd(t_minishell **msh)
         ft_free_arrays((void **)args);
         return (EXIT_FAILURE);
     }
-	if (!getcwd(cwd, sizeof(cwd)))
+	if (!getcwd(cwd, PATH_MAX))
 	{
 		perror("cd: getcwd");
 		ft_free_arrays((void **)args);

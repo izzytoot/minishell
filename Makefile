@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
+#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/26 18:13:56 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/03/30 15:08:39 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,8 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./30_tokens/32_token_pipes_and_redir_r.c \
 							./30_tokens/33_token_redir_l.c\
 							./30_tokens/34_token_utils.c\
-							./40_parsing/40_parse_tokens.c\
-							./40_parsing/41_parse_utils.c\
+							./40_build_tree/40_tokens_to_tree.c\
+							./40_build_tree/41_tree_utils.c\
 							./50_built_ins/pwd.c\
 							./50_built_ins/env.c\
 							./50_built_ins/cd.c\

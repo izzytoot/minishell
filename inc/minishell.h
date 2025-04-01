@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/03/30 19:05:36 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:48:23 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,15 @@ typedef enum	e_token_type
 {
 	PIPE, // |
 	WORD, // cmd or arg
-	BT_CMD,
-	ARG,
-	W_SPACE,
+	BT_CMD, //builtin cmd
+	ARG, //arg for cmd
+	W_SPACE, //space
 	FILE_NAME,
 	REDIR_IN, // < (input)
 	REDIR_OUT, // > (output)
 	REDIR_APP, // >> (append)
 	REDIR_HD, // << (heredoc)
-	ENV_CMD, // envirm. variables
+	ENV_CMD, // envirm. cmd
 }	t_token_type;
 
 typedef struct s_token_lst
@@ -128,11 +128,13 @@ typedef struct s_token_lst
 typedef struct s_tree_node
 {
     t_token_type		type;
+	char				*content;
     char				**args;
 	char				*file; //for redirections
     int					fd;
 	struct s_tree_node	*left;
     struct s_tree_node	*right;
+	struct s_tree_node	*straight;
 }   t_tree_node;
 
 typedef struct s_minishell
@@ -227,17 +229,20 @@ void		check_quote(bool *in_quotes, char *quote_char, char c);
 void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
 char		*get_path(t_list *envp_list);
 
-/************ 40_parsing ************/
-//40_parse_tokens.c
+/************ 40_build_tree ************/
+//40_tokens_to_tree.c
 void		parse_line(t_minishell **msh);
-t_tree_node *build_tree(t_token_lst **tokens);
-t_tree_node *build_cmd_or_redir_node(t_token_lst **token_list);
+t_tree_node *build_pipe_node(t_token_lst **tokens);
+t_tree_node *build_redir_node(t_token_lst **token_list);
+t_tree_node *build_cmd_node(t_token_lst **token_list);
 void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
 
-//41_parse_utils.c
-t_tree_node *new_tree_node(t_token_type *type);
+//41_tree_utils.c
+t_tree_node *new_tree_node(t_token_type *type, char *content);
 char 		**conv_list_to_array(t_list *list);
 char		**ft_arraydup(char **array);
+bool		tk_is_redir(t_token_type *type);
+bool		tk_is_cmd(t_token_type *type);
 
 /************ 50_built_ins ************/
 void		print_work_dir(void);
