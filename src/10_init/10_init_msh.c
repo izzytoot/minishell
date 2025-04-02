@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/30 18:02:05 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:22:17 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ void ft_init_msh(t_minishell **msh, char **envp)
 
 void	prompt_and_read(t_minishell **msh)
 {
-	char *line;
+	char	*line;
+	char	*prompt;
 	
 	while (1)
 	{
-		line = readline("$ ");
+		prompt = get_prompt();
+		line = readline(prompt);
+		free(prompt);
 		add_history(line);
 		(*msh)->token_list = NULL;
 		(*msh)->promt_line = line;
@@ -55,4 +58,25 @@ void	prompt_and_read(t_minishell **msh)
 			get_tokens(&(*msh), -1, '\0');
 		free(line);
 	}
+}
+
+//info --> create prompt wih current dir
+
+char	*get_prompt(void)
+{
+	char	cwd[PATH_MAX];
+	char	*prompt;
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		perror("getcwd");
+		return (ft_strdup("$ "));
+	}
+	prompt = ft_strjoin(cwd, "$ ");
+	if (!prompt)
+	{
+		perror("ft_strjoin");
+		return (ft_strdup("$ "));
+	}
+	return (prompt);
 }
