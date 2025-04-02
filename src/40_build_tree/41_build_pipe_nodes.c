@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:23 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 16:42:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:22:03 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ t_tree_node *build_pipe_node(t_token_lst **token_list)
 	t_token_lst *prev_token;
 	 
 	curr_token = *token_list;
-	pipe_node = NULL;
-	prev_token = NULL;
+	ft_init_var((void **)&pipe_node, (void **)&prev_token, NULL, NULL);
 	while(curr_token)
 	{
 		if (curr_token->type == PIPE)

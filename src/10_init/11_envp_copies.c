@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_envp_copies.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/26 12:38:36 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:19:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	envp_to_list(t_minishell *msh, char **envp)
 	t_list	*new_node;
 	
 	i = -1;
-	temp_envp = NULL;
-	new_node = NULL;
+	ft_init_var((void **)&temp_envp, (void **)&new_node, NULL, NULL);
 	while(envp[++i])
 	{ 
 		temp_envp = ft_strdup(envp[i]);
