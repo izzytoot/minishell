@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/01 16:24:35 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:50:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	print_tree(t_tree_node *node)
 			ft_printf("\n");
 		}
 	}
-	if (!node->left && !node->right)
+	else if (!node->left && !node->right)
 	{
 		ft_printf(YLL"deatils of branch"RES);
 		if (node->type == PIPE)

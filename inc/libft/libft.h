@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/01 16:29:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:45:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*ft_itoa(int n);
 char	*ft_unsplit(char **args);
 char	**ft_split(char const *str, char c);
 char 	**ft_list_to_array(t_list *list);
+char	**ft_array_dup(char **array);
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/01 18:02:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:10:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,17 +232,25 @@ char		*get_path(t_list *envp_list);
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
 void		parse_line(t_minishell **msh);
-t_tree_node *build_pipe_node(t_token_lst **tokens);
-t_tree_node *build_redir_node(t_token_lst **token_list);
-t_tree_node *build_cmd_node(t_token_lst **token_list);
-void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
-
-//41_tree_utils.c
 t_tree_node *new_tree_node(t_token_type *type, char *content);
-char		**ft_arraydup(char **array);
+
+//41_build_pipe_nodes.c
+t_tree_node *build_pipe_node(t_token_lst **tokens);
+
+//42_build_redir_nodes.c
+t_tree_node *build_redir_node(t_token_lst **token_list);
+void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
+bool 		check_cmd(t_token_lst **token_list);
+
+//43_build_cmd_nodes.c
+t_tree_node *build_cmd_node(t_token_lst **token_list);
+
+//44_tree_utils.c
+t_token_lst *safe_next_token(t_token_lst *curr_token);
+t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
 bool		tk_is_redir(t_token_type *type);
 bool		tk_is_cmd(t_token_type *type);
-t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
+t_tree_node *add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
 
 /************ 50_built_ins ************/
 void		print_work_dir(void);
