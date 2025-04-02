@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/03/30 15:08:39 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/04/02 16:45:13 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,10 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./30_tokens/33_token_redir_l.c\
 							./30_tokens/34_token_utils.c\
 							./40_build_tree/40_tokens_to_tree.c\
-							./40_build_tree/41_tree_utils.c\
+							./40_build_tree/41_build_pipe_nodes.c\
+							./40_build_tree/42_build_redir_nodes.c\
+							./40_build_tree/43_build_cmd_nodes.c\
+							./40_build_tree/44_tree_utils.c\
 							./50_built_ins/pwd.c\
 							./50_built_ins/env.c\
 							./50_built_ins/cd.c\
