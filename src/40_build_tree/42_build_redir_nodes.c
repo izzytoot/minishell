@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 18:17:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:48:33 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ t_tree_node *build_redir_node(t_token_lst **token_list)
 	t_tree_node *cmd_node;
 	
 	curr_token = *token_list;
-	if (!curr_token)
-		return NULL;
-	redir_node = NULL;
-	new_redir = NULL;
-	cmd_node = NULL;
+	ft_init_var((void **)&redir_node, (void **)&new_redir, (void **)&cmd_node, NULL);
 	while(curr_token)
 	{
 		if (!curr_token->next && !tk_is_redir(&curr_token->type))

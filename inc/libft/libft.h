@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 16:45:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:48:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_free_arrays(void **array);
 void	ft_free_matrix(void ***matrix);
 void	ft_error_msg(char *message, char *complete, int if_exit);
 void	ft_close_pipe(int *fd);
+void	ft_init_var(void **var1, void **var2, void **var3, void **var4);
 
 t_list	*ft_lstnew(void *data);
 t_list	*ft_lstlast(t_list *lst);
