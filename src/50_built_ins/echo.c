@@ -6,12 +6,11 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/03/30 18:20:49 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:53:36 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
 
 //info --> prints the array using split (for test only)
 
@@ -21,7 +20,7 @@ void	ft_echo(t_minishell **msh)
 	int		i;
 	int		newline;
 	char	**args;
- 
+
 	args = ft_split((*msh)->promt_line, ' ');
 	i = 1;
 	if (args[1] && ft_strcmp(args[1], "-n") == 0)
@@ -40,7 +39,6 @@ void	ft_echo(t_minishell **msh)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
-
 //info --> prints the array using binary tree
 
 // void	ft_echo(t_minishell **msh)
@@ -48,7 +46,6 @@ void	ft_echo(t_minishell **msh)
 // 	int 		i;
 // 	int			newline;
 // 	t_tree_node	*current;
-	
 // 	i = 1;
 // 	newline = 1;
 // 	current = (*msh)->tree_root;
