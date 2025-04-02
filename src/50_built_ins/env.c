@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/03/30 19:06:48 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:44:20 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	print_env(t_minishell **msh)
 	return (ft_free_arrays((void **)args), EXIT_SUCCESS);
 }
 
+//info --> updates a var_name with new data
 
 int	update_env_var(t_list **env_list, const char *var_name, const char *data)
 {

@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/01 10:48:23 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:39:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include <signal.h> // signal()
 # include <stdbool.h> //bools
 # include <errno.h> //strerror, errno
-# include <limits.h> //macros
+# include <linux/limits.h> //macros
 # include "libft/libft.h"
 /* ************************************************************************** */
 /*                                    MACROS                                  */
@@ -252,7 +252,7 @@ void		ft_echo(t_minishell **msh);
 int			ft_cd(t_minishell **msh);
 int  		cd_home(char **args, char *target_dir);
 int			change_dir(char **args, char *target_dir);
-int			update_cd_env(t_minishell **msh, char *old_pwd, char *cwd);
+int			update_cd_env(t_minishell **msh, char *old_pwd);
 int			update_env_var(t_list **env_list, const char *var_name, const char *content);
 void		add_new_env_var(t_list **env_list, const char *var_name, const char *data);
 
