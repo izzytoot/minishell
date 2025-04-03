@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 15:50:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/03 19:11:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	print_tokens(t_minishell **msh)
 void	print_tree(t_tree_node *node)
 {
 	int	i = -1;
-	
+	char *token_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD"};
+
 	if (!node) 
 		return ;
 	i = -1;
@@ -72,11 +73,18 @@ void	print_tree(t_tree_node *node)
 		ft_printf(YLL"deatils of branch"RES);
 		if (node->type == PIPE)
 			ft_printf(BMAG" %s \n"RES, node->content);
-		else if(tk_is_cmd(&node->type))
+		else if(tk_is_word(&node->type))
 		{
 			while (node->args[++i])
 				ft_printf(BMAG" %s"RES, node->args[i]);
 			ft_printf("\n");
+			if (node->cmd)
+			{
+				ft_printf(GR"cmd - "RES);
+				ft_printf(BMAG"[%s]\n"RES, node->cmd);
+				ft_printf(GR"type - "RES);
+				ft_printf(BMAG"%s\n"RES, token_type[node->cmd_type]);
+			}
 			i = -1;
 			if (node->args)
 			{

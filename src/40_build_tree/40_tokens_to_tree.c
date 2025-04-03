@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 16:41:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/03 19:05:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_tree_node *new_tree_node(t_token_type *type, char *content)
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->straight = NULL;
+	new_node->cmd = NULL;
+	new_node->cmd_type = 0;
 	new_node->fd = 0;
 	return (new_node);
 }

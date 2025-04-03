@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/02 16:45:13 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/04/03 18:37:10 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
 							./50_built_ins/env.c\
 							./50_built_ins/cd.c\
 							./50_built_ins/echo.c\
+							./60_exec/60_exec_tree.c\
 							10_close_msh.c\
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)

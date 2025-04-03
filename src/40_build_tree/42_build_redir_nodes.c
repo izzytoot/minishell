@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 19:22:31 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:48:59 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ t_tree_node *build_redir_node(t_token_lst **token_list)
 	return (cmd_node);
 }
 
-void handle_redir(t_tree_node *redir_node, t_token_lst *current_token)
+void handle_redir(t_tree_node *redir_node, t_token_lst *curr_token)
 {
-	if (!current_token || !current_token->prev)
+	if (!curr_token || !curr_token->prev)
 		return;
-	if (current_token->prev->type == W_SPACE)
-		redir_node->file = ft_strdup(current_token->prev->prev->content);
+	if (curr_token->prev->type == W_SPACE)
+		redir_node->file = ft_strdup(curr_token->prev->prev->content);
 	else
-		redir_node->file = ft_strdup(current_token->prev->content);
-	redir_node->type = current_token->type;
-	if (current_token->type == REDIR_IN)
+		redir_node->file = ft_strdup(curr_token->prev->content);
+	redir_node->type = curr_token->type;
+	if (curr_token->type == REDIR_IN)
 		redir_node->fd = STDIN_FILENO;
 	else
 		redir_node->fd = STDOUT_FILENO;
@@ -66,13 +66,13 @@ bool check_cmd(t_token_lst **token_list)
 		{
 			if (curr_token->next)
 			{
-				while(!tk_is_cmd(&curr_token->type))
+				while(!tk_is_word(&curr_token->type))
 				{
-					if(tk_is_cmd(&curr_token->type))
+					if(tk_is_word(&curr_token->type))
 						break;
 					curr_token = curr_token->next;
 				}
-				if (!tk_is_cmd(&curr_token->type))
+				if (!tk_is_word(&curr_token->type))
 					return (false);
 			}
 			else

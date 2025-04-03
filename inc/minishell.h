@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/02 18:28:59 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:54:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef enum	e_token_type
 	REDIR_APP, // >> (append)
 	REDIR_HD, // << (heredoc)
 	ENV_CMD, // envirm. cmd
+	EXEC,
 }	t_token_type;
 
 typedef struct s_token_lst
@@ -130,7 +131,9 @@ typedef struct s_tree_node
     t_token_type		type;
 	char				*content;
     char				**args;
-	char				*file; //for redirections
+	char				*cmd;
+	t_token_type		cmd_type;		
+	char				*file;
     int					fd;
 	struct s_tree_node	*left;
     struct s_tree_node	*right;
@@ -245,12 +248,13 @@ bool 		check_cmd(t_token_lst **token_list);
 
 //43_build_cmd_nodes.c
 t_tree_node *build_cmd_node(t_token_lst **token_list);
+void		handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args);
 
 //44_tree_utils.c
 t_token_lst *safe_next_token(t_token_lst *curr_token);
 t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
 bool		tk_is_redir(t_token_type *type);
-bool		tk_is_cmd(t_token_type *type);
+bool		tk_is_word(t_token_type *type);
 t_tree_node *add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
 
 /************ 50_built_ins ************/
@@ -263,6 +267,12 @@ int			get_dir(char **args, char **target_dir);
 int			update_cd_env(t_minishell **msh, char *old_pwd);
 int			update_env_var(t_list **env_list, const char *var_name, const char *content);
 void		add_new_env_var(t_list **env_list, const char *var_name, const char *data);
+bool	tk_is_cmd(t_token_type *type);
+bool	tk_is_arg(t_token_type *type);
+
+/************ 60_exec_tree ************/
+void	exec_single_cmd(t_minishell **msh);
+//void	exec_tree(t_minishell **msh);
 
 /************ others ************/
 //10_close_msh.c
