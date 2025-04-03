@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 15:22:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:24:40 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,26 @@ void	prompt_and_read(t_minishell **msh)
 {
 	char	*line;
 	char	*prompt;
+	int		exit_code;
 	
+	exit_code = 0;
 	while (1)
 	{
-		prompt = get_prompt();
+		prompt = get_prompt(exit_code);
 		line = readline(prompt);
 		free(prompt);
 		add_history(line);
 		(*msh)->token_list = NULL;
 		(*msh)->promt_line = line;
 		if (strncmp(line, "pwd", 3) == 0) // ???
-			print_work_dir();
-		if (strncmp(line, "env", 3) == 0) // ???
-			print_env(msh);
-		if (strncmp(line, "cd", 2) == 0) // ???
-			ft_cd(msh);
-		if (strncmp(line, "echo", 4) == 0) // ???
-			ft_echo(msh);
-		if (strncmp(line, "exit", 4) == 0) // ??
+			exit_code = print_work_dir();
+		else if (strncmp(line, "env", 3) == 0) // ???
+			exit_code = print_env(msh);
+		else if (strncmp(line, "cd", 2) == 0) // ???
+			exit_code = ft_cd(msh);
+		else if (strncmp(line, "echo", 4) == 0) // ???
+			exit_code = ft_echo(msh);
+		else if (strncmp(line, "exit", 4) == 0) // ??
 		{
 			if (syntax_is_ok(&(*msh)))
 				get_tokens(&(*msh), -1, '\0');
@@ -62,21 +64,29 @@ void	prompt_and_read(t_minishell **msh)
 
 //info --> create prompt wih current dir
 
-char	*get_prompt(void)
+char	*get_prompt(int	exit_code)
 {
 	char	cwd[PATH_MAX];
 	char	*prompt;
+	char	*final_prompt;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("getcwd");
 		return (ft_strdup("$ "));
 	}
-	prompt = ft_strjoin(cwd, "$ ");
+	prompt = ft_strjoin(cwd, " ");
+	prompt = ft_strjoin(prompt, ft_itoa(exit_code));
 	if (!prompt)
 	{
 		perror("ft_strjoin");
 		return (ft_strdup("$ "));
 	}
-	return (prompt);
+	final_prompt = ft_strjoin(prompt, " $ ");
+	if (!final_prompt)
+	{
+		perror("ft_strjoin");
+		return (ft_strdup("$ "));
+	}
+	return (final_prompt);
 }

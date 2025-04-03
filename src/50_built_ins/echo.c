@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/02 12:53:36 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:39:51 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //info --> prints the array using split (for test only)
 
-void	ft_echo(t_minishell **msh)
+int	ft_echo(t_minishell **msh)
 
 {
 	int		i;
@@ -37,6 +37,7 @@ void	ft_echo(t_minishell **msh)
 	}
 	if (newline)
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	return (0);
 }
 
 //info --> prints the array using binary tree

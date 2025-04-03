@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/02 18:28:59 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:35:44 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define ERR_SYN_REDIR_OUT "msh: syntax error near unexpected token `>'\n"
 # define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
-# define ERR_CD_MANY_ARGS "bash: cd: too many arguments\n"
+# define ERR_CD_ARGS "msh: cd: too many arguments\n"
 
 //constants
 # define WHITESPACE " \t\n\r\v\f"
@@ -162,7 +162,7 @@ void		prompt_and_read(t_minishell **msh);
 //10_init_msh.c
 void		ft_init_msh(t_minishell **msh, char **envp);
 void		prompt_and_read(t_minishell **msh);
-char		*get_prompt(void);
+char		*get_prompt(int exit_code);
 
 //11_envp_copies.c
 void		copy_envp(t_minishell *msh, char **envp);
@@ -254,9 +254,9 @@ bool		tk_is_cmd(t_token_type *type);
 t_tree_node *add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
 
 /************ 50_built_ins ************/
-void		print_work_dir(void);
+int			print_work_dir(void);
 int			print_env(t_minishell **msh);
-void		ft_echo(t_minishell **msh);
+int			ft_echo(t_minishell **msh);
 
 int			ft_cd(t_minishell **msh);
 int			get_dir(char **args, char **target_dir);

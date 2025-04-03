@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/02 18:25:51 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:42:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	ft_cd(t_minishell **msh)
 	args = ft_split((*msh)->promt_line, ' ');
 	if (!args || !args[0])
 		return (ft_free_arrays((void **)args), EXIT_FAILURE);
+	if (args[2])
+	{
+		ft_printf(ERR_CD_ARGS);
+		return (ft_free_arrays((void **)args), EXIT_FAILURE);
+	}
 	if (!getcwd(cwd, PATH_MAX))
 	{
 		perror("cd: getcwd");
@@ -34,7 +39,7 @@ int	ft_cd(t_minishell **msh)
 		return (free(old_pwd), ft_free_arrays((void **)args), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
-		perror("cd");
+		ft_printf("msh: cd: %s: No such file or directory\n", target_dir);
 		return (free(old_pwd), ft_free_arrays((void **)args), EXIT_FAILURE);
 	}
 	update_cd_env(msh, old_pwd);

@@ -6,13 +6,13 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:09:20 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/02 12:52:39 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:38:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	print_work_dir(void)
+int	print_work_dir(void)
 {
 	char	path[PATH_MAX];
 
@@ -20,4 +20,5 @@ void	print_work_dir(void)
 		ft_printf("%s\n", path);
 	else
 		strerror(errno);
+	return (0);
 }
