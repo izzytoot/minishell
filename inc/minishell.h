@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/03 18:54:09 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/03 19:56:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@
 # define ERR_PRC "Error creating process\n"
 # define ERR_ENVP "Error duplicating environment variables\n"
 */
+# define ERR_CNOTFOUND "Error: command not found\n"
 # define ERR_SYN_EMPT "Command '' not found\n"
 # define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
 # define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
@@ -272,6 +273,9 @@ bool	tk_is_arg(t_token_type *type);
 
 /************ 60_exec_tree ************/
 void	exec_single_cmd(t_minishell **msh);
+void	create_child_process(t_minishell **msh, t_tree_node *node);
+void	exec_env_cmd(t_minishell **msh, t_tree_node *node);
+
 //void	exec_tree(t_minishell **msh);
 
 /************ others ************/
