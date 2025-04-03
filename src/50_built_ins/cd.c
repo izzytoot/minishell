@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/04 17:35:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:18:40 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	ft_cd(t_minishell **msh)
 	args = ft_split((*msh)->prompt_line, ' ');
 	if (!args || !args[0])
 		return (ft_free_arrays((void **)args), EXIT_FAILURE);
+	if (args[2])
+	{
+		ft_printf(ERR_CD_ARGS);
+		return (ft_free_arrays((void **)args), EXIT_FAILURE);
+	}
 	if (!getcwd(cwd, PATH_MAX))
 	{
 		perror("cd: getcwd");
@@ -34,7 +39,7 @@ int	ft_cd(t_minishell **msh)
 		return (free(old_pwd), ft_free_arrays((void **)args), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
-		perror("cd");
+		ft_printf("msh: cd: %s: No such file or directory\n", target_dir);
 		return (free(old_pwd), ft_free_arrays((void **)args), EXIT_FAILURE);
 	}
 	update_cd_env(msh, old_pwd);

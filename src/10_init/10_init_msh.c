@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/04 18:24:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:18:33 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,12 @@ void	prompt_and_read(t_minishell **msh)
 {
 	char	*line;
 	char	*prompt;
+	int		exit_code;
 	
+	exit_code = 0;
 	while (1)
 	{
-		if ((*msh)->prompt_line)
-		{	
-			free((*msh)->prompt_line);
-			(*msh)->prompt_line = NULL;
-		}
-		prompt = get_prompt();
+		prompt = get_prompt(exit_code);
 		line = readline(prompt);
 		free(prompt);
 		add_history(line);
@@ -72,21 +69,29 @@ void	prompt_and_read(t_minishell **msh)
 
 //info --> create prompt wih current dir
 
-char	*get_prompt(void)
+char	*get_prompt(int	exit_code)
 {
 	char	cwd[PATH_MAX];
 	char	*prompt;
+	char	*final_prompt;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("getcwd");
 		return (ft_strdup("$ "));
 	}
-	prompt = ft_strjoin(cwd, "$ ");
+	prompt = ft_strjoin(cwd, " ");
+	prompt = ft_strjoin(prompt, ft_itoa(exit_code));
 	if (!prompt)
 	{
 		perror("ft_strjoin");
 		return (ft_strdup("$ "));
 	}
-	return (prompt);
+	final_prompt = ft_strjoin(prompt, " $ ");
+	if (!final_prompt)
+	{
+		perror("ft_strjoin");
+		return (ft_strdup("$ "));
+	}
+	return (final_prompt);
 }

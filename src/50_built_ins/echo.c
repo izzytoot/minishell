@@ -6,15 +6,15 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/03 18:47:32 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:18:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 //info --> prints the array using split (for test only)
-/*
-void	ft_echo(t_minishell **msh)
+
+int	ft_echo(t_minishell **msh)
 
 {
 	int		i;
@@ -37,6 +37,7 @@ void	ft_echo(t_minishell **msh)
 	}
 	if (newline)
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	return (0);
 }
 
 //info --> prints the array using binary tree
