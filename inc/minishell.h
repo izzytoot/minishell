@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 12:25:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:56:54 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,9 +266,9 @@ bool		type_is_cmd(t_token_type *type);
 bool		type_is_arg(t_token_type *type);
 
 /************ 50_built_ins ************/
-int			print_work_dir(void);
-int			print_env(t_minishell **msh, t_tree_node **node);
-int			ft_echo(t_tree_node **node);
+void		print_work_dir(void);
+int			print_env(t_minishell **msh);
+void		ft_echo(t_minishell **msh);
 
 int			ft_cd(t_minishell **msh, t_tree_node **node);
 int			get_dir(t_tree_node **node, char **target_dir);
