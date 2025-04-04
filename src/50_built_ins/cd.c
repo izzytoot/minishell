@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/03 18:42:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:45:33 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_cd(t_minishell **msh)
 		return (ft_free_arrays((void **)args), EXIT_FAILURE);
 	if (args[2])
 	{
-		ft_printf(ERR_CD_ARGS);
+		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
 		return (ft_free_arrays((void **)args), EXIT_FAILURE);
 	}
 	if (!getcwd(cwd, PATH_MAX))

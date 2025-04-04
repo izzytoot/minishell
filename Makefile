@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/02 16:45:13 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/04/04 14:40:24 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,7 @@ clean:
 	@$(RM) $(OBJ)
 	@echo $(RED) "All minishell .o files were deleted!" $(RESET)
 
-fclean:
+fclean: clean
 	@$(RM) $(NAME)
 	@echo $(RED) "$(NAME) was deleted!" $(RESET)
 
