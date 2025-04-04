@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
 /*   Updated: 2025/04/07 12:25:41 by icunha-t         ###   ########.fr       */
+=======
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
+/*   Updated: 2025/04/04 17:32:34 by ddo-carm         ###   ########.fr       */
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +25,15 @@ int	print_env(t_minishell **msh, t_tree_node **node)
 {
 	t_list	*current;
 
+<<<<<<< HEAD
 	if (!node || !*node)
+=======
+	args = ft_split((*msh)->promt_line, ' ');
+	if (args && args[1])
+	{
+		ft_dprintf(STDERR_FILENO, "env: '%s': No such file or directory\n", args[1]);
+		ft_free_arrays((void **)args);
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 		return (EXIT_FAILURE);
 	if ((*node)->args[0])
 	{

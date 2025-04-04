@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
 /*   Updated: 2025/04/07 12:56:54 by icunha-t         ###   ########.fr       */
+=======
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
+/*   Updated: 2025/04/04 13:14:43 by ddo-carm         ###   ########.fr       */
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +134,18 @@ typedef struct s_token_lst
 typedef struct s_tree_node
 {
 	t_token_type		type;
+<<<<<<< HEAD
 	char				*op_content;
 	char				**cmd_content;
 	char				**args;
 	char				*cmd;
 	t_token_type		cmd_type;
 	char				*file;
+=======
+	char				*content;
+	char				**args;
+	char				*file; //for redirections
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 	int					fd;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
@@ -149,6 +162,10 @@ typedef struct s_minishell
 	t_tree_node *tree_root;	
 	char		**envp;
 	t_list		*envp_list; //enviroment variables line user, home, path, etc
+<<<<<<< HEAD
+=======
+	t_tree_node	*tree_root;
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 	bool		debug_mode;
 }	t_minishell;
 
@@ -249,6 +266,7 @@ t_tree_node	*build_pipe_node(t_token_lst **tokens);
 //42_build_redir_nodes.c
 t_tree_node	*build_redir_node(t_token_lst **token_list);
 void		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
+<<<<<<< HEAD
 t_tree_node	*attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
 bool		check_cmd(t_token_lst **token_list);
 t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
@@ -264,6 +282,19 @@ bool		type_is_redir(t_token_type *type);
 bool		type_is_word(t_token_type *type);
 bool		type_is_cmd(t_token_type *type);
 bool		type_is_arg(t_token_type *type);
+=======
+bool		check_cmd(t_token_lst **token_list);
+
+//43_build_cmd_nodes.c
+t_tree_node	*build_cmd_node(t_token_lst **token_list);
+
+//44_tree_utils.c
+t_token_lst	*safe_next_token(t_token_lst *curr_token);
+t_tree_node	*attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
+bool		tk_is_redir(t_token_type *type);
+bool		tk_is_cmd(t_token_type *type);
+t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 
 /************ 50_built_ins ************/
 void		print_work_dir(void);
@@ -277,6 +308,7 @@ int			update_env_var(t_list **env_list, const char *var_name,
 				const char *content);
 void		add_new_env_var(t_list **env_list, const char *var_name,
 				const char *data);
+<<<<<<< HEAD
 
 /************ 60_exec_tree ************/
 void		exec_single_cmd(t_minishell **msh);
@@ -284,6 +316,8 @@ void		create_child_process(t_minishell **msh, t_tree_node *node);
 void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
 
 //void	exec_tree(t_minishell **msh);
+=======
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 
 /************ others ************/
 //10_close_msh.c

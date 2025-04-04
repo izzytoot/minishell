@@ -3,10 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 13:30:18 by icunha-t          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2025/04/07 12:22:00 by icunha-t         ###   ########.fr        #
+=======
+#    Updated: 2025/04/04 17:29:59 by ddo-carm         ###   ########.fr        #
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 #                                                                              #
 # **************************************************************************** #
 

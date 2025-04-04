@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/07 12:21:56 by icunha-t         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/04 13:05:53 by ddo-carm         ###   ########.fr       */
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 /*                                                                            */
 /* ************************************************************************** */
 

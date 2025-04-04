@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
 /*   Updated: 2025/04/07 12:59:41 by icunha-t         ###   ########.fr       */
+=======
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
+/*   Updated: 2025/04/04 11:45:33 by ddo-carm         ###   ########.fr       */
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +32,12 @@ int	ft_cd(t_minishell **msh, t_tree_node **node)
 	if ((*node)->args[1])
 	{
 		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
+<<<<<<< HEAD
 		ft_printf("arg 1: %s\n", (*node)->args[1]);
 		return (EXIT_FAILURE);
+=======
+		return (ft_free_arrays((void **)args), EXIT_FAILURE);
+>>>>>>> 509bd70 (added dprintf, and did norm on libft)
 	}
 	if (!getcwd(cwd, PATH_MAX))
 		return (perror("cd: getcwd"), EXIT_FAILURE);
