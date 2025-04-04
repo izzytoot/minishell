@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/03 16:48:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:09:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_tree_node *build_redir_node(t_token_lst **token_list)
 	
 	curr_token = *token_list;
 	ft_init_var((void **)&redir_node, (void **)&new_redir, (void **)&cmd_node, NULL);
-	while(curr_token && (curr_token->next || tk_is_redir(&curr_token->type)))
+	while(curr_token && (curr_token->next || type_is_redir(&curr_token->type)))
 	{
-		if(tk_is_redir(&curr_token->type))
+		if(type_is_redir(&curr_token->type))
 		{
 			new_redir = new_tree_node(&curr_token->type, &curr_token->content[0]);
 			handle_redir(new_redir, curr_token);
@@ -55,6 +55,15 @@ void handle_redir(t_tree_node *redir_node, t_token_lst *curr_token)
 		redir_node->fd = STDOUT_FILENO;
 }
 
+t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir)
+{
+    if (!redir_node) 
+        return (new_redir);
+	else
+		redir_node->left = attach_redir(redir_node->left, new_redir);
+    return (redir_node);
+}
+
 bool check_cmd(t_token_lst **token_list)
 {
 	t_token_lst *curr_token;
@@ -62,17 +71,17 @@ bool check_cmd(t_token_lst **token_list)
 	curr_token = *token_list;
 	while(curr_token)
 	{
-		if(tk_is_redir(&curr_token->type))
+		if(type_is_redir(&curr_token->type))
 		{
 			if (curr_token->next)
 			{
-				while(!tk_is_word(&curr_token->type))
+				while(!type_is_redir(&curr_token->type))
 				{
-					if(tk_is_word(&curr_token->type))
+					if(type_is_word(&curr_token->type))
 						break;
 					curr_token = curr_token->next;
 				}
-				if (!tk_is_word(&curr_token->type))
+				if (!type_is_word(&curr_token->type))
 					return (false);
 			}
 			else
@@ -100,15 +109,3 @@ t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node)
 	return(final_redir);
 }
 
-
-t_token_lst *safe_next_token(t_token_lst *curr_token)
-{
-	t_token_lst *next_token;
-	
-	next_token = curr_token;
-	if (next_token->next && next_token->next->type == W_SPACE)
-		next_token = next_token->next->next;
-	else
-		next_token = curr_token->next;
-	return (next_token);
-}

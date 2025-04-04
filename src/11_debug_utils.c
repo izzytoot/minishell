@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/03 19:11:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:03:40 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_tree(t_tree_node *node)
 	if (!node) 
 		return ;
 	i = -1;
-	if (tk_is_redir(&node->type))
+	if (type_is_redir(&node->type))
 	{
 		ft_printf(YLL"deatils of branch"RES);
 		ft_printf(BMAG" %s %s "RES, node->content, node->file);
@@ -73,7 +73,7 @@ void	print_tree(t_tree_node *node)
 		ft_printf(YLL"deatils of branch"RES);
 		if (node->type == PIPE)
 			ft_printf(BMAG" %s \n"RES, node->content);
-		else if(tk_is_word(&node->type))
+		else if(type_is_word(&node->type))
 		{
 			while (node->args[++i])
 				ft_printf(BMAG" %s"RES, node->args[i]);
@@ -98,7 +98,7 @@ void	print_tree(t_tree_node *node)
 	if (node->right)
 	{
 		ft_printf(GR"right branch of [%s] is:"RES, node->content);
-		if (tk_is_redir(&node->right->type))
+		if (type_is_redir(&node->right->type))
 			ft_printf(BMAG" %s %s "RES, node->right->content, node->right->file);
 		else
 			ft_printf(BMAG" %s "RES, node->right->content);
@@ -107,7 +107,7 @@ void	print_tree(t_tree_node *node)
 	if (node->left)
 	{
 		ft_printf(GR"left branch of [%s] is:"RES, node->content);
-		if (tk_is_redir(&node->left->type))
+		if (type_is_redir(&node->left->type))
 			ft_printf(BMAG" %s %s "RES, node->left->content, node->left->file);
 		else
 			ft_printf(BMAG" %s "RES, node->left->content);

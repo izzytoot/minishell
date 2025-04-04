@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/03 19:56:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:04:27 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void		get_tokens(t_minishell **msh, int i, char quote_char);
 bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char);
 void		sub_tokenize(t_minishell **msh);
 void		handle_filename(t_token_lst *token_list);
-int			check_env_cmd(char *cmd, char *env_path, int i);
+char		*check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
 int			token_is_word(t_minishell **msh, int start);
@@ -245,7 +245,9 @@ t_tree_node *build_pipe_node(t_token_lst **tokens);
 //42_build_redir_nodes.c
 t_tree_node *build_redir_node(t_token_lst **token_list);
 void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
+t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
 bool 		check_cmd(t_token_lst **token_list);
+t_tree_node *add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
 
 //43_build_cmd_nodes.c
 t_tree_node *build_cmd_node(t_token_lst **token_list);
@@ -253,10 +255,10 @@ void		handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args)
 
 //44_tree_utils.c
 t_token_lst *safe_next_token(t_token_lst *curr_token);
-t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
-bool		tk_is_redir(t_token_type *type);
-bool		tk_is_word(t_token_type *type);
-t_tree_node *add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
+bool		type_is_redir(t_token_type *type);
+bool		type_is_word(t_token_type *type);
+bool		type_is_cmd(t_token_type *type);
+bool		type_is_arg(t_token_type *type);
 
 /************ 50_built_ins ************/
 void		print_work_dir(void);
@@ -268,8 +270,6 @@ int			get_dir(char **args, char **target_dir);
 int			update_cd_env(t_minishell **msh, char *old_pwd);
 int			update_env_var(t_list **env_list, const char *var_name, const char *content);
 void		add_new_env_var(t_list **env_list, const char *var_name, const char *data);
-bool	tk_is_cmd(t_token_type *type);
-bool	tk_is_arg(t_token_type *type);
 
 /************ 60_exec_tree ************/
 void	exec_single_cmd(t_minishell **msh);

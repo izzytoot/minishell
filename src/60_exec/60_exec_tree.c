@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/03 19:56:29 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:45:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exec_single_cmd(t_minishell **msh)
 		//else if (cmd_node->cmd =="exit")
 		//	ft_exit(&(*msh));
 	}
-	else
+	else if (cmd_node->type == ENV_CMD)
 		create_child_process(&(*msh), cmd_node);
 }
 
@@ -59,6 +59,10 @@ void	create_child_process(t_minishell **msh, t_tree_node *node)
 	{
 		if(node->type == ENV_CMD)
 			exec_env_cmd(&(*msh), node);
+		// if (node->type == PIPE)
+			// 	exec_redir(&(*msh), node);
+		// if (type_is_redir(&node->type))
+		// 	exec_redir(&(*msh), node);
 		exit(0); // to correct
 	}
 	else
@@ -68,16 +72,20 @@ void	create_child_process(t_minishell **msh, t_tree_node *node)
 void	exec_env_cmd(t_minishell **msh, t_tree_node *node)
 {
 	char 	**envp;
-	char 	**av;
+	char 	**args;
+	char	*env_path;
+	char	*path;
 	
 	if (!node || !node->cmd)
 	{
 		ft_putstr_fd(ERR_CNOTFOUND, STDERR_FILENO);
 		exit (127); //check
 	}
-	av = node->args;
+	env_path = get_path((*msh)->envp_list);
+	args = ft_split(node->content, ' ');
 	envp = (*msh)->envp;
-	execve(node->cmd, av, envp);
+	path = check_env_cmd(node->cmd, env_path, -1);
+	execve(path, args, envp);
 	free(envp);
 	exit(1);
 }
