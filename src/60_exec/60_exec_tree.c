@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/04 14:45:15 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:34:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	exec_env_cmd(t_minishell **msh, t_tree_node *node)
 		exit (127); //check
 	}
 	env_path = get_path((*msh)->envp_list);
-	args = ft_split(node->content, ' ');
+	args = node->cmd_content;
 	envp = (*msh)->envp;
 	path = check_env_cmd(node->cmd, env_path, -1);
 	execve(path, args, envp);
