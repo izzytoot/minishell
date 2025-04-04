@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/02 12:56:45 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:35:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	print_env(t_minishell **msh)
 	t_list	*current;
 	char	**args;
 
-	args = ft_split((*msh)->promt_line, ' ');
+	args = ft_split((*msh)->prompt_line, ' ');
 	if (args && args[1])
 	{
 		ft_putstr_fd("env: '", STDERR_FILENO);

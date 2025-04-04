@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/03 18:35:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:24:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void ft_init_msh(t_minishell **msh, char **envp)
 	if (!isatty(STDIN_FILENO))
 		close_minishell(*msh, EXIT_FAILURE);
 	init_all_null(&(*msh));
-	//(*msh)->msh_pid = my_getpid(*msh); // needs 2 exit when activated
 	copy_envp(*msh, envp);
 //	if ((*msh)->debug_mode)
 //		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
@@ -32,12 +31,17 @@ void	prompt_and_read(t_minishell **msh)
 	
 	while (1)
 	{
+		if ((*msh)->prompt_line)
+		{	
+			free((*msh)->prompt_line);
+			(*msh)->prompt_line = NULL;
+		}
 		prompt = get_prompt();
 		line = readline(prompt);
 		free(prompt);
 		add_history(line);
 		(*msh)->token_list = NULL;
-		(*msh)->promt_line = line;
+		(*msh)->prompt_line = line;
 	//	if (strncmp(line, "pwd", 3) == 0) // ???
 	//		print_work_dir();
 	//	if (strncmp(line, "env", 3) == 0) // ???
@@ -51,7 +55,7 @@ void	prompt_and_read(t_minishell **msh)
 			if (syntax_is_ok(&(*msh)))
 				get_tokens(&(*msh), -1, '\0');
 			ft_printf("exit\n");
-			free(line);
+			free_prompt_line(&(*msh));
 			close_minishell(*msh, EXIT_SUCCESS);
 		}
 		if (syntax_is_ok(&(*msh)))
@@ -62,7 +66,7 @@ void	prompt_and_read(t_minishell **msh)
 			//else
 			//	exec_tree(&(*msh));
 		}
-		free(line);
+		free_prompt_line(&(*msh));
 	}
 }
 

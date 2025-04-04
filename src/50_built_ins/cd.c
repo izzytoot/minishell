@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/03 18:43:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:35:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_cd(t_minishell **msh)
 	char	*old_pwd;
 	char	**args;
 
-	args = ft_split((*msh)->promt_line, ' ');
+	args = ft_split((*msh)->prompt_line, ' ');
 	if (!args || !args[0])
 		return (ft_free_arrays((void **)args), EXIT_FAILURE);
 	if (!getcwd(cwd, PATH_MAX))

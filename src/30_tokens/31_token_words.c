@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   31_token_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/26 00:36:25 by root             ###   ########.fr       */
+/*   Updated: 2025/04/04 17:34:31 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int token_is_space(t_minishell **msh, int start)
 	int			j;
 	t_token_lst	*new_token;
 	
-	line = (*msh)->promt_line;
+	line = (*msh)->prompt_line;
 	i = start;
 	j = 0;
     while (line[i] && ft_strchr(WHITESPACE, line[i]))
@@ -42,7 +42,7 @@ int	token_is_word(t_minishell **msh, int start)
 	int			j;
 	t_token_lst	*new_token;
 	
-	line = (*msh)->promt_line;
+	line = (*msh)->prompt_line;
 	i = start;
 	j = 0;
     while (line[i] && (!ft_strchr(OPERATOR, line[i])) && !ft_strchr(WHITESPACE, line[i]))
@@ -64,7 +64,7 @@ int	token_is_word_in_quotes(t_minishell **msh, int start, bool *in_quotes, char 
 	int			j;
 	t_token_lst	*new_token;
 	
-	line = (*msh)->promt_line;
+	line = (*msh)->prompt_line;
 	i = start;
 	j = 0;
     while (line[++i] && (line[i] != *quote_char))
