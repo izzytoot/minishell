@@ -6,10 +6,9 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 12:17:27 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:21:17 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -102,8 +101,7 @@ typedef enum e_cmd_type
 	//PATH
 }	t_cmd_type;
 
-
-typedef enum	e_token_type
+typedef enum e_token_type
 {
 	PIPE, // |
 	WORD, // cmd or arg
@@ -124,22 +122,19 @@ typedef struct s_token_lst
 	char				*content;
 	struct s_token_lst	*next;
 	struct s_token_lst	*prev;
-}	t_token_lst; 
+}	t_token_lst;
 
 typedef struct s_tree_node
 {
-    t_token_type		type;
-	char				*op_content;
-	char				**cmd_content;
+	t_token_type		type;
+	char				*content;
 	char				**args;
-	char				*cmd;
-	t_token_type		cmd_type;		
-	char				*file;
+	char				*file; //for redirections
 	int					fd;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 	struct s_tree_node	*straight;
-}   t_tree_node;
+}	t_tree_node;
 
 typedef struct s_minishell
 {
@@ -172,10 +167,10 @@ char		*get_prompt(int exit_code);
 void		copy_envp(t_minishell *msh, char **envp);
 char		**envp_to_array(t_minishell *msh, char **envp);
 void		envp_to_list(t_minishell *msh, char **envp);
-char 		*add_envp_newline(char *envp);
+char		*add_envp_newline(char *envp);
 
 //12_init_utils.c
-void		init_all_null (t_minishell **msh);
+void		init_all_null(t_minishell **msh);
 int			my_getpid(t_minishell *msh);
 
 /************ 20_syntax ************/
@@ -185,7 +180,7 @@ bool		hd_open(const char *line); // para remover quando resolvermos heredoc
 bool		unsupported_operators(const char *line);
 
 //21_syntax_quotes.c
-bool 		unclosed_quotes(const char *line);
+bool		unclosed_quotes(const char *line);
 bool		empty_quotes(const char *line);
 
 //22_syntax_pipes.c
@@ -208,26 +203,31 @@ bool		check_in_quotes(char c, bool *in_quotes);
 /************ 30_tokens ************/
 //30_tokenizer.c
 void		get_tokens(t_minishell **msh, int i, char quote_char);
-bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char);
+bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char); //too many args
 void		sub_tokenize(t_minishell **msh);
 void		handle_filename(t_token_lst *token_list);
 char		*check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
 int			token_is_word(t_minishell **msh, int start);
-int			token_is_word_in_quotes(t_minishell **msh, int start, bool *in_quotes, char *quote_char);
-int 		token_is_space(t_minishell **msh, int start);
+int			token_is_word_in_quotes(t_minishell **msh, int start,
+				bool *in_quotes, char *quote_char);
+int			token_is_space(t_minishell **msh, int start);
 
 //32_token_pipes_and_redir_r.c
 int			token_is_pipe(t_minishell **msh, int start);
 int			redir_r(t_minishell **msh, int start);
-int			token_is_redir_app(t_minishell **msh, const char *line, char *redir_app, int i);
-int			token_is_redir_out(t_minishell **msh, const char *line, char *redir_out, int i);
+int			token_is_redir_app(t_minishell **msh, const char *line,
+				char *redir_app, int i);
+int			token_is_redir_out(t_minishell **msh, const char *line,
+				char *redir_out, int i);
 
 //33_token_redir_l.c
 int			redir_l(t_minishell **msh, int start);
-int			token_is_redir_hd(t_minishell **msh, const char *line, char *redir_hd, int i);
-int			token_is_redir_in(t_minishell **msh, const char *line, char *redir_in, int i);
+int			token_is_redir_hd(t_minishell **msh, const char *line,
+				char *redir_hd, int i);
+int			token_is_redir_in(t_minishell **msh, const char *line,
+				char *redir_in, int i);
 
 //34_token_utils.c
 void		check_quote(bool *in_quotes, char *quote_char, char c);
@@ -237,10 +237,10 @@ char		*get_path(t_list *envp_list);
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
 void		parse_line(t_minishell **msh);
-t_tree_node *new_tree_node(t_token_type *type, char *content);
+t_tree_node	*new_tree_node(t_token_type *type, char *content);
 
 //41_build_pipe_nodes.c
-t_tree_node *build_pipe_node(t_token_lst **tokens);
+t_tree_node	*build_pipe_node(t_token_lst **tokens);
 
 //42_build_redir_nodes.c
 t_tree_node *build_redir_node(t_token_lst **token_list);
@@ -269,21 +269,17 @@ int			ft_echo(t_minishell **msh);
 int			ft_cd(t_minishell **msh);
 int			get_dir(char **args, char **target_dir);
 int			update_cd_env(t_minishell **msh, char *old_pwd);
-int			update_env_var(t_list **env_list, const char *var_name, const char *content);
-void		add_new_env_var(t_list **env_list, const char *var_name, const char *data);
-
-/************ 60_exec_tree ************/
-void	exec_single_cmd(t_minishell **msh);
-void	create_child_process(t_minishell **msh, t_tree_node *node);
-void	exec_env_cmd(t_minishell **msh, t_tree_node *node);
-
-//void	exec_tree(t_minishell **msh);
+int			update_env_var(t_list **env_list, const char *var_name,
+				const char *content);
+void		add_new_env_var(t_list **env_list, const char *var_name,
+				const char *data);
 
 /************ others ************/
 //10_close_msh.c
 void		close_minishell(t_minishell	*msh, int exit_code);
 void		free_msh(t_minishell *msh);
-void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node, char *array);
+void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node,
+				char *array);
 void		free_tokens(t_token_lst *token_list);
 void		free_prompt_line(t_minishell **msh);
 void		free_tree(t_tree_node *node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:48:18 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 18:48:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:29:45 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ void	ft_init_var(void **var1, void **var2, void **var3, void **var4)
 	if (var4)
 		*var4 = NULL;
 }
-

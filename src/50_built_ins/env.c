@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/04 17:35:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:22:13 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int	print_env(t_minishell **msh)
 	args = ft_split((*msh)->prompt_line, ' ');
 	if (args && args[1])
 	{
-		ft_putstr_fd("env: '", STDERR_FILENO);
-		ft_putstr_fd(args[1], STDERR_FILENO);
-		ft_putstr_fd("': No such file or directory\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "env: '%s': No such file or directory\n", args[1]);
 		ft_free_arrays((void **)args);
 		return (EXIT_FAILURE);
 	}

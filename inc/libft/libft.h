@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/03 16:44:28 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:21:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include "printf/ft_printf.h"
 # include "gnl/get_next_line.h"
+# include "dprintf/ft_dprintf.h"
 
 typedef struct s_list
 {
@@ -42,7 +43,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
-size_t  ft_strlen_until(const char *s, char c);
+size_t	ft_strlen_until(const char *s, char c);
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
@@ -56,7 +57,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_itoa(int n);
 char	*ft_unsplit(char **args);
 char	**ft_split(char const *str, char c);
-char 	**ft_list_to_array(t_list *list);
+char	**ft_list_to_array(t_list *list);
 char	**ft_array_dup(char **array);
 
 void	ft_bzero(void *s, size_t n);

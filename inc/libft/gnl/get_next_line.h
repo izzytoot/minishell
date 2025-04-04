@@ -25,7 +25,7 @@
 
 typedef struct s_gnllist
 {
-	char			*str_buff;
+	char				*str_buff;
 	struct s_gnllist	*next;
 }				t_gnllist;
 

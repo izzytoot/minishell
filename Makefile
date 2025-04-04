@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/03 18:37:10 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/04/07 12:19:07 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,7 @@ clean:
 	@$(RM) $(OBJ)
 	@echo $(RED) "All minishell .o files were deleted!" $(RESET)
 
-fclean:
+fclean: clean
 	@$(RM) $(NAME)
 	@echo $(RED) "$(NAME) was deleted!" $(RESET)
 

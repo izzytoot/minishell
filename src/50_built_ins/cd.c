@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/07 12:18:40 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:22:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_cd(t_minishell **msh)
 		return (ft_free_arrays((void **)args), EXIT_FAILURE);
 	if (args[2])
 	{
-		ft_printf(ERR_CD_ARGS);
+		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
 		return (ft_free_arrays((void **)args), EXIT_FAILURE);
 	}
 	if (!getcwd(cwd, PATH_MAX))
