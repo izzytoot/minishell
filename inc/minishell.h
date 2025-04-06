@@ -12,8 +12,12 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/04 13:14:43 by ddo-carm         ###   ########.fr       */
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
+=======
+/*   Updated: 2025/04/06 18:52:34 by ddo-carm         ###   ########.fr       */
+>>>>>>> 52d9fa8 (norm in libft checked)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,17 +139,23 @@ typedef struct s_tree_node
 {
 	t_token_type		type;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 52d9fa8 (norm in libft checked)
 	char				*op_content;
 	char				**cmd_content;
 	char				**args;
 	char				*cmd;
 	t_token_type		cmd_type;
 	char				*file;
+<<<<<<< HEAD
 =======
 	char				*content;
 	char				**args;
 	char				*file; //for redirections
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
+=======
+>>>>>>> 52d9fa8 (norm in libft checked)
 	int					fd;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
@@ -267,6 +277,9 @@ t_tree_node	*build_pipe_node(t_token_lst **tokens);
 t_tree_node	*build_redir_node(t_token_lst **token_list);
 void		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 52d9fa8 (norm in libft checked)
 t_tree_node	*attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
 bool		check_cmd(t_token_lst **token_list);
 t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
