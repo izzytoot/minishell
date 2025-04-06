@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/06 22:50:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/06 23:50:17 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ int	ft_cd(t_minishell **msh, t_tree_node **node)
 	if ((*node)->args[1])
 	{
 		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
-		ft_printf("arg 1: %s\n", (*node)->args[1]);
 		return (EXIT_FAILURE);
 	}
 	if (!getcwd(cwd, PATH_MAX))
 		return (perror("cd: getcwd"), EXIT_FAILURE);
 	old_pwd = ft_strjoin(ft_strdup(cwd), "\n");
-	if (get_dir(&(*node), &target_dir) != EXIT_SUCCESS)
+	if (get_dir(node, &target_dir) != EXIT_SUCCESS)
 		return (free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
@@ -54,6 +53,15 @@ int	get_dir(t_tree_node **node, char **target_dir)
 		if (!*target_dir)
 		{
 			ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
+			return (EXIT_FAILURE);
+		}
+	}
+	else if (ft_strncmp((*node)->args[0], "..", 2) == 0) //not seen as arg by tree
+	{
+		*target_dir = getenv("OLDPWD");
+		if (!*target_dir)
+		{
+			ft_putstr_fd("cd: OLDPWD not set\n", STDERR_FILENO);
 			return (EXIT_FAILURE);
 		}
 	}
