@@ -8,6 +8,7 @@
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2025/04/07 12:59:48 by icunha-t         ###   ########.fr       */
 =======
 /*   Updated: 2025/04/06 18:55:06 by ddo-carm         ###   ########.fr       */
@@ -15,6 +16,9 @@
 =======
 /*   Updated: 2025/04/06 21:28:20 by ddo-carm         ###   ########.fr       */
 >>>>>>> 493c1e9 (echo and env updated to binary tree)
+=======
+/*   Updated: 2025/04/06 21:30:21 by ddo-carm         ###   ########.fr       */
+>>>>>>> 18dce83 (cd working with binary tree)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +78,7 @@ int	ft_echo(t_minishell **msh)
 >>>>>>> 493c1e9 (echo and env updated to binary tree)
 	newline = 1;
 	if (!node || !*node)
-		return (1);
+		return (EXIT_FAILURE);
 	if ((*node)->args[1] && ft_strcmp((*node)->args[1], "-n") == 0)
 	{
 		newline = 0;

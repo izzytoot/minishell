@@ -13,11 +13,15 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2025/04/04 11:45:33 by ddo-carm         ###   ########.fr       */
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
 =======
 /*   Updated: 2025/04/06 21:28:32 by ddo-carm         ###   ########.fr       */
 >>>>>>> 493c1e9 (echo and env updated to binary tree)
+=======
+/*   Updated: 2025/04/06 22:50:53 by ddo-carm         ###   ########.fr       */
+>>>>>>> 18dce83 (cd working with binary tree)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +41,16 @@ int	ft_cd(t_minishell **msh, t_tree_node **node)
 	{
 		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ft_printf("arg 1: %s\n", (*node)->args[1]);
 		return (EXIT_FAILURE);
 =======
 		return (ft_free_arrays((void **)args), EXIT_FAILURE);
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
+=======
+		ft_printf("arg 1: %s\n", (*node)->args[1]);
+		return (EXIT_FAILURE);
+>>>>>>> 18dce83 (cd working with binary tree)
 	}
 	if (!getcwd(cwd, PATH_MAX))
 		return (perror("cd: getcwd"), EXIT_FAILURE);

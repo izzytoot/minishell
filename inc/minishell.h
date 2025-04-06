@@ -14,6 +14,7 @@
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2025/04/04 13:14:43 by ddo-carm         ###   ########.fr       */
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
 =======
@@ -22,6 +23,9 @@
 =======
 /*   Updated: 2025/04/06 21:09:42 by ddo-carm         ###   ########.fr       */
 >>>>>>> 493c1e9 (echo and env updated to binary tree)
+=======
+/*   Updated: 2025/04/06 21:33:33 by ddo-carm         ###   ########.fr       */
+>>>>>>> 18dce83 (cd working with binary tree)
 /*                                                                            */
 /* ************************************************************************** */
 

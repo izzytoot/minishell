@@ -7,10 +7,14 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2025/04/06 22:40:25 by ddo-carm         ###   ########.fr       */
 =======
 /*   Updated: 2025/04/06 21:08:56 by ddo-carm         ###   ########.fr       */
 >>>>>>> 493c1e9 (echo and env updated to binary tree)
+=======
+/*   Updated: 2025/04/06 22:40:25 by ddo-carm         ###   ########.fr       */
+>>>>>>> 18dce83 (cd working with binary tree)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +36,17 @@ void	exec_single_cmd(t_minishell **msh)
 		if (ft_strcmp(cmd_node->cmd, "echo") == 0)
 			ft_echo(&cmd_node);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		else if (ft_strcmp(cmd_node->cmd, "cd") == 0)
 			ft_cd(msh, &cmd_node);
 =======
 		// else if (ft_strcmp(cmd_node->cmd, "cd") == 0)
 		// 	ft_cd(&cmd_node);
 >>>>>>> 493c1e9 (echo and env updated to binary tree)
+=======
+		else if (ft_strcmp(cmd_node->cmd, "cd") == 0)
+			ft_cd(msh, &cmd_node);
+>>>>>>> 18dce83 (cd working with binary tree)
 		else if (ft_strcmp(cmd_node->cmd, "pwd") == 0)
 			print_work_dir();
 		//else if (cmd_node->cmd =="export")
@@ -46,10 +55,14 @@ void	exec_single_cmd(t_minishell **msh)
 		//	ft_unset(&(*msh));
 		else if (ft_strcmp(cmd_node->cmd, "env") == 0)
 <<<<<<< HEAD
+<<<<<<< HEAD
 			print_env(msh, &cmd_node);
 =======
 			print_env(&(*msh), &cmd_node);
 >>>>>>> 493c1e9 (echo and env updated to binary tree)
+=======
+			print_env(msh, &cmd_node);
+>>>>>>> 18dce83 (cd working with binary tree)
 		//else if (cmd_node->cmd =="exit")
 		//	ft_exit(&(*msh));
 	}
