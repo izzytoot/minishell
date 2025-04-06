@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/04 13:14:43 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/06 18:45:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 # define ERR_PRC "Error creating process\n"
 # define ERR_ENVP "Error duplicating environment variables\n"
 */
+# define ERR_CNOTFOUND "Error: command not found\n"
 # define ERR_SYN_EMPT "Command '' not found\n"
 # define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
 # define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
@@ -125,11 +126,14 @@ typedef struct s_token_lst
 
 typedef struct s_tree_node
 {
-	t_token_type		type;
-	char				*content;
-	char				**args;
-	char				*file; //for redirections
-	int					fd;
+    t_token_type		type;
+	char				*op_content;
+	char				**cmd_content;
+    char				**args;
+	char				*cmd;
+	t_token_type		cmd_type;		
+	char				*file;
+    int					fd;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 	struct s_tree_node	*straight;
@@ -205,7 +209,7 @@ void		get_tokens(t_minishell **msh, int i, char quote_char);
 bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char); //too many args
 void		sub_tokenize(t_minishell **msh);
 void		handle_filename(t_token_lst *token_list);
-int			check_env_cmd(char *cmd, char *env_path, int i);
+char		*check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
 int			token_is_word(t_minishell **msh, int start);
@@ -242,19 +246,23 @@ t_tree_node	*new_tree_node(t_token_type *type, char *content);
 t_tree_node	*build_pipe_node(t_token_lst **tokens);
 
 //42_build_redir_nodes.c
-t_tree_node	*build_redir_node(t_token_lst **token_list);
-void		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
-bool		check_cmd(t_token_lst **token_list);
+t_tree_node *build_redir_node(t_token_lst **token_list);
+void 		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
+t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
+bool 		check_cmd(t_token_lst **token_list);
+t_tree_node *add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
 
 //43_build_cmd_nodes.c
-t_tree_node	*build_cmd_node(t_token_lst **token_list);
+t_tree_node *build_cmd_node(t_token_lst **token_list);
+void		handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args);
+char 		**join_cmd_and_args(char *cmd, char **args);
 
 //44_tree_utils.c
-t_token_lst	*safe_next_token(t_token_lst *curr_token);
-t_tree_node	*attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
-bool		tk_is_redir(t_token_type *type);
-bool		tk_is_cmd(t_token_type *type);
-t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
+t_token_lst *safe_next_token(t_token_lst *curr_token);
+bool		type_is_redir(t_token_type *type);
+bool		type_is_word(t_token_type *type);
+bool		type_is_cmd(t_token_type *type);
+bool		type_is_arg(t_token_type *type);
 
 /************ 50_built_ins ************/
 int			print_work_dir(void);
@@ -268,6 +276,13 @@ int			update_env_var(t_list **env_list, const char *var_name,
 				const char *content);
 void		add_new_env_var(t_list **env_list, const char *var_name,
 				const char *data);
+
+/************ 60_exec_tree ************/
+void	exec_single_cmd(t_minishell **msh);
+void	create_child_process(t_minishell **msh, t_tree_node *node);
+void	exec_env_cmd(t_minishell **msh, t_tree_node *node);
+
+//void	exec_tree(t_minishell **msh);
 
 /************ others ************/
 //10_close_msh.c

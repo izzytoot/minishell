@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/02 19:20:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:05:10 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 			break ;
 	}
 	sub_tokenize(&(*msh));
-//	if ((*msh)->debug_mode)
-//			print_tokens(&(*msh)); //DEBUG TO DELETE
+	//if ((*msh)->debug_mode)
+	//		print_tokens(&(*msh)); //DEBUG TO DELETE
 	parse_line(&(*msh));
 	return ;
 }
@@ -112,7 +112,7 @@ void	handle_filename(t_token_lst *token_list)
 	}
 }
 
-int	check_env_cmd(char *cmd, char *env_path, int i)
+char	*check_env_cmd(char *cmd, char *env_path, int i)
 {
 	char	**paths;
 	char	*part_path;
@@ -129,12 +129,11 @@ int	check_env_cmd(char *cmd, char *env_path, int i)
 		free(part_path);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-			free(cmd_path);
 			ft_free_arrays((void **)paths);
-			return(1);
+			return(cmd_path);
 		}
 		free(cmd_path);
 	}
 	ft_free_arrays((void **)paths);
-	return(0);	
+	return(NULL);	
 }
