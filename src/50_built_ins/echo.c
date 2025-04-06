@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/06 18:47:07 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/06 18:55:06 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //info --> prints the array using split (for test only)
 /*
-void	ft_echo(t_minishell **msh)
+int	ft_echo(t_minishell **msh)
 
 {
 	int		i;
@@ -42,11 +42,12 @@ void	ft_echo(t_minishell **msh)
 
 //info --> prints the array using binary tree
 */
-void	ft_echo(t_minishell **msh)
+int	ft_echo(t_minishell **msh)
 {
 	int 		i;
 	int			newline;
 	t_tree_node	*current;
+
 	i = 0; // tem que ser 0
 	newline = 1;
 	current = (*msh)->tree_root; //temos que pensar como colocar este node como node atual e nao so a root
@@ -66,4 +67,5 @@ void	ft_echo(t_minishell **msh)
 	}
 	if (newline)
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	return (0);
 }
