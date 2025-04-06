@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 12:23:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:24:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,8 +270,8 @@ int			print_work_dir(void);
 int			print_env(t_minishell **msh, t_tree_node **node);
 int			ft_echo(t_tree_node **node);
 
-int			ft_cd(t_minishell **msh);
-int			get_dir(char **args, char **target_dir);
+int			ft_cd(t_minishell **msh, t_tree_node **node);
+int			get_dir(t_tree_node **node, char **target_dir);
 int			update_cd_env(t_minishell **msh, char *old_pwd);
 int			update_env_var(t_list **env_list, const char *var_name,
 				const char *content);

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/07 12:23:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:24:36 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_echo(t_tree_node **node)
 	i = 0;
 	newline = 1;
 	if (!node || !*node)
-		return (1);
+		return (EXIT_FAILURE);
 	if ((*node)->args[1] && ft_strcmp((*node)->args[1], "-n") == 0)
 	{
 		newline = 0;
