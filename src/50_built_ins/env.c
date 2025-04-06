@@ -14,6 +14,7 @@
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2025/04/04 17:32:34 by ddo-carm         ###   ########.fr       */
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
 =======
@@ -22,6 +23,9 @@
 =======
 /*   Updated: 2025/04/06 22:51:02 by ddo-carm         ###   ########.fr       */
 >>>>>>> 18dce83 (cd working with binary tree)
+=======
+/*   Updated: 2025/04/06 22:53:21 by ddo-carm         ###   ########.fr       */
+>>>>>>> afaf0e7 (env working)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +59,7 @@ int	print_env(t_minishell **msh, t_tree_node **node)
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if ((*node)->args)
+	if ((*node)->args[0])
 	{
 >>>>>>> 493c1e9 (echo and env updated to binary tree)
 		ft_dprintf(STDERR_FILENO, "env: '%s': No such file or directory\n",
