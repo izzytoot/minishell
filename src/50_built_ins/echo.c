@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/07 12:18:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:23:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ int	ft_echo(t_minishell **msh)
 
 //info --> prints the array using binary tree
 */
-void	ft_echo(t_minishell **msh)
+int	ft_echo(t_minishell **msh)
 {
 	int 		i;
 	int			newline;
 	t_tree_node	*current;
+
 	i = 0; // tem que ser 0
 	newline = 1;
 	current = (*msh)->tree_root; //temos que pensar como colocar este node como node atual e nao so a root
@@ -66,4 +67,5 @@ void	ft_echo(t_minishell **msh)
 	}
 	if (newline)
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	return (0);
 }
