@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/07 12:22:13 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:24:03 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,16 @@
 
 //info --> prints env list
 
-int	print_env(t_minishell **msh)
+int	print_env(t_minishell **msh, t_tree_node **node)
 {
-	t_list	*current;
-	char	**args;
+	t_list *current;
 
-	args = ft_split((*msh)->prompt_line, ' ');
-	if (args && args[1])
+	if (!node || !*node)
+		return (1);
+	if ((*node)->args)
 	{
-		ft_dprintf(STDERR_FILENO, "env: '%s': No such file or directory\n", args[1]);
-		ft_free_arrays((void **)args);
-		return (EXIT_FAILURE);
-	}
-	if (!(*msh)->envp_list)
-	{
-		ft_free_arrays((void **)args);
+		ft_dprintf(STDERR_FILENO, "env: '%s': No such file or directory\n",
+			(*node)->args[0]);
 		return (EXIT_FAILURE);
 	}
 	current = (*msh)->envp_list;
@@ -37,7 +32,7 @@ int	print_env(t_minishell **msh)
 		ft_putstr_fd(current->content, STDOUT_FILENO);
 		current = current->next;
 	}
-	return (ft_free_arrays((void **)args), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 //info --> updates a var_name with new data
@@ -70,6 +65,8 @@ int	update_env_var(t_list **env_list, const char *var_name, const char *data)
 	add_new_env_var(env_list, var_name, data);
 	return (EXIT_SUCCESS);
 }
+
+//info --> adds a new var_name with new data to the env list
 
 void	add_new_env_var(t_list **env_list, const char *var_name,
 			const char *data)
