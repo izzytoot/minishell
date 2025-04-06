@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/06 18:52:34 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/06 21:09:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef struct s_tree_node
 	char				**cmd_content;
 	char				**args;
 	char				*cmd;
-	t_token_type		cmd_type;		
+	t_token_type		cmd_type;
 	char				*file;
 	int					fd;
 	struct s_tree_node	*left;
@@ -155,6 +155,7 @@ typedef struct s_minishell
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
+
 /************ 00_main ************/
 //01_main.c
 int			main(int ac, char **av, char **envp);
@@ -266,8 +267,8 @@ bool		type_is_arg(t_token_type *type);
 
 /************ 50_built_ins ************/
 int			print_work_dir(void);
-int			print_env(t_minishell **msh);
-int			ft_echo(t_minishell **msh);
+int			print_env(t_minishell **msh, t_tree_node **node);
+int			ft_echo(t_tree_node **node);
 
 int			ft_cd(t_minishell **msh);
 int			get_dir(char **args, char **target_dir);

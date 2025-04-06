@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/04 16:34:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/06 21:08:56 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	exec_single_cmd(t_minishell **msh)
 	if (cmd_node->type == BT_CMD)
 	{
 		if (ft_strcmp(cmd_node->cmd, "echo") == 0)
-			ft_echo(&(*msh));
-		else if (ft_strcmp(cmd_node->cmd, "cd") == 0)
-			ft_cd(&(*msh));
+			ft_echo(&cmd_node);
+		// else if (ft_strcmp(cmd_node->cmd, "cd") == 0)
+		// 	ft_cd(&cmd_node);
 		else if (ft_strcmp(cmd_node->cmd, "pwd") == 0)
 			print_work_dir();
 		//else if (cmd_node->cmd =="export")
@@ -36,7 +36,7 @@ void	exec_single_cmd(t_minishell **msh)
 		//else if (cmd_node->cmd == "unset")
 		//	ft_unset(&(*msh));
 		else if (ft_strcmp(cmd_node->cmd, "env") == 0)
-			print_env(&(*msh));
+			print_env(&(*msh), &cmd_node);
 		//else if (cmd_node->cmd =="exit")
 		//	ft_exit(&(*msh));
 	}
