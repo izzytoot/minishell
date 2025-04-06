@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/06 21:26:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/06 22:51:02 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 int	print_env(t_minishell **msh, t_tree_node **node)
 {
-	t_list *current;
+	t_list	*current;
 
 	if (!node || !*node)
-		return (1);
+		return (EXIT_FAILURE);
 	if ((*node)->args)
 	{
 		ft_dprintf(STDERR_FILENO, "env: '%s': No such file or directory\n",

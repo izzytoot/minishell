@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/06 21:09:42 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/06 21:33:33 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,8 +270,8 @@ int			print_work_dir(void);
 int			print_env(t_minishell **msh, t_tree_node **node);
 int			ft_echo(t_tree_node **node);
 
-int			ft_cd(t_minishell **msh);
-int			get_dir(char **args, char **target_dir);
+int			ft_cd(t_minishell **msh, t_tree_node **node);
+int			get_dir(t_tree_node **node, char **target_dir);
 int			update_cd_env(t_minishell **msh, char *old_pwd);
 int			update_env_var(t_list **env_list, const char *var_name,
 				const char *content);
