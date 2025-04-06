@@ -13,11 +13,15 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2025/04/04 13:14:43 by ddo-carm         ###   ########.fr       */
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
 =======
 /*   Updated: 2025/04/06 18:52:34 by ddo-carm         ###   ########.fr       */
 >>>>>>> 52d9fa8 (norm in libft checked)
+=======
+/*   Updated: 2025/04/06 21:09:42 by ddo-carm         ###   ########.fr       */
+>>>>>>> 493c1e9 (echo and env updated to binary tree)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,9 +314,15 @@ t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
 
 /************ 50_built_ins ************/
+<<<<<<< HEAD
 void		print_work_dir(void);
 int			print_env(t_minishell **msh);
 void		ft_echo(t_minishell **msh);
+=======
+int			print_work_dir(void);
+int			print_env(t_minishell **msh, t_tree_node **node);
+int			ft_echo(t_tree_node **node);
+>>>>>>> 493c1e9 (echo and env updated to binary tree)
 
 int			ft_cd(t_minishell **msh, t_tree_node **node);
 int			get_dir(t_tree_node **node, char **target_dir);

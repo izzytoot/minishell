@@ -12,8 +12,12 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/04 11:45:33 by ddo-carm         ###   ########.fr       */
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
+=======
+/*   Updated: 2025/04/06 21:28:32 by ddo-carm         ###   ########.fr       */
+>>>>>>> 493c1e9 (echo and env updated to binary tree)
 /*                                                                            */
 /* ************************************************************************** */
 

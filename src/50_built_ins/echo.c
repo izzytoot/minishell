@@ -7,15 +7,20 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2025/04/07 12:59:48 by icunha-t         ###   ########.fr       */
 =======
 /*   Updated: 2025/04/06 18:55:06 by ddo-carm         ###   ########.fr       */
 >>>>>>> 52d9fa8 (norm in libft checked)
+=======
+/*   Updated: 2025/04/06 21:28:20 by ddo-carm         ###   ########.fr       */
+>>>>>>> 493c1e9 (echo and env updated to binary tree)
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 //info --> prints the array using binary tree
 =======
@@ -23,6 +28,9 @@
 /*
 int	ft_echo(t_minishell **msh)
 >>>>>>> 52d9fa8 (norm in libft checked)
+=======
+//info --> prints the array using binary tree
+>>>>>>> 493c1e9 (echo and env updated to binary tree)
 
 int	ft_echo(t_tree_node **node)
 {
@@ -30,6 +38,7 @@ int	ft_echo(t_tree_node **node)
 	int		newline;
 
 	i = 0;
+<<<<<<< HEAD
 	newline = 1;
 	if (!node || !*node)
 		return (EXIT_FAILURE);
@@ -61,19 +70,20 @@ int	ft_echo(t_minishell **msh)
 	t_tree_node	*current;
 
 	i = 0; // tem que ser 0
+=======
+>>>>>>> 493c1e9 (echo and env updated to binary tree)
 	newline = 1;
-	current = (*msh)->tree_root; //temos que pensar como colocar este node como node atual e nao so a root
-	if (current->type == PIPE)
-		current = current->left;
-	if (current->args[1] && ft_strcmp(current->args[1], "-n") == 0)
+	if (!node || !*node)
+		return (1);
+	if ((*node)->args[1] && ft_strcmp((*node)->args[1], "-n") == 0)
 	{
 		newline = 0;
 		i++;
 	}
-	while (current->args[i])
+	while ((*node)->args[i])
 	{
-		ft_putstr_fd(current->args[i], STDOUT_FILENO);
-		if ((*msh)->tree_root->args[i + 1])
+		ft_putstr_fd((*node)->args[i], STDOUT_FILENO);
+		if ((*node)->args[i + 1])
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}

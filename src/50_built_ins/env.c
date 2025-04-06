@@ -12,8 +12,12 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/04 17:32:34 by ddo-carm         ###   ########.fr       */
 >>>>>>> 509bd70 (added dprintf, and did norm on libft)
+=======
+/*   Updated: 2025/04/06 21:26:03 by ddo-carm         ###   ########.fr       */
+>>>>>>> 493c1e9 (echo and env updated to binary tree)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +27,7 @@
 
 int	print_env(t_minishell **msh, t_tree_node **node)
 {
+<<<<<<< HEAD
 	t_list	*current;
 
 <<<<<<< HEAD
@@ -37,6 +42,14 @@ int	print_env(t_minishell **msh, t_tree_node **node)
 		return (EXIT_FAILURE);
 	if ((*node)->args[0])
 	{
+=======
+	t_list *current;
+
+	if (!node || !*node)
+		return (1);
+	if ((*node)->args)
+	{
+>>>>>>> 493c1e9 (echo and env updated to binary tree)
 		ft_dprintf(STDERR_FILENO, "env: '%s': No such file or directory\n",
 			(*node)->args[0]);
 		return (EXIT_FAILURE);
