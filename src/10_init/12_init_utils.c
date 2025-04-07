@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_init_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:04:16 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/03 15:13:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:53:08 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	init_all_null (t_minishell **msh)
 {
-	(*msh)->dir = NULL;
-	(*msh)->msh_pid = 0;
-	(*msh)->promt_line = NULL;
+	// (*msh)->dir = NULL;
+	// (*msh)->msh_pid = 0;
+	(*msh)->prompt_line = NULL;
 	(*msh)->token_list = NULL;
 	(*msh)->envp = NULL;
 	(*msh)->envp_list = NULL;
