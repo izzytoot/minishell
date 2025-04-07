@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   33_token_redir_l.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/23 18:24:38 by root             ###   ########.fr       */
+/*   Updated: 2025/04/07 15:56:08 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	redir_l(t_minishell **msh, int start)
 	char		redir_in[100];
 	
 	i = start;
-	line = (*msh)->promt_line;
+	line = (*msh)->prompt_line;
 	if (line[i] && line[i + 1] == '<')
 		i = token_is_redir_hd(msh, line, redir_hd, i);
 	else

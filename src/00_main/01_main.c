@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/03 16:51:41 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:47:26 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int		main(int ac, char **av, char **envp)
 	msh->active = true;
 	msh->debug_mode = true; //DELETE BEFORE SUMISSION
 	ft_init_msh(&msh, envp);
-	close_minishell(msh, EXIT_SUCCESS);
 	return(0);
 }

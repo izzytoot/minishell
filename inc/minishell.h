@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/06 21:33:33 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:46:52 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,11 @@ typedef struct s_minishell
 	bool		active;
 	char		*dir;
 	int			msh_pid;
-	char		*promt_line;
+	char		*prompt_line;
 	t_token_lst	*token_list;
+	t_tree_node	*tree_root;
 	char		**envp;
 	t_list		*envp_list; //enviroment variables line user, home, path, etc
-	t_tree_node	*tree_root;
 	bool		debug_mode;
 }	t_minishell;
 
@@ -292,6 +292,8 @@ void		free_msh(t_minishell *msh);
 void		handle_envp_failure(t_minishell *msh, char *str, t_list *list_node,
 				char *array);
 void		free_tokens(t_token_lst *token_list);
+void		free_prompt_line(t_minishell **msh);
+void		free_tree(t_tree_node *node);
 
 //11_debug_utils.c
 void		print_tokens(t_minishell **msh);

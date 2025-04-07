@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_close_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/29 16:25:34 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:50:04 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@ void	close_minishell(t_minishell	*msh, int exit_code)
 
 void	free_msh(t_minishell *msh)
 {
-
-	free(msh->dir);
-	ft_lstclear(&msh->envp_list, free);
-	ft_free_arrays((void *)msh->envp);
-	if (msh->token_list)
-		free_tokens(msh->token_list); // it's only freeing 1 side of tree for now
+	if (msh->envp_list)
+		ft_lstclear(&msh->envp_list, free);
+	if (msh->envp)
+		ft_free_arrays((void *)msh->envp);
 	free(msh);
 }
 
@@ -55,8 +53,46 @@ void	free_tokens(t_token_lst *token_list)
 	while(token_list)
 	{
 		tmp = token_list->next;
-		free(token_list->content);
+		if (token_list->content)
+			free(token_list->content);
 		free(token_list);
 		token_list = tmp;
 	}
+}
+
+ 
+
+void	free_prompt_line(t_minishell **msh)
+{
+	if ((*msh)->prompt_line)
+	{
+		free((*msh)->prompt_line);
+		(*msh)->prompt_line = NULL;
+	}
+	if ((*msh)->token_list)
+		free_tokens((*msh)->token_list);
+	if ((*msh)->tree_root)
+	{
+		free_tree((*msh)->tree_root);
+		(*msh)->tree_root = NULL;
+	}
+}
+
+void	free_tree(t_tree_node *node)
+{
+	if (!node)
+		return;
+	if (node->left)
+		free_tree(node->left);
+	if (node->right)
+		free_tree(node->right);
+	if (node->file)
+		free(node->file);
+	if (node->op_content)
+		free(node->op_content);
+	if (node->cmd_content)
+		ft_free_arrays((void **)node->cmd_content);
+	if (node->args)
+		ft_free_arrays((void **)node->args);
+	free(node);
 }

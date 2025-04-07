@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/03/29 16:44:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:53:36 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	syntax_is_ok(t_minishell **msh)
 {
 	const char *line;
 	
-	line = (*msh)->promt_line;
+	line = (*msh)->prompt_line;
 	if (unclosed_quotes(line)) //except if within quotes
 		return (false);
 	if (hd_open(line)) // << + word // para tirar
