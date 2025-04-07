@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 16:00:32 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:27:53 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void		prompt_and_read(t_minishell **msh);
 //10_init_msh.c
 void		ft_init_msh(t_minishell **msh, char **envp);
 void		prompt_and_read(t_minishell **msh);
-char		*get_prompt(int exit_code);
+char		*get_prompt(void);
 
 //11_envp_copies.c
 void		copy_envp(t_minishell *msh, char **envp);

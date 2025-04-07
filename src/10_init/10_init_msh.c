@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/07 15:52:32 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:30:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void ft_init_msh(t_minishell **msh, char **envp)
 	prompt_and_read(&(*msh));
 }
 
-
 void	prompt_and_read(t_minishell **msh)
 {
 	char	*line;
@@ -38,21 +37,13 @@ void	prompt_and_read(t_minishell **msh)
 			free((*msh)->prompt_line);
 			(*msh)->prompt_line = NULL;
 		}
-		prompt = get_prompt(exit_code);
+		prompt = get_prompt();
 		line = readline(prompt);
 		free(prompt);
 		add_history(line);
 		(*msh)->token_list = NULL;
 		(*msh)->prompt_line = line;
-	//	if (strncmp(line, "pwd", 3) == 0) // ???
-	//		print_work_dir();
-	//	if (strncmp(line, "env", 3) == 0) // ???
-	//		print_env(msh);
-	//	if (strncmp(line, "cd", 2) == 0) // ???
-	//		ft_cd(msh);
-	//	if (strncmp(line, "echo", 4) == 0) // ???
-	//		ft_echo(msh);
-		if (strncmp(line, "exit", 4) == 0) // ??
+		if (strncmp(line, "exit", 4) == 0)
 		{
 			if (syntax_is_ok(&(*msh)))
 				get_tokens(&(*msh), -1, '\0');
@@ -74,29 +65,21 @@ void	prompt_and_read(t_minishell **msh)
 
 //info --> create prompt wih current dir
 
-char	*get_prompt(int	exit_code)
+char	*get_prompt(void)
 {
 	char	cwd[PATH_MAX];
 	char	*prompt;
-	char	*final_prompt;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("getcwd");
 		return (ft_strdup("$ "));
 	}
-	prompt = ft_strjoin(cwd, " ");
-	prompt = ft_strjoin(prompt, ft_itoa(exit_code));
+	prompt = ft_strjoin(cwd, " $ ");
 	if (!prompt)
 	{
 		perror("ft_strjoin");
 		return (ft_strdup("$ "));
 	}
-	final_prompt = ft_strjoin(prompt, " $ ");
-	if (!final_prompt)
-	{
-		perror("ft_strjoin");
-		return (ft_strdup("$ "));
-	}
-	return (final_prompt);
+	return (prompt);
 }
