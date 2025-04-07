@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_close_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/07 15:50:04 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:45:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	free_tokens(t_token_lst *token_list)
 	}
 }
 
- 
-
 void	free_prompt_line(t_minishell **msh)
 {
 	if ((*msh)->prompt_line)
@@ -69,13 +67,13 @@ void	free_prompt_line(t_minishell **msh)
 		free((*msh)->prompt_line);
 		(*msh)->prompt_line = NULL;
 	}
-	if ((*msh)->token_list)
-		free_tokens((*msh)->token_list);
 	if ((*msh)->tree_root)
 	{
 		free_tree((*msh)->tree_root);
 		(*msh)->tree_root = NULL;
 	}
+	if ((*msh)->token_list)
+		free_tokens((*msh)->token_list);
 }
 
 void	free_tree(t_tree_node *node)

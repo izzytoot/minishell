@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/07 16:30:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:34:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void	prompt_and_read(t_minishell **msh)
 {
 	char	*line;
 	char	*prompt;
-	int		exit_code;
-	
-	exit_code = 0;
+
 	while (1)
 	{
 		if ((*msh)->prompt_line)
