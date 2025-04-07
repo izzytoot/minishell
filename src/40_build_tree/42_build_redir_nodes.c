@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/04 16:16:35 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:41:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,16 @@ bool check_cmd(t_token_lst **token_list)
 				{
 					if(type_is_word(&curr_token->type))
 						break;
-					curr_token = curr_token->next;
+					curr_token = safe_next_token(curr_token);
 				}
+				curr_token = safe_next_token(curr_token);
 				if (!type_is_word(&curr_token->type))
 					return (false);
 			}
 			else
 				return (false);
 		}
-		curr_token = curr_token->next;
+		curr_token = safe_next_token(curr_token);;
 	}
 	return (true);
 }
