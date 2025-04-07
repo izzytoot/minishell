@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/06 23:59:15 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:49:08 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@
 int	ft_echo(t_tree_node **node)
 {
 	int		i;
+	int		total_args;
 	int		newline;
 
 	i = 0;
+	total_args = 0;
 	newline = 1;
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if ((*node)->args[i] && ft_strcmp((*node)->args[i], "-n") == 0) //ver isto nos args -n
-	{
+	while ((*node)->args[total_args])
+		total_args++;
+	total_args--;
+	if (ft_strcmp((*node)->args[total_args], "-n") == 0)
 		newline = 0;
-		i++;
-	}
-	while ((*node)->args[i])
+	while ((*node)->args[i] && i < total_args)
 	{
 		ft_putstr_fd((*node)->args[i], STDOUT_FILENO);
 		if ((*node)->args[i + 1])
