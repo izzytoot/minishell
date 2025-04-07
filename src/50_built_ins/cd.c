@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/06 23:50:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/07 11:26:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	ft_cd(t_minishell **msh, t_tree_node **node)
 		return (free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
-		ft_printf("msh: cd: %s: No such file or directory\n", target_dir);
+		ft_dprintf(STDERR_FILENO, "msh: cd: %s: No such file or directory\n",
+			target_dir);
 		return (free(old_pwd), EXIT_FAILURE);
 	}
 	update_cd_env(msh, old_pwd);
