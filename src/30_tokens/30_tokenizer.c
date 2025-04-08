@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/07 15:55:32 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:12:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,16 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 		else
 			break ;
 	}
-	ft_printf("------------------------------\n");
-	if ((*msh)->debug_mode)
-		print_tokens(&(*msh)); //DEBUG TO DELETE
 	sub_tokenize(&(*msh));
-	ft_printf("------------------------------\n");
-	if ((*msh)->debug_mode)
-		print_tokens(&(*msh)); //DEBUG TO DELETE
+	// ft_printf("------------------------------\n");
+	// if ((*msh)->debug_mode)
+	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
+	// ft_printf("------------------------------\n");
 	parse_line(&(*msh));
-	ft_printf("------------------------------\n");
-	if ((*msh)->debug_mode)
-		print_tokens(&(*msh)); //DEBUG TO DELETE
+	// ft_printf("------------------------------\n");
+	// if ((*msh)->debug_mode)
+	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
+	// ft_printf("------------------------------\n");
 	return ;
 }
 

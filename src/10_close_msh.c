@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/07 18:45:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:16:25 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	free_msh(t_minishell *msh)
 		ft_lstclear(&msh->envp_list, free);
 	if (msh->envp)
 		ft_free_arrays((void *)msh->envp);
+	if (msh->tree_root)
+	{
+		free_tree(msh->tree_root);
+		msh->tree_root = NULL;
+	}
 	free(msh);
 }
 

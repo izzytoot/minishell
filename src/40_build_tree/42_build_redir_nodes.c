@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/07 18:41:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:57:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool check_cmd(t_token_lst **token_list)
 		{
 			if (curr_token->next)
 			{
-				while(!type_is_redir(&curr_token->type))
+				while(!type_is_redir(&curr_token->type) || !(curr_token->type == FILE_NAME))
 				{
 					if(type_is_word(&curr_token->type))
 						break;
