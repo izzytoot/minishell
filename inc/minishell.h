@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 16:27:53 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:57:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,11 +279,10 @@ void		add_new_env_var(t_list **env_list, const char *var_name,
 				const char *data);
 
 /************ 60_exec_tree ************/
-void		exec_single_cmd(t_minishell **msh);
+void		exec_cmd(t_minishell **msh, t_tree_node *node);
 void		create_child_process(t_minishell **msh, t_tree_node *node);
 void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
-
-//void	exec_tree(t_minishell **msh);
+void		exec_tree(t_minishell **msh, t_tree_node *node);
 
 /************ others ************/
 //10_close_msh.c

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/07 18:34:18 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:29:59 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	prompt_and_read(t_minishell **msh)
 		if (syntax_is_ok(&(*msh)))
 		{
 			get_tokens(&(*msh), -1, '\0');
-			if (!(*msh)->tree_root->left && !(*msh)->tree_root->right)
-				exec_single_cmd(&(*msh));
-			//else
-			//	exec_tree(&(*msh));
+			// if (!(*msh)->tree_root->left && !(*msh)->tree_root->right)
+			// 	exec_single_cmd(&(*msh), NULL);
+			// else
+			exec_tree(&(*msh), (*msh)->tree_root);
 		}
 		free_prompt_line(&(*msh));
 	}
