@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/08 17:42:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:00:37 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@
 # define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
 # define ERR_CD_ARGS "msh: cd: too many arguments\n"
+# define ERR_UNKRED "msh: unknown redirection type\n"
 
 //constants
 # define WHITESPACE " \t\n\r\v\f"
@@ -287,6 +288,7 @@ void	perform_left_pipe(t_minishell **msh, t_tree_node *node, int useless_fd, int
 void	perform_right_pipe(t_minishell **msh, t_tree_node *node, int useless_fd, int dup_fd);
 
 //62_exec_redir.c
+void	exec_redir(t_minishell **msh, t_tree_node *node);
 
 //63_exec_cmd.c
 void		exec_cmd(t_minishell **msh, t_tree_node *node);
@@ -294,7 +296,7 @@ void		exec_bt_cmd(t_minishell **msh, t_tree_node *node);
 void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
 
 //64_exec_utils.c
-int			my_getpid(void);
+int			my_fork(void);
 
 /************ others ************/
 //10_close_msh.c

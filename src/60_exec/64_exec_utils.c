@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:19:13 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/08 17:22:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:00:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	my_getpid(void)
+int	my_fork(void)
 {
 	int	pid;
 
