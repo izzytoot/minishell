@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/08 15:57:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:42:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ char		*add_envp_newline(char *envp);
 
 //12_init_utils.c
 void		init_all_null(t_minishell **msh);
-int			my_getpid(t_minishell *msh);
 
 /************ 20_syntax ************/
 //20_syntax_check.c
@@ -279,10 +278,23 @@ void		add_new_env_var(t_list **env_list, const char *var_name,
 				const char *data);
 
 /************ 60_exec_tree ************/
-void		exec_cmd(t_minishell **msh, t_tree_node *node);
-void		create_child_process(t_minishell **msh, t_tree_node *node);
-void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
+//60_exec_tree.c
 void		exec_tree(t_minishell **msh, t_tree_node *node);
+
+//61_exec_pipe.c
+void	exec_pipe(t_minishell **msh, t_tree_node *node);
+void	perform_left_pipe(t_minishell **msh, t_tree_node *node, int useless_fd, int dup_fd);
+void	perform_right_pipe(t_minishell **msh, t_tree_node *node, int useless_fd, int dup_fd);
+
+//62_exec_redir.c
+
+//63_exec_cmd.c
+void		exec_cmd(t_minishell **msh, t_tree_node *node);
+void		exec_bt_cmd(t_minishell **msh, t_tree_node *node);
+void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
+
+//64_exec_utils.c
+int			my_getpid(void);
 
 /************ others ************/
 //10_close_msh.c
