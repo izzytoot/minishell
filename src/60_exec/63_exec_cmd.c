@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/08 16:52:46 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:32:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	exec_cmd(t_minishell **msh, t_tree_node *node)
 		exec_bt_cmd(&(*msh), node);
 	else if (node->type == ENV_CMD)
 		exec_env_cmd(&(*msh), node);
+	else
+	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
 }
 
 void	exec_bt_cmd(t_minishell **msh, t_tree_node *node)
@@ -42,27 +44,23 @@ void	exec_env_cmd(t_minishell **msh, t_tree_node *node)
 {
 	pid_t	pid;
 	char	*path;
+	int		status;
 	
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("msh: fork");
-		exit(1);
-	}
+	pid = my_fork();
 	if (pid == 0) // child
 	{
 		path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
 		{
-			perror("execve");
-			if (errno == ENOENT)
-				exit(127); // cmd not found
-			if (errno == EACCES)
-				exit(126); // permission denied
-			else
-				exit(1); // general exec error
+			ft_dprintf(STDERR_FILENO, "%s: %s\n", node->cmd_content, strerror(errno));
+			// if (errno == ENOENT)
+			// 	exit(127); // cmd not found
+			// if (errno == EACCES)
+			// 	exit(126); // permission denied
+			// else
+			// 	exit(1); // general exec error
 		}
 	}
 	else
-		wait(NULL); //wait for exit code from child
+		waitpid(pid, &status, 0); //wait for exit code from child
 }

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/04 16:51:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:47:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_tree_node *build_cmd_node(t_token_lst **token_list)
 	}
 	cmd_node->args = ft_list_to_array(args);
 	cmd_node->cmd_content =  join_cmd_and_args(cmd_node->cmd, cmd_node->args);
-	if (curr_token)
-		*token_list = curr_token;
+	// if (curr_token)
+	// 	*token_list = curr_token;
 	return(cmd_node);
 }
 
@@ -63,10 +63,7 @@ char **join_cmd_and_args(char *cmd, char **args)
 	arg_count = 0;
 	full_cmd = NULL;
 	if (!cmd)
-	{
-		ft_printf("command not found\n"); // to delete
-		return (NULL);	
-	}
+	 	return (args);
 	while (args && args[arg_count])
 		arg_count++;
 	full_cmd = malloc(sizeof(char *) * (arg_count + 2));

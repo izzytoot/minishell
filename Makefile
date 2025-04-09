@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/08 17:20:14 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/04/09 16:46:50 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@
 NAME = minishell
 INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
-SRC = $(addprefix $(SRC_PATH), ./00_main/00_constructors.c \
-							./00_main/01_main.c \
+SRC = $(addprefix $(SRC_PATH), ./00_main/01_main.c \
 							./10_init/10_init_msh.c \
 							./10_init/11_envp_copies.c\
 							./10_init/12_init_utils.c \

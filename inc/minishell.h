@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/08 19:00:37 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:13:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 # define ERR_PRC "Error creating process\n"
 # define ERR_ENVP "Error duplicating environment variables\n"
 */
-# define ERR_CNOTFOUND "Error: command not found\n"
+# define ERR_CNOTFOUND "command not found\n"
 # define ERR_SYN_EMPT "Command '' not found\n"
 # define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
 # define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
@@ -76,7 +76,7 @@
 # define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
 # define ERR_CD_ARGS "msh: cd: too many arguments\n"
-# define ERR_UNKRED "msh: unknown redirection type\n"
+# define ERR_UNKRED "unknown redirection type\n"
 
 //constants
 # define WHITESPACE " \t\n\r\v\f"
@@ -284,11 +284,12 @@ void		exec_tree(t_minishell **msh, t_tree_node *node);
 
 //61_exec_pipe.c
 void	exec_pipe(t_minishell **msh, t_tree_node *node);
-void	perform_left_pipe(t_minishell **msh, t_tree_node *node, int useless_fd, int dup_fd);
-void	perform_right_pipe(t_minishell **msh, t_tree_node *node, int useless_fd, int dup_fd);
+void	perform_left_pipe(int useless_fd, int dup_fd, int curr_pid);
+void	perform_right_pipe(int useless_fd, int dup_fd, int curr_pid);
 
 //62_exec_redir.c
 void	exec_redir(t_minishell **msh, t_tree_node *node);
+int		create_file_fd(t_token_type type, char *file_name);
 
 //63_exec_cmd.c
 void		exec_cmd(t_minishell **msh, t_tree_node *node);
@@ -297,6 +298,8 @@ void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
 
 //64_exec_utils.c
 int			my_fork(void);
+int			safe_dup(int old_fd, int curr_pid);
+void 		safe_dup2(int new_fd, int old_fd, int curr_pid);
 
 /************ others ************/
 //10_close_msh.c
