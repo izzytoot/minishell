@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/09 17:32:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:38:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,12 @@ void	exec_env_cmd(t_minishell **msh, t_tree_node *node)
 	char	*path;
 	int		status;
 	
-	pid = my_fork();
-	if (pid == 0) // child
+	pid = safe_fork();
+	if (pid == 0)
 	{
 		path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
-		{
-			ft_dprintf(STDERR_FILENO, "%s: %s\n", node->cmd_content, strerror(errno));
-			// if (errno == ENOENT)
-			// 	exit(127); // cmd not found
-			// if (errno == EACCES)
-			// 	exit(126); // permission denied
-			// else
-			// 	exit(1); // general exec error
-		}
+			perror("msh: execve: "); // check pre-error message
 	}
 	else
 		waitpid(pid, &status, 0); //wait for exit code from child

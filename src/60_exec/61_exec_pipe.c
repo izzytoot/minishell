@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/09 18:10:37 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:36:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,16 @@ void	exec_pipe(t_minishell **msh, t_tree_node *node)
 	pid_t	right_pid;
 	int 	status;
 	 
-	if (pipe(fd) < 0) // anything writen to fd[1] can be read from fd[0].
-	{
-        perror("msh: pipe");
-        exit(EXIT_FAILURE); // check if exit or return
-    }
-	left_pid = my_fork();
+	if(safe_pipe(fd) < 0)
+		return ;
+	left_pid = safe_fork();
 	if (left_pid == 0) //child process (left)
 	{
 		perform_left_pipe(fd[0], fd[1], left_pid);
 		exec_tree(msh, node->left); //executes left
 		exit (EXIT_SUCCESS) ;
 	}
-	right_pid = my_fork();
+	right_pid = safe_fork();
 	if (right_pid == 0) //child process (right)
 	{
 		perform_right_pipe(fd[1], fd[0], right_pid);
