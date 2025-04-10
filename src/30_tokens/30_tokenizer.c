@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/10 15:51:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:50:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	sub_tokenize(t_minishell **msh)
 		}
 		current = current->next;
 	}
+	check_double_cmd(&(*msh));
 }
 
 void	handle_filename(t_token_lst *token_list)

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/10 17:24:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:38:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ bool check_cmd(t_token_lst **token_list, bool cmd_excep)
 				}
 				curr_token = safe_next_token(curr_token);
 				// if (!type_is_word(&curr_token->type))
-				// 	return (false); acho que nao é preciso - tirar
+				// 	return (false); //acho que nao é preciso - tirar
 			}
 			else
 				return (false);

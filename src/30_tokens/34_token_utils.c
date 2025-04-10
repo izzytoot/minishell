@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/29 18:06:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:51:16 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,27 @@ char *get_path(t_list *envp_list)
 		envp_list = envp_list->next;
 	}
 	return (NULL);
+}
+
+void check_double_cmd(t_minishell **msh)
+{
+	t_token_lst *current;
+
+	current = (*msh)->token_list;
+	while(current && current->next)
+	{
+		if (current->next->next && current->next->type == W_SPACE)
+		{
+			if ((current->type == BT_CMD || current->type == ENV_CMD) &&
+			(current->next->next->type == BT_CMD || current->next->next->type == ENV_CMD))
+			current->type = ARG;
+		}
+		else
+		{
+			if ((current->type == BT_CMD || current->type == ENV_CMD) &&
+				(current->next->type == BT_CMD || current->next->type == ENV_CMD))
+				current->type = ARG;
+		}
+		current = current->next;
+	}
 }

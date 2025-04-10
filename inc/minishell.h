@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/10 16:47:33 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:50:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ int			token_is_redir_in(t_minishell **msh, const char *line,
 void		check_quote(bool *in_quotes, char *quote_char, char c);
 void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
 char		*get_path(t_list *envp_list);
-
+void 		check_double_cmd(t_minishell **msh);
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
 void		parse_line(t_minishell **msh);
