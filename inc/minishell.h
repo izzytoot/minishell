@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/10 16:32:33 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:47:33 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ t_tree_node	*build_pipe_node(t_token_lst **tokens);
 
 //42_build_redir_nodes.c
 t_tree_node	*build_redir_node(t_token_lst **token_list);
-void 	handle_redir(t_tree_node *redir_node, t_token_lst *curr_token);
+t_tree_node *handle_redir(t_tree_node *redir_node, t_token_lst **curr_token, bool *cmd_excep);
 t_tree_node	*attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
 bool		check_cmd(t_token_lst **token_list, bool cmd_excep);
 t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node, bool cmd_excep);

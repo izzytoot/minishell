@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/10 16:36:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:24:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,7 @@ t_tree_node *build_redir_node(t_token_lst **token_list)
 	while(curr_token && (curr_token->next || type_is_redir(&curr_token->type)))
 	{
 		if(type_is_redir(&curr_token->type))
-		{
-			new_redir = new_tree_node(&curr_token->type, &curr_token->content[0]);
-			handle_redir(new_redir, curr_token);
-			redir_node = attach_redir(redir_node, new_redir);
-			if (!curr_token->next)
-				cmd_excep = true;
-			curr_token = safe_next_token(curr_token);
-		}
+			redir_node = handle_redir(redir_node, &curr_token, &cmd_excep);
 		else
 			curr_token = curr_token->next;
 	}
@@ -44,19 +37,30 @@ t_tree_node *build_redir_node(t_token_lst **token_list)
 	return (cmd_node);
 }
 
-void handle_redir(t_tree_node *redir_node, t_token_lst *curr_token)
+t_tree_node *handle_redir(t_tree_node *redir_node, t_token_lst **curr_token, bool *cmd_excep)
 {
-	if (!curr_token || !curr_token->prev)
-		return;
-	if (curr_token->prev->type == W_SPACE)
-		redir_node->file = ft_strdup(curr_token->prev->prev->content);
+	t_tree_node *new_redir;
+	
+	if (!curr_token || !*curr_token)
+		return (redir_node);
+
+	new_redir = new_tree_node(&(*curr_token)->type, &(*curr_token)->content[0]);
+	if ((*curr_token)->prev && (*curr_token)->prev->type == W_SPACE)
+		new_redir->file = ft_strdup((*curr_token)->prev->prev->content);
+	else if ((*curr_token)->prev)
+		new_redir->file = ft_strdup((*curr_token)->prev->content);
 	else
-		redir_node->file = ft_strdup(curr_token->prev->content);
-	redir_node->type = curr_token->type;
-	if (curr_token->type == REDIR_IN)
-		redir_node->fd = STDIN_FILENO;
+		new_redir->file = NULL;
+	new_redir->type = (*curr_token)->type;
+	if ((*curr_token)->type == REDIR_IN)
+		new_redir->fd = STDIN_FILENO;
 	else
-		redir_node->fd = STDOUT_FILENO;
+		new_redir->fd = STDOUT_FILENO;
+	redir_node = attach_redir(redir_node, new_redir);
+	if (!(*curr_token)->next)
+		*cmd_excep = true;
+	*curr_token = safe_next_token(*curr_token);
+	return(redir_node);	
 }
 
 t_tree_node *attach_redir(t_tree_node *redir_node, t_tree_node *new_redir)
@@ -84,12 +88,12 @@ bool check_cmd(t_token_lst **token_list, bool cmd_excep)
 				while(!type_is_redir(&curr_token->type) || !(curr_token->type == FILE_NAME))
 				{
 					if(type_is_word(&curr_token->type))
-						break;
+						return (true);
 					curr_token = safe_next_token(curr_token);
 				}
 				curr_token = safe_next_token(curr_token);
-				if (!type_is_word(&curr_token->type))
-					return (false);
+				// if (!type_is_word(&curr_token->type))
+				// 	return (false); acho que nao é preciso - tirar
 			}
 			else
 				return (false);
