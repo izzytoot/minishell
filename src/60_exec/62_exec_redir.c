@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/09 19:28:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:03:59 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 void	exec_redir_before_cmd(t_minishell **msh, t_tree_node *node)
 {
 	t_tree_node *current_node;
-	int	orig_fd;
-	int	fd_for_cmd;
+	t_tree_node	*cmd_node;
+	int			orig_fd;
+	int			fd_for_cmd;
 	
 	current_node = node;
+	cmd_node = NULL;
+	if (current_node->right && type_is_cmd(&current_node->right->type))
+		cmd_node = current_node->right;
 	orig_fd = safe_dup(node->fd, getpid());
 	exec_redir(current_node); //exec first redir
 	fd_for_cmd = safe_dup(node->fd, getpid()); //keep fd for cmd
@@ -30,6 +34,8 @@ void	exec_redir_before_cmd(t_minishell **msh, t_tree_node *node)
 	safe_dup2(fd_for_cmd, node->fd, getpid()); //recover fd for cmd
 	if (current_node)
 		exec_tree(msh, current_node); //exec cmd on the correct fd
+	else if (cmd_node)
+		exec_tree(msh, cmd_node);
 	safe_dup2(orig_fd, node->fd, getpid()); //restore original fd - terminal
 }
 
@@ -42,8 +48,6 @@ int	exec_redir(t_tree_node *node)
 	curr_pid = getpid();
 	safe_dup2(file_fd, node->fd, curr_pid);
 	close(file_fd);
-	// if (node->left)
-	// 	exec_tree(msh, node->left);
 	return (0);
 }
 

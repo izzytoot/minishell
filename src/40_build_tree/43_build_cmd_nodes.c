@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/09 16:47:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:42:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_tree_node *build_cmd_node(t_token_lst **token_list)
 	}
 	cmd_node->args = ft_list_to_array(args);
 	cmd_node->cmd_content =  join_cmd_and_args(cmd_node->cmd, cmd_node->args);
-	// if (curr_token)
-	// 	*token_list = curr_token;
 	return(cmd_node);
 }
 
@@ -48,7 +46,7 @@ void	handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args)
 			cmd_node->cmd = (*curr_token)->content;
 			cmd_node->cmd_type = (*curr_token)->type;
 		}
-		if ((*curr_token)->type != W_SPACE)
+		if (type_is_word(&(*curr_token)->type))
 			cmd_node->type = (*curr_token)->type;
 		*curr_token = (*curr_token)->next;
 	}
