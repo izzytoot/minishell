@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/11 21:00:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:02:32 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ bool	syntax_is_ok(t_minishell **msh)
 		return (false);
 	if (unsupported_operators(line))
 		return (false);
-	if (hd_index >= 0)
-		exec_fake_hd(line, hd_index);
+	// if (hd_index >= 0) //THIS ONLY HAPPENS IF THERE IS A SYNTAX ERROR
+	// 	exec_fake_hd(line, hd_index);
 	if (misplaced_redir_at_end(line)) // < > << >> at the end
 		return (false);
 	return (true);
