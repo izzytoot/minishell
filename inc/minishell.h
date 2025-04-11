@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/11 17:34:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:19:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,12 +197,12 @@ bool		consec_operators_pipe(const char *line);
 bool		conseq_operators_redir(const char *line);
 void		conseq_redir_r_case(const char *line, int i);
 void		conseq_redir_l_case(const char *line, int i);
-bool		misplaced_redir_hd(const char *line);
 bool		misplaced_redir_at_end(const char *line);
 
 //24_syntax_utils.c
 bool		look_for_pipe(const char *line, int i);
 bool		check_in_quotes(char c, bool *in_quotes);
+int 		check_if_hd(const char *line);
 
 /************ 30_tokens ************/
 //30_tokenizer.c
