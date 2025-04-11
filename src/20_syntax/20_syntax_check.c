@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/11 20:27:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:00:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ bool	syntax_is_ok(t_minishell **msh)
 		return (false);
 	if (consec_operators_pipe(line)) // any oper + | //pipe + redir is ok (except << HD)
 		return (false);
-	if (misplaced_redir_at_end(line)) // < > << >> at the end
-		return (false);
 	if (unsupported_operators(line))
+		return (false);
+	if (hd_index >= 0)
+		exec_fake_hd(line, hd_index);
+	if (misplaced_redir_at_end(line)) // < > << >> at the end
 		return (false);
 	return (true);
 }
@@ -57,4 +59,47 @@ bool	unsupported_operators(const char *line)
 		}	
 	}
 	return (false);
+}
+
+void	exec_fake_hd(const char *line, int hd_index)
+{
+	char	*eof;
+	char	*new_line;
+	int		i;
+	int		fd;
+	int	size;
+	int	eof_s;
+	
+	hd_index++; // second <
+	i = 0;
+	size = 0;
+	if (line[hd_index + 1] == ' ')
+		hd_index++;
+	hd_index++;
+	eof_s = hd_index;
+	while(!ft_strchr(WHITESPACE, line[++hd_index]))
+		size++;
+	eof = malloc(sizeof(char) * (size + 1));
+	while(!ft_strchr(WHITESPACE, line[eof_s]))
+	{
+		eof[i] = line[eof_s];
+		eof_s++;
+		i++;
+	}
+	eof[i] = '\0';
+	fd = open("/tmp/.heredoc_tmp", O_CREAT | O_RDWR | O_TRUNC, 0600);
+	while (1)
+	{
+		new_line = readline("> ");
+		if (!new_line)
+			break;
+		if (ft_strcmp(new_line, eof) == 0)
+		{
+			free(new_line);
+			break ;
+		}
+		ft_putstr_fd(new_line, fd);
+		free(new_line);
+		new_line = NULL;
+	}
 }

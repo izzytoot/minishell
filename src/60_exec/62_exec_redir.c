@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/11 18:18:09 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:30:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,32 +83,6 @@ void		handle_hd(t_tree_node *node, int hd_fd)
 		new_line = NULL;
 	}
 }
-
-// void	handle_here_doc(t_pipex *pipex)
-// {
-// 	char		*line;
-// 	const char	*limiter;
-
-// 	limiter = pipex->av[2];
-// 	close(pipex->pipe_fd[0]);
-// 	while (1)
-// 	{
-// 		ft_printf("pipex here_doc> ");
-// 		line = get_next_line(STDIN_FILENO);
-// 		if (!line)
-// 			break ;
-// 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0
-// 			&& line[ft_strlen(limiter)] == '\n')
-// 		{
-// 			free(line);
-// 			break ;
-// 		}
-// 		write(pipex->pipe_fd[1], line, ft_strlen(line));
-// 		free(line);
-// 		line = NULL;
-// 	}
-// 	close(pipex->pipe_fd[1]);
-// }
 
 int create_file_fd(t_token_type type, char *file_name)
 {

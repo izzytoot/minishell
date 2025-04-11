@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/11 20:19:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:44:20 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ int check_if_hd(const char *line)
 		if (line[i] && !in_quotes && (line[i] == '<' && line[i + 1] == '<'))
 			return (i);
 	}
-	return (0);
+	return (-1);
 }

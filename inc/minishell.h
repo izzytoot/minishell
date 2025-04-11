@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/11 20:19:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:47:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,12 +180,11 @@ void		init_all_null(t_minishell **msh);
 /************ 20_syntax ************/
 //20_syntax_check.c
 bool		syntax_is_ok(t_minishell **msh);
-bool		hd_open(const char *line); // para remover quando resolvermos heredoc
 bool		unsupported_operators(const char *line);
+void		exec_fake_hd(const char *line, int hd_index);
 
 //21_syntax_quotes.c
 bool		unclosed_quotes(const char *line);
-bool		empty_quotes(const char *line);
 
 //22_syntax_pipes.c
 bool		misplaced_pipe(const char *line);
