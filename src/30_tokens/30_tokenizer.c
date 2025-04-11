@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/11 14:21:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 18:10:14 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	handle_filename(t_token_lst *token_list)
 	current = token_list;
 	while (current)
 	{
-		if (current->type == REDIR_APP || current->type == REDIR_IN || current->type == REDIR_OUT)
+		if (current->type == REDIR_HD || current->type == REDIR_APP || current->type == REDIR_IN || current->type == REDIR_OUT)
 		{
 			if (current->prev->type == W_SPACE && current->prev->prev->type == WORD)
 				current->prev->prev->type = FILE_NAME;
