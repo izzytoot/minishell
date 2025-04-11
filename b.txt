@@ -1,2 +1,0 @@
-[?2004h/home/icunha-t/Commoncore/minishell $ exit
-[?2004lexit
