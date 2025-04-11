@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/29 14:37:25 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:57:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void	conseq_redir_r_case(const char *line, int i)
 
 void	conseq_redir_l_case(const char *line, int i)
 {				
-	if (line[i + 1] == '<')
-		ft_putstr_fd(ERR_SYN_REDIR_HD, STDERR_FILENO);
+	 if (line[i + 1] == '<')
+	 ;
+	// 	ft_putstr_fd(ERR_SYN_REDIR_HD, STDERR_FILENO);
 	else
 		ft_putstr_fd(ERR_SYN_REDIR_IN, STDERR_FILENO);
 }

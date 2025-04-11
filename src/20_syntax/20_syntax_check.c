@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 15:53:36 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:00:21 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ bool	syntax_is_ok(t_minishell **msh)
 	line = (*msh)->prompt_line;
 	if (unclosed_quotes(line)) //except if within quotes
 		return (false);
-	if (hd_open(line)) // << + word // para tirar
-		return (false);
+	// if (hd_open(line)) // << + word // para tirar
+	// 	return (false);
 	if (misplaced_pipe(line)) // | at beginning or end
 		return (false);
 	if (conseq_operators_redir(line)) // redir + any redir
 		return (false);
-	if (misplaced_redir_hd(line)) // any redir + <<
-		return (false);
+	// if (misplaced_redir_hd(line)) // any redir + <<
+	// 	return (false);
 	if (consec_operators_pipe(line)) // any oper + | //pipe + redir is ok (except << HD)
 		return (false);
 	if (misplaced_redir_at_end(line)) // < > << >> at the end

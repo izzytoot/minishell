@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/10 17:50:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:16:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,9 +288,13 @@ void		perform_left_pipe(int useless_fd, int dup_fd, int curr_pid);
 void		perform_right_pipe(int useless_fd, int dup_fd, int curr_pid);
 
 //62_exec_redir.c
-int		exec_redir(t_tree_node *node);
+void		exec_redir_before_cmd(t_minishell **msh, t_tree_node *node);
+int			exec_redir(t_tree_node *node);
+void		handle_hd(t_tree_node *node, int hd_fd);
 int			create_file_fd(t_token_type type, char *file_name);
-void	exec_redir_before_cmd(t_minishell **msh, t_tree_node *node);
+
+// //63_exec_hd.c
+// int			exec_hd(t_minishell **msh, t_tree_node *node);
 
 //63_exec_cmd.c
 void		exec_cmd(t_minishell **msh, t_tree_node *node);

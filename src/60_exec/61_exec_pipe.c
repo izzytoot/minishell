@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/09 18:36:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:59:45 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_pipe(t_minishell **msh, t_tree_node *node)
 	pid_t	left_pid;
 	pid_t	right_pid;
 	int 	status;
-	 
+	
 	if(safe_pipe(fd) < 0)
 		return ;
 	left_pid = safe_fork();

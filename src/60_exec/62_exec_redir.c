@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/10 16:03:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:10:31 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,68 @@ int	exec_redir(t_tree_node *node)
 	int	curr_pid;
 	
 	file_fd = create_file_fd(node->type, node->file);
-	curr_pid = getpid();
-	safe_dup2(file_fd, node->fd, curr_pid);
-	close(file_fd);
+	if (node->type == REDIR_HD)
+		handle_hd(node, file_fd);
+	else
+	{
+		curr_pid = getpid();
+		safe_dup2(file_fd, node->fd, curr_pid);
+		close(file_fd);
+	}
 	return (0);
 }
+
+void		handle_hd(t_tree_node *node, int hd_fd)
+{
+	t_tree_node *current_node;
+	char 		*eof;
+	char		*new_line;
+	
+	current_node = node;
+	eof = ft_strdup(current_node->file);
+	// close fd 0 read ??
+	while(1)
+	{
+		new_line = readline("> ");
+		if (!new_line)
+			break;
+		if (ft_strcmp(new_line, eof) == 0)
+		{
+			free(new_line);
+			break ;
+		}
+		ft_putstr_fd(new_line, hd_fd);
+		free(new_line);
+		new_line = NULL;
+	}
+	node->fd = hd_fd;
+}
+
+// void	handle_here_doc(t_pipex *pipex)
+// {
+// 	char		*line;
+// 	const char	*limiter;
+
+// 	limiter = pipex->av[2];
+// 	close(pipex->pipe_fd[0]);
+// 	while (1)
+// 	{
+// 		ft_printf("pipex here_doc> ");
+// 		line = get_next_line(STDIN_FILENO);
+// 		if (!line)
+// 			break ;
+// 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0
+// 			&& line[ft_strlen(limiter)] == '\n')
+// 		{
+// 			free(line);
+// 			break ;
+// 		}
+// 		write(pipex->pipe_fd[1], line, ft_strlen(line));
+// 		free(line);
+// 		line = NULL;
+// 	}
+// 	close(pipex->pipe_fd[1]);
+// }
 
 int create_file_fd(t_token_type type, char *file_name)
 {
@@ -61,6 +118,11 @@ int create_file_fd(t_token_type type, char *file_name)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644); //644 user can read&write; others can only read
 	else if (type == REDIR_APP)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (type == REDIR_HD)
+	{
+		file_name = "/tmp/.heredoc_tmp";
+		file_fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0600); //hd temporary file
+	}
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: %s\n", ERR_UNKRED, strerror(errno));
