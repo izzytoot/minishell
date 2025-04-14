@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   23_syntax_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/11 19:24:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:51:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ bool	misplaced_redir_at_end(const char *line)
 	check_in_quotes(line[i], &in_quotes);
 	if (in_quotes)
 		return (false);
-	else if (line[i] && !in_quotes && ft_strchr(REDIR, line[i]))	
-	{
-		ft_putstr_fd(ERR_SYN_REDIR_NL, STDERR_FILENO);
+	else if (line[i] && !in_quotes && ft_strchr(REDIR, line[i]))
 		return (true);
-	}
 	return (false);
 }

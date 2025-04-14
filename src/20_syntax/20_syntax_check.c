@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/11 21:02:32 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:52:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,25 @@ bool	syntax_is_ok(t_minishell **msh)
 	
 	line = (*msh)->prompt_line;
 	hd_index = check_if_hd(line);
-	
 	if (unclosed_quotes(line)) //except if within quotes
 		return (false);
 	if (misplaced_pipe(line)) // | at beginning or end
 		return (false);
-	if (conseq_operators_redir(line), hd_index) // redir + any redir
+	if (conseq_operators_redir(line)) // redir + any redir
 		return (false);
 	if (consec_operators_pipe(line)) // any oper + | //pipe + redir is ok (except << HD)
 		return (false);
 	if (unsupported_operators(line))
 		return (false);
-	// if (hd_index >= 0) //THIS ONLY HAPPENS IF THERE IS A SYNTAX ERROR
-	// 	exec_fake_hd(line, hd_index);
-	if (misplaced_redir_at_end(line)) // < > << >> at the end
-		return (false);
+	if (hd_index >= 0)
+	{
+		if (misplaced_redir_at_end(line)) // < > << >> at the end
+		{
+			exec_fake_hd(line, hd_index); //hd before error
+			ft_putstr_fd(ERR_SYN_REDIR_NL, STDERR_FILENO);
+			return (false);
+		}	
+	}
 	return (true);
 }
 
