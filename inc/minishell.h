@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/11 20:47:09 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:53:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ bool		misplaced_redir_at_end(const char *line);
 bool		look_for_pipe(const char *line, int i);
 bool		check_in_quotes(char c, bool *in_quotes);
 int 		check_if_hd(const char *line);
+char		*get_eof(const char *line, int hd_index);
 
 /************ 30_tokens ************/
 //30_tokenizer.c

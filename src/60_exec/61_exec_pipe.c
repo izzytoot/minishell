@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   61_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/11 16:59:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:05:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	perform_left_pipe(int useless_fd, int dup_fd, int curr_pid)
 
 void	perform_right_pipe(int useless_fd, int dup_fd, int curr_pid)
 {
-	close(useless_fd); // close read
+	close(useless_fd); // close write
 	safe_dup2(dup_fd, STDIN_FILENO, curr_pid); // stdin will write to the pipe instead of the terminal. It replaces the terminal with fd[1] (pipe).
 	close(dup_fd); // original fd[1] is no longer needed
 }

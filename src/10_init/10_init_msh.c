@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/08 19:30:03 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:22:23 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	prompt_and_read(t_minishell **msh)
 		prompt = get_prompt();
 		line = readline(prompt);
 		free(prompt);
+		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
+			break;
 		add_history(line);
 		(*msh)->token_list = NULL;
 		(*msh)->prompt_line = line;
-		if (strncmp(line, "exit", 4) == 0)
+		if (line && strncmp(line, "exit", 4) == 0)
 		{
 			if (syntax_is_ok(&(*msh)))
 				get_tokens(&(*msh), -1, '\0');
@@ -49,7 +51,7 @@ void	prompt_and_read(t_minishell **msh)
 			free_prompt_line(&(*msh));
 			close_minishell(*msh, EXIT_SUCCESS);
 		}
-		if (syntax_is_ok(&(*msh)))
+		if (line && syntax_is_ok(&(*msh)))
 		{
 			get_tokens(&(*msh), -1, '\0');
 			// if (!(*msh)->tree_root->left && !(*msh)->tree_root->right)

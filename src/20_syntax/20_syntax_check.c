@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/14 14:52:17 by root             ###   ########.fr       */
+/*   Updated: 2025/04/14 16:25:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,9 @@ void	exec_fake_hd(const char *line, int hd_index)
 {
 	char	*eof;
 	char	*new_line;
-	int		i;
 	int		fd;
-	int	size;
-	int	eof_s;
 	
-	hd_index++; // second <
-	i = 0;
-	size = 0;
-	if (line[hd_index + 1] == ' ')
-		hd_index++;
-	hd_index++;
-	eof_s = hd_index;
-	while(!ft_strchr(WHITESPACE, line[++hd_index]))
-		size++;
-	eof = malloc(sizeof(char) * (size + 1));
-	while(!ft_strchr(WHITESPACE, line[eof_s]))
-	{
-		eof[i] = line[eof_s];
-		eof_s++;
-		i++;
-	}
-	eof[i] = '\0';
+	eof = get_eof(line, hd_index);
 	fd = open("/tmp/.heredoc_tmp", O_CREAT | O_RDWR | O_TRUNC, 0600);
 	while (1)
 	{
