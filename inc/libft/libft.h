@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/23 23:47:43 by root             ###   ########.fr       */
+/*   Updated: 2025/04/08 11:42:37 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include "printf/ft_printf.h"
 # include "gnl/get_next_line.h"
+# include "dprintf/ft_dprintf.h"
 
 typedef struct s_list
 {
@@ -37,11 +38,12 @@ int		ft_toupper(int c);
 int		ft_lstsize(t_list *lst);
 int		ft_atoi_base(const char *str, int base);
 int		ft_is_space(char c);
+int		ft_strcmp(const char *s1, const char *s2);
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
-size_t  ft_strlen_until(const char *s, char c);
+size_t	ft_strlen_until(const char *s, char c);
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
@@ -49,10 +51,15 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_w_space(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_itoa(int n);
+char	*ft_unsplit(char **args);
+char *ft_strcpy(char *dest, char *src);
 char	**ft_split(char const *str, char c);
+char	**ft_list_to_array(t_list *list);
+char	**ft_array_dup(char **array);
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -74,6 +81,7 @@ void	ft_free_arrays(void **array);
 void	ft_free_matrix(void ***matrix);
 void	ft_error_msg(char *message, char *complete, int if_exit);
 void	ft_close_pipe(int *fd);
+void	ft_init_var(void **var1, void **var2, void **var3, void **var4);
 
 t_list	*ft_lstnew(void *data);
 t_list	*ft_lstlast(t_list *lst);

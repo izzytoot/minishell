@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/24 17:10:23 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:19:45 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int		main(int ac, char **av, char **envp)
 	if (!msh)
 		close_minishell(msh, EXIT_FAILURE);
 	msh->active = true;
-	msh->debug_mode = true; //DELETE BEFORE SUMISSION
+	msh->debug_mode = false; //DELETE BEFORE SUMISSION
 	ft_init_msh(&msh, envp);
-	close_minishell(msh, EXIT_SUCCESS);
 	return(0);
 }

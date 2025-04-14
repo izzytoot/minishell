@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/21 15:26:29 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:44:20 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,20 @@ bool	check_in_quotes(char c, bool *in_quotes)
 		quote_char = '\0';
 	}
 	return (in_quotes);
+}
+
+int check_if_hd(const char *line)
+{
+	int		i;
+	bool	in_quotes;
+
+	i = -1;
+	in_quotes = false;
+	while(line[++i])
+	{
+		check_in_quotes(line[i], &in_quotes);
+		if (line[i] && !in_quotes && (line[i] == '<' && line[i + 1] == '<'))
+			return (i);
+	}
+	return (-1);
 }
