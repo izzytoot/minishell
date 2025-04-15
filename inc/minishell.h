@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/15 16:34:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:26:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,7 @@ t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node, bool c
 t_tree_node	*build_cmd_node(t_token_lst **token_list);
 void		handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args);
 char		**join_cmd_and_args(char *cmd, char **args);
+t_list 		*reverse_args(t_list **head);
 
 //44_tree_utils.c
 t_token_lst	*safe_next_token(t_token_lst *curr_token);
