@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/14 15:53:43 by root             ###   ########.fr       */
+/*   Updated: 2025/04/15 16:34:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,13 @@ typedef struct s_minishell
 	bool		debug_mode;
 }	t_minishell;
 
+typedef	struct s_redir_data
+{
+	int			orig_stdin;
+	int			orig_stdout;
+	t_tree_node	*cmd_node;
+}	t_redir_data;
+
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
@@ -292,6 +299,7 @@ void		exec_redir_before_cmd(t_minishell **msh, t_tree_node *node);
 int			exec_redir(t_tree_node *node);
 void		handle_hd(t_tree_node *node, int hd_fd);
 int			create_file_fd(t_token_type type, char *file_name);
+int			collect_redirs_and_cmd(t_tree_node **current_node, t_tree_node **redir_nodes, t_redir_data *redir_data);
 
 //63_exec_cmd.c
 void		exec_cmd(t_minishell **msh, t_tree_node *node);

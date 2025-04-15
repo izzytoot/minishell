@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/11 19:00:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/15 11:43:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_tree_node *handle_redir(t_tree_node *redir_node, t_token_lst **curr_token, boo
 	else
 		new_redir->file = NULL;
 	new_redir->type = (*curr_token)->type;
-	if ((*curr_token)->type == REDIR_IN)
+	if ((*curr_token)->type == REDIR_IN || (*curr_token)->type == REDIR_HD)
 		new_redir->fd = STDIN_FILENO;
 	else
 		new_redir->fd = STDOUT_FILENO;
