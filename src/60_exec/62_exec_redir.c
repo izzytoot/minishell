@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/16 13:19:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:44:03 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	exec_redir(t_tree_node *node)
 		file_name = ft_strdup("/tmp/.heredoc_tmp");
 	else
 		file_name = node->file;
-	file_fd = create_file_fd(node->type, node->file);
+	file_fd = create_file_fd(node->type, file_name);
 	if (file_fd < 0)
 		return (-1);
 	curr_pid = getpid();
@@ -74,41 +74,12 @@ int	exec_redir(t_tree_node *node)
 	{
 		handle_hd(node, file_fd);
 		close(file_fd);
-		file_fd = open(node->file, O_RDONLY);
+		file_fd = open(file_name, O_RDONLY);
 		if (file_fd < 0)
 			return(-1);
 	}
 	safe_dup2(file_fd, node->fd, curr_pid);
 	return (0);
-}
-
-void		handle_hd(t_tree_node *node, int hd_fd)
-{
-	t_tree_node *current_node;
-	char 		*eof;
-	char		*new_line;
-	int			i;
-
-	current_node = node;
-	i = 0;
-	if (current_node->file[i] == '-')
-		eof = ft_substr(current_node->file, 1, (ft_strlen(current_node->file)));
-	else
-		eof = ft_strdup(current_node->file);
-	while(1)
-	{
-		new_line = readline("> ");
-		if (!new_line)
-			break;
-		if (ft_strcmp(new_line, eof) == 0)
-		{
-			free(new_line);
-			break ;
-		}
-		ft_putstr_fd(new_line, hd_fd);
-		free(new_line);
-		new_line = NULL;
-	}
 }
 
 int create_file_fd(t_token_type type, char *file_name)

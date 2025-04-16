@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/16 12:27:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:59:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_tree_node
 	t_token_type		type;
 	char				*op_content;
 	char				**cmd_content;
+	bool				eof_ch;
 	char				**args;
 	char				*cmd;
 	t_token_type		cmd_type;
@@ -300,16 +301,19 @@ void		perform_right_pipe(int useless_fd, int dup_fd, int curr_pid);
 //62_exec_redir.c
 void		exec_redir_before_cmd(t_minishell **msh, t_tree_node *node);
 int			exec_redir(t_tree_node *node);
-void		handle_hd(t_tree_node *node, int hd_fd);
 int			create_file_fd(t_token_type type, char *file_name);
 int			collect_redirs_and_cmd(t_tree_node **current_node, t_tree_node **redir_nodes, t_redir_data *redir_data);
 
-//63_exec_cmd.c
+//63_exec_heredoc.c
+void	handle_hd(t_tree_node *node, int hd_fd);
+char	*check_eof(t_tree_node *node, char *file_name);
+
+//64_exec_cmd.c
 void		exec_cmd(t_minishell **msh, t_tree_node *node);
 void		exec_bt_cmd(t_minishell **msh, t_tree_node *node);
 void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
 
-//64_exec_utils.c
+//65_exec_utils.c
 int			safe_fork(void);
 int			safe_dup(int old_fd, int curr_pid);
 void 		safe_dup2(int new_fd, int old_fd, int curr_pid);

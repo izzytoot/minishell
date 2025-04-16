@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/16 12:57:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:35:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*get_eof(const char *line, int hd_index)
 
 	while (line[hd_index] && ft_strchr(WHITESPACE, line[hd_index]))
 		hd_index++;
-	if (line[hd_index] == '-')
+	if (!ft_strchr(WHITESPACE, line[hd_index - 1]) && ((line[hd_index] == '-' || line[hd_index] == '!'))) // check if there are more
 		hd_index++;
 	eof_s = hd_index;
 	while(!ft_strchr(WHITESPACE, line[++hd_index]))
