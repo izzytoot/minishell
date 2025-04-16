@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/11 18:10:14 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:03:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 		 check_in_quotes(line[i], &in_quotes);
 		if (!in_quotes && ft_strchr(QUOTE, line[i]))
 			i++;
-		if (any_of_these(&(*msh), &i, line[i], in_quotes, quote_char))
+		if (any_of_these_tk(&(*msh), &i, line[i], in_quotes, quote_char))
 		;
 		else
 			break ;
@@ -50,7 +50,7 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 	return ;
 }
 
-bool	any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char)
+bool	any_of_these_tk(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char)
 {
 	bool	tmp_in_quotes;
 	char	tmp_qt_char;

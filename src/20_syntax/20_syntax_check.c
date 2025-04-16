@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/14 16:25:43 by root             ###   ########.fr       */
+/*   Updated: 2025/04/16 12:06:57 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,7 @@ bool	syntax_is_ok(t_minishell **msh)
 	
 	line = (*msh)->prompt_line;
 	hd_index = check_if_hd(line);
-	if (unclosed_quotes(line)) //except if within quotes
-		return (false);
-	if (misplaced_pipe(line)) // | at beginning or end
-		return (false);
-	if (conseq_operators_redir(line)) // redir + any redir
-		return (false);
-	if (consec_operators_pipe(line)) // any oper + | //pipe + redir is ok (except << HD)
-		return (false);
-	if (unsupported_operators(line))
+	if (any_of_these_syn(line))
 		return (false);
 	if (hd_index >= 0)
 	{
@@ -38,7 +30,30 @@ bool	syntax_is_ok(t_minishell **msh)
 			return (false);
 		}	
 	}
+	else
+	{
+		if (misplaced_redir_at_end(line))
+		{
+			ft_putstr_fd(ERR_SYN_REDIR_NL, STDERR_FILENO);
+			return (false);
+		}
+	}
 	return (true);
+}
+
+bool	any_of_these_syn(const char *line)
+{
+	if (unclosed_quotes(line)) //except if within quotes
+		return (true);
+	if (misplaced_pipe(line)) // | at beginning or end
+		return (true);
+	if (conseq_operators_redir(line)) // redir + any redir
+		return (true);
+	if (consec_operators_pipe(line)) // any oper + | //pipe + redir is ok (except << HD)
+		return (true);
+	if (unsupported_operators(line))
+		return (true);
+	return (false);
 }
 
 bool	unsupported_operators(const char *line)

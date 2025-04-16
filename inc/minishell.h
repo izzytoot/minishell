@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/15 17:26:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:27:21 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 //constants
 # define WHITESPACE " \t\n\r\v\f"
 # define OPERATOR "|<>"
+# define NON_EOF "|<>&" //check if there are more
 # define REDIR "<>"
 # define QUOTE "\"\'"
 /* ************************************************************************** */
@@ -187,6 +188,7 @@ void		init_all_null(t_minishell **msh);
 /************ 20_syntax ************/
 //20_syntax_check.c
 bool		syntax_is_ok(t_minishell **msh);
+bool		any_of_these_syn(const char *line);
 bool		unsupported_operators(const char *line);
 void		exec_fake_hd(const char *line, int hd_index);
 
@@ -214,7 +216,7 @@ char		*get_eof(const char *line, int hd_index);
 /************ 30_tokens ************/
 //30_tokenizer.c
 void		get_tokens(t_minishell **msh, int i, char quote_char);
-bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char); //too many args
+bool		any_of_these_tk(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char); //too many args
 void		sub_tokenize(t_minishell **msh);
 void		handle_filename(t_token_lst *token_list);
 char		*check_env_cmd(char *cmd, char *env_path, int i);

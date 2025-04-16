@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/15 16:41:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:19:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,14 @@ void		handle_hd(t_tree_node *node, int hd_fd)
 	t_tree_node *current_node;
 	char 		*eof;
 	char		*new_line;
-	
+	int			i;
+
 	current_node = node;
-	eof = ft_strdup(current_node->file);
+	i = 0;
+	if (current_node->file[i] == '-')
+		eof = ft_substr(current_node->file, 1, (ft_strlen(current_node->file)));
+	else
+		eof = ft_strdup(current_node->file);
 	while(1)
 	{
 		new_line = readline("> ");
