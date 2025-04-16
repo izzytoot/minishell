@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/16 15:59:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:10:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct s_tree_node
 	char				*cmd;
 	t_token_type		cmd_type;
 	char				*file;
+	char				*tmp_file;
 	int					fd;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
@@ -292,6 +293,7 @@ void		add_new_env_var(t_list **env_list, const char *var_name,
 /************ 60_exec_tree ************/
 //60_exec_tree.c
 void		exec_tree(t_minishell **msh, t_tree_node *node);
+void	collect_heredocs(t_tree_node *node);
 
 //61_exec_pipe.c
 void		exec_pipe(t_minishell **msh, t_tree_node *node);
