@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/16 19:07:46 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:11:08 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	collect_redirs_and_cmd(t_tree_node **current_node, t_tree_node **redir_nodes
 	while(*current_node && type_is_redir(&(*current_node)->type)) //collect redir from right to left
 	{
 		redir_nodes[i] = *current_node;
-		if ((*current_node)->type == REDIR_IN && redir_data->orig_stdin == -1)
+		if (((*current_node)->type == REDIR_IN || (*current_node)->type == REDIR_HD) && redir_data->orig_stdin == -1)
 			redir_data->orig_stdin = safe_dup((*current_node)->fd, getpid());
 		if (((*current_node)->type == REDIR_OUT || (*current_node)->type == REDIR_APP) && redir_data->orig_stdout == -1)
 			redir_data->orig_stdout = safe_dup((*current_node)->fd, getpid());
@@ -92,16 +92,19 @@ int	exec_redir(t_tree_node *node)
 	file_fd = -1;
 	if (node->type != REDIR_HD)
 		file_fd = create_file_fd(node->type, node->file);
+	if (node->type == REDIR_HD)
+		file_fd = open(node->tmp_file, O_RDONLY);
 	if (file_fd < 0)
 		return (-1);
 	curr_pid = getpid();
-	// if (node->type == REDIR_HD)
-	// {
-	// 	file_fd = open(node->file, O_RDONLY);
-	// 	safe_dup2(file_fd, STDIN_FILENO, curr_pid);
-	// 	close(file_fd);
-	// }
-	safe_dup2(file_fd, node->fd, curr_pid);
+	if (node->type == REDIR_HD)
+	{
+	 	file_fd = open(node->tmp_file, O_RDONLY);
+	 	safe_dup2(file_fd, STDIN_FILENO, curr_pid);
+	 	close(file_fd);
+	}
+	else
+		safe_dup2(file_fd, node->fd, curr_pid);
 	return (0);
 }
 

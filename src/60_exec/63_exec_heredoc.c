@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/16 16:43:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:47:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,35 @@ void		handle_hd(t_tree_node *node, int hd_fd)
 	t_tree_node *current_node;
 	char 		*eof;
 	char		*new_line;
-
+	int			child_pid;
+	int			status;
+	
 	current_node = node;
 	eof = check_eof(current_node, current_node->file);
-	while(1)
+	child_pid = safe_fork();
+	if (child_pid == 0)
 	{
-		new_line = readline("> ");
-		if (!new_line)
-			break;
-		if (ft_strcmp(new_line, eof) == 0)
+		while(1)
 		{
+			new_line = readline("> ");
+			if (!new_line)
+			{
+				exit(EXIT_FAILURE);
+			}
+			if (ft_strcmp(new_line, eof) == 0)
+			{
+				free(new_line);
+				exit(EXIT_SUCCESS);
+			}
+			ft_putstr_fd(new_line, hd_fd);
+			ft_putstr_fd("\n", hd_fd);
 			free(new_line);
-			break ;
+			new_line = NULL;
 		}
-		ft_putstr_fd(new_line, hd_fd);
-		ft_putstr_fd("\n", hd_fd);
-		free(new_line);
-		new_line = NULL;
 	}
+	waitpid(child_pid, &status, 0);
 }
+
 char	*check_eof(t_tree_node *node, char *file_name)
 {
 	int		i;
