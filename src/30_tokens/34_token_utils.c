@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/10 17:51:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:07:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,23 @@ char *get_path(t_list *envp_list)
 void check_double_cmd(t_minishell **msh)
 {
 	t_token_lst *current;
-
+	bool		cmd_ch;
+	
 	current = (*msh)->token_list;
-	while(current && current->next)
-	{
-		if (current->next->next && current->next->type == W_SPACE)
-		{
-			if ((current->type == BT_CMD || current->type == ENV_CMD) &&
-			(current->next->next->type == BT_CMD || current->next->next->type == ENV_CMD))
-			current->type = ARG;
-		}
-		else
-		{
-			if ((current->type == BT_CMD || current->type == ENV_CMD) &&
-				(current->next->type == BT_CMD || current->next->type == ENV_CMD))
-				current->type = ARG;
-		}
+	cmd_ch = false;
+	while (current && current->next)
 		current = current->next;
+	while(current)
+	{
+		if (type_is_cmd(&current->type))
+		{
+			if (cmd_ch)
+				current->type = ARG;
+			else
+				cmd_ch = true;
+		}
+		current = current->prev;
+		if (current && current->type == PIPE)
+			cmd_ch = false;
 	}
 }

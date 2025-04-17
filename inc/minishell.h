@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/15 17:26:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:33:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 //constants
 # define WHITESPACE " \t\n\r\v\f"
 # define OPERATOR "|<>"
+# define NON_EOF "|<>&" //check if there are more
 # define REDIR "<>"
 # define QUOTE "\"\'"
 /* ************************************************************************** */
@@ -130,10 +131,12 @@ typedef struct s_tree_node
 	t_token_type		type;
 	char				*op_content;
 	char				**cmd_content;
+	bool				eof_ch;
 	char				**args;
 	char				*cmd;
 	t_token_type		cmd_type;
 	char				*file;
+	char				*tmp_file;
 	int					fd;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
@@ -151,6 +154,7 @@ typedef struct s_minishell
 	char		**envp;
 	t_list		*envp_list; //enviroment variables line user, home, path, etc
 	bool		debug_mode;
+	bool		hd_check;
 }	t_minishell;
 
 typedef	struct s_redir_data
@@ -187,6 +191,7 @@ void		init_all_null(t_minishell **msh);
 /************ 20_syntax ************/
 //20_syntax_check.c
 bool		syntax_is_ok(t_minishell **msh);
+bool		any_of_these_syn(const char *line);
 bool		unsupported_operators(const char *line);
 void		exec_fake_hd(const char *line, int hd_index);
 
@@ -214,7 +219,7 @@ char		*get_eof(const char *line, int hd_index);
 /************ 30_tokens ************/
 //30_tokenizer.c
 void		get_tokens(t_minishell **msh, int i, char quote_char);
-bool		any_of_these(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char); //too many args
+bool		any_of_these_tk(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char); //too many args
 void		sub_tokenize(t_minishell **msh);
 void		handle_filename(t_token_lst *token_list);
 char		*check_env_cmd(char *cmd, char *env_path, int i);
@@ -298,16 +303,20 @@ void		perform_right_pipe(int useless_fd, int dup_fd, int curr_pid);
 //62_exec_redir.c
 void		exec_redir_before_cmd(t_minishell **msh, t_tree_node *node);
 int			exec_redir(t_tree_node *node);
-void		handle_hd(t_tree_node *node, int hd_fd);
 int			create_file_fd(t_token_type type, char *file_name);
 int			collect_redirs_and_cmd(t_tree_node **current_node, t_tree_node **redir_nodes, t_redir_data *redir_data);
 
-//63_exec_cmd.c
+//63_exec_heredoc.c
+void		exec_heredocs(t_tree_node *node);
+void		handle_hd(t_tree_node *node, int hd_fd);
+char		*check_eof(t_tree_node *node, char *file_name);
+
+//64_exec_cmd.c
 void		exec_cmd(t_minishell **msh, t_tree_node *node);
 void		exec_bt_cmd(t_minishell **msh, t_tree_node *node);
 void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
 
-//64_exec_utils.c
+//65_exec_utils.c
 int			safe_fork(void);
 int			safe_dup(int old_fd, int curr_pid);
 void 		safe_dup2(int new_fd, int old_fd, int curr_pid);

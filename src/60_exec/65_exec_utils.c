@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   64_exec_utils.c                                    :+:      :+:    :+:   */
+/*   65_exec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:19:13 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/15 13:39:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:24:17 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int safe_dup(int old_fd, int curr_pid)
 }
 
 /*
-closes old_fd
-duplicates new_fd to old_fd - old_fd is now new_fd
+closes dest_fd
+duplicates src_fd to dest_fd - dest_fd is now src_fd
 */
 void safe_dup2(int src_fd, int dest_fd, int curr_pid)
 {
-	if (dup2(src_fd, dest_fd) < 0) // new_fd is duplicated form old_fd
+	if (dup2(src_fd, dest_fd) < 0)
 	{
-		perror("msh: dup2: "); /// msh: dup2: : Bad file descriptor
+		perror("msh: dup2: ");
 		close(src_fd);
 		if (curr_pid == 0)
 			exit (EXIT_FAILURE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   24_syntax_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/14 15:54:27 by root             ###   ########.fr       */
+/*   Updated: 2025/04/16 15:35:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,26 @@ int check_if_hd(const char *line)
 {
 	int		i;
 	bool	in_quotes;
-
+	int		hd_start;
+	
 	i = -1;
 	in_quotes = false;
+	hd_start = -1;
 	while(line[++i])
 	{
 		check_in_quotes(line[i], &in_quotes);
 		if (line[i] && !in_quotes && (line[i] == '<' && line[i + 1] == '<'))
-			return (i);
+		{
+			hd_start = i;
+			i = i + 2;
+			while (line[i] && ft_strchr(WHITESPACE, line[i]))
+				i++;
+			if (line[i] == '-')
+				i++;
+			if (!line[i] && ft_strchr(NON_EOF, line[i]))
+				return (-1);
+			return (hd_start);
+		}
 	}
 	return (-1);
 }
@@ -67,12 +79,14 @@ char	*get_eof(const char *line, int hd_index)
 	int		size;
 	int		eof_s;
 	
-	hd_index++; // second <
+	hd_index += 2; // char after <<
 	i = 0;
 	size = 0;
-	if (line[hd_index + 1] == ' ')
+
+	while (line[hd_index] && ft_strchr(WHITESPACE, line[hd_index]))
 		hd_index++;
-	hd_index++;
+	if (!ft_strchr(WHITESPACE, line[hd_index - 1]) && ((line[hd_index] == '-' || line[hd_index] == '!'))) // check if there are more
+		hd_index++;
 	eof_s = hd_index;
 	while(!ft_strchr(WHITESPACE, line[++hd_index]))
 		size++;

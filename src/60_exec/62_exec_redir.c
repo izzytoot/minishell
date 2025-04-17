@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/15 16:41:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:11:08 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	collect_redirs_and_cmd(t_tree_node **current_node, t_tree_node **redir_nodes
 	}
 	return (i);
 }
-
+/*
 int	exec_redir(t_tree_node *node)
 {
 	int		file_fd;
@@ -66,45 +66,48 @@ int	exec_redir(t_tree_node *node)
 		file_name = ft_strdup("/tmp/.heredoc_tmp");
 	else
 		file_name = node->file;
-	file_fd = create_file_fd(node->type, node->file);
+	file_fd = create_file_fd(node->type, file_name);
+	if (file_fd < 0)
+		return (-1);
+	curr_pid = getpid();
+//	if (node->type == REDIR_HD)
+	// {
+	// 	handle_hd(node, file_fd);
+	// 	close(file_fd);
+	// 	file_fd = open(file_name, O_RDONLY);
+	// 	if (file_fd < 0)
+	// 		return(-1);
+	// }
+	safe_dup2(file_fd, node->fd, curr_pid);
+	return (0);
+}
+*/
+
+// I WAS HERE
+int	exec_redir(t_tree_node *node)
+{
+	int		file_fd;
+	int		curr_pid;
+	
+	file_fd = -1;
+	if (node->type != REDIR_HD)
+		file_fd = create_file_fd(node->type, node->file);
+	if (node->type == REDIR_HD)
+		file_fd = open(node->tmp_file, O_RDONLY);
 	if (file_fd < 0)
 		return (-1);
 	curr_pid = getpid();
 	if (node->type == REDIR_HD)
 	{
-		handle_hd(node, file_fd);
-		close(file_fd);
-		file_fd = open(node->file, O_RDONLY);
-		if (file_fd < 0)
-			return(-1);
+	 	file_fd = open(node->tmp_file, O_RDONLY);
+	 	safe_dup2(file_fd, STDIN_FILENO, curr_pid);
+	 	close(file_fd);
 	}
-	safe_dup2(file_fd, node->fd, curr_pid);
+	else
+		safe_dup2(file_fd, node->fd, curr_pid);
 	return (0);
 }
 
-void		handle_hd(t_tree_node *node, int hd_fd)
-{
-	t_tree_node *current_node;
-	char 		*eof;
-	char		*new_line;
-	
-	current_node = node;
-	eof = ft_strdup(current_node->file);
-	while(1)
-	{
-		new_line = readline("> ");
-		if (!new_line)
-			break;
-		if (ft_strcmp(new_line, eof) == 0)
-		{
-			free(new_line);
-			break ;
-		}
-		ft_putstr_fd(new_line, hd_fd);
-		free(new_line);
-		new_line = NULL;
-	}
-}
 
 int create_file_fd(t_token_type type, char *file_name)
 {

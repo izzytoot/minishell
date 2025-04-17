@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/14 17:22:23 by root             ###   ########.fr       */
+/*   Updated: 2025/04/17 17:12:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void ft_init_msh(t_minishell **msh, char **envp)
 {
 	if (!isatty(STDIN_FILENO))
 		close_minishell(*msh, EXIT_FAILURE);
+	(*msh)->hd_check = true;
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
 //	if ((*msh)->debug_mode)
