@@ -20,8 +20,7 @@
             ],
             "logging": {
                 "engineLogging": true
-            },
-            "intelliSenseMode": "gcc-x64"
+            }
         }
     ]
 }

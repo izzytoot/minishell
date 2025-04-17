@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/04 16:32:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:44:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,19 @@ t_tree_node *new_tree_node(t_token_type *type, char *content)
 	new_node = ft_calloc(1, sizeof(t_tree_node));
 	if (!new_node)
 		return (NULL);
-	new_node->op_content = content;
+	if (content)
+		new_node->op_content = ft_strdup(content);
 	new_node->cmd_content = NULL;
-	new_node->type = *type;
+	if (type)
+		new_node->type = *type;
+	else
+		new_node->type = -1;
 	new_node->args = NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->straight = NULL;
 	new_node->cmd = NULL;
-	new_node->cmd_type = 0;
-	new_node->fd = 0;
+	new_node->fd = -1;
+	new_node->cmd_type = -1;
 	return (new_node);
 }

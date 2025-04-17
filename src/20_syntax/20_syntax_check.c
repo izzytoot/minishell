@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 15:53:36 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:25:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,30 @@
 bool	syntax_is_ok(t_minishell **msh)
 {
 	const char *line;
+	int			hd_index;
 	
 	line = (*msh)->prompt_line;
+	hd_index = check_if_hd(line);
 	if (unclosed_quotes(line)) //except if within quotes
-		return (false);
-	if (hd_open(line)) // << + word // para tirar
 		return (false);
 	if (misplaced_pipe(line)) // | at beginning or end
 		return (false);
 	if (conseq_operators_redir(line)) // redir + any redir
 		return (false);
-	if (misplaced_redir_hd(line)) // any redir + <<
-		return (false);
 	if (consec_operators_pipe(line)) // any oper + | //pipe + redir is ok (except << HD)
-		return (false);
-	if (misplaced_redir_at_end(line)) // < > << >> at the end
 		return (false);
 	if (unsupported_operators(line))
 		return (false);
-	else if (empty_quotes(line))
-		return (false);
-	return (true);
-}
-
-bool	hd_open(const char *line) 
-{
-	int		i;
-	bool	in_quotes;
-	
-	i = -1;
-	in_quotes = false;
-	while (line[++i])
+	if (hd_index >= 0)
 	{
-		check_in_quotes(line[i], &in_quotes);
-		if (line[i] && !in_quotes && line[i] == '<' && line[i + 1] == '<')
+		if (misplaced_redir_at_end(line)) // < > << >> at the end
 		{
-			i = i + 2;
-			while (line[i] && (ft_strchr(WHITESPACE, line[i])))
-				i++;
-			if (line[i] && !ft_strchr(OPERATOR, line[i]))
-			{
-				ft_putstr_fd(ERR_SYN_REDIR_HD_OPEN, STDERR_FILENO);
-				return (true);
-			}
-		}
+			exec_fake_hd(line, hd_index); //hd before error
+			ft_putstr_fd(ERR_SYN_REDIR_NL, STDERR_FILENO);
+			return (false);
+		}	
 	}
-	return(false);
+	return (true);
 }
 
 bool	unsupported_operators(const char *line)
@@ -85,4 +63,28 @@ bool	unsupported_operators(const char *line)
 		}	
 	}
 	return (false);
+}
+
+void	exec_fake_hd(const char *line, int hd_index)
+{
+	char	*eof;
+	char	*new_line;
+	int		fd;
+	
+	eof = get_eof(line, hd_index);
+	fd = open("/tmp/.heredoc_tmp", O_CREAT | O_RDWR | O_TRUNC, 0600);
+	while (1)
+	{
+		new_line = readline("> ");
+		if (!new_line)
+			break;
+		if (ft_strcmp(new_line, eof) == 0)
+		{
+			free(new_line);
+			break ;
+		}
+		ft_putstr_fd(new_line, fd);
+		free(new_line);
+		new_line = NULL;
+	}
 }

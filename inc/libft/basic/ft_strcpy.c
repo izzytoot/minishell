@@ -1,14 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   61_exec_utils.c                                    :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/04 13:32:14 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/04 13:32:23 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/04/08 11:34:17 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/04/08 11:42:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../libft.h"
 
+char *ft_strcpy(char *dest, char *src)
+{
+	int		i;
+	
+	i = 0;
+	while(src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}

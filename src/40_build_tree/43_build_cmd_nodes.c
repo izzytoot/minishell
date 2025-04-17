@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/04 16:51:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:27:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,33 @@ t_tree_node *build_cmd_node(t_token_lst **token_list)
 		else
 			curr_token = curr_token->next;
 	}
+	args = reverse_args(&args);
 	cmd_node->args = ft_list_to_array(args);
 	cmd_node->cmd_content =  join_cmd_and_args(cmd_node->cmd, cmd_node->args);
-	if (curr_token)
-		*token_list = curr_token;
 	return(cmd_node);
+}
+
+t_list *reverse_args(t_list **head)
+{
+	t_list	*prev;
+	t_list	*current;
+	t_list	*next;
+
+	prev = NULL;
+	current = *head;
+	next = NULL;
+	
+	if (!head || !*head)
+		return (NULL);
+	while (current)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	*head = prev;
+	return(*head);
 }
 
 void	handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args)
@@ -48,7 +70,7 @@ void	handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args)
 			cmd_node->cmd = (*curr_token)->content;
 			cmd_node->cmd_type = (*curr_token)->type;
 		}
-		if ((*curr_token)->type != W_SPACE)
+		if (type_is_word(&(*curr_token)->type))
 			cmd_node->type = (*curr_token)->type;
 		*curr_token = (*curr_token)->next;
 	}
@@ -63,10 +85,7 @@ char **join_cmd_and_args(char *cmd, char **args)
 	arg_count = 0;
 	full_cmd = NULL;
 	if (!cmd)
-	{
-		ft_printf("command not found\n"); // to delete
-		return (NULL);	
-	}
+	 	return (args);
 	while (args && args[arg_count])
 		arg_count++;
 	full_cmd = malloc(sizeof(char *) * (arg_count + 2));

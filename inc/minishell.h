@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 16:27:53 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:26:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 # define ERR_PRC "Error creating process\n"
 # define ERR_ENVP "Error duplicating environment variables\n"
 */
-# define ERR_CNOTFOUND "Error: command not found\n"
+# define ERR_CNOTFOUND "command not found\n"
 # define ERR_SYN_EMPT "Command '' not found\n"
 # define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
 # define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
@@ -76,6 +76,7 @@
 # define ERR_SYN_REDIR_APP "msh: syntax error near unexpected token `>>'\n"
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
 # define ERR_CD_ARGS "msh: cd: too many arguments\n"
+# define ERR_UNKRED "unknown redirection type\n"
 
 //constants
 # define WHITESPACE " \t\n\r\v\f"
@@ -152,6 +153,13 @@ typedef struct s_minishell
 	bool		debug_mode;
 }	t_minishell;
 
+typedef	struct s_redir_data
+{
+	int			orig_stdin;
+	int			orig_stdout;
+	t_tree_node	*cmd_node;
+}	t_redir_data;
+
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
@@ -175,17 +183,15 @@ char		*add_envp_newline(char *envp);
 
 //12_init_utils.c
 void		init_all_null(t_minishell **msh);
-int			my_getpid(t_minishell *msh);
 
 /************ 20_syntax ************/
 //20_syntax_check.c
 bool		syntax_is_ok(t_minishell **msh);
-bool		hd_open(const char *line); // para remover quando resolvermos heredoc
 bool		unsupported_operators(const char *line);
+void		exec_fake_hd(const char *line, int hd_index);
 
 //21_syntax_quotes.c
 bool		unclosed_quotes(const char *line);
-bool		empty_quotes(const char *line);
 
 //22_syntax_pipes.c
 bool		misplaced_pipe(const char *line);
@@ -197,12 +203,13 @@ bool		consec_operators_pipe(const char *line);
 bool		conseq_operators_redir(const char *line);
 void		conseq_redir_r_case(const char *line, int i);
 void		conseq_redir_l_case(const char *line, int i);
-bool		misplaced_redir_hd(const char *line);
 bool		misplaced_redir_at_end(const char *line);
 
 //24_syntax_utils.c
 bool		look_for_pipe(const char *line, int i);
 bool		check_in_quotes(char c, bool *in_quotes);
+int 		check_if_hd(const char *line);
+char		*get_eof(const char *line, int hd_index);
 
 /************ 30_tokens ************/
 //30_tokenizer.c
@@ -237,7 +244,7 @@ int			token_is_redir_in(t_minishell **msh, const char *line,
 void		check_quote(bool *in_quotes, char *quote_char, char c);
 void		append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
 char		*get_path(t_list *envp_list);
-
+void 		check_double_cmd(t_minishell **msh);
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
 void		parse_line(t_minishell **msh);
@@ -248,15 +255,16 @@ t_tree_node	*build_pipe_node(t_token_lst **tokens);
 
 //42_build_redir_nodes.c
 t_tree_node	*build_redir_node(t_token_lst **token_list);
-void		handle_redir(t_tree_node *redir_node, t_token_lst *current_token);
+t_tree_node *handle_redir(t_tree_node *redir_node, t_token_lst **curr_token, bool *cmd_excep);
 t_tree_node	*attach_redir(t_tree_node *redir_node, t_tree_node *new_redir);
-bool		check_cmd(t_token_lst **token_list);
-t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node);
+bool		check_cmd(t_token_lst **token_list, bool cmd_excep);
+t_tree_node	*add_leftmost(t_tree_node *redir_node, t_tree_node *cmd_node, bool cmd_excep);
 
 //43_build_cmd_nodes.c
 t_tree_node	*build_cmd_node(t_token_lst **token_list);
 void		handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args);
 char		**join_cmd_and_args(char *cmd, char **args);
+t_list 		*reverse_args(t_list **head);
 
 //44_tree_utils.c
 t_token_lst	*safe_next_token(t_token_lst *curr_token);
@@ -279,11 +287,31 @@ void		add_new_env_var(t_list **env_list, const char *var_name,
 				const char *data);
 
 /************ 60_exec_tree ************/
-void		exec_single_cmd(t_minishell **msh);
-void		create_child_process(t_minishell **msh, t_tree_node *node);
+//60_exec_tree.c
+void		exec_tree(t_minishell **msh, t_tree_node *node);
+
+//61_exec_pipe.c
+void		exec_pipe(t_minishell **msh, t_tree_node *node);
+void		perform_left_pipe(int useless_fd, int dup_fd, int curr_pid);
+void		perform_right_pipe(int useless_fd, int dup_fd, int curr_pid);
+
+//62_exec_redir.c
+void		exec_redir_before_cmd(t_minishell **msh, t_tree_node *node);
+int			exec_redir(t_tree_node *node);
+void		handle_hd(t_tree_node *node, int hd_fd);
+int			create_file_fd(t_token_type type, char *file_name);
+int			collect_redirs_and_cmd(t_tree_node **current_node, t_tree_node **redir_nodes, t_redir_data *redir_data);
+
+//63_exec_cmd.c
+void		exec_cmd(t_minishell **msh, t_tree_node *node);
+void		exec_bt_cmd(t_minishell **msh, t_tree_node *node);
 void		exec_env_cmd(t_minishell **msh, t_tree_node *node);
 
-//void	exec_tree(t_minishell **msh);
+//64_exec_utils.c
+int			safe_fork(void);
+int			safe_dup(int old_fd, int curr_pid);
+void 		safe_dup2(int new_fd, int old_fd, int curr_pid);
+int			safe_pipe(int pipe_fd[2]);
 
 /************ others ************/
 //10_close_msh.c
