@@ -6,44 +6,54 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/17 15:47:02 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:35:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	exec_heredocs(t_tree_node *node)
+{
+	int	file_fd;
+	
+	if (!node)
+		return ;
+	if (node->type == REDIR_HD)
+	{	
+		node->tmp_file = ft_strdup("/tmp/.heredoc_tmp");
+		file_fd = create_file_fd(node->type, node->tmp_file);
+		handle_hd(node, file_fd);
+		close(file_fd);
+	}
+	if (node->left)
+		exec_heredocs(node->left);
+	if(node->right)
+		exec_heredocs(node->right);
+}
 
 void		handle_hd(t_tree_node *node, int hd_fd)
 {
 	t_tree_node *current_node;
 	char 		*eof;
 	char		*new_line;
-	int			child_pid;
-	int			status;
 	
 	current_node = node;
 	eof = check_eof(current_node, current_node->file);
-	child_pid = safe_fork();
-	if (child_pid == 0)
+	while(1)
 	{
-		while(1)
+		new_line = readline("> ");
+		if (!new_line)
+			break;
+		if (ft_strcmp(new_line, eof) == 0)
 		{
-			new_line = readline("> ");
-			if (!new_line)
-			{
-				exit(EXIT_FAILURE);
-			}
-			if (ft_strcmp(new_line, eof) == 0)
-			{
-				free(new_line);
-				exit(EXIT_SUCCESS);
-			}
-			ft_putstr_fd(new_line, hd_fd);
-			ft_putstr_fd("\n", hd_fd);
 			free(new_line);
-			new_line = NULL;
+			break;
 		}
+		ft_putstr_fd(new_line, hd_fd);
+		ft_putstr_fd("\n", hd_fd);
+		free(new_line);
+		new_line = NULL;
 	}
-	waitpid(child_pid, &status, 0);
 }
 
 char	*check_eof(t_tree_node *node, char *file_name)

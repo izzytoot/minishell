@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/17 15:16:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:33:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,6 @@ void		add_new_env_var(t_list **env_list, const char *var_name,
 /************ 60_exec_tree ************/
 //60_exec_tree.c
 void		exec_tree(t_minishell **msh, t_tree_node *node);
-void		exec_heredocs(t_tree_node *node);
 
 //61_exec_pipe.c
 void		exec_pipe(t_minishell **msh, t_tree_node *node);
@@ -308,8 +307,9 @@ int			create_file_fd(t_token_type type, char *file_name);
 int			collect_redirs_and_cmd(t_tree_node **current_node, t_tree_node **redir_nodes, t_redir_data *redir_data);
 
 //63_exec_heredoc.c
-void	handle_hd(t_tree_node *node, int hd_fd);
-char	*check_eof(t_tree_node *node, char *file_name);
+void		exec_heredocs(t_tree_node *node);
+void		handle_hd(t_tree_node *node, int hd_fd);
+char		*check_eof(t_tree_node *node, char *file_name);
 
 //64_exec_cmd.c
 void		exec_cmd(t_minishell **msh, t_tree_node *node);

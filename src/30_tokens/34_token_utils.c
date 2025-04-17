@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/17 16:39:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:07:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ void check_double_cmd(t_minishell **msh)
 				cmd_ch = true;
 		}
 		current = current->prev;
+		if (current && current->type == PIPE)
+			cmd_ch = false;
 	}
 }

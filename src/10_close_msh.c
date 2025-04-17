@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/09 16:48:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:31:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void	free_prompt_line(t_minishell **msh)
 	}
 	if ((*msh)->token_list)
 		free_tokens((*msh)->token_list);
+	(*msh)->hd_check = true;
+	if ("/tmp/.heredoc_tmp")
+		unlink("/tmp/.heredoc_tmp");
+//	safe_dup2(0, STDIN_FILENO, getpid()); //check if needed
+//	safe_dup2(1, STDOUT_FILENO, getpid()); //check if needed
 }
 
 void	free_tree(t_tree_node *node)
