@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/07 19:20:32 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:39:47 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,18 @@
 int	ft_echo(t_tree_node **node)
 {
 	int		i;
-	int		total_args;
 	int		newline;
 
 	i = 0;
-	total_args = 0;
 	newline = 1;
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	while ((*node)->args[total_args])
-		total_args++;
-	if (total_args == 0)
-		return (ft_putstr_fd("\n", STDOUT_FILENO), 0);
-	total_args--;
-	if (ft_strcmp((*node)->args[total_args--], "-n") == 0)
+	if ((*node)->args[0] && ft_strcmp((*node)->args[0], "-n") == 0)
+	{
 		newline = 0;
-	while ((*node)->args[i] && i < total_args)
+		i++;
+	}
+	while ((*node)->args[i])
 	{
 		ft_putstr_fd((*node)->args[i], STDOUT_FILENO);
 		if ((*node)->args[i + 1])
