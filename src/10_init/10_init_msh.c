@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/17 17:12:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/18 12:35:41 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void	prompt_and_read(t_minishell **msh)
 		add_history(line);
 		(*msh)->token_list = NULL;
 		(*msh)->prompt_line = line;
-		if (line && strncmp(line, "exit", 4) == 0)
-		{
-			if (syntax_is_ok(&(*msh)))
-				get_tokens(&(*msh), -1, '\0');
-			ft_printf("exit\n");
-			free_prompt_line(&(*msh));
-			close_minishell(*msh, EXIT_SUCCESS);
-		}
+		// if (line && strncmp(line, "exit", 4) == 0)
+		// {
+		// 	if (syntax_is_ok(&(*msh)))
+		// 		get_tokens(&(*msh), -1, '\0');
+		// 	ft_printf("exit\n");
+		// 	free_prompt_line(&(*msh));
+		// 	close_minishell(*msh, EXIT_SUCCESS);
+		// }
 		if (line && syntax_is_ok(&(*msh)))
 		{
 			get_tokens(&(*msh), -1, '\0');

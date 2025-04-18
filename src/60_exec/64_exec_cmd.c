@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   63_exec_cmd.c                                      :+:      :+:    :+:   */
+/*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/09 18:38:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:38:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void	exec_bt_cmd(t_minishell **msh, t_tree_node *node)
 	else if (ft_strcmp(node->cmd, "cd") == 0)
 		ft_cd(msh, &node);
 	else if (ft_strcmp(node->cmd, "pwd") == 0)
-		print_work_dir();
+		ft_pwd();
 	//else if (node->cmd =="export")
 	//	ft_export(&(*msh));
 	//else if (node->cmd == "unset")
 	//	ft_unset(&(*msh));
 	else if (ft_strcmp(node->cmd, "env") == 0)
 		print_env(msh, &node);
-	//else if (node->cmd =="exit")
-	//	ft_exit(&(*msh));
+	else if (node->cmd == "exit")
+		ft_exit(&(*msh), &node->args);
 }
 
 void	exec_env_cmd(t_minishell **msh, t_tree_node *node)
