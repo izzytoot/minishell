@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/18 16:38:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/18 22:26:33 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	exec_bt_cmd(t_minishell **msh, t_tree_node *node)
 	//	ft_unset(&(*msh));
 	else if (ft_strcmp(node->cmd, "env") == 0)
 		print_env(msh, &node);
-	else if (node->cmd == "exit")
-		ft_exit(&(*msh), &node->args);
+	else if (ft_strcmp(node->cmd, "exit") == 0)
+		ft_exit(msh, &node);
 }
 
 void	exec_env_cmd(t_minishell **msh, t_tree_node *node)

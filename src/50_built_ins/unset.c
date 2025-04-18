@@ -14,18 +14,18 @@
 
 //info -->
 
-int	ft_unset(t_minishell **msh, t_tree_node **node)
-{
-	int	i;
+// int	ft_unset(t_minishell **msh, t_tree_node **node)
+// {
+// 	int	i;
 
-	if (!node || !*node || !(*node)->args)
-		return (0);
-	i = 0;
-	while ((*node)->args[i])
-	{
-		ft_delete_var();
-	}
-	return (0);
-}
+// 	if (!node || !*node || !(*node)->args)
+// 		return (0);
+// 	i = 0;
+// 	while ((*node)->args[i])
+// 	{
+// 		ft_delete_var();
+// 	}
+// 	return (0);
+// }
 
 //info --> delete a env var

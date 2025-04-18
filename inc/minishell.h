@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/18 16:37:52 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/18 22:26:19 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,10 +290,11 @@ int				update_env_var(t_list **env_list, const char *var_name,
 					const char *content);
 void			add_new_env_var(t_list **env_list, const char *var_name,
 					const char *data);
-void			ft_exit(t_minishell **msh, char **av);			
-unsigned int	ft_convert_value(t_minishell **msh, char *code,  char **av);
+void			ft_exit(t_minishell **msh, t_tree_node **node);	
+unsigned int	ft_convert_value(t_minishell **msh, char *code);
 int				ft_exit_value(t_minishell **msh, int exit_code, int update_exit,
 					int exit_msh);
+int				ft_strnumeric(char *str, t_minishell **msh);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/18 16:59:08 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/18 22:32:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,55 @@
 
 //info --> clean up and exit shell with correct value
 
-void	ft_exit(t_minishell **msh, char **av)
+void	ft_exit(t_minishell **msh, t_tree_node **node)
 {
 	unsigned char	exit_code;
 
 	exit_code = 0;
 	ft_printf("exit\n");
-	if (!av[1])
-		ft_exit_value(*msh, exit_code, true, true);
-	if (!ft_isalnum(av[1]))
+	if (!(*node)->args[0])
+		ft_exit_value(msh, exit_code, true, true);
+	if (!ft_strnumeric((*node)->args[0], msh))
 	{
 		ft_dprintf(STDERR_FILENO,
-			"msh: exit: %s: numeric argument required", av[1]);
-		ft_exit_value(*msh, 2, true, true);
+			"msh: exit: %s: numeric argument required\n", (*node)->args[0]);
+		ft_exit_value(msh, 2, true, true);
 	}
-	else if (av[2])
+	else if ((*node)->args[1])
 	{
 		perror("msh: exit:");
-		ft_exit_value(*msh, 1, true, false);
+		ft_exit_value(msh, 1, true, false);
 	}
-	else if (ft_convert_value(*msh, av[1], av));
+	else if (ft_convert_value(msh, (*node)->args[0]))
 	{
-		ft_exit_value(*msh, 0, false, true);
+		ft_exit_value(msh, 0, false, true);
 	}
 }
 
 //info --> convert the exit code given as arg into 8-bit unsigned integer
 
-static unsigned int	ft_convert_value(t_minishell **msh, char *code, char **av)
+unsigned int	ft_convert_value(t_minishell **msh, char *code)
 {
-	bool		has_sign;
 	long long	nbr;
 	
-	has_sign = false;
 	nbr = ft_atoll(code);
 	if (nbr == LLONG_MAX && ft_strcmp(code, "9223372036854775807"))
 	{
-		ft_dprintf(STDERR_FILENO, "exit: %s: numeric argument required", code);
-		return (ft_exit_value(*msh, 2, true, false));
+		ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n",
+			code);
+		return (ft_exit_value(msh, 2, true, false));
 	}
-	ft_exit_value(*msh, (unsigned char)nbr, true, false);
+	if (nbr == LLONG_MIN && ft_strcmp(code, "-9223372036854775808"))
+	{
+		ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n",
+			code);
+		return (ft_exit_value(msh, 2, true, false));
+	}
+	if (!ft_strcmp(code, "-9223372036854775808"))
+		ft_exit_value(msh, 0, true, true);
+	ft_exit_value(msh, (unsigned char)nbr, true, false);
 	return (unsigned char)(nbr);
 }
-
 
 //info --> returns the current exit status,
 //			with option to update it and exit the program
@@ -70,4 +76,32 @@ int	ft_exit_value(t_minishell **msh, int exit_code, int update_exit, int exit_ms
 	if (exit_msh == true)
 		close_minishell(*msh, current_code);
 	return (current_code);
+}
+
+//info --> check if a str is numeric
+
+int	ft_strnumeric(char *str, t_minishell **msh)
+{
+	int	i;
+
+	if (!str)
+		return (false);
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+        i++;
+	if (str[i] == '\0')
+	{
+		ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n", str);
+		return (ft_exit_value(msh, 2, true, false));
+	}
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+		{
+			ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n", str);
+			return (ft_exit_value(msh, 2, true, false));
+		}
+		i++;
+	}
+	return (true);
 }
