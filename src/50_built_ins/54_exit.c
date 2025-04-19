@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   54_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/18 22:32:29 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:22:23 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_exit(t_minishell **msh, t_tree_node **node)
 	}
 	else if ((*node)->args[1])
 	{
-		perror("msh: exit:");
+		ft_dprintf(STDERR_FILENO, "msh: exit: too many arguments\n");
 		ft_exit_value(msh, 1, true, false);
 	}
 	else if (ft_convert_value(msh, (*node)->args[0]))
@@ -44,7 +44,7 @@ void	ft_exit(t_minishell **msh, t_tree_node **node)
 unsigned int	ft_convert_value(t_minishell **msh, char *code)
 {
 	long long	nbr;
-	
+
 	nbr = ft_atoll(code);
 	if (nbr == LLONG_MAX && ft_strcmp(code, "9223372036854775807"))
 	{
@@ -61,13 +61,14 @@ unsigned int	ft_convert_value(t_minishell **msh, char *code)
 	if (!ft_strcmp(code, "-9223372036854775808"))
 		ft_exit_value(msh, 0, true, true);
 	ft_exit_value(msh, (unsigned char)nbr, true, false);
-	return (unsigned char)(nbr);
+	return ((unsigned char)(nbr));
 }
 
 //info --> returns the current exit status,
 //			with option to update it and exit the program
 
-int	ft_exit_value(t_minishell **msh, int exit_code, int update_exit, int exit_msh)
+int	ft_exit_value(t_minishell **msh, int exit_code, int update_exit,
+					int exit_msh)
 {
 	int	current_code;
 
@@ -88,18 +89,20 @@ int	ft_strnumeric(char *str, t_minishell **msh)
 		return (false);
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
-        i++;
+		i++;
 	if (str[i] == '\0')
 	{
-		ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n", str);
+		ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n",
+			str);
 		return (ft_exit_value(msh, 2, true, false));
 	}
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n", str);
-			return (ft_exit_value(msh, 2, true, false));
+			ft_dprintf(STDERR_FILENO,
+				"msh: exit: %s: numeric argument required\n", str);
+			return (ft_exit_value(msh, 2, true, true));
 		}
 		i++;
 	}

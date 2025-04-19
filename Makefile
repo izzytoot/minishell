@@ -6,7 +6,7 @@
 #    By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/18 20:18:52 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/04/19 20:05:32 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,13 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/01_main.c \
 							./40_build_tree/42_build_redir_nodes.c\
 							./40_build_tree/43_build_cmd_nodes.c\
 							./40_build_tree/44_tree_utils.c\
-							./50_built_ins/pwd.c\
-							./50_built_ins/env.c\
-							./50_built_ins/cd.c\
-							./50_built_ins/echo.c\
-							./50_built_ins/exit.c\
-							./50_built_ins/unset.c\
-							./50_built_ins/export.c\
+							./50_built_ins/50_pwd.c\
+							./50_built_ins/51_cd.c\
+							./50_built_ins/52_env.c\
+							./50_built_ins/53_echo.c\
+							./50_built_ins/54_exit.c\
+							./50_built_ins/55_unset.c\
+							./50_built_ins/56_export.c\
 							./60_exec/60_exec_tree.c\
 							./60_exec/61_exec_pipe.c\
 							./60_exec/62_exec_redir.c\

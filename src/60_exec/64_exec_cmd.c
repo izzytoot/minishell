@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/18 22:26:33 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:32:52 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	exec_bt_cmd(t_minishell **msh, t_tree_node *node)
 		ft_cd(msh, &node);
 	else if (ft_strcmp(node->cmd, "pwd") == 0)
 		ft_pwd();
-	//else if (node->cmd =="export")
+	//else if (ft_strcmp(node->cmd, "export") == 0)
 	//	ft_export(&(*msh));
-	//else if (node->cmd == "unset")
-	//	ft_unset(&(*msh));
+	else if (ft_strcmp(node->cmd, "unset") == 0)
+		ft_unset(msh, &node);
 	else if (ft_strcmp(node->cmd, "env") == 0)
 		print_env(msh, &node);
 	else if (ft_strcmp(node->cmd, "exit") == 0)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/07 16:00:37 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:22:44 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	get_dir(t_tree_node **node, char **target_dir)
 			return (EXIT_FAILURE);
 		}
 	}
-	else if (ft_strncmp((*node)->args[0], "..", 2) == 0) //not seen as arg by tree
+	else if (ft_strncmp((*node)->args[0], "..", 2) == 0)
 	{
 		*target_dir = getenv("OLDPWD");
 		if (!*target_dir)

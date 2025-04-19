@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/18 22:26:19 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:04:17 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ void			check_quote(bool *in_quotes, char *quote_char, char c);
 void			append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type);
 char			*get_path(t_list *envp_list);
 void 			check_double_cmd(t_minishell **msh);
+
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
 void			parse_line(t_minishell **msh);
@@ -280,21 +281,37 @@ bool			type_is_cmd(t_token_type *type);
 bool			type_is_arg(t_token_type *type);
 
 /************ 50_built_ins ************/
+//50_pwd.c
 int				ft_pwd(void);
-int				print_env(t_minishell **msh, t_tree_node **node);
-int				ft_echo(t_tree_node **node);
+
+//51_cd.c
 int				ft_cd(t_minishell **msh, t_tree_node **node);
 int				get_dir(t_tree_node **node, char **target_dir);
 int				update_cd_env(t_minishell **msh, char *old_pwd);
+
+//52_env.c
+int				print_env(t_minishell **msh, t_tree_node **node);
 int				update_env_var(t_list **env_list, const char *var_name,
 					const char *content);
 void			add_new_env_var(t_list **env_list, const char *var_name,
 					const char *data);
+
+//53_echo.c
+int				ft_echo(t_tree_node **node);
+
+//54_exit.c
 void			ft_exit(t_minishell **msh, t_tree_node **node);	
 unsigned int	ft_convert_value(t_minishell **msh, char *code);
 int				ft_exit_value(t_minishell **msh, int exit_code, int update_exit,
 					int exit_msh);
 int				ft_strnumeric(char *str, t_minishell **msh);
+
+//55_unset.c
+int				ft_unset(t_minishell **msh, t_tree_node **node);
+void			ft_delete_var(t_list **env_list, const char *var_name);
+
+//56_export.c
+
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c
