@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:20:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:00:40 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exec_tree(t_msh **msh, t_tree_nd *node)
 {
+	expand_tree(msh, node);
 	if ((*msh)->hd_check)
 	{
 		exec_heredocs(node);
@@ -26,4 +27,3 @@ void	exec_tree(t_msh **msh, t_tree_nd *node)
 	else if (type_is_word(&node->type))
 		exec_cmd(msh, node);
 }
-

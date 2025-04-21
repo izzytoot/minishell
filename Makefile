@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+         #
+#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/19 20:05:32 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/04/21 18:04:05 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 NAME = minishell
 INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
-SRC = $(addprefix $(SRC_PATH), ./00_main/01_main.c \
+SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./10_init/10_init_msh.c \
 							./10_init/11_envp_copies.c\
 							./10_init/12_init_utils.c \
@@ -43,12 +43,14 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/01_main.c \
 							./50_built_ins/55_unset.c\
 							./50_built_ins/56_export.c\
 							./60_exec/60_exec_tree.c\
-							./60_exec/61_exec_pipe.c\
-							./60_exec/62_exec_redir.c\
-							./60_exec/63_exec_heredoc.c\
-							./60_exec/64_exec_cmd.c\
-							./60_exec/65_exec_utils.c\
-							10_close_msh.c\
+							./60_exec/61_expand_tree.c\
+							./60_exec/62_exec_pipe.c\
+							./60_exec/63_exec_redir.c\
+							./60_exec/64_exec_heredoc.c\
+							./60_exec/65_exec_cmd.c\
+							./60_exec/66_exec_utils.c\
+							./70_close_and_free/70_free_msh.c\
+							./70_close_and_free/71_close_msh.c\
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
 

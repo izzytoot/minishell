@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 15:22:19 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:48:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote_state quote)
 
 void	sub_tokenize(t_msh **msh)
 {
-	t_tk_lst *curr;
+	t_tk_lst	*curr;
 	char		*word;
-	char	*env_path;
+	char		*env_path;
 
 	handle_filename((*msh)->token_list);
 	curr = (*msh)->token_list;

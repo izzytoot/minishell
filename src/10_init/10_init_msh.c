@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 15:26:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:04:53 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_init_msh(t_msh **msh, char **envp)
 {
-	if (!isatty(STDIN_FILENO))
-		close_minishell(*msh, EXIT_FAILURE);
+	// if (!isatty(STDIN_FILENO))
+	// 	close_minishell(*msh, EXIT_FAILURE);
 	(*msh)->hd_check = true;
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
