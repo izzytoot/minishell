@@ -6,32 +6,33 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/17 16:11:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:22:19 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	get_tokens(t_minishell **msh, int i, char quote_char)
+void	get_tokens(t_msh **msh, int i)
 {
-	const char *line;
-	bool		in_quotes;
-
+	const char		*line;
+	t_quote_state	quote;
+	
+	quote.in_quotes = false;
+	quote.quote_char = '\0';
 	line = (*msh)->prompt_line;
-	in_quotes = false;
 	while(line[++i])
 	{
-		if (!in_quotes && ft_strchr(QUOTE, line[i]))
+		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
 		{
-			check_in_quotes(line[i], &in_quotes);
-			if (in_quotes)
-				quote_char = line[i];
+			check_in_quotes(line[i], &quote.in_quotes);
+			if (quote.in_quotes)
+				quote.quote_char = line[i];
 		}
 		else
-		 check_in_quotes(line[i], &in_quotes);
-		if (!in_quotes && ft_strchr(QUOTE, line[i]))
+			check_in_quotes(line[i], &quote.in_quotes);
+		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
 			i++;
-		if (any_of_these_tk(&(*msh), &i, line[i], in_quotes, quote_char))
+		if (extra_check(&(*msh), &i, line[i], quote))
 		;
 		else
 			break ;
@@ -50,73 +51,75 @@ void	get_tokens(t_minishell **msh, int i, char quote_char)
 	return ;
 }
 
-bool	any_of_these_tk(t_minishell **msh, int *i, char c, bool in_quotes, char quote_char)
+bool	extra_check(t_msh **msh, int *i, char c, t_quote_state quote)
 {
-	bool	tmp_in_quotes;
-	char	tmp_qt_char;
-	
-	tmp_in_quotes = in_quotes;
-	tmp_qt_char = quote_char;
-	if (ft_strchr(WHITESPACE, c) && !tmp_in_quotes)
+	bool 		tmp_in_quotes;
+	char 		tmp_qt_char;
+
+	if (ft_strchr(WHITESPACE, c) && !quote.in_quotes)
 		*i = token_is_space(msh, *i);
-	else if (!ft_strchr(OPERATOR, c) && !tmp_in_quotes)
+	else if (!ft_strchr(OPERATOR, c) && !quote.in_quotes)
 		*i = token_is_word(msh, *i);
-	else if (!ft_strchr(OPERATOR, c) && tmp_in_quotes)	
+	else if (!ft_strchr(OPERATOR, c) && quote.in_quotes)
+	{
+		tmp_in_quotes = quote.in_quotes;
+		tmp_qt_char = quote.quote_char;
 		*i = token_is_word_in_quotes(msh, *i, &tmp_in_quotes, &tmp_qt_char);
-	else if (c == '|' && !tmp_in_quotes)
+	}
+	else if (c == '|' && !quote.in_quotes)
 		*i = token_is_pipe(msh, *i);
-	else if (c == '>' && !tmp_in_quotes)
+	else if (c == '>' && !quote.in_quotes)
 		*i = redir_r(msh, *i);
-	else if (c == '<' && !tmp_in_quotes)
+	else if (c == '<' && !quote.in_quotes)
 		*i = redir_l(msh, *i);
 	else
 		return (false);
 	return (true);
 }
 
-void	sub_tokenize(t_minishell **msh)
+void	sub_tokenize(t_msh **msh)
 {
-	t_token_lst *current;
+	t_tk_lst *curr;
 	char		*word;
 	char	*env_path;
 
 	handle_filename((*msh)->token_list);
-	current = (*msh)->token_list;
+	curr = (*msh)->token_list;
 	word = NULL;
 	env_path = get_path((*msh)->envp_list);
-	while(current)
+	while(curr)
 	{
-		if (current->type == WORD)
+		if (curr->type == WORD)
 		{
-			word = current->content;
+			word = curr->content;
 			if (!ft_strcmp(word, "echo") || !ft_strcmp(word, "cd") || !ft_strcmp(word, "pwd") || !ft_strcmp(word, "export") || 
 				!ft_strcmp(word, "unset") || !ft_strcmp(word, "env") || !ft_strcmp(word, "exit"))
-				current->type = BT_CMD;
+				curr->type = BT_CMD;
 			else if (check_env_cmd(word, env_path, -1))
-				current->type = ENV_CMD;
+				curr->type = ENV_CMD;
 			else
-				current->type = ARG;
+				curr->type = ARG;
 		}
-		current = current->next;
+		curr = curr->next;
 	}
-	check_double_cmd(&(*msh));
+	check_rep_cmd(&(*msh));
 }
 
-void	handle_filename(t_token_lst *token_list)
+void	handle_filename(t_tk_lst *token_list)
 {
-	t_token_lst *current;
+	t_tk_lst *curr;
 
-	current = token_list;
-	while (current)
+	curr = token_list;
+	while (curr)
 	{
-		if (current->type == REDIR_HD || current->type == REDIR_APP || current->type == REDIR_IN || current->type == REDIR_OUT)
+		if (curr->type == REDIR_HD || curr->type == REDIR_APP || curr->type == REDIR_IN || curr->type == REDIR_OUT)
 		{
-			if (current->prev->type == W_SPACE && current->prev->prev->type == WORD)
-				current->prev->prev->type = FILE_NAME;
-			else if (current->prev->type == WORD)
-				current->prev->type = FILE_NAME;
+			if (curr->prev->type == W_SPACE && curr->prev->prev->type == WORD)
+				curr->prev->prev->type = FILE_NAME;
+			else if (curr->prev->type == WORD)
+				curr->prev->type = FILE_NAME;
 		}
-		current = current->next;
+		curr = curr->next;
 	}
 }
 

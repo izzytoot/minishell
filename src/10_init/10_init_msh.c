@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/18 12:35:41 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:26:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void ft_init_msh(t_minishell **msh, char **envp)
+void	ft_init_msh(t_msh **msh, char **envp)
 {
 	if (!isatty(STDIN_FILENO))
 		close_minishell(*msh, EXIT_FAILURE);
@@ -24,7 +24,7 @@ void ft_init_msh(t_minishell **msh, char **envp)
 	prompt_and_read(&(*msh));
 }
 
-void	prompt_and_read(t_minishell **msh)
+void	prompt_and_read(t_msh **msh)
 {
 	char	*line;
 	char	*prompt;
@@ -32,7 +32,7 @@ void	prompt_and_read(t_minishell **msh)
 	while (1)
 	{
 		if ((*msh)->prompt_line)
-		{	
+		{
 			free((*msh)->prompt_line);
 			(*msh)->prompt_line = NULL;
 		}
@@ -40,8 +40,8 @@ void	prompt_and_read(t_minishell **msh)
 		line = readline(prompt);
 		free(prompt);
 		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
-			break;
-		add_history(line);
+			break ;
+		add_history (line);
 		(*msh)->token_list = NULL;
 		(*msh)->prompt_line = line;
 		// if (line && strncmp(line, "exit", 4) == 0)
@@ -54,10 +54,7 @@ void	prompt_and_read(t_minishell **msh)
 		// }
 		if (line && syntax_is_ok(&(*msh)))
 		{
-			get_tokens(&(*msh), -1, '\0');
-			// if (!(*msh)->tree_root->left && !(*msh)->tree_root->right)
-			// 	exec_single_cmd(&(*msh), NULL);
-			// else
+			get_tokens(&(*msh), -1);
 			exec_tree(&(*msh), (*msh)->tree_root);
 		}
 		free_prompt_line(&(*msh));

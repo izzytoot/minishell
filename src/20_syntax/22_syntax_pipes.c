@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   22_syntax_misplaced_and_conseq.c                   :+:      :+:    :+:   */
+/*   22_syntax_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:07:29 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/03/21 18:21:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:18:19 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 bool	misplaced_pipe(const char *line)
 {
 	int	i;
-	
+
 	i = 0;
 	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
 		i++;
@@ -28,9 +28,9 @@ bool	misplaced_pipe(const char *line)
 
 bool	pipe_at_beginning(const char *line)
 {
-	int	i;
+	int		i;
 	bool	in_quotes;
-	
+
 	i = 0;
 	in_quotes = false;
 	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
@@ -45,7 +45,7 @@ bool	pipe_at_beginning(const char *line)
 	}
 	return (false);
 }
- 
+
 bool	pipe_at_end(const char *line)
 {
 	int		len;
@@ -70,7 +70,7 @@ bool	pipe_at_end(const char *line)
 
 bool	consec_operators_pipe(const char *line)
 {
-	int	i;
+	int		i;
 	bool	in_quotes;
 
 	i = -1;
@@ -80,11 +80,11 @@ bool	consec_operators_pipe(const char *line)
 		check_in_quotes(line[i], &in_quotes);
 		if (line[i] && !in_quotes && ft_strchr(OPERATOR, line[i]))
 		{
-			if(ft_strchr("|", line[i]) && !ft_strchr("|", line[i + 1]))
+			if (ft_strchr("|", line[i]) && !ft_strchr("|", line[i + 1]))
 			{
 				if (look_for_pipe(line, i))
 					return (true);
-			}	
+			}
 			else if (ft_strchr(REDIR, line[i]))
 			{
 				if (line[i] == line[i + 1])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/19 20:22:44 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:20:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //info --> executes cd, updates env var
 
-int	ft_cd(t_minishell **msh, t_tree_node **node)
+int	ft_cd(t_msh **msh, t_tree_nd **node)
 {
 	char	*target_dir;
 	char	cwd[PATH_MAX];
@@ -44,7 +44,7 @@ int	ft_cd(t_minishell **msh, t_tree_node **node)
 
 //info --> get target dir
 
-int	get_dir(t_tree_node **node, char **target_dir)
+int	get_dir(t_tree_nd **node, char **target_dir)
 {
 	if (!node || !*node)
 		return (EXIT_FAILURE);
@@ -74,7 +74,7 @@ int	get_dir(t_tree_node **node, char **target_dir)
 //info --> updates OLDPWD and PWD
 //falta verificar se PWD e OLDPWD sao env var, se nao criar
 
-int	update_cd_env(t_minishell **msh, char *old_pwd)
+int	update_cd_env(t_msh **msh, char *old_pwd)
 {
 	char	cwd[PATH_MAX];
 	char	*pwd;

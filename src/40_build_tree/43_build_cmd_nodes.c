@@ -6,73 +6,73 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/15 17:27:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:47:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_node *build_cmd_node(t_token_lst **token_list)
+t_tree_nd *build_cmd_nd(t_tk_lst **token_list)
 {
-	t_token_lst	*curr_token;
+	t_tk_lst	*curr_token;
 	t_list 		*args;
-	t_tree_node *cmd_node;
+	t_tree_nd *cmd_nd;
 
 	curr_token = *token_list;
 	if (!curr_token)
         return NULL;
 	args = NULL;
-	cmd_node = new_tree_node(&curr_token->type, NULL);
+	cmd_nd = new_tree_nd(&curr_token->type, NULL);
 	while(curr_token)
 	{
 		if (type_is_word(&curr_token->type))
-			handle_cmd(cmd_node, &curr_token, &args);
+			handle_cmd(cmd_nd, &curr_token, &args);
 		else
 			curr_token = curr_token->next;
 	}
 	args = reverse_args(&args);
-	cmd_node->args = ft_list_to_array(args);
-	cmd_node->cmd_content =  join_cmd_and_args(cmd_node->cmd, cmd_node->args);
-	return(cmd_node);
+	cmd_nd->args = ft_list_to_array(args);
+	cmd_nd->cmd_content =  join_cmd_and_args(cmd_nd->cmd, cmd_nd->args);
+	return(cmd_nd);
 }
 
 t_list *reverse_args(t_list **head)
 {
 	t_list	*prev;
-	t_list	*current;
+	t_list	*curr;
 	t_list	*next;
 
 	prev = NULL;
-	current = *head;
+	curr = *head;
 	next = NULL;
 	
 	if (!head || !*head)
 		return (NULL);
-	while (current)
+	while (curr)
 	{
-		next = current->next;
-		current->next = prev;
-		prev = current;
-		current = next;
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
 	}
 	*head = prev;
 	return(*head);
 }
 
-void	handle_cmd(t_tree_node *cmd_node, t_token_lst **curr_token, t_list **args)
+void	handle_cmd(t_tree_nd *cmd_nd, t_tk_lst **curr_tk, t_list **args)
 {
-	while(*curr_token)
+	while(*curr_tk)
 	{
-		if (type_is_arg(&(*curr_token)->type))
-			ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_token)->content)));
-		if (type_is_cmd(&(*curr_token)->type))
+		if (type_is_arg(&(*curr_tk)->type))
+			ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
+		if (type_is_cmd(&(*curr_tk)->type))
 		{
-			cmd_node->cmd = (*curr_token)->content;
-			cmd_node->cmd_type = (*curr_token)->type;
+			cmd_nd->cmd = (*curr_tk)->content;
+			cmd_nd->cmd_type = (*curr_tk)->type;
 		}
-		if (type_is_word(&(*curr_token)->type))
-			cmd_node->type = (*curr_token)->type;
-		*curr_token = (*curr_token)->next;
+		if (type_is_word(&(*curr_tk)->type))
+			cmd_nd->type = (*curr_tk)->type;
+		*curr_tk = (*curr_tk)->next;
 	}
 }
 

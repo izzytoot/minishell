@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/17 17:32:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:20:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	exec_tree(t_minishell **msh, t_tree_node *node)
+void	exec_tree(t_msh **msh, t_tree_nd *node)
 {
 	if ((*msh)->hd_check)
 	{

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   23_syntax_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/14 14:51:01 by root             ###   ########.fr       */
+/*   Updated: 2025/04/21 15:02:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 bool	conseq_operators_redir(const char *line)
 {
@@ -19,7 +19,7 @@ bool	conseq_operators_redir(const char *line)
 
 	i = -1;
 	in_quotes = false;
-	while(line[++i])
+	while (line[++i])
 	{
 		check_in_quotes(line[i], &in_quotes);
 		if (line[i] && !in_quotes && ft_strchr(REDIR, line[i]))
@@ -28,16 +28,13 @@ bool	conseq_operators_redir(const char *line)
 				i++;
 			i++;
 			while (line[i] && (ft_strchr(WHITESPACE, line[i])))
-				i++;			
-			if (line[i] == '<')
+				i++;
+			if (line[i] == '<' || line[i] == '>')
 			{
-				conseq_redir_l_case(line, i);
-				return (true);
-			}
-			else if (line[i] == '>')
-			{
-				conseq_redir_r_case(line, i);
-				return (true);
+				if (line[i] == '<')
+					return (conseq_redir_l_case(line, i), true);
+				else
+					return (conseq_redir_r_case(line, i), true);
 			}
 		}
 	}
@@ -53,23 +50,23 @@ void	conseq_redir_r_case(const char *line, int i)
 }
 
 void	conseq_redir_l_case(const char *line, int i)
-{				
-	 if (line[i + 1] == '<')
-	 	ft_putstr_fd(ERR_SYN_REDIR_HD, STDERR_FILENO);
+{
+	if (line[i + 1] == '<')
+		ft_putstr_fd(ERR_SYN_REDIR_HD, STDERR_FILENO);
 	else
 		ft_putstr_fd(ERR_SYN_REDIR_IN, STDERR_FILENO);
 }
 
-bool	misplaced_redir_at_end(const char *line) 
+bool	misplaced_redir_at_end(const char *line)
 {
-	int	len;
-	int	i;
+	int		len;
+	int		i;
 	bool	in_quotes;
 
 	len = ft_strlen(line);
 	i = len - 1;
 	in_quotes = false;
-	while(line[i] && (ft_strchr(WHITESPACE, line[i])))
+	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
 		i--;
 	check_in_quotes(line[i], &in_quotes);
 	if (in_quotes)

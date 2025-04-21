@@ -14,7 +14,7 @@
 
 //info --> delete the content of a var
 
-int	ft_unset(t_minishell **msh, t_tree_node **node)
+int	ft_unset(t_msh **msh, t_tree_nd **node)
 {
 	int	i;
 

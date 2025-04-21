@@ -6,46 +6,45 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/16 19:11:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:43:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	parse_line(t_minishell **msh)
+void	parse_line(t_msh **msh)
 {
-	t_tree_node *tree_root;
+	t_tree_nd	*tree_root;
 	
 	if (!(*msh)->token_list)
 		return ;
-	(*msh)->tree_root = build_pipe_node(&(*msh)->token_list);
+	(*msh)->tree_root = build_pipe_nd(&(*msh)->token_list);
 	tree_root = (*msh)->tree_root;
 	if ((*msh)->debug_mode) //FOR DEBUGGING
 		print_tree(tree_root);
 }
 
-t_tree_node *new_tree_node(t_token_type *type, char *content)
+t_tree_nd *new_tree_nd(t_tk_type *type, char *content)
 {
-	t_tree_node *new_node;
+	t_tree_nd *new_nd;
 
-	new_node = ft_calloc(1, sizeof(t_tree_node));
-	if (!new_node)
+	new_nd = ft_calloc(1, sizeof(t_tree_nd));
+	if (!new_nd)
 		return (NULL);
 	if (content)
-		new_node->op_content = ft_strdup(content);
-	new_node->cmd_content = NULL;
+		new_nd->op_content = ft_strdup(content);
+	new_nd->cmd_content = NULL;
 	if (type)
-		new_node->type = *type;
+		new_nd->type = *type;
 	else
-		new_node->type = -1;
-	new_node->args = NULL;
-	new_node->left = NULL;
-	new_node->right = NULL;
-	new_node->straight = NULL;
-	new_node->cmd = NULL;
-	new_node->fd = -1;
-	new_node->cmd_type = -1;
-	new_node->eof_ch = false;
-	new_node->tmp_file = NULL;
-	return (new_node);
+		new_nd->type = -1;
+	new_nd->args = NULL;
+	new_nd->left = NULL;
+	new_nd->right = NULL;
+	new_nd->cmd = NULL;
+	new_nd->fd = -1;
+	new_nd->cmd_type = -1;
+	new_nd->eof_ch = false;
+	new_nd->tmp_file = NULL;
+	return (new_nd);
 }

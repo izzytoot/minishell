@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/17 17:35:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:37:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	exec_heredocs(t_tree_node *node)
+void	exec_heredocs(t_tree_nd *node)
 {
 	int	file_fd;
 	
@@ -31,14 +31,14 @@ void	exec_heredocs(t_tree_node *node)
 		exec_heredocs(node->right);
 }
 
-void		handle_hd(t_tree_node *node, int hd_fd)
+void		handle_hd(t_tree_nd *node, int hd_fd)
 {
-	t_tree_node *current_node;
+	t_tree_nd *curr_nd;
 	char 		*eof;
 	char		*new_line;
 	
-	current_node = node;
-	eof = check_eof(current_node, current_node->file);
+	curr_nd = node;
+	eof = check_eof(curr_nd, curr_nd->file);
 	while(1)
 	{
 		new_line = readline("> ");
@@ -56,7 +56,7 @@ void		handle_hd(t_tree_node *node, int hd_fd)
 	}
 }
 
-char	*check_eof(t_tree_node *node, char *file_name)
+char	*check_eof(t_tree_nd *node, char *file_name)
 {
 	int		i;
 	char	*eof;

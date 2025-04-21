@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   56_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/19 20:23:55 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:20:36 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //info --> delete the content of a var
 
-// void	ft_export(t_minishell **msh, t_tree_node **node)
+// void	ft_export(t_msh **msh, t_tree_nd **node)
 // {
 
 // }

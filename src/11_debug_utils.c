@@ -6,19 +6,19 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/10 15:56:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:38:34 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	print_envp_in_struct(t_minishell **msh)
+void	print_envp_in_struct(t_msh **msh)
 {
-	t_list	*current = (*msh)->envp_list;
-	while(current)
+	t_list	*curr = (*msh)->envp_list;
+	while(curr)
 	{
-		ft_printf(RED"%s\n"RES, current->content);
-		current = current->next;
+		ft_printf(RED"%s\n"RES, curr->content);
+		curr = curr->next;
 	}
 	int	n = 0;
 	while((*msh)->envp[n])
@@ -28,22 +28,22 @@ void	print_envp_in_struct(t_minishell **msh)
 	}
 }
 
-void	print_tokens(t_minishell **msh)
+void	print_tokens(t_msh **msh)
 {
-	t_token_lst	*current = (*msh)->token_list;
+	t_tk_lst	*curr = (*msh)->token_list;
 	int n = 0;
 	char *token_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD"};
-	while(current)
+	while(curr)
 	{
 		ft_printf(YLL"token %d is"RES, ++n);
-		ft_printf(BMAG" %s"RES, current->content);
+		ft_printf(BMAG" %s"RES, curr->content);
 		ft_printf(YLL" of type"RES);
-		ft_printf(BMAG" %s\n"RES, token_type[current->type]);
-		current = current->next;
+		ft_printf(BMAG" %s\n"RES, token_type[curr->type]);
+		curr = curr->next;
 	}
 }
 
-void	print_tree(t_tree_node *node)
+void	print_tree(t_tree_nd *node)
 {
 	int	i = -1;
 	char *node_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD"};

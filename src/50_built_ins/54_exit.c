@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   54_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/19 20:22:23 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:20:27 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //info --> clean up and exit shell with correct value
 
-void	ft_exit(t_minishell **msh, t_tree_node **node)
+void	ft_exit(t_msh **msh, t_tree_nd **node)
 {
 	unsigned char	exit_code;
 
@@ -41,7 +41,7 @@ void	ft_exit(t_minishell **msh, t_tree_node **node)
 
 //info --> convert the exit code given as arg into 8-bit unsigned integer
 
-unsigned int	ft_convert_value(t_minishell **msh, char *code)
+unsigned int	ft_convert_value(t_msh **msh, char *code)
 {
 	long long	nbr;
 
@@ -67,11 +67,12 @@ unsigned int	ft_convert_value(t_minishell **msh, char *code)
 //info --> returns the current exit status,
 //			with option to update it and exit the program
 
-int	ft_exit_value(t_minishell **msh, int exit_code, int update_exit,
+int	ft_exit_value(t_msh **msh, int exit_code, int update_exit,
 					int exit_msh)
 {
 	int	current_code;
 
+	current_code = 0;  //update isa - dava erro de compilacao por não estar inicializada
 	if (update_exit == true)
 		current_code = exit_code;
 	if (exit_msh == true)
@@ -81,7 +82,7 @@ int	ft_exit_value(t_minishell **msh, int exit_code, int update_exit,
 
 //info --> check if a str is numeric
 
-int	ft_strnumeric(char *str, t_minishell **msh)
+int	ft_strnumeric(char *str, t_msh **msh)
 {
 	int	i;
 
