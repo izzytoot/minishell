@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/21 18:03:13 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:06:23 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,14 +177,13 @@ typedef struct s_quote_state
 /************ 00_main ************/
 //00_main.c
 int				main(int ac, char **av, char **envp);
-void			prompt_and_read(t_msh **msh);
 
 /************ 10_init ************/
 //10_init_msh.c
 void			ft_init_msh(t_msh **msh, char **envp);
 void			prompt_and_read(t_msh **msh);
 char			*get_prompt(void);
-
+int				exit_value(t_msh **msh, int exit_code, int upd_exit, int close);
 //11_envp_copies.c
 void			copy_envp(t_msh *msh, char **envp);
 char			**envp_to_array(t_msh *msh, char **envp);
@@ -310,8 +309,6 @@ int				ft_echo(t_tree_nd **node);
 //54_exit.c
 void			ft_exit(t_msh **msh, t_tree_nd **node);	
 unsigned int	ft_convert_value(t_msh **msh, char *code);
-int				ft_exit_value(t_msh **msh, int exit_code, int update_exit,
-					int exit_msh);
 int				ft_strnumeric(char *str, t_msh **msh);
 
 //55_unset.c
@@ -348,8 +345,8 @@ char			*check_eof(t_tree_nd *node, char *file_name);
 
 //65_exec_cmd.c
 void			exec_cmd(t_msh **msh, t_tree_nd *node);
-void			exec_bt_cmd(t_msh **msh, t_tree_nd *node);
-void			exec_env_cmd(t_msh **msh, t_tree_nd *node);
+int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
+int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
 
 //66_exec_utils.c
 int				safe_fork(void);

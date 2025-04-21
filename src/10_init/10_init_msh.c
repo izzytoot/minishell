@@ -6,21 +6,22 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 16:04:53 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:07:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 void	ft_init_msh(t_msh **msh, char **envp)
-{
-	// if (!isatty(STDIN_FILENO))
+{	
+	// if (!isatty(STDIN_FILENO)) // nao funciona com tester
 	// 	close_minishell(*msh, EXIT_FAILURE);
 	(*msh)->hd_check = true;
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
 //	if ((*msh)->debug_mode)
 //		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
+	exit_value(msh, 0, 1, 0); //iniciar o exit_code status
 	prompt_and_read(&(*msh));
 }
 
@@ -57,6 +58,8 @@ void	prompt_and_read(t_msh **msh)
 			get_tokens(&(*msh), -1);
 			exec_tree(&(*msh), (*msh)->tree_root);
 		}
+		if ((*msh)->debug_mode)
+			ft_printf("status is %d\n", exit_value(msh, 0, 0, 0));
 		free_prompt_line(&(*msh));
 	}
 }
@@ -80,4 +83,15 @@ char	*get_prompt(void)
 		return (ft_strdup("$ "));
 	}
 	return (prompt);
+}
+
+int	exit_value(t_msh **msh, int exit_code, int upd_exit, int close)
+{
+static int	current_code;
+
+if (upd_exit == true)
+	current_code = exit_code;
+if (close == true)
+	close_minishell(*msh, current_code);
+return (current_code);
 }

@@ -17,11 +17,6 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 },
-				{
-                    "description": "Set gdb to follow child process after fork",
-                    "text": "set follow-fork-mode child",
-                    "ignoreFailures": true
-                }
             ],
             "logging": {
                 "engineLogging": true

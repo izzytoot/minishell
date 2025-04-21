@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   64_exec_cmd.c                                      :+:      :+:    :+:   */
+/*   65_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:22:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:09:10 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,56 @@
 
 void	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
+	int	status;
+	
+	status = 0;
 	if (node->type == BT_CMD)
-		exec_bt_cmd(&(*msh), node);
+	{
+		status = exec_bt_cmd(&(*msh), node);
+		exit_value(msh, status, 1, 0);
+	}
 	else if (node->type == ENV_CMD)
-		exec_env_cmd(&(*msh), node);
+	{
+		status = exec_env_cmd(&(*msh), node);
+		exit_value(msh, status, 1, 0);
+	}
 	else
-	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+	{
+		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+		exit_value(msh, 127, 1, 0);
+	}
 }
 
-void	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
+int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 {
+	int	status;
+
+	status = 0;
 	if (ft_strcmp(node->cmd, "echo") == 0)
-		ft_echo(&node);
+		status = ft_echo(&node); //returns exit code
 	else if (ft_strcmp(node->cmd, "cd") == 0)
-		ft_cd(msh, &node);
+		status = ft_cd(msh, &node);
 	else if (ft_strcmp(node->cmd, "pwd") == 0)
-		ft_pwd();
+		status = ft_pwd();
 	//else if (ft_strcmp(node->cmd, "export") == 0)
-	//	ft_export(&(*msh));
+	//	return (ft_export(&(*msh)));
 	else if (ft_strcmp(node->cmd, "unset") == 0)
-		ft_unset(msh, &node);
+		status = ft_unset(msh, &node);
 	else if (ft_strcmp(node->cmd, "env") == 0)
-		print_env(msh, &node);
+		status = print_env(msh, &node);
 	else if (ft_strcmp(node->cmd, "exit") == 0)
-		ft_exit(msh, &node);
+		ft_exit(msh, &node); // tem que ser transformado em int
+	return (exit_value(msh, status, 1, 0));
 }
 
-void	exec_env_cmd(t_msh **msh, t_tree_nd *node)
+int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 {
 	pid_t	pid;
 	char	*path;
 	int		status;
 	
 	pid = safe_fork();
+	status = 0;
 	if (pid == 0)
 	{
 		path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
@@ -54,5 +71,12 @@ void	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 			perror("msh: execve: "); // check pre-error message
 	}
 	else
+	{
 		waitpid(pid, &status, 0); //wait for exit code from child
+		if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+			status = 128 + WTERMSIG(status);
+	}
+	return (exit_value(msh, status, 1, 0));
 }
