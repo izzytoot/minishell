@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 14:28:17 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:47:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,46 @@ bool	look_for_pipe(const char *line, int i)
 	return (false);
 }
 
+
+// void	get_tokens(t_msh **msh, int i)
+// {
+// 	const char		*line;
+// 	t_quote_state	quote;
+	
+// 	quote.in_squotes = false;
+// 	quote.in_dquotes = false;
+// 	quote.quote_char = '\0';
+// 	line = (*msh)->prompt_line;
+// 	while(line[++i])
+// 	{
+// 		if ((!quote.in_squotes && !quote.in_dquotes) && ft_strchr(QUOTE, line[i]))
+// 		{
+// 			check_in_quotes(line[i], &quote.in_squotes, &quote.in_dquotes);
+// 			if (quote.in_squotes || quote.in_dquotes)
+// 				quote.quote_char = line[i];
+// 		}
+// 		else
+// 			check_in_quotes(line[i], &quote.in_squotes, &quote.in_dquotes);
+// 		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
+// 			i++;
+// 		if (extra_check(&(*msh), &i, line[i], quote))
+// 		;
+// 		else
+// 			break ;
+// 	}
+// 	sub_tokenize(&(*msh));
+// 	if ((*msh)->debug_mode)
+// 	{	
+// 		print_tokens(&(*msh)); //DEBUG TO DELETE
+// 		ft_printf("------------------------------\n");
+// 	}
+// 	parse_line(&(*msh));
+// 	// ft_printf("------------------------------\n");
+// 	// if ((*msh)->debug_mode)
+// 	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
+// 	// ft_printf("------------------------------\n");
+// 	return ;
+// }
 bool	check_in_quotes(char c, bool *in_quotes)
 {
 	static char	quote_char;

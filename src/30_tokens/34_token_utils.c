@@ -6,25 +6,53 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:50:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:45:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	check_quote(bool *in_quotes, char *quote_char, char c)
-{
-	if (!(*in_quotes))
-    {
-		*in_quotes = true;
-		*quote_char = c;
-	}
-	else if (*in_quotes && c == *quote_char)
-	{
-		*in_quotes = false;
-		*quote_char = '\0';
-	}
-}
+// void	check_quote(bool *in_quotes, char *quote_char, char c)
+// {
+// 	if (!(*in_quotes))
+//     {
+// 		*in_quotes = true;
+// 		*quote_char = c;
+// 	}
+// 	else if (*in_quotes && c == *quote_char)
+// 	{
+// 		*in_quotes = false;
+// 		*quote_char = '\0';
+// 	}
+// }
+
+// bool	check_in_quotes(char c, bool *in_squotes, bool *in_dquotes)
+// {
+// 	static char	quote_char;
+// 	bool		res;
+
+// 	res = false;
+// 	if ((!(*in_squotes) && !(*in_dquotes)) && ft_strchr(QUOTE, c))
+// 	{
+// 		if (c == '"')
+// 		{
+// 			*in_squotes = true;
+// 			res = true;
+// 		}
+// 		else if (c == 39)
+// 			*in_dquotes = true;
+// 		quote_char = c;
+// 	}
+// 	else if ((*in_squotes || *in_dquotes) && c == quote_char)
+// 	{
+// 		if (in_squotes)
+// 			*in_squotes = false;
+// 		else if (in_dquotes)
+// 			*in_dquotes = false;
+// 		quote_char = '\0';
+// 	}
+// 	return (in_squotes);
+// }
 
 void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 {

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/21 20:06:23 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:48:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,21 @@ typedef enum e_tk_type
 	ENV_CMD, // envirm. cmd
 }	t_tk_type;
 
+typedef struct s_quote_state
+{
+	// bool	in_squotes;
+	// bool	in_dquotes;
+	bool	in_quotes;
+	char	quote_char;
+}	t_quote_state;
+
 typedef struct s_tk_lst
 {
-	t_tk_type		type;
-	char			*content;
-	struct s_tk_lst	*next;
-	struct s_tk_lst	*prev;
+	t_tk_type				type;
+	char					*content;
+	struct s_tk_lst			*next;
+	struct s_tk_lst			*prev;
+	struct s_quote_state	quotes;
 }	t_tk_lst;
 
 typedef struct s_tree_nd
@@ -143,6 +152,13 @@ typedef struct s_tree_nd
 	struct s_tree_nd	*right;
 }	t_tree_nd;
 
+typedef struct s_redir_data
+{
+	int			orig_stdin;
+	int			orig_stdout;
+	t_tree_nd	*cmd_nd;
+}	t_redir_data;
+
 typedef struct t_msh
 {
 	bool		active;
@@ -156,19 +172,6 @@ typedef struct t_msh
 	bool		debug_mode;
 	bool		hd_check;
 }	t_msh;
-
-typedef struct s_redir_data
-{
-	int			orig_stdin;
-	int			orig_stdout;
-	t_tree_nd	*cmd_nd;
-}	t_redir_data;
-
-typedef struct s_quote_state
-{
-	bool	in_quotes;
-	char	quote_char;
-}	t_quote_state;
 
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */

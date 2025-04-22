@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 18:35:15 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:10:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 	i = -1;
 	if (!node)
 		return ;
-	if (type_is_cmd(&node->type))
+	if (type_is_cmd(&node->type) || node->type == ARG)
 	{
 		if (node->args)
 		{
@@ -46,7 +46,12 @@ void	expand_tk(t_msh **msh, char **args)
 	int		len;
 	
 	key_word = ft_strdup(&(*args)[1]);
-	new_content = get_env_content((*msh)->envp_list, key_word);
+	if (ft_strcmp(key_word, "0") == 0)
+		new_content = ft_strdup("minishell");
+	else if(ft_strcmp(key_word, "?") == 0)
+		new_content = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
+	else
+		new_content = get_env_content((*msh)->envp_list, key_word);
 	if (new_content)
 	{
 		len = ft_strlen(new_content);
@@ -59,7 +64,6 @@ void	expand_tk(t_msh **msh, char **args)
 		free(final_content);
 	}
 	free(key_word);
-	
 }
 
 char *get_env_content(t_list *envp_list, char *key_word)
