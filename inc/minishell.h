@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/22 17:48:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:17:31 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ typedef enum e_tk_type
 
 typedef struct s_quote_state
 {
-	// bool	in_squotes;
-	// bool	in_dquotes;
+	bool	in_squotes;
+	bool	in_dquotes;
 	bool	in_quotes;
 	char	quote_char;
 }	t_quote_state;
@@ -253,8 +253,11 @@ int				token_is_redir_hd(t_msh **msh, const char *line,
 int				token_is_redir_in(t_msh **msh, const char *line,
 					char *redir_in, int i);
 
-//34_token_utils.c
-void			check_quote(bool *in_quotes, char *quote_char, char c);
+//33_handle_quotes.c
+void			check_dquote(bool *in_dquotes, char c);
+void			check_squote(bool *in_squotes, char c);
+
+//35_token_utils.c
 void			app_tk(t_msh *msh, t_tk_lst *new_tk,
 					char *content, t_tk_type type);
 char			*get_path(t_list *envp_list);

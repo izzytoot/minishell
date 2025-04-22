@@ -6,34 +6,90 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 16:48:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:43:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+// void	get_tokens(t_msh **msh, int i)
+// {
+// 	const char		*line;
+// 	t_quote_state	quote;
+	
+// 	quote.in_quotes = false;
+// 	quote.quote_char = '\0';
+// 	line = (*msh)->prompt_line;
+// 	while(line[++i])
+// 	{
+// 		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
+// 		{
+// 			check_in_quotes(line[i], &quote.in_quotes);
+// 			if (quote.in_quotes)
+// 				quote.quote_char = line[i];
+// 		}
+// 		else
+// 			check_in_quotes(line[i], &quote.in_quotes);
+// 		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
+// 			i++;
+// 		if (extra_check(&(*msh), &i, line[i], quote))
+// 		;
+// 		else
+// 			break ;
+// 	}
+// 	sub_tokenize(&(*msh));
+// 	if ((*msh)->debug_mode)
+// 	{	
+// 		print_tokens(&(*msh)); //DEBUG TO DELETE
+// 		ft_printf("------------------------------\n");
+// 	}
+// 	parse_line(&(*msh));
+// 	// ft_printf("------------------------------\n");
+// 	// if ((*msh)->debug_mode)
+// 	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
+// 	// ft_printf("------------------------------\n");
+// 	return ;
+// }
 
 void	get_tokens(t_msh **msh, int i)
 {
 	const char		*line;
 	t_quote_state	quote;
 	
-	quote.in_quotes = false;
+	quote.in_squotes = false;
+	quote.in_dquotes = false;
 	quote.quote_char = '\0';
 	line = (*msh)->prompt_line;
 	while(line[++i])
 	{
-		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
+		if ((!quote.in_squotes && !quote.in_dquotes) && ft_strchr(QUOTE, line[i]))
 		{
-			check_in_quotes(line[i], &quote.in_quotes);
-			if (quote.in_quotes)
+			check_squote(&quote.in_squotes, line[i]);
+			check_dquote(&quote.in_dquotes, line[i]);
+			if (quote.in_squotes || quote.in_dquotes)
 				quote.quote_char = line[i];
 		}
 		else
-			check_in_quotes(line[i], &quote.in_quotes);
-		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
+		{
+			check_squote(&quote.in_squotes, line[i]);
+			check_dquote(&quote.in_dquotes, line[i]);
+		}
+		if (quote.in_squotes || quote.in_dquotes)
+			quote.in_quotes = true;
+		else
+			quote.in_quotes = false;
+		if ((!quote.in_squotes || !quote.in_dquotes) && ft_strchr(QUOTE, line[i]))
 			i++;
-		if (extra_check(&(*msh), &i, line[i], quote))
-		;
+		ft_printf("single quote is %d\n", quote.in_squotes);
+		ft_printf("double quote is %d\n", quote.in_dquotes);
+		ft_printf("quotes is %d\n", quote.in_quotes);
+		if (!ft_strchr(QUOTE, line[i]))
+		{
+			if (extra_check(&(*msh), &i, line[i], quote))
+				;
+		}
+		else if (ft_strchr(QUOTE, line[i]))
+			i--;
 		else
 			break ;
 	}
@@ -49,13 +105,13 @@ void	get_tokens(t_msh **msh, int i)
 	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
 	// ft_printf("------------------------------\n");
 	return ;
-}
+} //FIQUEI AQUI
 
 bool	extra_check(t_msh **msh, int *i, char c, t_quote_state quote)
 {
 	bool 		tmp_in_quotes;
 	char 		tmp_qt_char;
-
+	
 	if (ft_strchr(WHITESPACE, c) && !quote.in_quotes)
 		*i = token_is_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quote.in_quotes)

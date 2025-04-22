@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/21 18:04:05 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/04/22 17:55:55 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./30_tokens/31_token_words.c \
 							./30_tokens/32_token_pipes_and_redir_r.c \
 							./30_tokens/33_token_redir_l.c\
-							./30_tokens/34_token_utils.c\
+							./30_tokens/34_handle_quotes.c\
+							./30_tokens/35_token_utils.c\
 							./40_build_tree/40_tokens_to_tree.c\
 							./40_build_tree/41_build_pipe_nodes.c\
 							./40_build_tree/42_build_redir_nodes.c\
