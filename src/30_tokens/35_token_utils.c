@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 11:38:03 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:59:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ void check_rep_cmd(t_msh **msh)
 		if (curr && curr->type == PIPE)
 			cmd_ch = false;
 	}
+}
+
+bool			check_builtin(char *str)
+{
+	if (!ft_strcmp(str, "pwd")|| !ft_strcmp(str, "cd")
+		|| !ft_strcmp(str, "env") || (!ft_strcmp(str, "echo")
+		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
+		|| !ft_strcmp(str, "exit")))
+		return (true);
+	return (false);
 }

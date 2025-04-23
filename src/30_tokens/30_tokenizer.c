@@ -6,81 +6,28 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 11:54:15 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:42:57 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// void	get_tokens(t_msh **msh, int i)
-// {
-// 	const char		*line;
-// 	t_quote_state	quote;
-	
-// 	quote.in_quotes = false;
-// 	quote.quote_char = '\0';
-// 	line = (*msh)->prompt_line;
-// 	while(line[++i])
-// 	{
-// 		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
-// 		{
-// 			check_in_quotes(line[i], &quote.in_quotes);
-// 			if (quote.in_quotes)
-// 				quote.quote_char = line[i];
-// 		}
-// 		else
-// 			check_in_quotes(line[i], &quote.in_quotes);
-// 		if (!quote.in_quotes && ft_strchr(QUOTE, line[i]))
-// 			i++;
-// 		if (extra_check(&(*msh), &i, line[i], quote))
-// 		;
-// 		else
-// 			break ;
-// 	}
-// 	sub_tokenize(&(*msh));
-// 	if ((*msh)->debug_mode)
-// 	{	
-// 		print_tokens(&(*msh)); //DEBUG TO DELETE
-// 		ft_printf("------------------------------\n");
-// 	}
-// 	parse_line(&(*msh));
-// 	// ft_printf("------------------------------\n");
-// 	// if ((*msh)->debug_mode)
-// 	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
-// 	// ft_printf("------------------------------\n");
-// 	return ;
-// }
-
 void	get_tokens(t_msh **msh, int i)
 {
 	const char		*line;
-	t_quote_state	quote;
+	t_quote_state	quotes;
 	
-	quote.in_squotes = false;
-	quote.in_dquotes = false;
-	quote.quote_char = '\0';
+	quotes.in_squotes = false;
+	quotes.in_dquotes = false;
+	quotes.quote_char = '\0';
 	line = (*msh)->prompt_line;
+	i = -1;
 	while(line[++i])
 	{
-		if ((!quote.in_squotes && !quote.in_dquotes) && ft_strchr(QUOTE, line[i]))
-		{
-			check_squote(&quote.in_squotes, line[i]);
-			check_dquote(&quote.in_dquotes, line[i]);
-			if (quote.in_squotes || quote.in_dquotes)
-				quote.quote_char = line[i];
-		}
-		else
-		{
-			check_squote(&quote.in_squotes, line[i]);
-			check_dquote(&quote.in_dquotes, line[i]);
-		}
-		if (quote.in_squotes || quote.in_dquotes)
-			quote.in_quotes = true;
-		else
-			quote.in_quotes = false;
-		if ((!quote.in_squotes || !quote.in_dquotes) && ft_strchr(QUOTE, line[i]))
+		sort_out_quotes(&i, line, &quotes);
+		if ((!quotes.in_squotes || !quotes.in_dquotes) && ft_strchr(QUOTE, line [i]))
 			i++;
-		if (!ft_strchr(QUOTE, line[i]) && (extra_check(&(*msh), &i, line[i], quote)))
+		if (!ft_strchr(QUOTE, line[i]) && (extra_check(&(*msh), &i, line[i], &quotes)))
 				;
 		else if (ft_strchr(QUOTE, line[i]))
 			i--;
@@ -88,9 +35,9 @@ void	get_tokens(t_msh **msh, int i)
 			break ;
 	}
 	sub_tokenize(&(*msh));
-	if ((*msh)->debug_mode)
+	if ((*msh)->debug_mode)  //DEBUG TO DELETE
 	{	
-		print_tokens(&(*msh)); //DEBUG TO DELETE
+		print_tokens(&(*msh));
 		ft_printf("------------------------------\n");
 	}
 	parse_line(&(*msh));
@@ -101,19 +48,19 @@ void	get_tokens(t_msh **msh, int i)
 	return ;
 }
 
-bool	extra_check(t_msh **msh, int *i, char c, t_quote_state quote)
+bool	extra_check(t_msh **msh, int *i, char c, t_quote_state *quotes)
 {	
-	if (ft_strchr(WHITESPACE, c) && !quote.in_quotes)
+	if (ft_strchr(WHITESPACE, c) && !quotes->in_quotes)
 		*i = tk_space(msh, *i);
-	else if (!ft_strchr(OPERATOR, c) && !quote.in_quotes)
+	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
-	else if (!ft_strchr(OPERATOR, c) && quote.in_quotes)
-		*i = tk_word_qt(msh, *i, &quote.in_quotes, &quote.quote_char);
-	else if (c == '|' && !quote.in_quotes)
+	else if (!ft_strchr(OPERATOR, c) && quotes->in_quotes)
+		*i = tk_word_qt(msh, *i, &quotes->in_quotes, &quotes->quote_char);
+	else if (c == '|' && !quotes->in_quotes)
 		*i = tk_pipe(msh, *i);
-	else if (c == '>' && !quote.in_quotes)
+	else if (c == '>' && !quotes->in_quotes)
 		*i = redir_r(msh, *i);
-	else if (c == '<' && !quote.in_quotes)
+	else if (c == '<' && !quotes->in_quotes)
 		*i = redir_l(msh, *i);
 	else
 		return (false);
@@ -135,9 +82,7 @@ void	sub_tokenize(t_msh **msh)
 		if (curr->type == WORD)
 		{
 			word = curr->content;
-			if (!ft_strcmp(word, "pwd")|| !ft_strcmp(word, "cd") || !ft_strcmp(word, "env")
-				|| (!ft_strcmp(word, "echo") || !ft_strcmp(word, "export") 
-				|| !ft_strcmp(word, "unset") || !ft_strcmp(word, "exit")))
+			if (check_builtin(word))
 				curr->type = BT_CMD;
 			else if (check_env_cmd(word, env_path, -1))
 				curr->type = ENV_CMD;

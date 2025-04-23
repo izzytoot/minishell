@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:38:34 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:43:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,22 @@ void	print_tokens(t_msh **msh)
 		ft_printf(YLL"token %d is"RES, ++n);
 		ft_printf(BMAG" %s"RES, curr->content);
 		ft_printf(YLL" of type"RES);
-		ft_printf(BMAG" %s\n"RES, token_type[curr->type]);
+		ft_printf(BMAG" %s "RES, token_type[curr->type]);
+		if (curr->quotes.in_dquotes)
+		{
+			ft_printf(YLL"and it's in "RES);
+			ft_printf(BMAG"double quotes\n"RES);
+		}
+		else if (curr->quotes.in_squotes)
+		{
+			ft_printf(YLL"and it's in "RES);
+			ft_printf(BMAG"single quotes\n"RES);
+		}
+		else
+		{
+			ft_printf(YLL"and it's "RES);
+			ft_printf(BMAG"not in quotes\n"RES);
+		}
 		curr = curr->next;
 	}
 }

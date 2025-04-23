@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/23 11:41:04 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:31:48 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ char			*get_eof(const char *line, int hd_index);
 /************ 30_tokens ************/
 //30_tokenizer.c
 void			get_tokens(t_msh **msh, int i);
-bool			extra_check(t_msh **msh, int *i, char c, t_quote_state quote);
+bool			extra_check(t_msh **msh, int *i, char c, t_quote_state *quote);
 void			sub_tokenize(t_msh **msh);
 void			handle_filename(t_tk_lst *token_list);
 char			*check_env_cmd(char *cmd, char *env_path, int i);
@@ -254,6 +254,7 @@ int				tk_redir_in(t_msh **msh, const char *line,
 					char *redir_in, int i);
 
 //33_handle_quotes.c
+void			sort_out_quotes(int *i, const char *line, t_quote_state *quotes);
 void			check_dquote(bool *in_dquotes, char c);
 void			check_squote(bool *in_squotes, char c);
 
@@ -262,6 +263,7 @@ void			app_tk(t_msh *msh, t_tk_lst *new_tk,
 					char *content, t_tk_type type);
 char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);
+bool			check_builtin(char *str);
 
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c

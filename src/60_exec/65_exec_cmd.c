@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/22 16:41:40 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:05:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (pid == 0)
 	{
+		////se path comeca com ./, isso é o path
 		path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
 			perror("msh: execve: "); // check pre-error message
