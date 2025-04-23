@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/23 16:54:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:02:35 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ char			*check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
 int				tk_word(t_msh **msh, int start);
+int	special_cases(t_msh **msh, int *i, char c);
 int				tk_word_qt(t_msh **msh, int start,
 					bool *in_quotes, char *quote_char);
 int				tk_space(t_msh **msh, int start);
