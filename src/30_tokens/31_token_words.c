@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:50:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:53:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int token_is_space(t_msh **msh, int start)
+int tk_space(t_msh **msh, int start)
 {
 	const char	*line;
 	char		word[1000];
@@ -34,7 +34,7 @@ int token_is_space(t_msh **msh, int start)
 	return(i - 1);
 }
 
-int	token_is_word(t_msh **msh, int start)
+int	tk_word(t_msh **msh, int start)
 {
 	const char	*line;
 	char		word[1000];
@@ -45,7 +45,8 @@ int	token_is_word(t_msh **msh, int start)
 	line = (*msh)->prompt_line;
 	i = start;
 	j = 0;
-    while (line[i] && (!ft_strchr(OPERATOR, line[i])) && !ft_strchr(WHITESPACE, line[i]))
+    while (line[i] && (!ft_strchr(OPERATOR, line[i])) 
+		&& !ft_strchr(WHITESPACE, line[i]))
 	{
 		word[j++] = line[i];
 		i++;
@@ -56,7 +57,8 @@ int	token_is_word(t_msh **msh, int start)
 	return(i - 1);
 }
 
-int	token_is_word_in_quotes(t_msh **msh, int start, bool *in_quotes, char *quote_char)
+int	tk_word_qt(t_msh **msh, int start, 
+	bool *in_quotes, char *quote_char)
 {
 	const char	*line;
 	char		word[1000];
@@ -67,11 +69,15 @@ int	token_is_word_in_quotes(t_msh **msh, int start, bool *in_quotes, char *quote
 	line = (*msh)->prompt_line;
 	i = start;
 	j = 0;
-    while (line[++i] && (line[i] != *quote_char))
-		word[j++] = line[i];
+    while (line[i] && (line[i] != *quote_char))
+		word[j++] = line[i++];
 	word[j] = '\0';
 	new_tk = calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, WORD);
+	if (*quote_char == '\'')
+		(*msh)->token_list->quotes.in_squotes = true;
+	else if (*quote_char == '\"')
+		(*msh)->token_list->quotes.in_dquotes = true;
 	*in_quotes = false;
 	return(i - 1);
 }

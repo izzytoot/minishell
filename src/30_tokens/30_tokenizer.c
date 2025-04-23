@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/22 18:43:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:54:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,8 @@ void	get_tokens(t_msh **msh, int i)
 			quote.in_quotes = false;
 		if ((!quote.in_squotes || !quote.in_dquotes) && ft_strchr(QUOTE, line[i]))
 			i++;
-		ft_printf("single quote is %d\n", quote.in_squotes);
-		ft_printf("double quote is %d\n", quote.in_dquotes);
-		ft_printf("quotes is %d\n", quote.in_quotes);
-		if (!ft_strchr(QUOTE, line[i]))
-		{
-			if (extra_check(&(*msh), &i, line[i], quote))
+		if (!ft_strchr(QUOTE, line[i]) && (extra_check(&(*msh), &i, line[i], quote)))
 				;
-		}
 		else if (ft_strchr(QUOTE, line[i]))
 			i--;
 		else
@@ -105,25 +99,18 @@ void	get_tokens(t_msh **msh, int i)
 	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
 	// ft_printf("------------------------------\n");
 	return ;
-} //FIQUEI AQUI
+}
 
 bool	extra_check(t_msh **msh, int *i, char c, t_quote_state quote)
-{
-	bool 		tmp_in_quotes;
-	char 		tmp_qt_char;
-	
+{	
 	if (ft_strchr(WHITESPACE, c) && !quote.in_quotes)
-		*i = token_is_space(msh, *i);
+		*i = tk_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quote.in_quotes)
-		*i = token_is_word(msh, *i);
+		*i = tk_word(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && quote.in_quotes)
-	{
-		tmp_in_quotes = quote.in_quotes;
-		tmp_qt_char = quote.quote_char;
-		*i = token_is_word_in_quotes(msh, *i, &tmp_in_quotes, &tmp_qt_char);
-	}
+		*i = tk_word_qt(msh, *i, &quote.in_quotes, &quote.quote_char);
 	else if (c == '|' && !quote.in_quotes)
-		*i = token_is_pipe(msh, *i);
+		*i = tk_pipe(msh, *i);
 	else if (c == '>' && !quote.in_quotes)
 		*i = redir_r(msh, *i);
 	else if (c == '<' && !quote.in_quotes)
@@ -148,8 +135,9 @@ void	sub_tokenize(t_msh **msh)
 		if (curr->type == WORD)
 		{
 			word = curr->content;
-			if (!ft_strcmp(word, "echo") || !ft_strcmp(word, "cd") || !ft_strcmp(word, "pwd") || !ft_strcmp(word, "export") || 
-				!ft_strcmp(word, "unset") || !ft_strcmp(word, "env") || !ft_strcmp(word, "exit"))
+			if (!ft_strcmp(word, "pwd")|| !ft_strcmp(word, "cd") || !ft_strcmp(word, "env")
+				|| (!ft_strcmp(word, "echo") || !ft_strcmp(word, "export") 
+				|| !ft_strcmp(word, "unset") || !ft_strcmp(word, "exit")))
 				curr->type = BT_CMD;
 			else if (check_env_cmd(word, env_path, -1))
 				curr->type = ENV_CMD;
@@ -168,7 +156,8 @@ void	handle_filename(t_tk_lst *token_list)
 	curr = token_list;
 	while (curr)
 	{
-		if (curr->type == REDIR_HD || curr->type == REDIR_APP || curr->type == REDIR_IN || curr->type == REDIR_OUT)
+		if (curr->type == REDIR_HD || curr->type == REDIR_APP 
+			|| curr->type == REDIR_IN || curr->type == REDIR_OUT)
 		{
 			if (curr->prev->type == W_SPACE && curr->prev->prev->type == WORD)
 				curr->prev->prev->type = FILE_NAME;

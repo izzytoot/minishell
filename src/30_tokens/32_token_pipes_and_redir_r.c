@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:20:33 by root              #+#    #+#             */
-/*   Updated: 2025/04/21 13:50:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:29:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	token_is_pipe(t_msh **msh, int start)
+int	tk_pipe(t_msh **msh, int start)
 {
 	int			i;
 	int			j;
@@ -44,13 +44,13 @@ int	redir_r(t_msh **msh, int start)
 	i = start;
 	line = (*msh)->prompt_line;
 	if (line[i] && line[i + 1] == '>')
-		i = token_is_redir_app(msh, line, redir_app, i);
+		i = tk_redir_app(msh, line, redir_app, i);
 	else
-		i = token_is_redir_out(msh, line, redir_out, i);
+		i = tk_redir_out(msh, line, redir_out, i);
 	return(i);
 }
 
-int	token_is_redir_app(t_msh **msh, const char *line, char *redir_app, int i)
+int	tk_redir_app(t_msh **msh, const char *line, char *redir_app, int i)
 {
 	int		j;
 	t_tk_lst	*new_tk;
@@ -67,7 +67,7 @@ int	token_is_redir_app(t_msh **msh, const char *line, char *redir_app, int i)
 	return (i - 1);
 }
 
-int	token_is_redir_out(t_msh **msh, const char *line, char *redir_out, int i)
+int	tk_redir_out(t_msh **msh, const char *line, char *redir_out, int i)
 {
 	int		j;
 	t_tk_lst	*new_tk;

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:50:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:40:19 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	redir_l(t_msh **msh, int start)
 	i = start;
 	line = (*msh)->prompt_line;
 	if (line[i] && line[i + 1] == '<')
-		i = token_is_redir_hd(msh, line, redir_hd, i);
+		i = tk_redir_hd(msh, line, redir_hd, i);
 	else
-		i = token_is_redir_in(msh, line, redir_in, i);
+		i = tk_redir_in(msh, line, redir_in, i);
 	return(i);
 }
 
-int	token_is_redir_hd(t_msh **msh, const char *line, char *redir_hd, int i)
+int	tk_redir_hd(t_msh **msh, const char *line, char *redir_hd, int i)
 {
 	int		j;
 	t_tk_lst	*new_tk;
@@ -45,7 +45,7 @@ int	token_is_redir_hd(t_msh **msh, const char *line, char *redir_hd, int i)
 	return (i - 1);
 }
 
-int	token_is_redir_in(t_msh **msh, const char *line, char *redir_in, int i)
+int	tk_redir_in(t_msh **msh, const char *line, char *redir_in, int i)
 {
 	int		j;
 	t_tk_lst	*new_tk;

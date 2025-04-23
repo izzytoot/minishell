@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/22 18:17:31 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:41:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,24 +233,24 @@ void			handle_filename(t_tk_lst *token_list);
 char			*check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
-int				token_is_word(t_msh **msh, int start);
-int				token_is_word_in_quotes(t_msh **msh, int start,
+int				tk_word(t_msh **msh, int start);
+int				tk_word_qt(t_msh **msh, int start,
 					bool *in_quotes, char *quote_char);
-int				token_is_space(t_msh **msh, int start);
+int				tk_space(t_msh **msh, int start);
 
 //32_token_pipes_and_redir_r.c
-int				token_is_pipe(t_msh **msh, int start);
+int				tk_pipe(t_msh **msh, int start);
 int				redir_r(t_msh **msh, int start);
-int				token_is_redir_app(t_msh **msh, const char *line,
+int				tk_redir_app(t_msh **msh, const char *line,
 					char *redir_app, int i);
-int				token_is_redir_out(t_msh **msh, const char *line,
+int				tk_redir_out(t_msh **msh, const char *line,
 					char *redir_out, int i);
 
 //33_token_redir_l.c
 int				redir_l(t_msh **msh, int start);
-int				token_is_redir_hd(t_msh **msh, const char *line,
+int				tk_redir_hd(t_msh **msh, const char *line,
 					char *redir_hd, int i);
-int				token_is_redir_in(t_msh **msh, const char *line,
+int				tk_redir_in(t_msh **msh, const char *line,
 					char *redir_in, int i);
 
 //33_handle_quotes.c
