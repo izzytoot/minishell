@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/23 12:31:48 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:54:54 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,16 @@ typedef enum e_tk_type
 	ENV_CMD, // envirm. cmd
 }	t_tk_type;
 
-typedef struct s_quote_state
+typedef struct s_quote
 {
-	bool	in_squotes;
-	bool	in_dquotes;
-	bool	in_quotes;
-	char	quote_char;
-}	t_quote_state;
+	bool			in_squotes;
+	bool			in_dquotes;
+	bool			in_quotes;
+	char			quote_char;
+	char			*content;
+	struct s_quote	*next;
+	struct s_quote	*prev;
+}	t_quote;
 
 typedef struct s_tk_lst
 {
@@ -133,7 +136,7 @@ typedef struct s_tk_lst
 	char					*content;
 	struct s_tk_lst			*next;
 	struct s_tk_lst			*prev;
-	struct s_quote_state	quotes;
+	struct s_quote			quotes;
 }	t_tk_lst;
 
 typedef struct s_tree_nd
@@ -150,6 +153,7 @@ typedef struct s_tree_nd
 	int					fd;
 	struct s_tree_nd	*left;
 	struct s_tree_nd	*right;
+	struct s_quote		*quote_lst;
 }	t_tree_nd;
 
 typedef struct s_redir_data
@@ -227,7 +231,7 @@ char			*get_eof(const char *line, int hd_index);
 /************ 30_tokens ************/
 //30_tokenizer.c
 void			get_tokens(t_msh **msh, int i);
-bool			extra_check(t_msh **msh, int *i, char c, t_quote_state *quote);
+bool			extra_check(t_msh **msh, int *i, char c, t_quote *quote);
 void			sub_tokenize(t_msh **msh);
 void			handle_filename(t_tk_lst *token_list);
 char			*check_env_cmd(char *cmd, char *env_path, int i);
@@ -254,7 +258,7 @@ int				tk_redir_in(t_msh **msh, const char *line,
 					char *redir_in, int i);
 
 //33_handle_quotes.c
-void			sort_out_quotes(int *i, const char *line, t_quote_state *quotes);
+void			sort_out_quotes(int *i, const char *line, t_quote *quotes);
 void			check_dquote(bool *in_dquotes, char c);
 void			check_squote(bool *in_squotes, char c);
 
@@ -268,7 +272,9 @@ bool			check_builtin(char *str);
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
 void			parse_line(t_msh **msh);
-t_tree_nd		*new_tree_nd(t_tk_type *type, char *content);
+t_tree_nd		*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content);
+void			add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token);
+void			app_qt(t_tree_nd *new_nd, t_tk_lst *token);
 
 //41_build_pipe_nodes.c
 t_tree_nd		*build_pipe_nd(t_tk_lst **tokens);
@@ -331,6 +337,7 @@ void			exec_tree(t_msh **msh, t_tree_nd *node);
 
 //61_expand_tree.c
 void			expand_tree(t_msh **msh, t_tree_nd *node);
+void			handle_qt_exp(t_msh **msh, t_tree_nd *node);
 void			expand_tk(t_msh **msh, char **args);
 char 			*get_env_content(t_list *envp_list, char *key_word);
 

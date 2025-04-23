@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/22 17:10:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:03:47 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,55 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 	int	i;
 	int	j;
 
-	i = -1;
+	i = 0;
 	if (!node)
 		return ;
 	if (type_is_cmd(&node->type) || node->type == ARG)
 	{
-		if (node->args)
+		if (node->args && !node->quote_lst)
 		{
-			while (node->args[++i])
+			while (node->args[i])
 			{
 				j = -1;
 				if (node->args[i][++j] == '$')
 					expand_tk(msh, &node->args[i]);
+				i++;
 			}
 		}
+		else if (node->args && node->quote_lst)
+			handle_qt_exp(msh, node);
 	}
 	if (node->left)
 		expand_tree(msh, node->left);
 	if(node->right)
 		expand_tree(msh, node->right);
+}
+
+void	handle_qt_exp(t_msh **msh, t_tree_nd *node)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (node->args[i])
+	{
+		j = -1;
+		while(node->quote_lst->content)
+		{
+			if (strcmp(node->args[i], node->quote_lst->content) == 0)
+			{
+				if (node->quote_lst->in_dquotes)
+				{
+					if (node->args[i][++j] == '$')
+						expand_tk(msh, &node->args[i]);
+				}
+				else if(node->quote_lst->in_squotes)
+					break ;
+			}
+			node->quote_lst = node->quote_lst->next;
+		}
+		i++;
+	}
 }
 
 void	expand_tk(t_msh **msh, char **args)

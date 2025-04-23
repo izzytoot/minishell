@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:53:10 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 12:41:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:49:59 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	sort_out_quotes(int *i, const char *line, t_quote_state *quotes)
+void	sort_out_quotes(int *i, const char *line, t_quote *quotes)
 {
 	if ((!quotes->in_squotes && !quotes->in_dquotes) && ft_strchr(QUOTE, line[*i]))
 		{

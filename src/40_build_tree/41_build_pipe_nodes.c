@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:23 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:40:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:28:54 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_tree_nd *build_pipe_nd(t_tk_lst **token_list)
 	{
 		if (curr_token->type == PIPE)
 		{
-			pipe_nd = new_tree_nd(&curr_token->type, &curr_token->content[0]);
+			pipe_nd = new_tree_nd(NULL, &curr_token->type, &curr_token->content[0]);
 			curr_token = curr_token->next;
 			left_tokens = curr_token;
 			prev_token->next = NULL; // cut right list

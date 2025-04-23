@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 12:42:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:50:32 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	get_tokens(t_msh **msh, int i)
 {
 	const char		*line;
-	t_quote_state	quotes;
+	t_quote			quotes;
 	
 	quotes.in_squotes = false;
 	quotes.in_dquotes = false;
@@ -48,7 +48,7 @@ void	get_tokens(t_msh **msh, int i)
 	return ;
 }
 
-bool	extra_check(t_msh **msh, int *i, char c, t_quote_state *quotes)
+bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 {	
 	if (ft_strchr(WHITESPACE, c) && !quotes->in_quotes)
 		*i = tk_space(msh, *i);

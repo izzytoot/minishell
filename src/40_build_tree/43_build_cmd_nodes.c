@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:47:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:21:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ t_tree_nd *build_cmd_nd(t_tk_lst **token_list)
 {
 	t_tk_lst	*curr_token;
 	t_list 		*args;
-	t_tree_nd *cmd_nd;
+	t_tree_nd 	*cmd_nd;
 
 	curr_token = *token_list;
 	if (!curr_token)
         return NULL;
 	args = NULL;
-	cmd_nd = new_tree_nd(&curr_token->type, NULL);
+	cmd_nd = new_tree_nd(curr_token, &curr_token->type, NULL);
 	while(curr_token)
 	{
 		if (type_is_word(&curr_token->type))
@@ -35,6 +35,24 @@ t_tree_nd *build_cmd_nd(t_tk_lst **token_list)
 	cmd_nd->cmd_content =  join_cmd_and_args(cmd_nd->cmd, cmd_nd->args);
 	return(cmd_nd);
 }
+
+void	handle_cmd(t_tree_nd *cmd_nd, t_tk_lst **curr_tk, t_list **args)
+{
+	while(*curr_tk)
+	{
+		if (type_is_arg(&(*curr_tk)->type))
+			ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
+		if (type_is_cmd(&(*curr_tk)->type))
+		{
+			cmd_nd->cmd = (*curr_tk)->content;
+			cmd_nd->cmd_type = (*curr_tk)->type;
+		}
+		if (type_is_word(&(*curr_tk)->type))
+			cmd_nd->type = (*curr_tk)->type;
+		*curr_tk = (*curr_tk)->next;
+	}
+}
+
 
 t_list *reverse_args(t_list **head)
 {
@@ -57,23 +75,6 @@ t_list *reverse_args(t_list **head)
 	}
 	*head = prev;
 	return(*head);
-}
-
-void	handle_cmd(t_tree_nd *cmd_nd, t_tk_lst **curr_tk, t_list **args)
-{
-	while(*curr_tk)
-	{
-		if (type_is_arg(&(*curr_tk)->type))
-			ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
-		if (type_is_cmd(&(*curr_tk)->type))
-		{
-			cmd_nd->cmd = (*curr_tk)->content;
-			cmd_nd->cmd_type = (*curr_tk)->type;
-		}
-		if (type_is_word(&(*curr_tk)->type))
-			cmd_nd->type = (*curr_tk)->type;
-		*curr_tk = (*curr_tk)->next;
-	}
 }
 
 char **join_cmd_and_args(char *cmd, char **args)

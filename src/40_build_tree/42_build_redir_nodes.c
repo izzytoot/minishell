@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:55:28 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:28:36 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_tree_nd *handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk, bool *cmd_exc)
 	if (!curr_tk || !*curr_tk)
 		return (redir_nd);
 
-	new_redir = new_tree_nd(&(*curr_tk)->type, &(*curr_tk)->content[0]);
+	new_redir = new_tree_nd(NULL, &(*curr_tk)->type, &(*curr_tk)->content[0]);
 	if (new_redir->type == REDIR_HD && (*curr_tk)->prev && (*curr_tk)->prev->type == W_SPACE)
 		new_redir->eof_ch = true;
 	if ((*curr_tk)->prev && (*curr_tk)->prev->type == W_SPACE)
