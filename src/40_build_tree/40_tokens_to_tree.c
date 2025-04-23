@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 16:32:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:33:19 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
 	count = 0;
 	while(curr_tk)
 	{
-		if (curr_tk->quotes.in_squotes || curr_tk->quotes.in_dquotes)
+		if (curr_tk->type == ARG)
 			count++;
 		curr_tk = curr_tk->next;
 	}
@@ -71,7 +71,7 @@ void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
 	new_nd->quote_lst = ft_calloc(count, sizeof(t_quote));
 	while(curr_tk_tmp)
 	{
-		if (curr_tk_tmp->quotes.in_squotes || curr_tk_tmp->quotes.in_dquotes)
+		if (curr_tk_tmp->type == ARG)
 			app_qt(new_nd, curr_tk_tmp);
 		curr_tk_tmp = curr_tk_tmp->next;
 	}
@@ -82,10 +82,13 @@ void	app_qt(t_tree_nd *new_nd, t_tk_lst *token)
 	t_quote	*new_quote;
 
 	new_quote = ft_calloc(1, sizeof(t_quote));
-	new_quote->content = token->quotes.content;
+	new_quote->content = ft_strdup(token->content);
 	new_quote->in_dquotes = token->quotes.in_dquotes;
 	new_quote->in_squotes = token->quotes.in_squotes;
-	new_quote->in_quotes = true;
+	if (new_quote->in_dquotes || new_quote->in_squotes)
+		new_quote->in_quotes = true;
+	else
+		new_quote->in_quotes = false;
 	new_quote->quote_char = token->quotes.quote_char;
 	new_quote->next = new_nd->quote_lst;
 	new_quote->prev = NULL;
