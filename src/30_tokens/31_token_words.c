@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 19:04:18 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:08:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,8 @@ int	tk_word(t_msh **msh, int start)
 int	special_cases(t_msh **msh, int *i, char c)
 {
 	t_tk_lst	*new_tk;
-	int			j;
 	char		*word;
 	
-	j = 0;
 	if (c == '?')
 	{
 		word = ft_strdup("$?");
