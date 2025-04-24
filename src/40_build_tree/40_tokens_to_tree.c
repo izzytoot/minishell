@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 17:33:19 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:32:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_tree_nd *new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 	else
 		new_nd->type = -1;
 	new_nd->args = NULL;
+	new_nd->nb_arg = 0;
 	new_nd->left = NULL;
 	new_nd->right = NULL;
 	new_nd->cmd = NULL;

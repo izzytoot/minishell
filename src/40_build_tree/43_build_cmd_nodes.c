@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 16:21:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:32:08 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_tree_nd *build_cmd_nd(t_tk_lst **token_list)
 			curr_token = curr_token->next;
 	}
 	args = reverse_args(&args);
+	cmd_nd->nb_arg = ft_lstsize(args);
 	cmd_nd->args = ft_list_to_array(args);
 	cmd_nd->cmd_content =  join_cmd_and_args(cmd_nd->cmd, cmd_nd->args);
 	return(cmd_nd);

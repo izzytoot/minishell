@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/23 19:02:35 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:28:13 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct s_tree_nd
 	bool				eof_ch;
 	char				**args;
 	char				*cmd;
+	int					nb_arg;
 	t_tk_type			cmd_type;
 	char				*file;
 	char				*tmp_file;
@@ -238,7 +239,7 @@ char			*check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
 int				tk_word(t_msh **msh, int start);
-int	special_cases(t_msh **msh, int *i, char c);
+int				special_cases(t_msh **msh, int *i, char c);
 int				tk_word_qt(t_msh **msh, int start,
 					bool *in_quotes, char *quote_char);
 int				tk_space(t_msh **msh, int start);
@@ -338,33 +339,47 @@ void			exec_tree(t_msh **msh, t_tree_nd *node);
 
 //61_expand_tree.c
 void			expand_tree(t_msh **msh, t_tree_nd *node);
-void			handle_qt_exp(t_msh **msh, t_tree_nd *node);
+void			expander(t_msh **msh, t_tree_nd **node, char **arg);
 void			expand_tk(t_msh **msh, char **args);
-char 			*get_env_content(t_list *envp_list, char *key_word);
+int				special_exp(t_msh **msh, char **new_cont, char *kw);
+void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
-//612_exec_pipe.c
+//62_expand_utils.c
+char 			*get_env_cont(t_list *envp_list, char *key_word);
+char			*get_pre_cont(char *arg, int *i);
+char			*get_key_word(char *arg, int *i);
+char			*get_post_cont(char *arg, int *i);
+
+//62_expand_utils_2.c
+char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
+char			*get_tmp(char *new_c, char *post_c, int len);
+char			*get_final(char *pre_c, char *tmp);
+char			*get_new_tmp(char *tmp, char *f_c);
+
+
+//63_exec_pipe.c
 void			exec_pipe(t_msh **msh, t_tree_nd *node);
 void			perform_left_pipe(int useless_fd, int dup_fd, int curr_pid);
 void			perform_right_pipe(int useless_fd, int dup_fd, int curr_pid);
 
-//63_exec_redir.c
+//64_exec_redir.c
 void			exec_redir_before_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_redir(t_tree_nd *node);
 int				create_file_fd(t_tk_type type, char *file_name);
 int				collect_redirs_and_cmd(t_tree_nd **curr_nd,
 					t_tree_nd **redir_nd, t_redir_data *redir_data);
 
-//64_exec_heredoc.c
+//65_exec_heredoc.c
 void			exec_heredocs(t_tree_nd *node);
 void			handle_hd(t_tree_nd *node, int hd_fd);
 char			*check_eof(t_tree_nd *node, char *file_name);
 
-//65_exec_cmd.c
+//66_exec_cmd.c
 void			exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
 
-//66_exec_utils.c
+//67_exec_utils.c
 int				safe_fork(void);
 int				safe_dup(int old_fd, int curr_pid);
 void			safe_dup2(int new_fd, int old_fd, int curr_pid);

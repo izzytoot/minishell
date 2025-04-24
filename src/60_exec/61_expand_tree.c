@@ -6,18 +6,18 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 18:54:48 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:28:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-
 void	expand_tree(t_msh **msh, t_tree_nd *node)
 {
+	char	**new_args;
+	char	*tmp_arg;
 	int	i;
-	int	j;
-
+		
 	i = 0;
 	if (!node)
 		return ;
@@ -25,24 +25,17 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 	{
 		if (node->args)
 		{
+			new_args = calloc((node->nb_arg + 1), sizeof(char *));
 			while (node->args[i])
 			{
-				j = -1;
-				if (node->quote_lst->in_squotes)
-				{
-					node->quote_lst = node->quote_lst->next;
-					i++;
-				}
-				else
-				{
-					if (node->args[i][++j] == '$')
-						expand_tk(msh, &node->args[i]);
-				}
-				if (!node->quote_lst->next)
-					break ;
-				node->quote_lst = node->quote_lst->next;
+				tmp_arg = ft_strdup(node->args[i]);
+				expander(msh, &node, &tmp_arg);
+				new_args[i] = tmp_arg;
 				i++;
 			}
+			new_args[i] = NULL;
+			ft_free_arrays((void **)node->args);
+			node->args = new_args;
 		}
 	}
 	if (node->left)
@@ -51,72 +44,92 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 		expand_tree(msh, node->right);
 }
 
-void	handle_qt_exp(t_msh **msh, t_tree_nd *node)
+void	expander(t_msh **msh, t_tree_nd **node, char **arg)
 {
-	int	i;
 	int	j;
-	
-	i = 0;
-	while (node->args[i])
+
+	j = 0;
+	if ((*node)->quote_lst->in_squotes)
 	{
-		j = -1;
-		while(node->quote_lst->content)
+		if ((*node)->quote_lst->next)
 		{
-			if (strcmp(node->args[i], node->quote_lst->content) == 0)
-			{
-				if (node->quote_lst->in_dquotes)
-				{
-					if (node->args[i][++j] == '$')
-						expand_tk(msh, &node->args[i]);
-				}
-				else if(node->quote_lst->in_squotes)
-					break ;
-			}
-			node->quote_lst = node->quote_lst->next;
+			(*node)->quote_lst = (*node)->quote_lst->next;
+			return ;
 		}
-		i++;
+		else
+			return ;
+	}
+	else
+	{
+		while((*arg)[j] && !ft_strchr("$", (*arg)[j]))
+		 	++j;
+		if ((*arg)[j] == '$')
+			expand_tk(msh, &(*arg));
+		if ((*node)->quote_lst->next)
+			(*node)->quote_lst = (*node)->quote_lst->next;
+		else
+			return ;
 	}
 }
 
 void	expand_tk(t_msh **msh, char **args)
 {
-	char	*key_word;
-	char	*new_content;
-	char	*final_content;
-	int		len;
-
-	key_word = ft_strdup(&(*args)[1]);
-	if (ft_strcmp(key_word, "0") == 0)
-		new_content = ft_strdup("minishell");
-	else if(ft_strcmp(key_word, "?") == 0)
-		new_content = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
-	else
-		new_content = get_env_content((*msh)->envp_list, key_word);
-	if (new_content)
-	{
-		len = ft_strlen(new_content);
-		if (len > 0 && new_content[len - 1] == '\n')
-			final_content = ft_substr(new_content, 0, len - 1);
-		else
-			final_content = ft_strdup(new_content);
-		free(*args);
-		*args = ft_strdup(final_content);
-		free(final_content);
-	}
-	free(key_word);
+	char	*pre_c;
+	char	*kw;
+	char	*post_c;
+	char	*new_c;
+	int		i;
+	
+	i = -1;
+	pre_c = get_pre_cont(*args, &i);
+	kw = get_key_word(*args, &i);
+	post_c = get_post_cont(*args, &i);
+	if (special_exp(msh, &new_c, kw) == 1)
+		return ;
+	else if (special_exp(msh, &new_c, kw) == 3)
+		new_c = get_env_cont((*msh)->envp_list, kw);
+	if(!new_c)
+		new_c = NULL;
+	subst_arg(args, pre_c, new_c, post_c);
+	free(kw);
 }
 
-char *get_env_content(t_list *envp_list, char *key_word)
+int	special_exp(t_msh **msh, char **new_cont, char *kw)
 {
-	int	key_len;
-
-	key_len = ft_strlen(key_word);
-	while(envp_list)
+	if (!kw || ft_strchr(WHITESPACE, kw[0]) || !kw[0])
+		return (1);
+	if (ft_strcmp(kw, "0") == 0)
 	{
-		if (!ft_strncmp(envp_list->content, key_word, key_len)
-				&& ((char *)envp_list->content)[key_len] == '=')
-			return(&((char *)envp_list->content)[key_len + 1]);
-		envp_list = envp_list->next;
+		*new_cont = ft_strdup("minishell");
+		return (2);
 	}
-	return (NULL);
+	else if(ft_strcmp(kw, "?") == 0)
+	{
+		*new_cont = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
+		return (2);
+	}
+	return (3);
+}
+
+void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
+{
+	char	*final_content;
+	
+	if (new_c)
+	{
+		final_content = get_final_cont(new_c, pre_c, post_c);
+		free(*arg);
+		*arg = ft_strdup(final_content);
+	}
+	else if(pre_c || post_c)
+	{	
+		if (pre_c)
+			final_content = ft_strdup(pre_c);
+		if (post_c)
+			final_content = ft_strjoin(final_content, ft_strdup(post_c));
+		free(*arg);
+		*arg = ft_strdup(final_content);
+	}
+	else
+		*arg = NULL;
 }

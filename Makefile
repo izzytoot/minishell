@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/22 17:55:55 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/04/24 18:26:34 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,13 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./50_built_ins/56_export.c\
 							./60_exec/60_exec_tree.c\
 							./60_exec/61_expand_tree.c\
-							./60_exec/62_exec_pipe.c\
-							./60_exec/63_exec_redir.c\
-							./60_exec/64_exec_heredoc.c\
-							./60_exec/65_exec_cmd.c\
-							./60_exec/66_exec_utils.c\
+							./60_exec/62_expand_utils.c\
+							./60_exec/63_expand_utils_2.c\
+							./60_exec/64_exec_pipe.c\
+							./60_exec/65_exec_redir.c\
+							./60_exec/66_exec_heredoc.c\
+							./60_exec/67_exec_cmd.c\
+							./60_exec/68_exec_utils.c\
 							./70_close_and_free/70_free_msh.c\
 							./70_close_and_free/71_close_msh.c\
 							11_debug_utils.c)

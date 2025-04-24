@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 20:07:18 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:44:21 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	prompt_and_read(t_msh **msh)
 		}
 		prompt = get_prompt();
 		line = readline(prompt);
+
 		free(prompt);
 		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
 			break ;
