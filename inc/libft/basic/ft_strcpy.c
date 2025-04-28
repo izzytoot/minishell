@@ -6,18 +6,18 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:34:17 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/08 11:42:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:00:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
 	int		i;
-	
+
 	i = 0;
-	while(src[i])
+	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;

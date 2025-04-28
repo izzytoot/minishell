@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/16 15:46:26 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/04/24 18:26:34 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 NAME = minishell
 INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
-SRC = $(addprefix $(SRC_PATH), ./00_main/01_main.c \
+SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./10_init/10_init_msh.c \
 							./10_init/11_envp_copies.c\
 							./10_init/12_init_utils.c \
@@ -29,23 +29,31 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/01_main.c \
 							./30_tokens/31_token_words.c \
 							./30_tokens/32_token_pipes_and_redir_r.c \
 							./30_tokens/33_token_redir_l.c\
-							./30_tokens/34_token_utils.c\
+							./30_tokens/34_handle_quotes.c\
+							./30_tokens/35_token_utils.c\
 							./40_build_tree/40_tokens_to_tree.c\
 							./40_build_tree/41_build_pipe_nodes.c\
 							./40_build_tree/42_build_redir_nodes.c\
 							./40_build_tree/43_build_cmd_nodes.c\
 							./40_build_tree/44_tree_utils.c\
-							./50_built_ins/pwd.c\
-							./50_built_ins/env.c\
-							./50_built_ins/cd.c\
-							./50_built_ins/echo.c\
+							./50_built_ins/50_pwd.c\
+							./50_built_ins/51_cd.c\
+							./50_built_ins/52_env.c\
+							./50_built_ins/53_echo.c\
+							./50_built_ins/54_exit.c\
+							./50_built_ins/55_unset.c\
+							./50_built_ins/56_export.c\
 							./60_exec/60_exec_tree.c\
-							./60_exec/61_exec_pipe.c\
-							./60_exec/62_exec_redir.c\
-							./60_exec/63_exec_heredoc.c\
-							./60_exec/64_exec_cmd.c\
-							./60_exec/65_exec_utils.c\
-							10_close_msh.c\
+							./60_exec/61_expand_tree.c\
+							./60_exec/62_expand_utils.c\
+							./60_exec/63_expand_utils_2.c\
+							./60_exec/64_exec_pipe.c\
+							./60_exec/65_exec_redir.c\
+							./60_exec/66_exec_heredoc.c\
+							./60_exec/67_exec_cmd.c\
+							./60_exec/68_exec_utils.c\
+							./70_close_and_free/70_free_msh.c\
+							./70_close_and_free/71_close_msh.c\
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
 

@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/18 12:35:41 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:44:21 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void ft_init_msh(t_minishell **msh, char **envp)
-{
-	if (!isatty(STDIN_FILENO))
-		close_minishell(*msh, EXIT_FAILURE);
+void	ft_init_msh(t_msh **msh, char **envp)
+{	
+	// if (!isatty(STDIN_FILENO)) // nao funciona com tester
+	// 	close_minishell(*msh, EXIT_FAILURE);
 	(*msh)->hd_check = true;
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
 //	if ((*msh)->debug_mode)
 //		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
+	exit_value(msh, 0, 1, 0); //iniciar o exit_code status
 	prompt_and_read(&(*msh));
 }
 
-void	prompt_and_read(t_minishell **msh)
+void	prompt_and_read(t_msh **msh)
 {
 	char	*line;
 	char	*prompt;
@@ -32,16 +33,17 @@ void	prompt_and_read(t_minishell **msh)
 	while (1)
 	{
 		if ((*msh)->prompt_line)
-		{	
+		{
 			free((*msh)->prompt_line);
 			(*msh)->prompt_line = NULL;
 		}
 		prompt = get_prompt();
 		line = readline(prompt);
+
 		free(prompt);
 		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
-			break;
-		add_history(line);
+			break ;
+		add_history (line);
 		(*msh)->token_list = NULL;
 		(*msh)->prompt_line = line;
 		// if (line && strncmp(line, "exit", 4) == 0)
@@ -54,12 +56,11 @@ void	prompt_and_read(t_minishell **msh)
 		// }
 		if (line && syntax_is_ok(&(*msh)))
 		{
-			get_tokens(&(*msh), -1, '\0');
-			// if (!(*msh)->tree_root->left && !(*msh)->tree_root->right)
-			// 	exec_single_cmd(&(*msh), NULL);
-			// else
+			get_tokens(&(*msh), -1);
 			exec_tree(&(*msh), (*msh)->tree_root);
 		}
+		if ((*msh)->debug_mode)
+			ft_printf("status is %d\n", exit_value(msh, 0, 0, 0));
 		free_prompt_line(&(*msh));
 	}
 }
@@ -83,4 +84,15 @@ char	*get_prompt(void)
 		return (ft_strdup("$ "));
 	}
 	return (prompt);
+}
+
+int	exit_value(t_msh **msh, int exit_code, int upd_exit, int close)
+{
+static int	current_code;
+
+if (upd_exit == true)
+	current_code = exit_code;
+if (close == true)
+	close_minishell(*msh, current_code);
+return (current_code);
 }

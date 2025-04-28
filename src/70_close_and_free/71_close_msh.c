@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   60_exec_tree.c                                     :+:      :+:    :+:   */
+/*   71_close_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 20:04:19 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/04/21 14:08:36 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	exec_tree(t_msh **msh, t_tree_nd *node)
+void	close_minishell(t_msh *msh, int exit_code)
 {
-	expand_tree(msh, node);
-	if ((*msh)->hd_check)
-	{
-		exec_heredocs(node);
-		(*msh)->hd_check = false;
-	}	
-	if (node->type == PIPE)
-		exec_pipe(msh, node);
-	else if (type_is_redir(&node->type))
-		exec_redir_before_cmd(msh, node);
-	else if (type_is_word(&node->type))
-		exec_cmd(msh, node);
+	if (msh->active)
+		free_msh(&(*msh));
+	strerror(errno);
+	clear_history();
+	exit(exit_code);
+}
+
+void	envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array)
+{
+	if (str)
+		free(str);
+	if (list_nd)
+		free(list_nd);
+	if (array)
+		free(array);
+	close_minishell(msh, EXIT_FAILURE);
 }

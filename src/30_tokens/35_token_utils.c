@@ -1,45 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   34_token_utils.c                                   :+:      :+:    :+:   */
+/*   35_token_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/17 18:07:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:59:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	check_quote(bool *in_quotes, char *quote_char, char c)
+void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 {
-	if (!(*in_quotes))
-    {
-		*in_quotes = true;
-		*quote_char = c;
-	}
-	else if (*in_quotes && c == *quote_char)
+	new_tk->type = type;
+	new_tk->content = ft_strdup(content);
+	if (!new_tk->content)
 	{
-		*in_quotes = false;
-		*quote_char = '\0';
-	}
-}
-
-void	append_token(t_minishell *msh, t_token_lst *new_token, char *content, t_token_type type)
-{
-	new_token->type = type;
-	new_token->content = ft_strdup(content);
-	if (!new_token->content)
-	{
-        free(new_token);
+        free(new_tk);
         return ;
     }
-	new_token->next = msh->token_list;
-	new_token->prev = NULL;
+	new_tk->next = msh->token_list;
+	new_tk->prev = NULL;
 	if (msh->token_list)
-		msh->token_list->prev = new_token;
-	msh->token_list = new_token;
+		msh->token_list->prev = new_tk;
+	msh->token_list = new_tk;
 }
 
 char *get_path(t_list *envp_list)
@@ -53,26 +39,36 @@ char *get_path(t_list *envp_list)
 	return (NULL);
 }
 
-void check_double_cmd(t_minishell **msh)
+void check_rep_cmd(t_msh **msh)
 {
-	t_token_lst *current;
+	t_tk_lst 	*curr;
 	bool		cmd_ch;
 	
-	current = (*msh)->token_list;
+	curr = (*msh)->token_list;
 	cmd_ch = false;
-	while (current && current->next)
-		current = current->next;
-	while(current)
+	while (curr && curr->next)
+		curr = curr->next;
+	while(curr)
 	{
-		if (type_is_cmd(&current->type))
+		if (type_is_cmd(&curr->type))
 		{
 			if (cmd_ch)
-				current->type = ARG;
+				curr->type = ARG;
 			else
 				cmd_ch = true;
 		}
-		current = current->prev;
-		if (current && current->type == PIPE)
+		curr = curr->prev;
+		if (curr && curr->type == PIPE)
 			cmd_ch = false;
 	}
+}
+
+bool			check_builtin(char *str)
+{
+	if (!ft_strcmp(str, "pwd")|| !ft_strcmp(str, "cd")
+		|| !ft_strcmp(str, "env") || (!ft_strcmp(str, "echo")
+		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
+		|| !ft_strcmp(str, "exit")))
+		return (true);
+	return (false);
 }

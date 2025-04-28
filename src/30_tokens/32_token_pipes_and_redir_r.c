@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   32_token_pipes_and_redir_r.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:20:33 by root              #+#    #+#             */
-/*   Updated: 2025/04/07 15:55:57 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:29:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	token_is_pipe(t_minishell **msh, int start)
+int	tk_pipe(t_msh **msh, int start)
 {
 	int			i;
 	int			j;
 	char		pipe[5];
-	t_token_lst	*new_token;
+	t_tk_lst	*new_tk;
 	const char *line;
 	
 	i = start;
@@ -29,12 +29,12 @@ int	token_is_pipe(t_minishell **msh, int start)
 		i++;
 	}
 	pipe[j] = '\0';
-	new_token = calloc(1, sizeof(t_token_lst));
-	append_token(*msh, new_token, pipe, PIPE);
+	new_tk = calloc(1, sizeof(t_tk_lst));
+	app_tk(*msh, new_tk, pipe, PIPE);
 	return(i - 1);
 }
 
-int	redir_r(t_minishell **msh, int start)
+int	redir_r(t_msh **msh, int start)
 {
 	int			i;
 	const char *line;
@@ -44,16 +44,16 @@ int	redir_r(t_minishell **msh, int start)
 	i = start;
 	line = (*msh)->prompt_line;
 	if (line[i] && line[i + 1] == '>')
-		i = token_is_redir_app(msh, line, redir_app, i);
+		i = tk_redir_app(msh, line, redir_app, i);
 	else
-		i = token_is_redir_out(msh, line, redir_out, i);
+		i = tk_redir_out(msh, line, redir_out, i);
 	return(i);
 }
 
-int	token_is_redir_app(t_minishell **msh, const char *line, char *redir_app, int i)
+int	tk_redir_app(t_msh **msh, const char *line, char *redir_app, int i)
 {
 	int		j;
-	t_token_lst	*new_token;
+	t_tk_lst	*new_tk;
 	
 	j = 0;
 	while(line[i] && line[i] == '>')
@@ -62,15 +62,15 @@ int	token_is_redir_app(t_minishell **msh, const char *line, char *redir_app, int
 		i++;
 	}
 	redir_app[j] = '\0';
-	new_token = calloc(1, sizeof(t_token_lst));
-	append_token(*msh, new_token, redir_app, REDIR_APP);
+	new_tk = calloc(1, sizeof(t_tk_lst));
+	app_tk(*msh, new_tk, redir_app, REDIR_APP);
 	return (i - 1);
 }
 
-int	token_is_redir_out(t_minishell **msh, const char *line, char *redir_out, int i)
+int	tk_redir_out(t_msh **msh, const char *line, char *redir_out, int i)
 {
 	int		j;
-	t_token_lst	*new_token;
+	t_tk_lst	*new_tk;
 	
 	j = 0;
 	while(line[i] && line[i] == '>')
@@ -79,7 +79,7 @@ int	token_is_redir_out(t_minishell **msh, const char *line, char *redir_out, int
 		i++;
 	}
 	redir_out[j] = '\0';
-	new_token = calloc(1, sizeof(t_token_lst));
-	append_token(*msh, new_token, redir_out, REDIR_OUT);
+	new_tk = calloc(1, sizeof(t_tk_lst));
+	app_tk(*msh, new_tk, redir_out, REDIR_OUT);
 	return (i - 1);
 }

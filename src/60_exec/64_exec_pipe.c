@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/16 17:45:19 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:20:48 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	exec_pipe(t_minishell **msh, t_tree_node *node)
+void	exec_pipe(t_msh **msh, t_tree_nd *node)
 {
 	int	fd[2]; // fd[0]: read process, fd[1]: write process
 	pid_t	left_pid;

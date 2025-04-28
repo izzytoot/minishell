@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/18 17:17:35 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:33:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //info --> clean up and exit shell with correct value
 
-void	ft_exit(t_minishell **msh, char **av)
+void	ft_exit(t_msh **msh, char **av)
 {
 	unsigned char	exit_code;
 
@@ -41,7 +41,7 @@ void	ft_exit(t_minishell **msh, char **av)
 
 //info --> convert the exit code given as arg into 8-bit unsigned integer
 
-static unsigned int	ft_convert_value(t_minishell **msh, char *code, char **av)
+static unsigned int	ft_convert_value(t_msh **msh, char *code, char **av)
 {
 	long long	nbr;
 
@@ -59,7 +59,7 @@ static unsigned int	ft_convert_value(t_minishell **msh, char *code, char **av)
 //info --> returns the current exit status,
 //			with option to update it and exit the program
 
-int	ft_exit_value(t_minishell **msh, int exit_code, int update_exit, int exit_msh)
+int	ft_exit_value(t_msh **msh, int exit_code, int update_exit, int exit_msh)
 {
 	int	current_code;
 
