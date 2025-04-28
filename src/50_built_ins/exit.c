@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/18 16:59:08 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:17:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ void	ft_exit(t_minishell **msh, char **av)
 
 static unsigned int	ft_convert_value(t_minishell **msh, char *code, char **av)
 {
-	bool		has_sign;
 	long long	nbr;
-	
-	has_sign = false;
+
 	nbr = ft_atoll(code);
 	if (nbr == LLONG_MAX && ft_strcmp(code, "9223372036854775807"))
 	{
