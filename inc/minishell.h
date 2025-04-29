@@ -340,7 +340,7 @@ void			exec_tree(t_msh **msh, t_tree_nd *node);
 //61_expand_tree.c
 void			expand_tree(t_msh **msh, t_tree_nd *node);
 void			expander(t_msh **msh, t_tree_nd **node, char **arg);
-void			expand_tk(t_msh **msh, char *arg);
+void			expand_tk(t_msh **msh, char **arg);
 int				special_exp(t_msh **msh, char **new_cont, char *kw);
 void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
