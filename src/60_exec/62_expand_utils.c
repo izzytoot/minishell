@@ -64,19 +64,24 @@ char	*get_key_word(char *arg, int *i)
 	int		tmp_i;
 	
 	len = 0;
-	tmp_i = *i + 1;
-	while(!ft_strchr(WHITESPACE,arg[++*i]))
+	tmp_i = *i;
+	while(!ft_strchr(WHITESPACE,arg[(*i)++]))
+	{
+		if(arg[*i] == '$')
+			break;
 		len++;
+	}
 	if (!len)
 		return (NULL);
 	key_word = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = tmp_i;
-	while(!ft_strchr(WHITESPACE,arg[*i]))
+	while(!ft_strchr(WHITESPACE,arg[(*i)++]))
 	{
+		if(arg[*i] == '$')
+			break;
 		key_word[len] = arg[*i];
 		len++;
-		(*i)++;
 	}
 	key_word[len] = '\0';
 	return(key_word);
