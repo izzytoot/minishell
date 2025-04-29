@@ -12,6 +12,14 @@
 
 #include "../../inc/minishell.h"
 
+void	recurs_exp_tree(t_msh **msh, t_tree_nd *node)
+{
+	if (node->left)
+		expand_tree(msh, node->left);
+	if(node->right)
+		expand_tree(msh, node->right);
+}
+
 char *get_env_cont(t_list *envp_list, char *key_word)
 {
 	int	key_len;

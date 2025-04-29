@@ -345,6 +345,7 @@ int				special_exp(t_msh **msh, char **new_cont, char *kw);
 void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
 //62_expand_utils.c
+void			recurs_exp_tree(t_msh **msh, t_tree_nd *node);
 char 			*get_env_cont(t_list *envp_list, char *key_word);
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);

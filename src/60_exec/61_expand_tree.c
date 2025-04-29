@@ -38,10 +38,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 			node->args = new_args;
 		}
 	}
-	if (node->left)
-		expand_tree(msh, node->left);
-	if(node->right)
-		expand_tree(msh, node->right);
+	recurs_exp_tree(msh, node);	
 }
 
 void	expander(t_msh **msh, t_tree_nd **node, char **arg)
