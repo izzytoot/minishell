@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   61_expand_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/24 18:28:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:31:13 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	expand_tree(t_msh **msh, t_tree_nd *node)
 {
+	t_quote	*tmp_qt;
 	char	**new_args;
 	char	*tmp_arg;
 	int	i;
@@ -25,6 +26,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 	{
 		if (node->args)
 		{
+			tmp_qt = node->quote_lst;
 			new_args = calloc((node->nb_arg + 1), sizeof(char *));
 			while (node->args[i])
 			{
@@ -34,6 +36,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 				i++;
 			}
 			new_args[i] = NULL;
+			node->quote_lst = tmp_qt;
 			ft_free_arrays((void **)node->args);
 			node->args = new_args;
 		}
