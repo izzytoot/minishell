@@ -38,6 +38,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 			args_cpy[i] = NULL;
 			node->quote_lst = tmp_qt;
 			ft_free_arrays((void **)node->args);
+			free(tmp_qt);
 			node->args = args_cpy;
 		}
 	}
