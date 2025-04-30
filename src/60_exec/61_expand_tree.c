@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   61_expand_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/24 18:28:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:37:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 			args_cpy[i] = NULL;
 			node->quote_lst = tmp_qt;
 			ft_free_arrays((void **)node->args);
-			free(tmp_qt);
+			safe_free(tmp_qt);
 			node->args = args_cpy;
 		}
 	}
@@ -154,7 +154,7 @@ void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
 	if (new_c)
 	{
 		final_content = get_final_cont(new_c, pre_c, post_c);
-		free(*arg);
+		safe_free(*arg);
 		*arg = ft_strdup(final_content);
 	}
 	else if(pre_c || post_c)
@@ -163,7 +163,7 @@ void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
 			final_content = ft_strdup(pre_c);
 		if (post_c)
 			final_content = ft_strjoin(final_content, ft_strdup(post_c));
-		free(*arg);
+		safe_free(*arg);
 		*arg = ft_strdup(final_content);
 	}
 	else

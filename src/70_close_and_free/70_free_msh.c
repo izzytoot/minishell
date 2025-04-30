@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   70_free_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 15:32:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:38:52 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,13 @@ void	free_msh(t_msh *msh)
 		free_tree(msh->tree_root);
 		msh->tree_root = NULL;
 	}
-	free(msh);
+	safe_free(msh);
 }
 
 void	free_prompt_line(t_msh **msh)
 {
 	if ((*msh)->prompt_line)
-	{
-		free((*msh)->prompt_line);
-		(*msh)->prompt_line = NULL;
-	}
+		safe_free((*msh)->prompt_line);
 	if ((*msh)->tree_root)
 	{
 		free_tree((*msh)->tree_root);
@@ -56,8 +53,8 @@ void	free_tokens(t_tk_lst *token_list)
 	{
 		tmp = token_list->next;
 		if (token_list->content)
-			free(token_list->content);
-		free(token_list);
+			safe_free(token_list->content);
+		safe_free(token_list);
 		token_list = tmp;
 	}
 }
@@ -71,12 +68,12 @@ void	free_tree(t_tree_nd *node)
 	if (node->right)
 		free_tree(node->right);
 	if (node->file)
-		free(node->file);
+		safe_free(node->file);
 	if (node->op_content)
-		free(node->op_content);
+		safe_free(node->op_content);
 	if (node->cmd_content != node->args)
 		ft_free_arrays((void **)node->cmd_content);
 	if (node->args)
 		ft_free_arrays((void **)node->args);
-	free(node);
+	safe_free(node);
 }

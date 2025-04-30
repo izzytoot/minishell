@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/21 13:20:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:35:26 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 		return (perror("cd: getcwd"), EXIT_FAILURE);
 	old_pwd = ft_strjoin(ft_strdup(cwd), "\n");
 	if (get_dir(node, &target_dir) != EXIT_SUCCESS)
-		return (free(old_pwd), EXIT_FAILURE);
+		return (safe_free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: cd: %s: No such file or directory\n",
 			target_dir);
-		return (free(old_pwd), EXIT_FAILURE);
+		return (safe_free(old_pwd), EXIT_FAILURE);
 	}
 	update_cd_env(msh, old_pwd);
-	return (free(old_pwd), EXIT_SUCCESS);
+	return (safe_free(old_pwd), EXIT_SUCCESS);
 }
 
 //info --> get target dir
@@ -91,9 +91,9 @@ int	update_cd_env(t_msh **msh, char *old_pwd)
 		return (EXIT_FAILURE);
 	if (update_env_var(&(*msh)->envp_list, "PWD", pwd) != EXIT_SUCCESS)
 	{
-		free(pwd);
+		safe_free(pwd);
 		return (EXIT_FAILURE);
 	}
-	free(pwd);
+	safe_free(pwd);
 	return (EXIT_SUCCESS);
 }

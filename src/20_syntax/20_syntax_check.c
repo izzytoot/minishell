@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/21 14:24:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:33:12 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,10 @@ void	exec_fake_hd(const char *line, int hd_index)
 			break ;
 		if (ft_strcmp(new_line, eof) == 0)
 		{
-			free(new_line);
+			safe_free(new_line);
 			break ;
 		}
 		ft_putstr_fd(new_line, fd);
-		free(new_line);
-		new_line = NULL;
+		safe_free(new_line);
 	}
 }

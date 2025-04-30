@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   64_exec_heredoc.c                                  :+:      :+:    :+:   */
+/*   66_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 19:48:29 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:37:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ void		handle_hd(t_tree_nd *node, int hd_fd)
 			break;
 		if (ft_strcmp(new_line, eof) == 0)
 		{
-			free(new_line);
+			safe_free(new_line);
 			break;
 		}
 		ft_putstr_fd(new_line, hd_fd);
 		ft_putstr_fd("\n", hd_fd);
-		free(new_line);
-		new_line = NULL;
+		safe_free(new_line);
 	}
 }
 

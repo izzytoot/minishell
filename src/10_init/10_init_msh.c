@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/24 17:44:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:31:18 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,11 @@ void	prompt_and_read(t_msh **msh)
 	while (1)
 	{
 		if ((*msh)->prompt_line)
-		{
-			free((*msh)->prompt_line);
-			(*msh)->prompt_line = NULL;
-		}
+			safe_free((*msh)->prompt_line);
 		prompt = get_prompt();
 		line = readline(prompt);
 
-		free(prompt);
+		safe_free(prompt);
 		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
 			break ;
 		add_history (line);
