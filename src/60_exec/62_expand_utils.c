@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   62_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/24 18:27:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:05:26 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_pre_cont(char *arg, int *i)
 		len++;
 	if (!len)
 		return (NULL);
-	pre_content = ft_calloc((len + 1), sizeof(char));
+	pre_content = safe_malloc(sizeof(char) * (len + 1));
 	len = 0;
 	*i = -1;
 	while(!ft_strchr("$",arg[++*i]))
@@ -73,7 +73,7 @@ char	*get_key_word(char *arg, int *i)
 	}
 	if (!len)
 		return (NULL);
-	key_word = ft_calloc((len + 1), sizeof(char));
+	key_word = safe_malloc(sizeof(char) * (len + 1));
 	len = 0;
 	*i = tmp_i;
 	while(!ft_strchr(WHITESPACE,arg[(*i)++]))
@@ -99,7 +99,7 @@ char	*get_post_cont(char *arg, int *i)
 		len++;
 	if (len == 0)
 		return (NULL);
-	post_content = ft_calloc((len + 1), sizeof(char));
+	post_content = safe_malloc(sizeof(char) * (len + 1));
 	len = 0;
 	*i = tmp_i;
 	while(arg[*i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   33_token_redir_l.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 11:40:19 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:59:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	tk_redir_hd(t_msh **msh, const char *line, char *redir_hd, int i)
 		i++;
 	}
 	redir_hd[j] = '\0';
-	new_tk = calloc(1, sizeof(t_tk_lst));
+	new_tk = safe_malloc(sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, redir_hd, REDIR_HD);
 	return (i - 1);
 }
@@ -57,7 +57,7 @@ int	tk_redir_in(t_msh **msh, const char *line, char *redir_in, int i)
 		i++;
 	}
 	redir_in[j] = '\0';
-	new_tk = calloc(1, sizeof(t_tk_lst));
+	new_tk = safe_malloc(sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, redir_in, REDIR_IN);
 	return (i - 1);
 }

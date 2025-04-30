@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:37:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:04:19 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 		if (node->args)
 		{
 			tmp_qt = node->quote_lst;
-			args_cpy = calloc((node->nb_arg + 1), sizeof(char *));
+			args_cpy = safe_malloc(sizeof(char *) * (node->nb_arg + 1));
 			while (node->args[i])
 			{
 				tmp_arg = ft_strdup(node->args[i]);
@@ -100,7 +100,7 @@ void	expand_tk(t_msh **msh, char **arg)
 		i++;
 	}
 	if (count)
-		kw = calloc((count + 1), sizeof(char *));
+		kw = safe_malloc(sizeof(char *) * (count + 1));
 	i = tmp_i;
 	while(s[i] && !ft_strchr(WHITESPACE, s[i]))
 	{

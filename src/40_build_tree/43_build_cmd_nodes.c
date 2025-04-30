@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   43_build_cmd_nodes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/24 16:32:08 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:03:11 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char **join_cmd_and_args(char *cmd, char **args)
 	 	return (args);
 	while (args && args[arg_count])
 		arg_count++;
-	full_cmd = malloc(sizeof(char *) * (arg_count + 2));
+	full_cmd = safe_malloc(sizeof(char *) * (arg_count + 2));
 	if (!full_cmd)
 		return (NULL);
 	full_cmd[0] = ft_strdup(cmd);

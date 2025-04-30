@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:32:41 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 10:54:09 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**envp_to_array(t_msh *msh, char **envp)
 	count = 0;
 	while (envp[count])
 		count++;
-	envp_array = malloc(sizeof(char *) * (count + 1));
+	envp_array = safe_malloc(sizeof(char *) * (count + 1));
 	if (!envp_array)
 		envp_fail(msh, NULL, NULL, NULL);
 	while (++i < count)
