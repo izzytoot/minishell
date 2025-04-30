@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 15:59:38 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 17:54:29 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,16 @@ void	expand_tk(t_msh **msh, char **arg)
 	int		tmp_i;
 	int		count;
 	char	*new_arg;
-	int		n;
 	char 	*s;
+	bool	x;
 	
-	n = 0;
 	i = -1;
 	k = 0;
 	pre_c = get_pre_cont(*arg, &i);
 	tmp_i = i;
 	count = 0;
 	s = *arg;
+	x = false;
 	while(s[i] && !ft_strchr(WHITESPACE, s[i]))
 	{
 		if (s[i] == '$')
@@ -105,9 +105,20 @@ void	expand_tk(t_msh **msh, char **arg)
 	i = tmp_i;
 	while(s[i] && !ft_strchr(WHITESPACE, s[i]) && !ft_strchr(SYM_EXP, s[i]))
 	{
-		if (s[i] == '$')
+		if (s[i] == '$' && !s[i + 1])
+		{
+			x = true;
+			i++;
+			kw[k] = ft_strdup("$");
+		}
+		if (s[i] == '$' && s[i + 1])
 			kw[k] = get_key_word(s, &i);
 		if (s[i] && ft_strchr(SYM_EXP, s[i]))
+		{
+			k++;
+			kw[k] = get_mid_cont(s, &i);
+		}
+		if (s[i] && (s[i] != '$'))
 		{
 			k++;
 			kw[k] = get_mid_cont(s, &i);
@@ -121,25 +132,26 @@ void	expand_tk(t_msh **msh, char **arg)
 	new_arg = NULL;
 	while(i < k)
 	{
-		if (special_exp(msh, &new_c, kw[i]) == 1)
+		if (special_exp(msh, &new_c, kw[i], &x) == 1)
 			;
-		else if (special_exp(msh, &new_c, kw[i]) == 4)
+		else if (special_exp(msh, &new_c, kw[i], &x) == 4)
 			;
-		else if (special_exp(msh, &new_c, kw[i]) == 3)
+		else if (special_exp(msh, &new_c, kw[i], &x) == 3 && !x)
 			new_c = get_env_cont((*msh)->envp_list, kw[i]);
+		else if (special_exp(msh, &new_c, kw[i], &x) == 3 && x)
+			new_c = ft_strdup(kw[i]);
 		if(!new_c)
 			new_c = NULL;
 		new_arg = safe_strjoin(new_arg, new_c);
 		if (new_c)
 			new_c = NULL;
 		i++;
-		n++;
 	}
 	subst_arg(arg, pre_c, new_arg, post_c);
 //	ft_free_arrays((void **)kw);
 }
 
-int	special_exp(t_msh **msh, char **new_cont, char *kw)
+int	special_exp(t_msh **msh, char **new_cont, char *kw, bool *x)
 {
 	if (!kw || ft_strchr(WHITESPACE, kw[0]) || !kw[0])
 		return (1);
@@ -151,6 +163,7 @@ int	special_exp(t_msh **msh, char **new_cont, char *kw)
 	else if(ft_strcmp(kw, "?") == 0)
 	{
 		*new_cont = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
+		*x = true;
 		return (2);
 	}
 	else if(ft_strchr(SYM_EXP, kw[0]))

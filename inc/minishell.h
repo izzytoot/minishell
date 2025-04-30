@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/30 14:38:35 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 17:24:19 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,7 +342,7 @@ void			exec_tree(t_msh **msh, t_tree_nd *node);
 void			expand_tree(t_msh **msh, t_tree_nd *node);
 void			expander(t_msh **msh, t_tree_nd **node, char **arg);
 void			expand_tk(t_msh **msh, char **arg);
-int				special_exp(t_msh **msh, char **new_cont, char *kw);
+int				special_exp(t_msh **msh, char **new_cont, char *kw, bool *x);
 void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
 //62_expand_utils.c

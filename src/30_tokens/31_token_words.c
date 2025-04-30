@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:43:12 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 16:40:28 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	tk_word(t_msh **msh, int start)
     while (line[i] && (!ft_strchr(OPERATOR, line[i])
 		&& !ft_strchr(WHITESPACE, line[i]) && !ft_strchr(QUOTE, line[i])))
 	{
-		if (line[i] == '$' && (line[i + 1] == '?' || line[i + 1] == '0'))
-		{
-			special_cases(msh, &i, line[i + 1]);
-			return(i - 1);
-		}
+		//if (line[i] == '$' && (line[i + 1] == '?' || line[i + 1] == '0'))
+		//{
+			//special_cases(msh, &i, line[i + 1]);
+		//	return(i - 1);
+		//}
 		word[j++] = line[i];
 		i++;
 	}
@@ -61,7 +61,7 @@ int	tk_word(t_msh **msh, int start)
 	app_tk(*msh, new_tk, word, WORD);
 	return(i - 1);
 }
-
+/*
 int	special_cases(t_msh **msh, int *i, char c)
 {
 	t_tk_lst	*new_tk;
@@ -81,6 +81,7 @@ int	special_cases(t_msh **msh, int *i, char c)
 	app_tk(*msh, new_tk, word, WORD);
 	return(*i);
 }
+*/
 
 int	tk_word_qt(t_msh **msh, int start, 
 	bool *in_quotes, char *quote_char)
