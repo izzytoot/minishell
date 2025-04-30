@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:47:25 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 12:21:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	expand_tk(t_msh **msh, char **arg)
 	char	*new_arg;
 	int		n;
 	char 	*s;
-	//char	*mid_c;
+	char	*mid_c;
 	
 	n = 0;
 	i = -1;
@@ -108,8 +108,8 @@ void	expand_tk(t_msh **msh, char **arg)
 	{
 		if (s[i] == '$')
 			kw[k] = get_key_word(s, &i);
-	//	if (ft_strchr(SYM_EXP, s[i]))
-	//		mid_c = get_mid_cont(s, &i)
+		if (ft_strchr(SYM_EXP, s[i]))
+			mid_c = get_mid_cont(s, &i);
 		k++;
 	}
 	kw[k] = NULL;

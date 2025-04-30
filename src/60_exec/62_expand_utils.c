@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:47:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 12:20:55 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_pre_cont(char *arg, int *i)
 		len++;
 	if (!len)
 		return (NULL);
-	pre_content = safe_malloc(sizeof(char) * (len + 1));
+	pre_content = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = -1;
 	while(!ft_strchr("$",arg[++*i]))
@@ -73,7 +73,7 @@ char	*get_key_word(char *arg, int *i)
 	}
 	if (!len)
 		return (NULL);
-	key_word = safe_malloc(sizeof(char) * (len + 1));
+	key_word = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = tmp_i;
 	while(!ft_strchr(WHITESPACE,arg[(*i)++]) && !ft_strchr(SYM_EXP, arg[*i]))
@@ -85,6 +85,34 @@ char	*get_key_word(char *arg, int *i)
 	}
 	key_word[len] = '\0';
 	return(key_word);
+}
+
+char	*get_mid_cont(char *arg, int *i)
+{
+	char	*mid_content;
+	int		len;
+	int		tmp_i;
+	
+	len = 0;
+	tmp_i = *i;
+	while (!ft_strchr("$",arg[*i]) && !ft_strchr(WHITESPACE,arg[*i]))
+	{
+		len++;
+		(*i)++;
+	}
+	if (!len)
+		return (NULL);
+	mid_content = ft_calloc((len + 1), sizeof(char));
+	len = 0;
+	*i = tmp_i;
+	while (!ft_strchr("$",arg[*i]) && !ft_strchr(WHITESPACE,arg[*i]))
+	{
+		mid_content[len] = arg[*i];
+		len++;
+		(*i)++;
+	}
+	mid_content[len] = '\0';
+	return(mid_content);
 }
 
 char	*get_post_cont(char *arg, int *i)

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/30 11:33:35 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 12:03:30 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,6 +351,7 @@ char 			*get_env_cont(t_list *envp_list, char *key_word);
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);
 char			*get_post_cont(char *arg, int *i);
+char			*get_mid_cont(char *arg, int *i);
 
 //62_expand_utils_2.c
 char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
