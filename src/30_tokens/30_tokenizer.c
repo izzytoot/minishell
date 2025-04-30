@@ -54,7 +54,7 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 		*i = tk_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
-	else if (!ft_strchr(OPERATOR, c) && quotes->in_quotes)
+	else if (quotes->in_quotes) //deleted !ft_strchr(OPERATOR, c) && 
 		*i = tk_word_qt(msh, *i, &quotes->in_quotes, &quotes->quote_char);
 	else if (c == '|' && !quotes->in_quotes)
 		*i = tk_pipe(msh, *i);
