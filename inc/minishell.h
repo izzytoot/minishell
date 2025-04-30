@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/24 18:28:13 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:33:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@
 # define WHITESPACE " \t\n\r\v\f"
 # define OPERATOR "|<>"
 # define NON_EOF "|<>&" //check if there are more
+# define SYM_EXP ".,-+:/@^&*!~=#?[]{}%"
 # define REDIR "<>"
 # define QUOTE "\"\'"
 /* ************************************************************************** */

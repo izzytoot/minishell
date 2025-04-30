@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:59:02 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:44:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	tk_redir_in(t_msh **msh, const char *line, char *redir_in, int i)
 		i++;
 	}
 	redir_in[j] = '\0';
-	new_tk = safe_malloc(sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, redir_in, REDIR_IN);
 	return (i - 1);
 }

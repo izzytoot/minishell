@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:05:45 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:48:06 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*get_new_tmp(char *tmp, char *f_c)
 	char	*new_tmp;
 	
 	safe_free(tmp);
-	new_tmp = safe_malloc(sizeof(char) * (ft_strlen(f_c) + 1));
+	new_tmp = ft_calloc((ft_strlen(f_c) + 1), sizeof(char));
 	new_tmp = ft_strdup(f_c);
 	return (new_tmp);
 }

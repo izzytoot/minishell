@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:04:19 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:47:25 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 		if (node->args)
 		{
 			tmp_qt = node->quote_lst;
-			args_cpy = safe_malloc(sizeof(char *) * (node->nb_arg + 1));
+			args_cpy = ft_calloc((node->nb_arg + 1), sizeof(char *));
 			while (node->args[i])
 			{
 				tmp_arg = ft_strdup(node->args[i]);
@@ -80,19 +80,21 @@ void	expand_tk(t_msh **msh, char **arg)
 	char	*post_c;
 	char	*new_c;
 	int		i;
-	int	k;
-	int	tmp_i;
-	int	count;
-	char *new_arg;
-	int	n;
-
+	int		k;
+	int		tmp_i;
+	int		count;
+	char	*new_arg;
+	int		n;
+	char 	*s;
+	//char	*mid_c;
+	
 	n = 0;
 	i = -1;
 	k = 0;
 	pre_c = get_pre_cont(*arg, &i);
 	tmp_i = i;
 	count = 0;
-	char *s = *arg;
+	s = *arg;
 	while(s[i] && !ft_strchr(WHITESPACE, s[i]))
 	{
 		if (s[i] == '$')
@@ -100,12 +102,14 @@ void	expand_tk(t_msh **msh, char **arg)
 		i++;
 	}
 	if (count)
-		kw = safe_malloc(sizeof(char *) * (count + 1));
+		kw =ft_calloc((count + 1), sizeof(char *));
 	i = tmp_i;
-	while(s[i] && !ft_strchr(WHITESPACE, s[i]))
+	while(s[i] && !ft_strchr(WHITESPACE, s[i]) && !ft_strchr(SYM_EXP, s[i]))
 	{
 		if (s[i] == '$')
 			kw[k] = get_key_word(s, &i);
+	//	if (ft_strchr(SYM_EXP, s[i]))
+	//		mid_c = get_mid_cont(s, &i)
 		k++;
 	}
 	kw[k] = NULL;

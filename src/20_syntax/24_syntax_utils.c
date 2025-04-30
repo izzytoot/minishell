@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:55:10 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:42:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_eof(const char *line, int hd_index)
 	eof_s = hd_index;
 	while (!ft_strchr(WHITESPACE, line[++hd_index]))
 		size++;
-	eof = safe_malloc(sizeof(char) * (size + 1));
+	eof = ft_calloc((size + 1), sizeof(char));
 	while (!ft_strchr(WHITESPACE, line[eof_s]))
 	{
 		eof[i] = line[eof_s];

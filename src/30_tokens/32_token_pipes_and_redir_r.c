@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:20:33 by root              #+#    #+#             */
-/*   Updated: 2025/04/30 10:58:10 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:43:47 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	tk_pipe(t_msh **msh, int start)
 		i++;
 	}
 	pipe[j] = '\0';
-	new_tk = safe_malloc(sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, pipe, PIPE);
 	return(i - 1);
 }
@@ -62,7 +62,7 @@ int	tk_redir_app(t_msh **msh, const char *line, char *redir_app, int i)
 		i++;
 	}
 	redir_app[j] = '\0';
-	new_tk = safe_malloc(sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, redir_app, REDIR_APP);
 	return (i - 1);
 }
@@ -79,7 +79,7 @@ int	tk_redir_out(t_msh **msh, const char *line, char *redir_out, int i)
 		i++;
 	}
 	redir_out[j] = '\0';
-	new_tk = safe_malloc(sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, redir_out, REDIR_OUT);
 	return (i - 1);
 }

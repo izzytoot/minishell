@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:02:50 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:45:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_tree_nd *new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 {
 	t_tree_nd *new_nd;
 
-	new_nd = safe_malloc(sizeof(t_tree_nd));
+	new_nd = ft_calloc(1, sizeof(t_tree_nd));
 	if (!new_nd)
 		return (NULL);
 	if (content)
@@ -69,7 +69,7 @@ void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
 	}
 	if (count <= 0)
 		return ;
-	new_nd->quote_lst = safe_malloc(sizeof(t_quote) * count);
+	new_nd->quote_lst = ft_calloc(count, sizeof(t_quote));
 	while(curr_tk_tmp)
 	{
 		if (curr_tk_tmp->type == ARG)
@@ -82,7 +82,7 @@ void	app_qt(t_tree_nd *new_nd, t_tk_lst *token)
 {
 	t_quote	*new_quote;
 
-	new_quote = safe_malloc(sizeof(t_quote));
+	new_quote = ft_calloc(1, sizeof(t_quote));
 	new_quote->content = ft_strdup(token->content);
 	new_quote->in_dquotes = token->quotes.in_dquotes;
 	new_quote->in_squotes = token->quotes.in_squotes;

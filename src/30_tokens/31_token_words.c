@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:57:10 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:43:12 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	tk_word(t_msh **msh, int start)
 		i++;
 	}
 	word[j] = '\0';
-	new_tk = safe_malloc(sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, WORD);
 	return(i - 1);
 }
@@ -77,7 +77,7 @@ int	special_cases(t_msh **msh, int *i, char c)
 		word = ft_strdup("$0");
 		*i += 2;
 	}
-	new_tk = calloc(1, sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, WORD);
 	return(*i);
 }
@@ -97,7 +97,7 @@ int	tk_word_qt(t_msh **msh, int start,
     while (line[i] && (line[i] != *quote_char))
 		word[j++] = line[i++];
 	word[j] = '\0';
-	new_tk = calloc(1, sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, WORD);
 	if (*quote_char == '\'')
 		(*msh)->token_list->quotes.in_squotes = true;

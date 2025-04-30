@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:05:26 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:47:52 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*get_key_word(char *arg, int *i)
 	tmp_i = *i;
 	while(!ft_strchr(WHITESPACE,arg[(*i)++]))
 	{
-		if(arg[*i] == '$')
+		if(arg[*i] == '$' || ft_strchr(SYM_EXP, arg[*i]))
 			break;
 		len++;
 	}
@@ -76,7 +76,7 @@ char	*get_key_word(char *arg, int *i)
 	key_word = safe_malloc(sizeof(char) * (len + 1));
 	len = 0;
 	*i = tmp_i;
-	while(!ft_strchr(WHITESPACE,arg[(*i)++]))
+	while(!ft_strchr(WHITESPACE,arg[(*i)++]) && !ft_strchr(SYM_EXP, arg[*i]))
 	{
 		if(arg[*i] == '$')
 			break;
@@ -99,7 +99,7 @@ char	*get_post_cont(char *arg, int *i)
 		len++;
 	if (len == 0)
 		return (NULL);
-	post_content = safe_malloc(sizeof(char) * (len + 1));
+	post_content = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = tmp_i;
 	while(arg[*i])
