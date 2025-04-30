@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:33:47 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 15:00:53 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,13 @@ char	*check_env_cmd(char *cmd, char *env_path, int i)
 	{
 		part_path = ft_strjoin(paths[i], "/");
 		cmd_path = ft_strjoin(part_path, cmd);
-		safe_free(part_path);
+		free(part_path);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
 			ft_free_arrays((void **)paths);
 			return(cmd_path);
 		}
-		safe_free(cmd_path);
+		free(cmd_path);
 	}
 	ft_free_arrays((void **)paths);
 	return(NULL);	

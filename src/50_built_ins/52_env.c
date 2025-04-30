@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/30 10:36:02 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 15:16:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	update_env_var(t_list **env_list, const char *var_name, const char *data)
 		if (ft_strncmp(current->content, var_name, var_name_len) == 0
 			&& ((char *)(current->content))[var_name_len] == '=')
 		{
-			safe_free(current->content);
+			free(current->content);
 			joined_value = ft_strjoin(var_name, "=");
 			new_entry = ft_strjoin(joined_value, data);
-			safe_free(joined_value);
+			free(joined_value);
 			if (!new_entry)
 				return (EXIT_FAILURE);
 			current->content = new_entry;
@@ -76,7 +76,7 @@ void	add_new_env_var(t_list **env_list, const char *var_name,
 
 	joined_value = ft_strjoin(var_name, "=");
 	new_entry = ft_strjoin(joined_value, data);
-	safe_free(joined_value);
+	free(joined_value);
 	if (!new_entry)
 		return ;
 	ft_lstadd_back(env_list, ft_lstnew(new_entry));

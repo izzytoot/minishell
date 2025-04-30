@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 12:21:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 15:59:38 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 			}
 			args_cpy[i] = NULL;
 			node->quote_lst = tmp_qt;
-			ft_free_arrays((void **)node->args);
-			safe_free(tmp_qt);
+	//		ft_free_arrays((void **)node->args);
+	//		free(tmp_qt);
 			node->args = args_cpy;
 		}
 	}
@@ -86,7 +86,6 @@ void	expand_tk(t_msh **msh, char **arg)
 	char	*new_arg;
 	int		n;
 	char 	*s;
-	char	*mid_c;
 	
 	n = 0;
 	i = -1;
@@ -102,23 +101,29 @@ void	expand_tk(t_msh **msh, char **arg)
 		i++;
 	}
 	if (count)
-		kw =ft_calloc((count + 1), sizeof(char *));
+		kw = ft_calloc((count + 1), sizeof(char *));
 	i = tmp_i;
 	while(s[i] && !ft_strchr(WHITESPACE, s[i]) && !ft_strchr(SYM_EXP, s[i]))
 	{
 		if (s[i] == '$')
 			kw[k] = get_key_word(s, &i);
-		if (ft_strchr(SYM_EXP, s[i]))
-			mid_c = get_mid_cont(s, &i);
-		k++;
+		if (s[i] && ft_strchr(SYM_EXP, s[i]))
+		{
+			k++;
+			kw[k] = get_mid_cont(s, &i);
+		}
+		if (s[i])
+			k++;
 	}
-	kw[k] = NULL;
+	kw[++k] = NULL;
 	post_c = get_post_cont(*arg, &i);
 	i = 0;
 	new_arg = NULL;
 	while(i < k)
 	{
 		if (special_exp(msh, &new_c, kw[i]) == 1)
+			;
+		else if (special_exp(msh, &new_c, kw[i]) == 4)
 			;
 		else if (special_exp(msh, &new_c, kw[i]) == 3)
 			new_c = get_env_cont((*msh)->envp_list, kw[i]);
@@ -131,7 +136,7 @@ void	expand_tk(t_msh **msh, char **arg)
 		n++;
 	}
 	subst_arg(arg, pre_c, new_arg, post_c);
-	ft_free_arrays((void **)kw);
+//	ft_free_arrays((void **)kw);
 }
 
 int	special_exp(t_msh **msh, char **new_cont, char *kw)
@@ -148,6 +153,11 @@ int	special_exp(t_msh **msh, char **new_cont, char *kw)
 		*new_cont = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
 		return (2);
 	}
+	else if(ft_strchr(SYM_EXP, kw[0]))
+	{
+		*new_cont = ft_strdup(kw);
+		return (4);
+	}
 	return (3);
 }
 
@@ -158,7 +168,7 @@ void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
 	if (new_c)
 	{
 		final_content = get_final_cont(new_c, pre_c, post_c);
-		safe_free(*arg);
+		free(*arg);
 		*arg = ft_strdup(final_content);
 	}
 	else if(pre_c || post_c)
@@ -167,7 +177,7 @@ void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
 			final_content = ft_strdup(pre_c);
 		if (post_c)
 			final_content = ft_strjoin(final_content, ft_strdup(post_c));
-		safe_free(*arg);
+		free(*arg);
 		*arg = ft_strdup(final_content);
 	}
 	else

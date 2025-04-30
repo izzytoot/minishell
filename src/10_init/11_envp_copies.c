@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:41:44 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 14:54:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	**envp_to_array(t_msh *msh, char **envp)
 		if (!envp_array)
 		{
 			while (--i >= 0)
-				safe_free(envp_array[i]);
-			safe_free(envp_array);
+				free(envp_array[i]);
+			free(envp_array);
 			envp_fail(msh, NULL, NULL, NULL);
 		}
 	}
@@ -69,7 +69,7 @@ void	envp_to_list(t_msh *msh, char **envp)
 		new_node = ft_lstnew(temp_envp);
 		if (!new_node)
 		{
-			safe_free(temp_envp);
+			free(temp_envp);
 			envp_fail(msh, NULL, new_node, NULL);
 		}
 		ft_lstadd_back(&msh->envp_list, new_node);
@@ -81,7 +81,7 @@ char	*add_envp_newline(char *envp)
 	char	*temp;
 
 	temp = ft_strjoin(envp, "\n");
-	safe_free(envp);
+	free(envp);
 	envp = temp;
 	return (temp);
 }

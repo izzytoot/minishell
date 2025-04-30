@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:37:42 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 15:23:57 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ void		handle_hd(t_tree_nd *node, int hd_fd)
 			break;
 		if (ft_strcmp(new_line, eof) == 0)
 		{
-			safe_free(new_line);
+			free(new_line);
 			break;
 		}
 		ft_putstr_fd(new_line, hd_fd);
 		ft_putstr_fd("\n", hd_fd);
-		safe_free(new_line);
+		free(new_line);
+		new_line = NULL;
 	}
 }
 

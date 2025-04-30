@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 12:20:55 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 16:14:19 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ char	*get_key_word(char *arg, int *i)
 	tmp_i = *i;
 	while(!ft_strchr(WHITESPACE,arg[(*i)++]))
 	{
+		if (arg[tmp_i + 1] == '?')
+		{
+			(*i)++;
+			return (ft_strdup("?"));
+		}
 		if(arg[*i] == '$' || ft_strchr(SYM_EXP, arg[*i]))
 			break;
 		len++;

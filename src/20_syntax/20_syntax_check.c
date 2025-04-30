@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/30 10:33:12 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 14:54:52 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,11 @@ void	exec_fake_hd(const char *line, int hd_index)
 			break ;
 		if (ft_strcmp(new_line, eof) == 0)
 		{
-			safe_free(new_line);
+			free(new_line);
 			break ;
 		}
 		ft_putstr_fd(new_line, fd);
-		safe_free(new_line);
+		free(new_line);
+		new_line = NULL;
 	}
 }

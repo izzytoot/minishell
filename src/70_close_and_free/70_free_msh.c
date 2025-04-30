@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:38:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 15:25:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ void	free_msh(t_msh *msh)
 		free_tree(msh->tree_root);
 		msh->tree_root = NULL;
 	}
-	safe_free(msh);
+	free(msh);
 }
 
 void	free_prompt_line(t_msh **msh)
 {
 	if ((*msh)->prompt_line)
-		safe_free((*msh)->prompt_line);
+	{
+		free((*msh)->prompt_line);
+		(*msh)->prompt_line = NULL;
+	}
 	if ((*msh)->tree_root)
 	{
 		free_tree((*msh)->tree_root);
@@ -53,8 +56,8 @@ void	free_tokens(t_tk_lst *token_list)
 	{
 		tmp = token_list->next;
 		if (token_list->content)
-			safe_free(token_list->content);
-		safe_free(token_list);
+			free(token_list->content);
+		free(token_list);
 		token_list = tmp;
 	}
 }
@@ -68,12 +71,12 @@ void	free_tree(t_tree_nd *node)
 	if (node->right)
 		free_tree(node->right);
 	if (node->file)
-		safe_free(node->file);
+		free(node->file);
 	if (node->op_content)
-		safe_free(node->op_content);
+		free(node->op_content);
 	if (node->cmd_content != node->args)
 		ft_free_arrays((void **)node->cmd_content);
 	if (node->args)
 		ft_free_arrays((void **)node->args);
-	safe_free(node);
+	free(node);
 }

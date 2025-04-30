@@ -50,8 +50,8 @@ void	ft_delete_var(t_list **env_list, const char *var_name)
 			else
 				*env_list = current->next;
 			current = current->next;
-			safe_free(del->content);
-			safe_free(del);
+			free(del->content);
+			free(del);
 			continue ;
 		}
 		prev = current;

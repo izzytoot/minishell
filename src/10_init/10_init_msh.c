@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:56:58 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 14:42:43 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ void	prompt_and_read(t_msh **msh)
 
 	while (1)
 	{
-		//if ((*msh)->prompt_line)
-		//	safe_free((*msh)->prompt_line); //caused double free
+		if ((*msh)->prompt_line)
+		{
+			free((*msh)->prompt_line); //safe_free was causing double free
+			(*msh)->prompt_line = NULL;
+		}
 		prompt = get_prompt();
 		line = readline(prompt);
-		safe_free(prompt);
+		free(prompt);
 		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
 			break ;
 		add_history (line);
