@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   63_expand_utils_2.c                                :+:      :+:    :+:   */
+/*   73_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 18:05:02 by isabel           ###   ########.fr       */
+/*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
+/*   Updated: 2025/04/30 18:55:16 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+char *get_env_cont(t_list *envp_list, char *key_word)
+{
+	int	key_len;
+
+	key_len = ft_strlen(key_word);
+	while(envp_list)
+	{
+		if (!ft_strncmp(envp_list->content, key_word, key_len)
+				&& ((char *)envp_list->content)[key_len] == '=')
+			return(&((char *)envp_list->content)[key_len + 1]);
+		envp_list = envp_list->next;
+	}
+	return (NULL);
+}
 
 char	*get_final_cont(char *new_c, char *pre_c, char *post_c)
 {
@@ -23,7 +38,7 @@ char	*get_final_cont(char *new_c, char *pre_c, char *post_c)
 	if (len > 0 && new_c[len - 1] == '\n')
 	{
 		tmp = get_tmp(new_c, post_c, len);
-		final_content = get_final(pre_c, tmp);
+		final_content = ultimate_joint(pre_c, tmp);
 	}
 	else
 	{
@@ -52,7 +67,7 @@ char	*get_tmp(char *new_c, char *post_c, int len)
 	return (tmp);
 }
 
-char	*get_final(char *pre_c, char *tmp)
+char	*ultimate_joint(char *pre_c, char *tmp)
 {
 	char	*final_content;
 	

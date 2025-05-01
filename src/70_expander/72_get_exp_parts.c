@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   62_expand_utils.c                                  :+:      :+:    :+:   */
+/*   72_get_exp_parts.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 16:14:19 by isabel           ###   ########.fr       */
+/*   Updated: 2025/04/30 18:51:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	recurs_exp_tree(t_msh **msh, t_tree_nd *node)
-{
-	if (node->left)
-		expand_tree(msh, node->left);
-	if(node->right)
-		expand_tree(msh, node->right);
-}
-
-char *get_env_cont(t_list *envp_list, char *key_word)
-{
-	int	key_len;
-
-	key_len = ft_strlen(key_word);
-	while(envp_list)
-	{
-		if (!ft_strncmp(envp_list->content, key_word, key_len)
-				&& ((char *)envp_list->content)[key_len] == '=')
-			return(&((char *)envp_list->content)[key_len + 1]);
-		envp_list = envp_list->next;
-	}
-	return (NULL);
-}
 
 char	*get_pre_cont(char *arg, int *i)
 {
@@ -62,26 +39,20 @@ char	*get_key_word(char *arg, int *i)
 	char	*key_word;
 	int		len;
 	int		tmp_i;
+	bool	flag;
 	
-	len = 0;
 	tmp_i = *i;
-	while(!ft_strchr(WHITESPACE,arg[(*i)++]))
-	{
-		if (arg[tmp_i + 1] == '?')
-		{
-			(*i)++;
-			return (ft_strdup("?"));
-		}
-		if(arg[*i] == '$' || ft_strchr(SYM_EXP, arg[*i]))
-			break;
-		len++;
-	}
+	flag = false;
+	len = get_kw_len(arg, &i, tmp_i, &flag);
+	if (flag)
+		return (ft_strdup("?"));
 	if (!len)
 		return (NULL);
 	key_word = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = tmp_i;
-	while(!ft_strchr(WHITESPACE,arg[(*i)++]) && !ft_strchr(SYM_EXP, arg[*i]))
+	while(!ft_strchr(WHITESPACE,arg[(*i)++]) 
+		&& !ft_strchr(SYM_EXP, arg[*i]))
 	{
 		if(arg[*i] == '$')
 			break;
@@ -100,7 +71,7 @@ char	*get_mid_cont(char *arg, int *i)
 	
 	len = 0;
 	tmp_i = *i;
-	while (!ft_strchr("$",arg[*i]) && !ft_strchr(WHITESPACE,arg[*i]))
+	while (arg[*i] != '$' && !ft_strchr(WHITESPACE,arg[*i]))
 	{
 		len++;
 		(*i)++;
@@ -110,7 +81,8 @@ char	*get_mid_cont(char *arg, int *i)
 	mid_content = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = tmp_i;
-	while (!ft_strchr("$",arg[*i]) && !ft_strchr(WHITESPACE,arg[*i]))
+	while (!ft_strchr("$",arg[*i]) 
+		&& !ft_strchr(WHITESPACE,arg[*i]))
 	{
 		mid_content[len] = arg[*i];
 		len++;

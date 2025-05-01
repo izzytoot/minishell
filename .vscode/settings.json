@@ -24,6 +24,7 @@
 		"utility": "c",
 		"variant": "c",
 		"libft.h": "c",
-		"optional": "c"
+		"optional": "c",
+		"cstdlib": "c"
 	}
 }
