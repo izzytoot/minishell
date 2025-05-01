@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   31_token_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 19:08:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:20:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int tk_space(t_msh **msh, int start)
 	word[j] = '\0';
 	new_tk = calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, W_SPACE);
+	(*msh)->token_list->next->quotes.space_case = true;
 	return(i - 1);
 }
 
