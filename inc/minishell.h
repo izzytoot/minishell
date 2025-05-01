@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/01 12:40:54 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/01 15:17:56 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,27 +375,29 @@ void			expander(t_msh **msh, t_tree_nd **node, char **arg);
 //71_expand_token.c
 void			expand_tk(t_msh **msh, char **arg);
 char			**build_kw_array(char *arg, int *i);
-int				count_exp(char *arg, int i);
-char			*kw_array_util(char *arg, int *k, int **i, int n);
 char			*build_new_arg(t_msh **msh, char **kw);
-int				count_kw(char **kw, bool *flag);
 int				expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag);
 void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
-//72_get_exp_parts.c
+//72_expand_token_utils.c
+int				count_exp(char *arg, int i);
+char			*kw_array_util(char *arg, int *k, int **i, int n);
+int				count_kw(char **kw, bool *flag);
+
+//73_get_exp_parts.c
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);
 char			*get_mid_cont(char *arg, int *i);
 char			*get_post_cont(char *arg, int *i);
 
-//73_final_expander.c
+//74_final_expander.c
 char 			*get_env_cont(t_list *envp_list, char *key_word);
 char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);
 char			*get_new_tmp(char *tmp, char *f_c);
 
-//74_expand_utils.c
+//75_expand_utils.c
 void			recurs_exp_tree(t_msh **msh, t_tree_nd *node);
 int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
 
