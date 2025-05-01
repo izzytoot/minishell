@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/01 17:49:41 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/01 18:01:46 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_quote
 	bool			in_squotes;
 	bool			in_dquotes;
 	bool			in_quotes;
+	bool			space_case;
 	char			quote_char;
 	char			*content;
 	struct s_quote	*next;
@@ -321,6 +322,7 @@ void			add_new_env_var(t_list **env_list, const char *var_name,
 
 //53_echo.c
 int				ft_echo(t_tree_nd **node);
+bool			handle_n(t_tree_nd **node, int *i, bool first_flag);
 
 //54_exit.c
 void			ft_exit(t_msh **msh, t_tree_nd **node);	

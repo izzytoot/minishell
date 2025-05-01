@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   40_tokens_to_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:45:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/01 17:22:15 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	app_qt(t_tree_nd *new_nd, t_tk_lst *token)
 	new_quote->content = ft_strdup(token->content);
 	new_quote->in_dquotes = token->quotes.in_dquotes;
 	new_quote->in_squotes = token->quotes.in_squotes;
+	new_quote->space_case = token->quotes.space_case;
 	if (new_quote->in_dquotes || new_quote->in_squotes)
 		new_quote->in_quotes = true;
 	else
