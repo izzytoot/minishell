@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/01 13:23:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:30:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	get_tokens(t_msh **msh, int i)
 	
 	quotes.in_squotes = false;
 	quotes.in_dquotes = false;
-	quotes.space_case = false;
 	quotes.quote_char = '\0';
 	line = (*msh)->prompt_line;
 	i = -1;
 	while(line[++i])
 	{
+		quotes.space_case = false;
 		sort_out_quotes(&i, line, &quotes);
 		if ((!quotes.in_squotes || !quotes.in_dquotes) && ft_strchr(QUOTE, line [i]))
 			i++;
