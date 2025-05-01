@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   53_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/01 17:19:40 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/01 18:03:30 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_echo(t_tree_nd **node)
 	bool	first_flag;
 
 	i = 0;
+	first_flag = true;
 	if (!node || !*node)
 		return (EXIT_FAILURE);
 	nline = handle_n(node, &i, first_flag);
