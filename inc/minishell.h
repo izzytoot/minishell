@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/01 17:19:34 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/01 17:21:53 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@
 # define WHITESPACE " \t\n\r\v\f"
 # define OPERATOR "|<>"
 # define NON_EOF "|<>&" //check if there are more
+# define SYM_EXP ".,-+:/@^&*!~=#?[]{}%"
 # define REDIR "<>"
 # define QUOTE "\"\'"
 /* ************************************************************************** */
@@ -339,27 +340,6 @@ void			ft_delete_var(t_list **env_list, const char *var_name);
 //60_exec_tree.c
 void			exec_tree(t_msh **msh, t_tree_nd *node);
 
-//61_expand_tree.c
-void			expand_tree(t_msh **msh, t_tree_nd *node);
-void			expander(t_msh **msh, t_tree_nd **node, char **arg);
-void			expand_tk(t_msh **msh, char **arg);
-int				special_exp(t_msh **msh, char **new_cont, char *kw);
-void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
-
-//62_expand_utils.c
-void			recurs_exp_tree(t_msh **msh, t_tree_nd *node);
-char 			*get_env_cont(t_list *envp_list, char *key_word);
-char			*get_pre_cont(char *arg, int *i);
-char			*get_key_word(char *arg, int *i);
-char			*get_post_cont(char *arg, int *i);
-
-//62_expand_utils_2.c
-char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
-char			*get_tmp(char *new_c, char *post_c, int len);
-char			*get_final(char *pre_c, char *tmp);
-char			*get_new_tmp(char *tmp, char *f_c);
-
-
 //63_exec_pipe.c
 void			exec_pipe(t_msh **msh, t_tree_nd *node);
 void			perform_left_pipe(int useless_fd, int dup_fd, int curr_pid);
@@ -388,14 +368,49 @@ int				safe_dup(int old_fd, int curr_pid);
 void			safe_dup2(int new_fd, int old_fd, int curr_pid);
 int				safe_pipe(int pipe_fd[2]);
 
-/************ 7_close_and_free ************/
-//70_free_msh.c
+/************ 70_expander ************/
+
+//70_expand_tree.c
+void			expand_tree(t_msh **msh, t_tree_nd *node);
+void			expander(t_msh **msh, t_tree_nd **node, char **arg);
+
+//71_expand_token.c
+void			expand_tk(t_msh **msh, char **arg);
+char			**build_kw_array(char *arg, int *i);
+char			*build_new_arg(t_msh **msh, char **kw);
+int				expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag);
+void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
+
+//72_expand_token_utils.c
+int				count_exp(char *arg, int i);
+char			*kw_array_util(char *arg, int *k, int **i, int n);
+int				count_kw(char **kw, bool *flag);
+
+//73_get_exp_parts.c
+char			*get_pre_cont(char *arg, int *i);
+char			*get_key_word(char *arg, int *i);
+char			*get_mid_cont(char *arg, int *i);
+char			*get_post_cont(char *arg, int *i);
+
+//74_final_expander.c
+char 			*get_env_cont(t_list *envp_list, char *key_word);
+char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
+char			*get_tmp(char *new_c, char *post_c, int len);
+char			*ultimate_joint(char *pre_c, char *tmp);
+char			*get_new_tmp(char *tmp, char *f_c);
+
+//75_expand_utils.c
+void			recurs_exp_tree(t_msh **msh, t_tree_nd *node);
+int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
+
+/************ 80_close_and_free ************/
+//80_free_msh.c
 void			free_msh(t_msh *msh);
 void			free_tokens(t_tk_lst *token_list);
 void			free_prompt_line(t_msh **msh);
 void			free_tree(t_tree_nd *node);
 
-//71_close_msh.c
+//81_close_msh.c
 void			close_minishell(t_msh	*msh, int exit_code);
 void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array);
 

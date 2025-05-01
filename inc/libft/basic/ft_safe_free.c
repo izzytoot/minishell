@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_main.c                                          :+:      :+:    :+:   */
+/*   ft_safe_malloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 16:41:03 by isabel           ###   ########.fr       */
+/*   Created: 2025/04/30 10:16:31 by isabel            #+#    #+#             */
+/*   Updated: 2025/04/30 10:24:01 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../libft.h"
 
-int	main(int ac, char **av, char **envp)
+void	*safe_free(void *ptr)
 {
-	t_msh	*msh;
-
-	(void)ac;
-	(void)av;
-	msh = ft_calloc(1, sizeof(t_msh));
-	if (!msh)
-		close_minishell(msh, EXIT_FAILURE);
-	msh->active = true;
-	msh->debug_mode = false; //DELETE BEFORE SUMISSION
-	ft_init_msh(&msh, envp);
-	return (0);
+	if(ptr)
+	{
+		free(ptr);
+		ptr = NULL;
+		return (ptr);
+	}
+	return (NULL);
 }
