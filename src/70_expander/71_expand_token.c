@@ -6,13 +6,13 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/01 15:18:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/01 17:49:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	expand_tk(t_msh **msh, char **arg)
+void	expand_tk(t_msh **msh, char **arg, char **fname)
 {
 	char	*pre_c;
 	char	**kw;
@@ -23,11 +23,22 @@ void	expand_tk(t_msh **msh, char **arg)
 	ft_init_var((void **)&pre_c, (void **)&kw,
 		(void **)&post_c, (void **)&new_arg);
 	i = -1;
-	pre_c = get_pre_cont(*arg, &i);
-	kw = build_kw_array(*arg, &i);
-	post_c = get_post_cont(*arg, &i);
-	new_arg = build_new_arg(msh, kw);
-	subst_arg(arg, pre_c, new_arg, post_c);
+	if (arg)
+	{
+		pre_c = get_pre_cont(*arg, &i);
+		kw = build_kw_array(*arg, &i);
+		post_c = get_post_cont(*arg, &i);
+		new_arg = build_new_arg(msh, kw);
+		subst_arg(arg, pre_c, new_arg, post_c);
+	}
+	else if (fname)
+	{
+		pre_c = get_pre_cont(*fname, &i);
+		kw = build_kw_array(*fname, &i);
+		post_c = get_post_cont(*fname, &i);
+		new_arg = build_new_arg(msh, kw);
+		subst_fname(fname, pre_c, new_arg, post_c);
+	}
 }
 
 char	**build_kw_array(char *arg, int *i)
@@ -132,4 +143,25 @@ void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
 	}
 	else
 		*arg = NULL;
+}
+
+void	subst_fname(char **fname, char *pre_c, char *new_c, char *post_c)
+{
+	char	*final_content;
+	
+	if (new_c)
+	{
+		final_content = get_final_cont(new_c, pre_c, post_c);
+		*fname = ft_strdup(final_content);
+	}
+	else if(pre_c || post_c)
+	{	
+		if (pre_c)
+			final_content = ft_strdup(pre_c);
+		if (post_c)
+			final_content = ft_strjoin(final_content, ft_strdup(post_c));
+		*fname = ft_strdup(final_content);
+	}
+	else
+		*fname = NULL;
 }

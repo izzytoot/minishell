@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 20:04:19 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:48:56 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	exec_tree(t_msh **msh, t_tree_nd *node)
 {
 	expand_tree(msh, node);
+	expand_files(msh, node);
 	if ((*msh)->hd_check)
 	{
 		exec_heredocs(node);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   66_exec_heredoc.c                                  :+:      :+:    :+:   */
+/*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 15:23:57 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/01 15:48:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec_heredocs(t_tree_nd *node)
 	if (!node)
 		return ;
 	if (node->type == REDIR_HD)
-	{	
+	{
 		node->tmp_file = ft_strdup("/tmp/.heredoc_tmp");
 		file_fd = create_file_fd(node->type, node->tmp_file);
 		handle_hd(node, file_fd);

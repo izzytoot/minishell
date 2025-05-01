@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/01 15:17:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/01 17:49:41 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,6 @@ char			*check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
 int				tk_word(t_msh **msh, int start);
-int				special_cases(t_msh **msh, int *i, char c);
 int				tk_word_qt(t_msh **msh, int start,
 					bool *in_quotes, char *quote_char);
 int				tk_space(t_msh **msh, int start);
@@ -370,19 +369,21 @@ int				safe_pipe(int pipe_fd[2]);
 
 //70_expand_tree.c
 void			expand_tree(t_msh **msh, t_tree_nd *node);
+void			expand_files(t_msh **msh, t_tree_nd *node);
 void			expander(t_msh **msh, t_tree_nd **node, char **arg);
 
 //71_expand_token.c
-void			expand_tk(t_msh **msh, char **arg);
+void			expand_tk(t_msh **msh, char **arg, char **fname);
 char			**build_kw_array(char *arg, int *i);
 char			*build_new_arg(t_msh **msh, char **kw);
 int				expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag);
-void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
 //72_expand_token_utils.c
 int				count_exp(char *arg, int i);
 char			*kw_array_util(char *arg, int *k, int **i, int n);
 int				count_kw(char **kw, bool *flag);
+void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
+void			subst_fname(char **fname, char *pre_c, char *new_c, char *post_c);
 
 //73_get_exp_parts.c
 char			*get_pre_cont(char *arg, int *i);
