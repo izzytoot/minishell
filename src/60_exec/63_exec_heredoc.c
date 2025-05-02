@@ -3,32 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/01 15:48:13 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/02 16:45:46 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	exec_heredocs(t_tree_nd *node)
+void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 {
-	int	file_fd;
-	
+	int			file_fd;
+	static int	n;
+
 	if (!node)
 		return ;
 	if (node->type == REDIR_HD)
 	{
-		node->tmp_file = ft_strdup("/tmp/.heredoc_tmp");
+		node->tmp_file = ft_strjoin(ft_strdup("/tmp/.heredoc_tmp"), ft_itoa(n++));
 		file_fd = create_file_fd(node->type, node->tmp_file);
-		handle_hd(node, file_fd);
-		close(file_fd);
+		if (file_fd < 0)
+			exit_value(msh, 1, 1, 0);
+		else
+		{
+			handle_hd(node, file_fd);
+			close(file_fd);
+		}
 	}
 	if (node->left)
-		exec_heredocs(node->left);
+		exec_heredocs(msh, node->left);
 	if(node->right)
-		exec_heredocs(node->right);
+		exec_heredocs(msh, node->right);
 }
 
 void		handle_hd(t_tree_nd *node, int hd_fd)

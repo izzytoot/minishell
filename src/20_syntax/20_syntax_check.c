@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/04/30 14:54:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/02 16:54:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool	syntax_is_ok(t_msh **msh)
+int	syntax_is_ok(t_msh **msh)
 {
 	const char	*line;
 	int			hd_index;
@@ -20,14 +20,14 @@ bool	syntax_is_ok(t_msh **msh)
 	line = (*msh)->prompt_line;
 	hd_index = check_if_hd(line);
 	if (any_of_these_syn(line))
-		return (false);
+		return (exit_value(msh, 2, 1, 0));
 	if (hd_index >= 0)
 	{
 		if (misplaced_redir_at_end(line))
 		{
 			exec_fake_hd(line, hd_index);
 			ft_putstr_fd(ERR_SYN_REDIR_NL, STDERR_FILENO);
-			return (false);
+			return (exit_value(msh, 2, 1, 0));
 		}
 	}
 	else
@@ -35,10 +35,10 @@ bool	syntax_is_ok(t_msh **msh)
 		if (misplaced_redir_at_end(line))
 		{
 			ft_putstr_fd(ERR_SYN_REDIR_NL, STDERR_FILENO);
-			return (false);
+			return (exit_value(msh, 2, 1, 0));
 		}
 	}
-	return (true);
+	return (0);
 }
 
 bool	any_of_these_syn(const char *line)
