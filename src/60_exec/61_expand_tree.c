@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/24 18:28:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:36:50 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 			node->args = new_args;
 		}
 	}
-	if (node->left)
-		expand_tree(msh, node->left);
-	if(node->right)
-		expand_tree(msh, node->right);
+	recurse_expansion(msh, node);
 }
 
 void	expander(t_msh **msh, t_tree_nd **node, char **arg)
@@ -75,14 +72,24 @@ void	expander(t_msh **msh, t_tree_nd **node, char **arg)
 void	expand_tk(t_msh **msh, char **args)
 {
 	char	*pre_c;
-	char	*kw;
+	char	**kw;
 	char	*post_c;
 	char	*new_c;
 	int		i;
+	int		e;
+	int		k;
 	
 	i = -1;
+	e = -1;
+	k = 0;
 	pre_c = get_pre_cont(*args, &i);
-	kw = get_key_word(*args, &i);
+	while(*args[++i])
+	{
+		if (*args[i] == '$')
+			kw[k] = ft_strdup(get_key_word(args, &i));
+		k++;
+	}
+//	kw = get_key_word(*args, &i);
 	post_c = get_post_cont(*args, &i);
 	if (special_exp(msh, &new_c, kw) == 1)
 		return ;

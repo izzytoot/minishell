@@ -6,11 +6,19 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/24 18:27:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:48:40 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	recurse_expansion(t_msh **msh, t_tree_nd *node)
+{
+	if (node->left)
+		expand_tree(msh, node->left);
+	if(node->right)
+		expand_tree(msh, node->right);
+}
 
 char *get_env_cont(t_list *envp_list, char *key_word)
 {
@@ -54,9 +62,16 @@ char	*get_key_word(char *arg, int *i)
 	char	*key_word;
 	int		len;
 	int		tmp_i;
+	int		s;
 	
 	len = 0;
 	tmp_i = *i + 1;
+	s = *i;
+	while(arg[++s])
+	{
+		if (arg[s] == '$')
+			get_key_word(arg, &s);
+	}
 	while(!ft_strchr(WHITESPACE,arg[++*i]))
 		len++;
 	if (!len)

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/04/24 18:28:13 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:10:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,6 +345,7 @@ int				special_exp(t_msh **msh, char **new_cont, char *kw);
 void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
 //62_expand_utils.c
+void			recurse_expansion(t_msh **msh, t_tree_nd *node);
 char 			*get_env_cont(t_list *envp_list, char *key_word);
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);
@@ -355,7 +356,6 @@ char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*get_final(char *pre_c, char *tmp);
 char			*get_new_tmp(char *tmp, char *f_c);
-
 
 //63_exec_pipe.c
 void			exec_pipe(t_msh **msh, t_tree_nd *node);
