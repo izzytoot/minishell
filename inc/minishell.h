@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/02 11:42:05 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:40:30 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,6 +334,7 @@ int				ft_unset(t_msh **msh, t_tree_nd **node);
 void			ft_delete_var(t_list **env_list, const char *var_name);
 
 //56_export.c
+int				ft_export(t_msh **msh, t_tree_nd **node);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c
