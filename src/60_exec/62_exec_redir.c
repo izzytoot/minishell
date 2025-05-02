@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:37:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:40:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,26 @@ void	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 		safe_dup2(redir_data.orig_stdout, 1, getpid()); //restore original fd - terminal
 }
 
-int	collect_redirs_and_cmd(t_tree_nd **curr_node, t_tree_nd **redir_nodes, t_redir_data *redir_data)
+int	collect_redirs_and_cmd(t_tree_nd **curr_nd,
+		t_tree_nd **redir_nd, t_redir_data *redir_data)
 {
 	int	i;
 
 	i = 0;
-	while(*curr_node && type_is_redir(&(*curr_node)->type)) //collect redir from right to left
+	while(*curr_nd && type_is_redir(&(*curr_nd)->type)) //collect redir from right to left
 	{
-		redir_nodes[i] = *curr_node;
-		if (((*curr_node)->type == REDIR_IN || (*curr_node)->type == REDIR_HD) && redir_data->orig_stdin == -1)
-			redir_data->orig_stdin = safe_dup((*curr_node)->fd, getpid());
-		if (((*curr_node)->type == REDIR_OUT || (*curr_node)->type == REDIR_APP) && redir_data->orig_stdout == -1)
-			redir_data->orig_stdout = safe_dup((*curr_node)->fd, getpid());
-		if ((*curr_node)->right && type_is_cmd(&(*curr_node)->right->type)) //keep cmd node if on right
-			redir_data->cmd_nd = (*curr_node)->right;
-		else if ((*curr_node)->left && type_is_cmd(&(*curr_node)->left->type)) //keep cmd node if on left
-			redir_data->cmd_nd = (*curr_node)->left;
-		*curr_node = (*curr_node)->left;
+		redir_nd[i] = *curr_nd;
+		if (((*curr_nd)->type == REDIR_IN || (*curr_nd)->type == REDIR_HD)
+			&& redir_data->orig_stdin == -1)
+			redir_data->orig_stdin = safe_dup((*curr_nd)->fd, getpid());
+		if (((*curr_nd)->type == REDIR_OUT || (*curr_nd)->type == REDIR_APP)
+			&& redir_data->orig_stdout == -1)
+			redir_data->orig_stdout = safe_dup((*curr_nd)->fd, getpid());
+		if ((*curr_nd)->right && type_is_cmd(&(*curr_nd)->right->type)) //keep cmd node if on right
+			redir_data->cmd_nd = (*curr_nd)->right;
+		else if ((*curr_nd)->left && type_is_cmd(&(*curr_nd)->left->type)) //keep cmd node if on left
+			redir_data->cmd_nd = (*curr_nd)->left;
+		*curr_nd = (*curr_nd)->left;
 		i++;
 	}
 	return (i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   72_expand_token_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:18:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/01 15:19:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/02 11:43:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,48 @@ int	count_kw(char **kw, bool *flag)
 		k++;
 	}
 	return (count);
+}
+
+void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
+{
+	char	*final_content;
+	
+	if (new_c)
+	{
+		final_content = get_final_cont(new_c, pre_c, post_c);
+		free(*arg);
+		*arg = ft_strdup(final_content);
+	}
+	else if(pre_c || post_c)
+	{	
+		if (pre_c)
+			final_content = ft_strdup(pre_c);
+		if (post_c)
+			final_content = ft_strjoin(final_content, ft_strdup(post_c));
+		free(*arg);
+		*arg = ft_strdup(final_content);
+	}
+	else
+		*arg = NULL;
+}
+
+void	subst_fname(char **fname, char *pre_c, char *new_c, char *post_c)
+{
+	char	*final_content;
+	
+	if (new_c)
+	{
+		final_content = get_final_cont(new_c, pre_c, post_c);
+		*fname = ft_strdup(final_content);
+	}
+	else if(pre_c || post_c)
+	{	
+		if (pre_c)
+			final_content = ft_strdup(pre_c);
+		if (post_c)
+			final_content = ft_strjoin(final_content, ft_strdup(post_c));
+		*fname = ft_strdup(final_content);
+	}
+	else
+		*fname = NULL;
 }

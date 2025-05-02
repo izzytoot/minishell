@@ -6,34 +6,11 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 11:28:02 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:44:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	recurse_expansion(t_msh **msh, t_tree_nd *node)
-{
-	if (node->left)
-		expand_tree(msh, node->left);
-	if(node->right)
-		expand_tree(msh, node->right);
-}
-
-char *get_env_cont(t_list *envp_list, char *key_word)
-{
-	int	key_len;
-
-	key_len = ft_strlen(key_word);
-	while(envp_list)
-	{
-		if (!ft_strncmp(envp_list->content, key_word, key_len)
-				&& ((char *)envp_list->content)[key_len] == '=')
-			return(&((char *)envp_list->content)[key_len + 1]);
-		envp_list = envp_list->next;
-	}
-	return (NULL);
-}
 
 char	*get_pre_cont(char *arg, int *i)
 {

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/02 11:26:50 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:42:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,29 +339,29 @@ void			ft_delete_var(t_list **env_list, const char *var_name);
 //60_exec_tree.c
 void			exec_tree(t_msh **msh, t_tree_nd *node);
 
-//63_exec_pipe.c
+//61_exec_pipe.c
 void			exec_pipe(t_msh **msh, t_tree_nd *node);
 void			perform_left_pipe(int useless_fd, int dup_fd, int curr_pid);
 void			perform_right_pipe(int useless_fd, int dup_fd, int curr_pid);
 
-//64_exec_redir.c
+//62_exec_redir.c
 void			exec_redir_before_cmd(t_msh **msh, t_tree_nd *node);
-int				exec_redir(t_tree_nd *node);
-int				create_file_fd(t_tk_type type, char *file_name);
 int				collect_redirs_and_cmd(t_tree_nd **curr_nd,
 					t_tree_nd **redir_nd, t_redir_data *redir_data);
+int				exec_redir(t_tree_nd *node);
+int				create_file_fd(t_tk_type type, char *file_name);
 
-//65_exec_heredoc.c
+//63_exec_heredoc.c
 void			exec_heredocs(t_tree_nd *node);
 void			handle_hd(t_tree_nd *node, int hd_fd);
 char			*check_eof(t_tree_nd *node, char *file_name);
 
-//66_exec_cmd.c
+//64_exec_cmd.c
 void			exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
 
-//67_exec_utils.c
+//65_exec_utils.c
 int				safe_fork(void);
 int				safe_dup(int old_fd, int curr_pid);
 void			safe_dup2(int new_fd, int old_fd, int curr_pid);
