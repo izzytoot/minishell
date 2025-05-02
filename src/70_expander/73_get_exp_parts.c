@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   62_expand_utils.c                                  :+:      :+:    :+:   */
+/*   73_get_exp_parts.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/28 11:48:40 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:28:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,31 +62,57 @@ char	*get_key_word(char *arg, int *i)
 	char	*key_word;
 	int		len;
 	int		tmp_i;
-	int		s;
+	bool	flag;
 	
-	len = 0;
-	tmp_i = *i + 1;
-	s = *i;
-	while(arg[++s])
-	{
-		if (arg[s] == '$')
-			get_key_word(arg, &s);
-	}
-	while(!ft_strchr(WHITESPACE,arg[++*i]))
-		len++;
+	tmp_i = *i;
+	flag = false;
+	len = get_kw_len(arg, &i, tmp_i, &flag);
+	if (flag)
+		return (ft_strdup("?"));
 	if (!len)
 		return (NULL);
 	key_word = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = tmp_i;
-	while(!ft_strchr(WHITESPACE,arg[*i]))
+	while(!ft_strchr(WHITESPACE,arg[(*i)++]) 
+		&& !ft_strchr(SYM_EXP, arg[*i]))
 	{
+		if(arg[*i] == '$')
+			break;
 		key_word[len] = arg[*i];
 		len++;
-		(*i)++;
 	}
 	key_word[len] = '\0';
 	return(key_word);
+}
+
+char	*get_mid_cont(char *arg, int *i)
+{
+	char	*mid_content;
+	int		len;
+	int		tmp_i;
+	
+	len = 0;
+	tmp_i = *i;
+	while (arg[*i] != '$' && !ft_strchr(WHITESPACE,arg[*i]))
+	{
+		len++;
+		(*i)++;
+	}
+	if (!len)
+		return (NULL);
+	mid_content = ft_calloc((len + 1), sizeof(char));
+	len = 0;
+	*i = tmp_i;
+	while (!ft_strchr("$",arg[*i]) 
+		&& !ft_strchr(WHITESPACE,arg[*i]))
+	{
+		mid_content[len] = arg[*i];
+		len++;
+		(*i)++;
+	}
+	mid_content[len] = '\0';
+	return(mid_content);
 }
 
 char	*get_post_cont(char *arg, int *i)

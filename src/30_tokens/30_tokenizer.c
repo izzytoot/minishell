@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/28 11:23:17 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:27:17 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	get_tokens(t_msh **msh, int i)
 	i = -1;
 	while(line[++i])
 	{
+		quotes.space_case = false;
 		sort_out_quotes(&i, line, &quotes);
 		if ((!quotes.in_squotes || !quotes.in_dquotes) && ft_strchr(QUOTE, line [i]))
 			i++;
@@ -54,7 +55,7 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 		*i = tk_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
-	else if (quotes->in_quotes) // retirei !ft_strchr(OPERATOR, c) &&
+	else if (quotes->in_quotes) //deleted !ft_strchr(OPERATOR, c) && 
 		*i = tk_word_qt(msh, *i, &quotes->in_quotes, &quotes->quote_char);
 	else if (c == '|' && !quotes->in_quotes)
 		*i = tk_pipe(msh, *i);

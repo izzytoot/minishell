@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_envp_copies.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 14:16:53 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:54:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**envp_to_array(t_msh *msh, char **envp)
 	count = 0;
 	while (envp[count])
 		count++;
-	envp_array = malloc(sizeof(char *) * (count + 1));
+	envp_array = ft_calloc((count + 1), sizeof(char *));
 	if (!envp_array)
 		envp_fail(msh, NULL, NULL, NULL);
 	while (++i < count)

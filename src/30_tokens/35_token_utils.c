@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   35_token_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 11:59:05 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:34:07 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 	new_tk->content = ft_strdup(content);
 	if (!new_tk->content)
 	{
-        free(new_tk);
+        safe_free(new_tk);
         return ;
     }
 	new_tk->next = msh->token_list;

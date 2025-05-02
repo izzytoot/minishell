@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/24 17:44:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:01:24 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,17 @@ void	prompt_and_read(t_msh **msh)
 	{
 		if ((*msh)->prompt_line)
 		{
-			free((*msh)->prompt_line);
+			free((*msh)->prompt_line); //safe_free was causing double free
 			(*msh)->prompt_line = NULL;
 		}
 		prompt = get_prompt();
 		line = readline(prompt);
-
 		free(prompt);
 		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
 			break ;
 		add_history (line);
 		(*msh)->token_list = NULL;
 		(*msh)->prompt_line = line;
-		// if (line && strncmp(line, "exit", 4) == 0)
-		// {
-		// 	if (syntax_is_ok(&(*msh)))
-		// 		get_tokens(&(*msh), -1, '\0');
-		// 	ft_printf("exit\n");
-		// 	free_prompt_line(&(*msh));
-		// 	close_minishell(*msh, EXIT_SUCCESS);
-		// }
 		if (line && syntax_is_ok(&(*msh)))
 		{
 			get_tokens(&(*msh), -1);

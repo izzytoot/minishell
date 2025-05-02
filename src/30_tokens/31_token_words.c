@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   31_token_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 19:08:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/01 18:01:54 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ int tk_space(t_msh **msh, int start)
 		i++;
 	}
 	word[j] = '\0';
-	new_tk = calloc(1, sizeof(t_tk_lst));
+	new_tk = safe_malloc(sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, W_SPACE);
+	(*msh)->token_list->next->quotes.space_case = true;
 	return(i - 1);
 }
 
@@ -48,38 +49,13 @@ int	tk_word(t_msh **msh, int start)
     while (line[i] && (!ft_strchr(OPERATOR, line[i])
 		&& !ft_strchr(WHITESPACE, line[i]) && !ft_strchr(QUOTE, line[i])))
 	{
-		if (line[i] == '$' && (line[i + 1] == '?' || line[i + 1] == '0'))
-		{
-			special_cases(msh, &i, line[i + 1]);
-			return(i - 1);
-		}
 		word[j++] = line[i];
 		i++;
 	}
 	word[j] = '\0';
-	new_tk = calloc(1, sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, WORD);
 	return(i - 1);
-}
-
-int	special_cases(t_msh **msh, int *i, char c)
-{
-	t_tk_lst	*new_tk;
-	char		*word;
-	
-	if (c == '?')
-	{
-		word = ft_strdup("$?");
-		*i += 2;
-	}
-	else
-	{
-		word = ft_strdup("$0");
-		*i += 2;
-	}
-	new_tk = calloc(1, sizeof(t_tk_lst));
-	app_tk(*msh, new_tk, word, WORD);
-	return(*i);
 }
 
 int	tk_word_qt(t_msh **msh, int start, 
@@ -97,7 +73,7 @@ int	tk_word_qt(t_msh **msh, int start,
     while (line[i] && (line[i] != *quote_char))
 		word[j++] = line[i++];
 	word[j] = '\0';
-	new_tk = calloc(1, sizeof(t_tk_lst));
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, WORD);
 	if (*quote_char == '\'')
 		(*msh)->token_list->quotes.in_squotes = true;
