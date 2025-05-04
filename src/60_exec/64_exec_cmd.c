@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 18:30:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/04 23:09:16 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 	
 	status = 0;
 	node->args = remake_args(node);
-	int i = 0;
-	while(node->args[i])
-	{
-		printf("arg %d is %s\n", i, node->args[i]);
-		i++;
-	}
 	if (node->type == BT_CMD)
 	{
 		status = exec_bt_cmd(&(*msh), node);
@@ -96,39 +90,75 @@ char	**remake_args(t_tree_nd *node)
 	int		j;
 	t_quote	*quote_tmp;
 	char	**new_args;
-	bool	flag;
+	bool	flag_wr;
+	bool	flag_space_prev;
+	bool	flag_space_next;
 	
 	i = 0;
 	j = 0;
+	if (node->nb_arg <= 1)
+		return (node->args);
 	quote_tmp = node->quote_lst;
-	flag = false;
+	flag_wr = false;
+	flag_space_prev = true;
+	flag_space_next = node->quote_lst->space_case;
 	new_args = ft_calloc(node->nb_arg, sizeof(char *));
-	while(node->args[i])
+	while(i < node->nb_arg)
 	{
-		if (!node->quote_lst->space_case && node->quote_lst->next && node->args[i + 1] && !flag)
+		if (!node->quote_lst->space_case && !flag_wr)
 		{
-			new_args[j] = ft_strdup(ft_strjoin(node->args[i], node->args[i + 1]));
-			flag = true;
+			if (j == 0 || ((flag_space_next || flag_space_prev) && node->args[i + 1])) //first of group
+			{
+				new_args[j] = ft_strdup(ft_strjoin(node->args[i], node->args[i + 1]));
+				i++;
+				if (node->quote_lst->next)
+					node->quote_lst = node->quote_lst->next;
+			}
+			else //any other of group
+			{
+				if (!flag_space_prev)
+				{
+					j--;
+					new_args[j] = ft_strdup(ft_strjoin(new_args[j], node->args[i]));
+				}
+				else //last arg when lonely (!space_case)
+					new_args[j] = ft_strdup(node->args[i]); //not sure I need this
+			}
+			flag_wr = true;
+			flag_space_prev = false;
 			j++;
-			i++;
-			node->quote_lst = node->quote_lst->next;
 		}
-		else if (!node->quote_lst->space_case && node->args[i + 1] && flag)
+		else if (node->quote_lst->space_case && !flag_space_prev) // last of group
 		{
-			i++;
-			if (node->quote_lst->next)
-				node->quote_lst = node->quote_lst->next;
+			j--;
+			new_args[j] = ft_strdup(ft_strjoin(new_args[j], node->args[i]));
+			flag_wr = true;
+			flag_space_prev = true;
+			j++;
 		}
-		else // repeating last arg
+		else //lonely arg
 		{
 			new_args[j] = ft_strdup(node->args[i]);
 			j++;
 			i++;
 			if (node->quote_lst->next)
 				node->quote_lst = node->quote_lst->next;
+			flag_wr = false;
+			flag_space_prev = true;
+		}
+		if (flag_wr) //skipped arg when joined earlier
+		{
+			i++;
+			if (!node->quote_lst->space_case)
+				flag_space_next = false;
+			else
+				flag_space_next = true;
+			if (node->quote_lst->next)
+				node->quote_lst = node->quote_lst->next;
+			flag_wr = false;
 		}
 	}
 	node->quote_lst = quote_tmp;
-	free(quote_tmp); //check free
+//	free(quote_tmp); //check free
 	return(new_args);
 }
