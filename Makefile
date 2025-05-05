@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
+#    By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/02 17:37:29 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/05/05 14:36:17 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./60_exec/63_exec_heredoc.c\
 							./60_exec/64_exec_cmd.c\
 							./60_exec/65_exec_utils.c\
+							./60_exec/66_remake_args_utils.c\
 							./70_expander/70_expand_tree.c\
 							./70_expander/71_expand_token.c\
 							./70_expander/72_expand_token_utils.c\

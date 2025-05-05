@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/05 14:34:24 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:37:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,20 @@ typedef struct s_redir_data
 	t_tree_nd	*cmd_nd;
 }	t_redir_data;
 
-typedef struct t_msh
+typedef struct s_flag_str
+{
+	bool	written;
+	bool	space_prev;
+	bool	space_next;
+} t_flag_str;
+
+typedef struct s_ints
+{
+	int		i;
+	int		j;
+} t_ints;
+
+typedef struct s_msh
 {
 	bool		active;
 	char		*dir;
@@ -370,6 +383,13 @@ int				safe_fork(t_msh **msh);
 int				safe_dup(t_msh **msh, int old_fd, int curr_pid);
 void			safe_dup2(t_msh **msh, int new_fd, int old_fd, int curr_pid);
 int				safe_pipe(t_msh **msh, int pipe_fd[2]);
+
+//66_remake_args_utils.c
+void	init_aux_stucts(t_flag_str *flags, t_ints *ints, t_tree_nd *node);
+void	compose_arg(t_ints *ints, t_flag_str *flags, char **new_args, t_tree_nd *node);
+void	add_last(t_ints *ints, t_flag_str *flags, char **new_args, t_tree_nd *node);
+void	lonely_arg(t_ints *ints, t_flag_str *flags, char **new_args, t_tree_nd **node);
+void	handle_written(t_ints *ints, t_flag_str *flags, t_tree_nd **node);
 
 /************ 70_expander ************/
 
