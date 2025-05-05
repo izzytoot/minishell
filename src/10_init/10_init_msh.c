@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 18:01:24 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/03 08:06:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	prompt_and_read(t_msh **msh)
 		add_history (line);
 		(*msh)->token_list = NULL;
 		(*msh)->prompt_line = line;
-		if (line && syntax_is_ok(&(*msh)))
+		if (line && (syntax_is_ok(&(*msh)) == 0))
 		{
 			get_tokens(&(*msh), -1);
 			exec_tree(&(*msh), (*msh)->tree_root);

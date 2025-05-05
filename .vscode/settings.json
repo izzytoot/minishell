@@ -25,6 +25,7 @@
 		"variant": "c",
 		"libft.h": "c",
 		"optional": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"sstream": "c"
 	}
 }

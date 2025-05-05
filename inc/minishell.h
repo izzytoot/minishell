@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/02 17:40:30 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:34:24 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void			init_all_null(t_msh **msh);
 
 /************ 20_syntax ************/
 //20_syntax_check.c
-bool			syntax_is_ok(t_msh **msh);
+int				syntax_is_ok(t_msh **msh);
 bool			any_of_these_syn(const char *line);
 bool			unsupported_operators(const char *line);
 void			exec_fake_hd(const char *line, int hd_index);
@@ -338,35 +338,38 @@ int				ft_export(t_msh **msh, t_tree_nd **node);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c
-void			exec_tree(t_msh **msh, t_tree_nd *node);
+int				exec_tree(t_msh **msh, t_tree_nd *node);
 
 //61_exec_pipe.c
-void			exec_pipe(t_msh **msh, t_tree_nd *node);
-void			perform_left_pipe(int useless_fd, int dup_fd, int curr_pid);
-void			perform_right_pipe(int useless_fd, int dup_fd, int curr_pid);
+int				exec_pipe(t_msh **msh, t_tree_nd *node);
+void			perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid);
+void			perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid);
+int				safe_waitpid(int pid1, int pid2);
+void 			close_fd(int fd_1, int fd_2);
 
 //62_exec_redir.c
-void			exec_redir_before_cmd(t_msh **msh, t_tree_nd *node);
-int				collect_redirs_and_cmd(t_tree_nd **curr_nd,
+int				exec_redir_before_cmd(t_msh **msh, t_tree_nd *node);
+int				collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 					t_tree_nd **redir_nd, t_redir_data *redir_data);
-int				exec_redir(t_tree_nd *node);
+int				exec_redir(t_msh **msh, t_tree_nd *node);
 int				create_file_fd(t_tk_type type, char *file_name);
 
 //63_exec_heredoc.c
-void			exec_heredocs(t_tree_nd *node);
+void			exec_heredocs(t_msh **msh, t_tree_nd *node);
 void			handle_hd(t_tree_nd *node, int hd_fd);
 char			*check_eof(t_tree_nd *node, char *file_name);
 
 //64_exec_cmd.c
-void			exec_cmd(t_msh **msh, t_tree_nd *node);
+int				exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
+char			**remake_args(t_tree_nd *node);
 
 //65_exec_utils.c
-int				safe_fork(void);
-int				safe_dup(int old_fd, int curr_pid);
-void			safe_dup2(int new_fd, int old_fd, int curr_pid);
-int				safe_pipe(int pipe_fd[2]);
+int				safe_fork(t_msh **msh);
+int				safe_dup(t_msh **msh, int old_fd, int curr_pid);
+void			safe_dup2(t_msh **msh, int new_fd, int old_fd, int curr_pid);
+int				safe_pipe(t_msh **msh, int pipe_fd[2]);
 
 /************ 70_expander ************/
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   70_free_msh.c                                      :+:      :+:    :+:   */
+/*   80_free_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 15:25:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/02 16:44:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	free_prompt_line(t_msh **msh)
 	if ((*msh)->token_list)
 		free_tokens((*msh)->token_list);
 	(*msh)->hd_check = true;
-	if ("/tmp/.heredoc_tmp")
-		unlink("/tmp/.heredoc_tmp");
 //	safe_dup2(0, STDIN_FILENO, getpid()); //check if needed
 //	safe_dup2(1, STDOUT_FILENO, getpid()); //check if needed
 }
@@ -78,5 +76,10 @@ void	free_tree(t_tree_nd *node)
 		ft_free_arrays((void **)node->cmd_content);
 	if (node->args)
 		ft_free_arrays((void **)node->args);
+	if(node->tmp_file)
+	{
+		unlink(node->tmp_file);
+		free(node->tmp_file);
+	}
 	free(node);
 }

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/01 18:01:54 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/04 21:31:31 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int tk_space(t_msh **msh, int start)
 	word[j] = '\0';
 	new_tk = safe_malloc(sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, word, W_SPACE);
-	(*msh)->token_list->next->quotes.space_case = true;
+	if ((*msh)->token_list->next)
+		(*msh)->token_list->next->quotes.space_case = true;
 	return(i - 1);
 }
 
