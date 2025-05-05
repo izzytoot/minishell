@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   52_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/30 15:16:02 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/05 15:47:13 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	add_new_env_var(t_list **env_list, const char *var_name,
 	joined_value = ft_strjoin(var_name, "=");
 	new_entry = ft_strjoin(joined_value, data);
 	free(joined_value);
+	joined_value = NULL;
 	if (!new_entry)
 		return ;
 	ft_lstadd_back(env_list, ft_lstnew(new_entry));
