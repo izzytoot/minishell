@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   54_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/21 20:08:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:56:11 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,6 @@ unsigned int	ft_convert_value(t_msh **msh, char *code)
 	exit_value(msh, (unsigned char)nbr, true, false);
 	return ((unsigned char)(nbr));
 }
-
-//info --> returns the current exit status,
-//			with option to update it and exit the program
-//PASSEI-A PARA O INIT PORQUE VAMOS USAR ISTO AO LONGO DE TODO O PROGRAMA
-
-/*
-int	ft_exit_value(t_msh **msh, int exit_code, int update_exit,
-					int exit_msh)
-{
-	static int	current_code; // tem que ser estatica para ser atualizada ao longo do programa
-
-	if (update_exit == true)
-		current_code = exit_code;
-	if (exit_msh == true)
-		close_minishell(*msh, current_code);
-	return (current_code);
-}
-*/
 
 //info --> check if a str is numeric
 
