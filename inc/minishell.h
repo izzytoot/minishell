@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/06 16:20:48 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:38:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ typedef struct s_tree_nd
 	struct s_tree_nd	*left;
 	struct s_tree_nd	*right;
 	struct s_quote		*quote_lst;
+	bool				exp_hd;
 }	t_tree_nd;
 
 typedef struct s_redir_data
