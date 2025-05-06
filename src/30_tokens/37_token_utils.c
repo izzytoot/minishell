@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   35_token_utils.c                                   :+:      :+:    :+:   */
+/*   37_token_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 14:55:59 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:33:52 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void check_rep_cmd(t_msh **msh)
 		curr = curr->next;
 	while(curr)
 	{
-		if (type_is_cmd(&curr->type))
+		if (type_is_cmd(&curr->type) && curr->type != SH_V)
 		{
 			if (cmd_ch)
 				curr->type = ARG;
@@ -59,12 +59,25 @@ void check_rep_cmd(t_msh **msh)
 	}
 }
 
-bool			check_builtin(char *str)
+bool	check_builtin(char *str)
 {
 	if (!ft_strcmp(str, "pwd")|| !ft_strcmp(str, "cd")
 		|| !ft_strcmp(str, "env") || (!ft_strcmp(str, "echo")
 		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
 		|| !ft_strcmp(str, "exit")))
 		return (true);
+	return (false);
+}
+
+bool	check_shell_var(char *str)
+{
+	if (ft_strchr(str, '='))
+	{
+		if ((str[0] >= 'A' && str[0] <= 'Z')
+			|| (str[0] >= 'a' && str[0] <= 'z'))
+			return (true);
+		else
+			return (false);
+	}
 	return (false);
 }

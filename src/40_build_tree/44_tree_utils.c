@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   44_tree_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:36:26 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 13:47:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:15:31 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	type_is_word(t_tk_type *type)
 
 bool	type_is_cmd(t_tk_type *type)
 {
-	if (*type == BT_CMD || *type == ENV_CMD)
+	if (*type == BT_CMD || *type == ENV_CMD || *type == SH_V)
 		return(true);
 	else
 		return (false);
