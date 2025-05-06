@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/06 15:08:22 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:20:48 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,6 @@ char			*get_eof(const char *line, int hd_index);
 //30_tokenizer.c
 void			get_tokens(t_msh **msh, int i);
 bool			extra_check(t_msh **msh, int *i, char c, t_quote *quote);
-void			sub_tokenize(t_msh **msh);
 
 //31_token_words.c
 int				tk_word(t_msh **msh, int start);
@@ -276,19 +275,24 @@ void			sort_out_quotes(int *i, const char *line, t_quote *quotes);
 void			check_dquote(bool *in_dquotes, char c);
 void			check_squote(bool *in_squotes, char c);
 
-//35_token_utils.c
+//35_sub_tokenize.c
+void			sub_tokenize(t_msh **msh);
+void			handle_filename(t_msh **msh);
+void			join_filename(t_msh **msh);
+void			join_rest(t_msh **msh);
+char			*check_env_cmd(char *cmd, char *env_path, int i);
+
+//36_sub_tokenize_utils.c
+t_tk_lst 		*find_file(t_msh **msh);
+t_tk_lst		*find_w_tk(t_msh **msh);
+void			join_parts(t_tk_lst	**src, t_tk_lst **target);
+
+//37_token_utils.c
 void			app_tk(t_msh *msh, t_tk_lst *new_tk,
-					char *content, t_tk_type type);
+	char *content, t_tk_type type);
 char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);
 bool			check_builtin(char *str);
-
-//36_sub_tokenize_utils.c
-void			handle_filename(t_tk_lst *token_list);
-char			*check_env_cmd(char *cmd, char *env_path, int i);
-t_tk_lst 		*find_file(t_msh **msh);
-void			join_parts(t_tk_lst	**tmp_fn, t_tk_lst **merge_target);
-void			join_filename(t_msh **msh);
 
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c

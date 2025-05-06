@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 15:00:54 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:17:22 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	get_tokens(t_msh **msh, int i)
 			break ;
 	}
 	sub_tokenize(&(*msh));
-	if(!(*msh)->token_list)
-		empty_case(msh);
+	empty_case(msh);
 	if ((*msh)->debug_mode)  //DEBUG TO DELETE
 	{	
 		print_tokens(&(*msh));
@@ -82,32 +81,4 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 	else
 		return (false);
 	return (true);
-}
-
-void	sub_tokenize(t_msh **msh)
-{
-	t_tk_lst	*curr;
-	char		*word;
-	char		*env_path;
-
-	handle_filename((*msh)->token_list);
-	curr = (*msh)->token_list;
-	word = NULL;
-	env_path = get_path((*msh)->envp_list);
-	while(curr)
-	{
-		if (curr->type == WORD)
-		{
-			word = curr->content;
-			if (check_builtin(word))
-				curr->type = BT_CMD;
-			else if (check_env_cmd(word, env_path, -1))
-				curr->type = ENV_CMD;
-			else
-				curr->type = ARG;
-		}
-		curr = curr->next;
-	}
-	check_rep_cmd(&(*msh));
-	join_filename(&(*msh));
 }
