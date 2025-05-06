@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/06 15:38:50 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:35:40 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,9 +250,6 @@ char			*get_eof(const char *line, int hd_index);
 //30_tokenizer.c
 void			get_tokens(t_msh **msh, int i);
 bool			extra_check(t_msh **msh, int *i, char c, t_quote *quote);
-void			sub_tokenize(t_msh **msh);
-void			handle_filename(t_tk_lst *token_list);
-char			*check_env_cmd(char *cmd, char *env_path, int i);
 
 //31_token_words.c
 int				tk_word(t_msh **msh, int start);
@@ -275,14 +272,26 @@ int				tk_redir_hd(t_msh **msh, const char *line,
 int				tk_redir_in(t_msh **msh, const char *line,
 					char *redir_in, int i);
 
-//33_handle_quotes.c
+//34_handle_quotes.c
 void			sort_out_quotes(int *i, const char *line, t_quote *quotes);
 void			check_dquote(bool *in_dquotes, char c);
 void			check_squote(bool *in_squotes, char c);
 
-//35_token_utils.c
+//35_sub_tokenize.c
+void			sub_tokenize(t_msh **msh);
+void			handle_filename(t_msh **msh);
+void			join_filename(t_msh **msh);
+void			join_rest(t_msh **msh);
+char			*check_env_cmd(char *cmd, char *env_path, int i);
+
+//36_sub_tokenize_utils.c
+t_tk_lst 		*find_file(t_msh **msh);
+t_tk_lst		*find_w_tk(t_msh **msh);
+void			join_parts(t_tk_lst	**src, t_tk_lst **target);
+
+//37_token_utils.c
 void			app_tk(t_msh *msh, t_tk_lst *new_tk,
-					char *content, t_tk_type type);
+	char *content, t_tk_type type);
 char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);
 bool			check_builtin(char *str);
@@ -358,6 +367,8 @@ t_list			*copy_env_list(t_list *env_list);
 /************ 60_exec_tree ************/
 //60_exec_tree.c
 int				exec_tree(t_msh **msh, t_tree_nd *node);
+char			**remake_args(t_tree_nd *node);
+//char			*remake_fname(t_tree_nd *node);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
@@ -382,20 +393,22 @@ char			*check_eof(t_tree_nd *node, char *file_name);
 int				exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
-char			**remake_args(t_tree_nd *node);
 
-//65_exec_utils.c
+//65_remake_args_utils.c
+void			init_aux_stucts(t_flag_str *flags, t_ints *ints, t_tree_nd *node);
+void			compose_arg(t_ints *ints, t_flag_str *flags,
+					char **new_args, t_tree_nd *node);
+void			add_last(t_ints *ints, t_flag_str *flags,
+					char **new_args, t_tree_nd *node);
+void			lonely_arg(t_ints *ints, t_flag_str *flags,
+					char **new_args, t_tree_nd **node);
+void			handle_written(t_ints *ints, t_flag_str *flags, t_tree_nd **node);
+
+//66_exec_utils.c
 int				safe_fork(t_msh **msh);
 int				safe_dup(t_msh **msh, int old_fd, int curr_pid);
 void			safe_dup2(t_msh **msh, int new_fd, int old_fd, int curr_pid);
 int				safe_pipe(t_msh **msh, int pipe_fd[2]);
-
-//66_remake_args_utils.c
-void	init_aux_stucts(t_flag_str *flags, t_ints *ints, t_tree_nd *node);
-void	compose_arg(t_ints *ints, t_flag_str *flags, char **new_args, t_tree_nd *node);
-void	add_last(t_ints *ints, t_flag_str *flags, char **new_args, t_tree_nd *node);
-void	lonely_arg(t_ints *ints, t_flag_str *flags, char **new_args, t_tree_nd **node);
-void	handle_written(t_ints *ints, t_flag_str *flags, t_tree_nd **node);
 
 /************ 70_expander ************/
 

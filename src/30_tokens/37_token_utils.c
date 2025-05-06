@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   35_token_utils.c                                   :+:      :+:    :+:   */
+/*   37_token_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 16:25:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:33:52 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 {
 	new_tk->type = type;
-	new_tk->content = ft_strdup(content);
-	if (!new_tk->content)
-	{
-        safe_free(new_tk);
-        return ;
-    }
+	if (content)
+		new_tk->content = ft_strdup(content);
 	new_tk->next = msh->token_list;
 	new_tk->prev = NULL;
 	if (msh->token_list)
