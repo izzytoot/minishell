@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/06 18:03:58 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:40:04 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,9 +341,9 @@ int				update_cd_env(t_msh **msh, char *old_pwd);
 
 //52_env.c
 int				print_env(t_msh **msh, t_tree_nd **node);
-int				update_env_var(t_list **env_list, const char *var_name,
+int				update_var(t_list **env_list, const char *var_name,
 					const char *content);
-void			add_new_env_var(t_list **env_list, const char *var_name,
+void			add_new_var(t_list **env_list, const char *var_name,
 					const char *data);
 
 //53_echo.c
@@ -394,6 +394,7 @@ char			*check_eof(t_tree_nd *node, char *file_name);
 int				exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
+int				exec_sh_v(t_msh **msh, t_tree_nd *node);
 
 //65_remake_args_utils.c
 void			init_aux_stucts(t_flag_str *flags, t_ints *ints, t_tree_nd *node);

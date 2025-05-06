@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/05 17:45:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:40:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	update_cd_env(t_msh **msh, char *old_pwd)
 	char	cwd[PATH_MAX];
 	char	*pwd;
 
-	if (update_env_var(&(*msh)->envp_list, "OLDPWD", old_pwd) != EXIT_SUCCESS)
+	if (update_var(&(*msh)->envp_list, "OLDPWD", old_pwd) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
@@ -88,7 +88,7 @@ int	update_cd_env(t_msh **msh, char *old_pwd)
 	pwd = ft_strjoin(cwd, "\n");
 	if (!pwd)
 		return (EXIT_FAILURE);
-	if (update_env_var(&(*msh)->envp_list, "PWD", pwd) != EXIT_SUCCESS)
+	if (update_var(&(*msh)->envp_list, "PWD", pwd) != EXIT_SUCCESS)
 	{
 		free(pwd);
 		return (EXIT_FAILURE);

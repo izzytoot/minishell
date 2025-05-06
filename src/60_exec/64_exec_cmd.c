@@ -6,13 +6,11 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 18:03:46 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:46:18 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	exec_sh_v(t_msh **msh, t_tree_nd *node);
 
 int	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
@@ -44,17 +42,19 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 
 int	exec_sh_v(t_msh **msh, t_tree_nd *node)
 {
-	int	status;
+	int		status;
+	char	**split;
 
 	status = 0;
-	ft_lstnew((*msh)->vars_list);
-	if (!(*msh)->vars_list)
-		return (EXIT_FAILURE);
-	while (node->cmd && node->type == SH_V)
+	while (node && node->type == SH_V)
 	{
-		(*msh)->vars_list->content = node->cmd;
-		node->cmd = node->right->cmd;
-		(*msh)->vars_list = (*msh)->vars_list->next;
+		split = ft_split(node->cmd, '=');
+		if (!split || !split[0])
+			return(ft_free_arrays((void *)split), EXIT_FAILURE);
+		if (update_var(&(*msh)->vars_list, split[0], split[1]) != EXIT_SUCCESS)
+			return(ft_free_arrays((void *)split), EXIT_FAILURE);
+		ft_free_arrays((void *)split);
+		node = node->right; //check if right or left
 	}
 	return (exit_value(msh, status, 1, 0));
 }
