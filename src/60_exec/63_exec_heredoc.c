@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 16:45:46 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:36:25 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 
 void		handle_hd(t_tree_nd *node, int hd_fd)
 {
-	t_tree_nd *curr_nd;
+	t_tree_nd 	*curr_nd;
 	char 		*eof;
 	char		*new_line;
 	
