@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   53_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/03 08:15:10 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/05 17:04:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int	ft_echo(t_tree_nd **node)
 	while ((*node)->args[i])
 	{
 		ft_putstr_fd((*node)->args[i], STDOUT_FILENO);
-		if ((*node)->args[i + 1] && (*node)->quote_lst 
+		if ((*node)->args[i + 1] && (*node)->quote_lst
 			&& (*node)->quote_lst->next)
 		{
-		//	if (((*node)->quote_lst->space_case))
-				ft_putstr_fd(" ", STDOUT_FILENO);
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		}
 		i++;
 		if ((*node)->quote_lst->next)
@@ -48,7 +47,6 @@ bool	handle_n(t_tree_nd **node, int *i, bool first_flag)
 	int		j;
 	bool	newline;
 
-	first_flag = true;
 	newline = true;
 	while ((*node)->args[*i] && ft_strncmp((*node)->args[*i], "-n", 2) == 0)
 	{

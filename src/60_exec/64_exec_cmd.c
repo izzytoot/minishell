@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/05 14:36:50 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/06 15:07:32 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 		status = ft_cd(msh, &node);
 	else if (ft_strcmp(node->cmd, "pwd") == 0)
 		status = ft_pwd();
-	//else if (ft_strcmp(node->cmd, "export") == 0)
-	//	return (ft_export(&(*msh)));
+	else if (ft_strcmp(node->cmd, "export") == 0)
+		status = ft_export(msh, &node);
 	else if (ft_strcmp(node->cmd, "unset") == 0)
 		status = ft_unset(msh, &node);
 	else if (ft_strcmp(node->cmd, "env") == 0)

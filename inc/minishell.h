@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/06 14:36:51 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/06 15:08:22 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,6 +352,10 @@ int				ft_unset(t_msh **msh, t_tree_nd **node);
 void			ft_delete_var(t_list **env_list, const char *var_name);
 
 //56_export.c
+int				ft_export(t_msh **msh, t_tree_nd **node);
+t_list			*sort_env(t_list *env_list, int sort);
+void			disp_exported(t_msh **msh);
+t_list			*copy_env_list(t_list *env_list);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c
