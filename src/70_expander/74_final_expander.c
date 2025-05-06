@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   73_final_expander.c                                :+:      :+:    :+:   */
+/*   74_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/04/30 18:55:16 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/06 17:49:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char *get_env_cont(t_list *envp_list, char *key_word)
+char *get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 {
-	int	key_len;
+	int		key_len;
 
 	key_len = ft_strlen(key_word);
-	while(envp_list)
+	while (envp_list)
 	{
 		if (!ft_strncmp(envp_list->content, key_word, key_len)
 				&& ((char *)envp_list->content)[key_len] == '=')
 			return(&((char *)envp_list->content)[key_len + 1]);
 		envp_list = envp_list->next;
+	}
+	while (vars_list)
+	{
+		if (!ft_strncmp(vars_list->content, key_word, key_len)
+			&& ((char *)vars_list->content)[key_len] == '=')
+			return(&((char *)vars_list->content)[key_len + 1]);
+		vars_list = vars_list->next;
 	}
 	return (NULL);
 }

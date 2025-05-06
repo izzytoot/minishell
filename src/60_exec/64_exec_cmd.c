@@ -6,11 +6,13 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 16:33:40 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:50:52 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	exec_sh_v(t_msh **msh, t_tree_nd *node);
 
 int	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
@@ -28,11 +30,11 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		status = exec_env_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
 	} 
-	// else if (node->type == SH_V)
-	// {
-	// 	status = exec_sh_v(&(*msh), node);
-	// 	return (exit_value(msh, status, 1, 0));
-	// }
+	else if (node->type == SH_V)
+	{
+		status = exec_sh_v(&(*msh), node);
+		return (exit_value(msh, status, 1, 0));
+	}
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
@@ -40,17 +42,22 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 	}
 }
 
-// int	exec_sh_v(t_msh **msh, t_tree_nd *node)
-// {
-// 	int	status;
+int	exec_sh_v(t_msh **msh, t_tree_nd *node)
+{
+	int	status;
 
-// 	status = 0;
-// 	while (node->cmd)
-// 	{
-// 		(*msh)->vars_list->content = (*msh);
-// 		node->cmd = node->
-// 	}
-// }
+	status = 0;
+	ft_lstnew((*msh)->vars_list);
+	if (!(*msh)->vars_list)
+		return (EXIT_FAILURE);
+	while (node->cmd && node->type == SH_V)
+	{
+		(*msh)->vars_list->content = node->cmd;
+		node->cmd = node->right->cmd;
+		(*msh)->vars_list = (*msh)->vars_list->next;
+	}
+	return (exit_value(msh, status, 1, 0));
+}
 
 int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 {

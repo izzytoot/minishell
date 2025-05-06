@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/06 16:35:40 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:51:32 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,7 +437,7 @@ char			*get_mid_cont(char *arg, int *i);
 char			*get_post_cont(char *arg, int *i);
 
 //74_final_expander.c
-char 			*get_env_cont(t_list *envp_list, char *key_word);
+char 			*get_env_cont(t_list *envp_list,  t_list *vars_list, char *key_word);
 char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);

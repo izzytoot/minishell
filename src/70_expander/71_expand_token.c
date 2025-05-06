@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   71_expand_token.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/02 11:43:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:53:01 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*build_new_arg(t_msh **msh, char **kw)
 			|| (expand_case(msh, &new_c, kw[k], &flag) == 4))
 			;
 		else if (expand_case(msh, &new_c, kw[k], &flag) == 3 && !flag)
-			new_c = get_env_cont((*msh)->envp_list, kw[k]);
+			new_c = get_env_cont((*msh)->envp_list, (*msh)->vars_list, kw[k]);
 		else if (expand_case(msh, &new_c, kw[k], &flag) == 3 && flag)
 			new_c = ft_strdup(kw[k]);
 		if(!new_c)
