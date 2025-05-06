@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/04/30 15:14:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/05 17:45:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	get_dir(t_tree_nd **node, char **target_dir)
 }
 
 //info --> updates OLDPWD and PWD
-//falta verificar se PWD e OLDPWD sao env var, se nao criar
 
 int	update_cd_env(t_msh **msh, char *old_pwd)
 {

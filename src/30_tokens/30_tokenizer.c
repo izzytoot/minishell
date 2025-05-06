@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 11:27:17 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:38:55 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	sub_tokenize(t_msh **msh)
 				curr->type = BT_CMD;
 			else if (check_env_cmd(word, env_path, -1))
 				curr->type = ENV_CMD;
+			else if (check_shell_var(word))
+				curr->type = SH_V;
 			else
 				curr->type = ARG;
 		}

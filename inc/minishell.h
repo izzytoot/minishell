@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/05 16:48:58 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:38:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef enum e_tk_type
 	REDIR_APP, // >> (append)
 	REDIR_HD, // << (heredoc)
 	ENV_CMD, // envirm. cmd
+	SH_V, //shell var
 }	t_tk_type;
 
 typedef struct s_quote
@@ -189,6 +190,7 @@ typedef struct s_msh
 	t_tree_nd	*tree_root;
 	char		**envp;
 	t_list		*envp_list; //enviroment variables line user, home, path, etc
+	t_list		*vars_list;
 	bool		debug_mode;
 	bool		hd_check;
 }	t_msh;
@@ -284,6 +286,7 @@ void			app_tk(t_msh *msh, t_tk_lst *new_tk,
 char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);
 bool			check_builtin(char *str);
+bool			check_shell_var(char *str);
 
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
