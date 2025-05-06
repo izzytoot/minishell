@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_debug_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 15:36:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:50:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	print_tokens(t_msh **msh)
 void	print_tree(t_tree_nd *node)
 {
 	int	i = -1;
-	char *node_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD"};
+	char *node_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD", "SH_V"};
 
 	if (!node) 
 		return ;

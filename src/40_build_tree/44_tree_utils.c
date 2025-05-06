@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   44_tree_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:36:26 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/05 19:15:31 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:49:21 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	type_is_redir(t_tk_type *type)
 
 bool	type_is_word(t_tk_type *type)
 {
-	if (*type == WORD || *type ==  ARG || *type == BT_CMD || *type == ENV_CMD)
+	if (*type == WORD || *type ==  ARG || *type == BT_CMD || *type == ENV_CMD || *type == SH_V)
 		return(true);
 	else
 		return (false);
