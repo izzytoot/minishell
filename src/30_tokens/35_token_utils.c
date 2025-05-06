@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 10:34:07 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/06 14:55:59 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 {
 	new_tk->type = type;
-	new_tk->content = ft_strdup(content);
-	if (!new_tk->content)
-	{
-        safe_free(new_tk);
-        return ;
-    }
+	if (content)
+		new_tk->content = ft_strdup(content);
 	new_tk->next = msh->token_list;
 	new_tk->prev = NULL;
 	if (msh->token_list)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 16:46:19 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/08 11:22:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:59:59 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_strdup(const char *s)
 	if (!dest)
 		return (NULL);
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i])
 	{
 		dest[i] = s[i];

@@ -6,7 +6,7 @@
 #    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/05 14:18:18 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/06 14:39:15 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./30_tokens/33_token_redir_l.c\
 							./30_tokens/34_handle_quotes.c\
 							./30_tokens/35_token_utils.c\
+							./30_tokens/36_sub_tokenize_utils.c\
 							./40_build_tree/40_tokens_to_tree.c\
 							./40_build_tree/41_build_pipe_nodes.c\
 							./40_build_tree/42_build_redir_nodes.c\
@@ -48,8 +49,8 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./60_exec/62_exec_redir.c\
 							./60_exec/63_exec_heredoc.c\
 							./60_exec/64_exec_cmd.c\
-							./60_exec/65_exec_utils.c\
-							./60_exec/66_remake_args_utils.c\
+							./60_exec/65_remake_args_utils.c\
+							./60_exec/66_exec_utils.c\
 							./70_expander/70_expand_tree.c\
 							./70_expander/71_expand_token.c\
 							./70_expander/72_expand_token_utils.c\

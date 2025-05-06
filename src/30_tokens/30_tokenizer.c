@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 11:27:17 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:00:54 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	empty_case(t_msh **msh);
 
 void	get_tokens(t_msh **msh, int i)
 {
@@ -36,6 +38,8 @@ void	get_tokens(t_msh **msh, int i)
 			break ;
 	}
 	sub_tokenize(&(*msh));
+	if(!(*msh)->token_list)
+		empty_case(msh);
 	if ((*msh)->debug_mode)  //DEBUG TO DELETE
 	{	
 		print_tokens(&(*msh));
@@ -46,6 +50,18 @@ void	get_tokens(t_msh **msh, int i)
 	// if ((*msh)->debug_mode)
 	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
 	// ft_printf("------------------------------\n");
+	return ;
+}
+
+void	empty_case(t_msh **msh)
+{
+	t_tk_lst	*empty_tk;
+	
+	if (!(*msh)->token_list)
+	{
+		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
+		app_tk((*msh), empty_tk, "''", ARG);	
+	}
 	return ;
 }
 
@@ -93,49 +109,5 @@ void	sub_tokenize(t_msh **msh)
 		curr = curr->next;
 	}
 	check_rep_cmd(&(*msh));
-}
-
-void	handle_filename(t_tk_lst *token_list)
-{
-	t_tk_lst *curr;
-
-	curr = token_list;
-	while (curr)
-	{
-		if (curr->type == REDIR_HD || curr->type == REDIR_APP 
-			|| curr->type == REDIR_IN || curr->type == REDIR_OUT)
-		{
-			if (curr->prev->type == W_SPACE && curr->prev->prev->type == WORD)
-				curr->prev->prev->type = FILE_NAME;
-			else if (curr->prev->type == WORD)
-				curr->prev->type = FILE_NAME;
-		}
-		curr = curr->next;
-	}
-}
-
-char	*check_env_cmd(char *cmd, char *env_path, int i)
-{
-	char	**paths;
-	char	*part_path;
-	char	*cmd_path;
-	
-	paths = ft_split(env_path, ':');
-	ft_init_var((void **)&part_path, (void **)&cmd_path, NULL, NULL);
-	if (!paths)
-		return (0);
-	while(paths[++i])
-	{
-		part_path = ft_strjoin(paths[i], "/");
-		cmd_path = ft_strjoin(part_path, cmd);
-		free(part_path);
-		if (access(cmd_path, F_OK | X_OK) == 0)
-		{
-			ft_free_arrays((void **)paths);
-			return(cmd_path);
-		}
-		free(cmd_path);
-	}
-	ft_free_arrays((void **)paths);
-	return(NULL);	
+	join_filename(&(*msh));
 }
