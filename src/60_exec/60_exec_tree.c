@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 20:03:26 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/08 00:10:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		status = exec_pipe(msh, node);
 	else if (type_is_redir(&node->type))
 		status = exec_redir_before_cmd(msh, node);
-	else if (type_is_cmd(&node->type)) //changed from type_is_word
+	else if (type_is_word(&node->type)) //changed from type_is_word
 		status = exec_cmd(msh, node);
 	else if (type_is_arg(&node->type))
 		status = exec_sh_v(&(*msh), node);

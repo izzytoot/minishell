@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   52_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/06 18:39:55 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 23:50:11 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,21 @@ void	add_new_var(t_list **env_list, const char *var_name,
 	if (!new_entry)
 		return ;
 	ft_lstadd_back(env_list, ft_lstnew(new_entry));
+}
+
+char	*get_var_val(t_list *env_list, const char *var_name)
+{
+	t_list	*curr;
+	size_t	len;
+
+	len = ft_strlen(var_name);
+	curr = env_list;
+    while (curr)
+	{
+		if (ft_strncmp(curr->content, var_name, len) == 0
+            && ((char *)(curr->content))[len] == '=')
+            return ((char *)(curr->content + len + 1));
+        curr = curr->next;
+    }
+    return (NULL);
 }

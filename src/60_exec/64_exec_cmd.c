@@ -6,13 +6,11 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 23:27:47 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 23:52:20 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-bool	path_exec(t_tree_nd *node);
 
 int	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
@@ -93,8 +91,8 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (pid == 0)
 	{
-		if (path_exec(node))
-			path = node->cmd;
+		if (node->cmd && ft_strchr(node->cmd, '/'))
+			update_shlvl(&(*msh)->envp_list);
 		else
 			path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
@@ -111,9 +109,23 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	return (exit_value(msh, status, 1, 0));
 }
 
-bool	path_exec(t_tree_nd *node)
+void	update_shlvl(t_list **env_list)
 {
-	if (node->cmd && ft_strchr(node->cmd, '/'))
-		return (true);
-	return (false);
+	char    *shlvl_value;
+	char    *shlvl_str;
+    int     shlvl;
+	
+	shlvl_value = get_var_val(*env_list, "SHLVL");
+	if (shlvl_value)
+    {
+		shlvl = ft_atoi(shlvl_value);
+        shlvl++;
+		shlvl_str = ft_itoa(shlvl);
+		if (!shlvl_str)
+			return ;
+		update_var(env_list, "SHLVL", shlvl_str);
+		free(shlvl_str);
+	}
+	else
+		update_var(env_list, "SHLVL", "1");
 }

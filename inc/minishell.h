@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/07 22:53:06 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 23:50:21 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,6 +358,7 @@ int				update_var(t_list **env_list, const char *var_name,
 					const char *content);
 void			add_new_var(t_list **env_list, const char *var_name,
 					const char *data);
+char			*get_var_val(t_list *env_list, const char *var_name);
 
 //53_echo.c
 int				ft_echo(t_tree_nd **node);
@@ -411,6 +412,7 @@ int				exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_sh_v(t_msh **msh, t_tree_nd *node);
+void			update_shlvl(t_list **env_list);
 
 //65_remake_args_utils.c
 void			init_aux_stucts(t_flag_str *flags, t_ints *ints, t_tree_nd *node);

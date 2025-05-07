@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/03 08:06:03 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/07 23:49:49 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_init_msh(t_msh **msh, char **envp)
 	(*msh)->hd_check = true;
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
+	update_shlvl(&(*msh)->envp_list);
 //	if ((*msh)->debug_mode)
 //		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
 	exit_value(msh, 0, 1, 0); //iniciar o exit_code status
