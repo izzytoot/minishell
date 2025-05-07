@@ -6,11 +6,13 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 19:57:41 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 23:27:47 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+bool	path_exec(t_tree_nd *node);
 
 int	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
@@ -53,8 +55,8 @@ int	exec_sh_v(t_msh **msh, t_tree_nd *node)
 			if (update_var(&(*msh)->vars_list, split[0], split[1]) != EXIT_SUCCESS)
 				return(ft_free_arrays((void *)split), EXIT_FAILURE);
 			ft_free_arrays((void *)split);
-			i++;
 		}
+		i++;
 	}
 	return (exit_value(msh, status, 1, 0));
 }
@@ -91,8 +93,10 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (pid == 0)
 	{
-		////se path comeca com ./, isso é o path
-		path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
+		if (path_exec(node))
+			path = node->cmd;
+		else
+			path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
 			perror("msh: execve: "); // check pre-error message
 	}
@@ -105,4 +109,11 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 			status = 128 + WTERMSIG(status);
 	}
 	return (exit_value(msh, status, 1, 0));
+}
+
+bool	path_exec(t_tree_nd *node)
+{
+	if (node->cmd && ft_strchr(node->cmd, '/'))
+		return (true);
+	return (false);
 }
