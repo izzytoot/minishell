@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/06 18:40:50 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:52:28 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	update_cd_env(t_msh **msh, char *old_pwd)
 	char	cwd[PATH_MAX];
 	char	*pwd;
 
-	if (update_var(&(*msh)->envp_list, "OLDPWD", old_pwd) != EXIT_SUCCESS)
+	if (update_cd_var(&(*msh)->envp_list, "OLDPWD", old_pwd) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
@@ -88,11 +88,39 @@ int	update_cd_env(t_msh **msh, char *old_pwd)
 	pwd = ft_strjoin(cwd, "\n");
 	if (!pwd)
 		return (EXIT_FAILURE);
-	if (update_var(&(*msh)->envp_list, "PWD", pwd) != EXIT_SUCCESS)
+	if (update_cd_var(&(*msh)->envp_list, "PWD", pwd) != EXIT_SUCCESS)
 	{
 		free(pwd);
 		return (EXIT_FAILURE);
 	}
 	free(pwd);
+	return (EXIT_SUCCESS);
+}
+
+int	update_cd_var(t_list **env_list, const char *var_name, const char *data)
+{
+	t_list	*current;
+	size_t	var_name_len;
+	char	*new_entry;
+	char	*joined_value;
+
+	var_name_len = ft_strlen(var_name);
+	current = *env_list;
+	while (current)
+	{
+		if (ft_strncmp(current->content, var_name, var_name_len) == 0
+			&& ((char *)(current->content))[var_name_len] == '=')
+		{
+			free(current->content);
+			joined_value = ft_strjoin(var_name, "=");
+			new_entry = ft_strjoin(joined_value, data);
+			free(joined_value);
+			if (!new_entry)
+				return (EXIT_FAILURE);
+			current->content = new_entry;
+			return (EXIT_SUCCESS);
+		}
+		current = current->next;
+	}
 	return (EXIT_SUCCESS);
 }

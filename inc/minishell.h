@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/07 20:34:01 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/07 22:53:06 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,6 +350,7 @@ int				ft_pwd(void);
 int				ft_cd(t_msh **msh, t_tree_nd **node);
 int				get_dir(t_tree_nd **node, char **target_dir);
 int				update_cd_env(t_msh **msh, char *old_pwd);
+int				update_cd_var(t_list **env_list, const char *var_name, const char *data);
 
 //52_env.c
 int				print_env(t_msh **msh, t_tree_nd **node);
