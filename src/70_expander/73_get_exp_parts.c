@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   73_get_exp_parts.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 11:44:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:48:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	*get_key_word(char *arg, int *i)
 	key_word = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = tmp_i;
-	while(!ft_strchr(WHITESPACE,arg[(*i)++]) 
-		&& !ft_strchr(SYM_EXP, arg[*i]))
+	while(!ft_strchr(WHITESPACE,arg[(*i)++]) && !ft_strchr(SYM_EXP, arg[*i])
+		&& !ft_strchr(QUOTE, arg[*i]))
 	{
 		if(arg[*i] == '$')
 			break;

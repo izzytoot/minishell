@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   75_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 11:44:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:04:15 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,11 @@ int	get_kw_len(char *arg, int **i, int tmp_i, bool *flag)
 		len++;
 	}
 	return (len);
+}
+
+bool	check_mid(char c)
+{
+	if ((ft_strchr(SYM_EXP, c) || c != '$') && !ft_strchr(QUOTE, c))
+		return (true);
+	return (false);
 }

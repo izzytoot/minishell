@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/06 18:40:04 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:23:56 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,12 @@ typedef struct s_ints
 	int		j;
 } t_ints;
 
+typedef struct s_hd_lines
+{
+	char 	*new_l;
+	char	**exp_newl;
+} t_hd_lines;
+
 typedef struct s_msh
 {
 	bool		active;
@@ -305,7 +311,7 @@ t_tree_nd		*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content);
 void			add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token);
 void			app_qt(t_tree_nd *new_nd, t_tk_lst *token);
 
-//41_build_pipe_nodes.c
+//41_build_pipe__nodes.c
 t_tree_nd		*build_pipe_nd(t_tk_lst **tokens);
 
 //42_build_redir_nodes.c
@@ -313,7 +319,6 @@ t_tree_nd		*build_redir_nd(t_tk_lst **token_list);
 t_tree_nd		*handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk,
 					bool *cmd_exc);
 t_tree_nd		*attach_redir(t_tree_nd *redir_nd, t_tree_nd *new_redir);
-bool			check_cmd(t_tk_lst **token_list, bool cmd_exc);
 t_tree_nd		*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd, bool cmd_exc);
 
 //43_build_cmd_nodes.c
@@ -321,14 +326,19 @@ t_tree_nd		*build_cmd_nd(t_tk_lst **token_list);
 void			handle_cmd(t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 					t_list **args);
 char			**join_cmd_and_args(char *cmd, char **args);
-t_list			*reverse_args(t_list **head);
 
-//44_tree_utils.c
-t_tk_lst		*safe_next_tk(t_tk_lst *curr_tk);
+//44_type_is_utils.c
 bool			type_is_redir(t_tk_type *type);
 bool			type_is_word(t_tk_type *type);
 bool			type_is_cmd(t_tk_type *type);
 bool			type_is_arg(t_tk_type *type);
+
+//45_tree_utils.c
+t_tk_lst		*safe_next_tk(t_tk_lst *curr_tk);
+void			add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk);
+bool			check_cmd(t_tk_lst **token_list, bool cmd_exc);
+bool 			search_cmd(t_tk_lst *curr_tk);
+t_list			*reverse_args(t_list **head);
 
 /************ 50_built_ins ************/
 //50_pwd.c
@@ -387,8 +397,11 @@ int				create_file_fd(t_tk_type type, char *file_name);
 
 //63_exec_heredoc.c
 void			exec_heredocs(t_msh **msh, t_tree_nd *node);
-void			handle_hd(t_tree_nd *node, int hd_fd);
+void			handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd);
 char			*check_eof(t_tree_nd *node, char *file_name);
+void			expand_line(t_msh **msh, t_hd_lines *lines,
+					t_tree_nd *curr_nd, int hd_fd);
+char			*expand_word(t_msh **msh, char *word);
 
 //64_exec_cmd.c
 int				exec_cmd(t_msh **msh, t_tree_nd *node);
@@ -448,6 +461,7 @@ char			*get_new_tmp(char *tmp, char *f_c);
 //75_expand_utils.c
 void			recurs_exp_tree(t_msh **msh, t_tree_nd *node);
 int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
+bool			check_mid(char c);
 
 /************ 80_close_and_free ************/
 //80_free_msh.c

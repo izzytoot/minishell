@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   71_expand_token.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/06 17:53:01 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:04:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ char	**build_kw_array(char *arg, int *i)
 	if (count)
 		kw = ft_calloc((count + 1), sizeof(char *));
 	while(arg[*i] && !ft_strchr(WHITESPACE, arg[*i])
-		&& !ft_strchr(SYM_EXP, arg[*i]))
+		&& !ft_strchr(SYM_EXP, arg[*i]) && !ft_strchr(QUOTE, arg[*i]))
 	{
 		if (arg[*i] == '$' && !arg[*i + 1])
 			kw[k] = kw_array_util(arg, &k, &i, 1);
 		if (arg[*i] == '$' && arg[*i + 1])
 			kw[k] = kw_array_util(arg, &k, &i, 2);
-		if (arg[*i] && (ft_strchr(SYM_EXP, arg[*i]) || (arg[*i] != '$')))
+		if (arg[*i] && check_mid(arg[*i])) 
 			kw[++k] = kw_array_util(arg, &k, &i, 3);
 		if (arg[*i])
 			k++;

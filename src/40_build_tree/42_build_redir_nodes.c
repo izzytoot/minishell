@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42_build_redir_nodes.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 14:28:36 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:31:11 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,7 @@ t_tree_nd *handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk, bool *cmd_exc)
 		return (redir_nd);
 
 	new_redir = new_tree_nd(NULL, &(*curr_tk)->type, &(*curr_tk)->content[0]);
-	if (new_redir->type == REDIR_HD && (*curr_tk)->prev && (*curr_tk)->prev->type == W_SPACE)
-		new_redir->eof_ch = true;
-	if ((*curr_tk)->prev && (*curr_tk)->prev->type == W_SPACE)
-		new_redir->file = ft_strdup((*curr_tk)->prev->prev->content);
-	else if ((*curr_tk)->prev)
-		new_redir->file = ft_strdup((*curr_tk)->prev->content);
-	else
-		new_redir->file = NULL;
+	add_fname(new_redir, (*curr_tk));
 	new_redir->type = (*curr_tk)->type;
 	if ((*curr_tk)->type == REDIR_IN || (*curr_tk)->type == REDIR_HD)
 		new_redir->fd = STDIN_FILENO;
@@ -87,14 +80,8 @@ bool check_cmd(t_tk_lst **token_list, bool cmd_exc)
 		{
 			if (curr_tk->next)
 			{
-				while(curr_tk && (!type_is_redir(&curr_tk->type) || !(curr_tk->type == FILE_NAME)))
-				{
-					if(type_is_word(&curr_tk->type))
-						return (true);
-					curr_tk = safe_next_tk(curr_tk);
-				}
-				if (curr_tk)
-					curr_tk = safe_next_tk(curr_tk);
+				if (search_cmd(curr_tk))
+					return (true);
 			}
 			else
 				return (false);
@@ -105,22 +92,15 @@ bool check_cmd(t_tk_lst **token_list, bool cmd_exc)
 	return (true);
 }
 
-t_tree_nd	*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd, bool cmd_exc)
+bool search_cmd(t_tk_lst *curr_tk)
 {
-	t_tree_nd *leftmost;
-	t_tree_nd *final_redir;
-
-	final_redir = redir_nd;
-	leftmost = NULL;
-	if (cmd_nd && !cmd_exc)
+	while(curr_tk && (!type_is_redir(&curr_tk->type) || !(curr_tk->type == FILE_NAME)))
 	{
-		leftmost = final_redir;
-		while(leftmost->left)
-			leftmost = leftmost->left;
-		leftmost->left = cmd_nd;
+		if(type_is_word(&curr_tk->type))
+			return (true);
+		curr_tk = safe_next_tk(curr_tk);
 	}
-	else if (cmd_nd && cmd_exc)
-		final_redir->right = cmd_nd;
-	return(final_redir);
+	if (curr_tk)
+		curr_tk = safe_next_tk(curr_tk);
+	return (false);
 }
-

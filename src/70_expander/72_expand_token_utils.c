@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   72_expand_token_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:18:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/02 11:43:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:41:49 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	count_exp(char *arg, int i)
 		if (arg[i] == '$')
 			count++;
 		i++;
-	}
+	}	
 	return (count);
 }
 

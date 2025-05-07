@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/05 15:10:24 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/07 11:19:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,6 @@ void	handle_cmd(t_tree_nd *cmd_nd, t_tk_lst **curr_tk, t_list **args)
 			cmd_nd->type = (*curr_tk)->type;
 		*curr_tk = (*curr_tk)->next;
 	}
-}
-
-
-t_list *reverse_args(t_list **head)
-{
-	t_list	*prev;
-	t_list	*curr;
-	t_list	*next;
-
-	prev = NULL;
-	curr = *head;
-	next = NULL;
-	
-	if (!head || !*head)
-		return (NULL);
-	while (curr)
-	{
-		next = curr->next;
-		curr->next = prev;
-		prev = curr;
-		curr = next;
-	}
-	*head = prev;
-	return(*head);
 }
 
 char **join_cmd_and_args(char *cmd, char **args)
