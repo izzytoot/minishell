@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   37_token_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 16:33:52 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:16:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void check_rep_cmd(t_msh **msh)
 		curr = curr->next;
 	while(curr)
 	{
-		if (type_is_cmd(&curr->type) && curr->type != SH_V)
+		if (type_is_cmd(&curr->type))
 		{
 			if (cmd_ch)
 				curr->type = ARG;

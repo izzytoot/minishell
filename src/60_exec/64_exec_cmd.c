@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 18:46:18 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:57:41 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		node->cmd_content = join_cmd_and_args(node->cmd, node->args);
 		status = exec_env_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
-	} 
-	else if (node->type == SH_V)
-	{
-		status = exec_sh_v(&(*msh), node);
-		return (exit_value(msh, status, 1, 0));
 	}
 	else
 	{
@@ -43,18 +38,23 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 int	exec_sh_v(t_msh **msh, t_tree_nd *node)
 {
 	int		status;
+	int		i;
 	char	**split;
 
 	status = 0;
-	while (node && node->type == SH_V)
+	i = 0;
+	while (node->args[i])
 	{
-		split = ft_split(node->cmd, '=');
-		if (!split || !split[0])
-			return(ft_free_arrays((void *)split), EXIT_FAILURE);
-		if (update_var(&(*msh)->vars_list, split[0], split[1]) != EXIT_SUCCESS)
-			return(ft_free_arrays((void *)split), EXIT_FAILURE);
-		ft_free_arrays((void *)split);
-		node = node->right; //check if right or left
+		if (check_shell_var(node->args[i]))
+		{
+			split = ft_split(node->args[i], '=');
+			if (!split || !split[0])
+				return(ft_free_arrays((void *)split), EXIT_FAILURE);
+			if (update_var(&(*msh)->vars_list, split[0], split[1]) != EXIT_SUCCESS)
+				return(ft_free_arrays((void *)split), EXIT_FAILURE);
+			ft_free_arrays((void *)split);
+			i++;
+		}
 	}
 	return (exit_value(msh, status, 1, 0));
 }
