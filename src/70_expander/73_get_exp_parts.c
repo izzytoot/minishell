@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 15:48:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/07 16:44:31 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ char	*get_post_cont(char *arg, int *i)
 	
 	len = 0;
 	tmp_i = *i;
+	if(!arg[*i])
+		return (NULL);
 	while(arg[++(*i)])
 		len++;
 	if (len == 0)
