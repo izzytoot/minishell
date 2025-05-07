@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 16:44:31 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/07 19:25:41 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_key_word(char *arg, int *i)
 	while(!ft_strchr(WHITESPACE,arg[(*i)++]) && !ft_strchr(SYM_EXP, arg[*i])
 		&& !ft_strchr(QUOTE, arg[*i]))
 	{
-		if(arg[*i] == '$')
+		if(arg[*i] == '$' || ft_strchr(WHITESPACE,arg[(*i)]))
 			break;
 		key_word[len] = arg[*i];
 		len++;
@@ -83,6 +83,34 @@ char	*get_mid_cont(char *arg, int *i)
 	*i = tmp_i;
 	while (!ft_strchr("$",arg[*i]) 
 		&& !ft_strchr(WHITESPACE,arg[*i]))
+	{
+		mid_content[len] = arg[*i];
+		len++;
+		(*i)++;
+	}
+	mid_content[len] = '\0';
+	return(mid_content);
+}
+
+char	*get_mid_cont_w_sp(char *arg, int *i)
+{
+	char	*mid_content;
+	int		len;
+	int		tmp_i;
+	
+	len = 0;
+	tmp_i = *i;
+	while (arg[*i] != '$')
+	{
+		len++;
+		(*i)++;
+	}
+	if (!len)
+		return (NULL);
+	mid_content = ft_calloc((len), sizeof(char));
+	len = 0;
+	*i = tmp_i;
+	while (!ft_strchr("$",arg[*i]))
 	{
 		mid_content[len] = arg[*i];
 		len++;

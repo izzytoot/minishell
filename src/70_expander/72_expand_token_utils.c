@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:18:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/07 15:41:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/07 20:34:16 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	count_exp(char *arg, int i)
 	int	count;
 	
 	count = 0;
-	while(arg[i] && !ft_strchr(WHITESPACE, arg[i]))
+	while(arg[i])
 	{
 		if (arg[i] == '$')
 			count++;
@@ -37,6 +37,11 @@ char	*kw_array_util(char *arg, int *k, int **i, int n)
 	}
 	if (n == 2)
 		return (get_key_word(arg, *i));
+	if (n == 4)
+	{
+		(void)*k;
+		return (get_mid_cont_w_sp(arg, *i));
+	}
 	else
 	{
 		(void)*k;
@@ -44,7 +49,7 @@ char	*kw_array_util(char *arg, int *k, int **i, int n)
 	}
 }
 
-int	count_kw(char **kw, bool *flag)
+int	count_kw(char **kw)
 {
 	int	k;
 	int	count;
@@ -53,8 +58,6 @@ int	count_kw(char **kw, bool *flag)
 	count = 0;
 	while(kw[k])
 	{
-		if (kw[k][0] == '$' && !kw[k][1])
-			*flag = true;
 		count++;
 		k++;
 	}
