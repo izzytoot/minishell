@@ -6,7 +6,7 @@
 #    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/07 11:20:05 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/07 19:53:57 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./70_expander/75_expand_utils.c\
 							./80_close_and_free/80_free_msh.c\
 							./80_close_and_free/81_close_msh.c\
+							./80_close_and_free/82_other_frees.c\
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
 

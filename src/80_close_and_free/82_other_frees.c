@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   82_other_frees.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 16:46:19 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 19:33:17 by isabel           ###   ########.fr       */
+/*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
+/*   Updated: 2025/05/07 19:57:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../../inc/minishell.h"
 
-char	*ft_strdup(const char *s)
+char	**free_kw_error(char **kw)
 {
-	int		len;
-	int		i;
-	char	*dest;
-
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
-	dest = malloc(sizeof(char) * (len + 1));
-	if (!dest)
-		return (NULL);
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i])
-	{
-		dest[i] = s[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	ft_dprintf(STDERR_FILENO, ERR_KW);
+	ft_free_arrays((void **)kw);
+	return (NULL);
 }

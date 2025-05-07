@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/07 16:23:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/07 20:34:01 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
 # define ERR_CD_ARGS "msh: cd: too many arguments\n"
 # define ERR_UNKRED "unknown redirection type\n"
+# define ERR_KW "msh: too many keywords for expander\n"
 
 //constants
 # define WHITESPACE " \t\n\r\v\f"
@@ -86,6 +87,7 @@
 # define SYM_EXP ".,-+:/@^&*!~=#?[]{}%"
 # define REDIR "<>"
 # define QUOTE "\"\'"
+# define MAX_KW 128
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
@@ -434,14 +436,15 @@ void			expander(t_msh **msh, t_tree_nd **node, char **arg);
 
 //71_expand_token.c
 void			expand_tk(t_msh **msh, char **arg, char **fname);
-char			**build_kw_array(char *arg, int *i);
+char			**build_kw_array(char *arg, int *i); //> 25 LINES
 char			*build_new_arg(t_msh **msh, char **kw);
+void			check_kw_flag(char *kw, bool *flag);
 int				expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag);
 
 //72_expand_token_utils.c
 int				count_exp(char *arg, int i);
 char			*kw_array_util(char *arg, int *k, int **i, int n);
-int				count_kw(char **kw, bool *flag);
+int				count_kw(char **kw);
 void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 void			subst_fname(char **fname, char *pre_c, char *new_c, char *post_c);
 
@@ -449,6 +452,7 @@ void			subst_fname(char **fname, char *pre_c, char *new_c, char *post_c);
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);
 char			*get_mid_cont(char *arg, int *i);
+char			*get_mid_cont_w_sp(char *arg, int *i);
 char			*get_post_cont(char *arg, int *i);
 
 //74_final_expander.c
@@ -473,6 +477,9 @@ void			free_tree(t_tree_nd *node);
 //81_close_msh.c
 void			close_minishell(t_msh	*msh, int exit_code);
 void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array);
+
+//82_other_frees.c
+char 			**free_kw_error(char **kw);
 
 /************ others ************/
 //11_debug_utils.c
