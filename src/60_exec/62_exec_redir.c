@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   62_exec_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 15:41:31 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:24:16 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ int	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	i = collect_redirs_and_cmd(msh, &curr_node, redir_nodes, &redir_data);
 	while(--i >= 0)
+	{
 		status = exec_redir(msh, redir_nodes[i]); //exec redir from left to right
+		if (status != 0) // If redirection fails, stop execution
+			return (exit_value(msh, status, 1, 0));
+	}
 	if (redir_data.cmd_nd)
 		status = exec_tree(msh, redir_data.cmd_nd); //exec cmd on the correct fd if cmd on the right
 	if (redir_data.orig_stdin != -1)
@@ -70,7 +74,7 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 	file_fd = -1;
 	if (node->type != REDIR_HD)
 		file_fd = create_file_fd(node->type, node->file);
-	if (node->type == REDIR_HD)
+	else
 		file_fd = open(node->tmp_file, O_RDONLY);
 	if (file_fd < 0)
 		return (exit_value(msh, 1, 1, 0));
