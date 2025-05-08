@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 16:04:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/08 11:22:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_kw_len(char *arg, int **i, int tmp_i, bool *flag)
 	int	len;
 
 	len = 0;
-	while(!ft_strchr(WHITESPACE, arg[(**i)++]))
+	while(!ft_strchr(WS, arg[(**i)++]))
 	{
 		if (arg[tmp_i + 1] == '?')
 		{
@@ -42,7 +42,7 @@ int	get_kw_len(char *arg, int **i, int tmp_i, bool *flag)
 
 bool	check_mid(char c)
 {
-	if ((ft_strchr(SYM_EXP, c) || c != '$') && !ft_strchr(QUOTE, c))
+	if ((ft_strchr(SYM_EXP, c) || c != '$') && !ft_strchr(QT, c))
 		return (true);
 	return (false);
 }

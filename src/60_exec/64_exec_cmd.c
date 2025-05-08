@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 23:52:20 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:24:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,14 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		status = exec_env_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
 	}
+	else if (exec_sh_v(&(*msh), node) == 0)
+		return (exit_value(msh, 0, 1, 0));
 	else
 	{
-		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+		if (node->args[0][0] == '.' && node->args[0][1] == '/')
+	 		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_DIRNOTFOUND);
+		else
+			ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
 		return (exit_value(msh, 127, 1, 0));
 	}
 }
@@ -56,6 +61,8 @@ int	exec_sh_v(t_msh **msh, t_tree_nd *node)
 		}
 		i++;
 	}
+	if(!(*msh)->vars_list)
+		return (-1);
 	return (exit_value(msh, status, 1, 0));
 }
 

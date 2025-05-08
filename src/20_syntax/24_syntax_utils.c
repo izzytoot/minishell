@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 11:42:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/08 11:22:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ bool	look_for_pipe(const char *line, int i)
 	i++;
 	if (!line[i])
 		return (false);
-	while (line[i] && (ft_strchr(WHITESPACE, line[i])
-			|| ft_strchr(QUOTE, line[i])))
+	while (line[i] && (ft_strchr(WS, line[i])
+			|| ft_strchr(QT, line[i])))
 		i++;
 	if (line[i] == '|')
 	{
@@ -32,7 +32,7 @@ bool	check_in_quotes(char c, bool *in_quotes)
 {
 	static char	quote_char;
 
-	if (!(*in_quotes) && ft_strchr(QUOTE, c))
+	if (!(*in_quotes) && ft_strchr(QT, c))
 	{
 		*in_quotes = true;
 		quote_char = c;
@@ -61,7 +61,7 @@ int	check_if_hd(const char *line)
 		{
 			hd_start = i;
 			i = i + 2;
-			while (line[i] && ft_strchr(WHITESPACE, line[i]))
+			while (line[i] && ft_strchr(WS, line[i]))
 				i++;
 			if (line[i] == '-')
 				i++;
@@ -83,16 +83,16 @@ char	*get_eof(const char *line, int hd_index)
 	hd_index += 2;
 	i = 0;
 	size = 0;
-	while (line[hd_index] && ft_strchr(WHITESPACE, line[hd_index]))
+	while (line[hd_index] && ft_strchr(WS, line[hd_index]))
 		hd_index++;
-	if (!ft_strchr(WHITESPACE, line[hd_index - 1])
+	if (!ft_strchr(WS, line[hd_index - 1])
 		&& ((line[hd_index] == '-' || line[hd_index] == '!')))
 		hd_index++;
 	eof_s = hd_index;
-	while (!ft_strchr(WHITESPACE, line[++hd_index]))
+	while (!ft_strchr(WS, line[++hd_index]))
 		size++;
 	eof = ft_calloc((size + 1), sizeof(char));
-	while (!ft_strchr(WHITESPACE, line[eof_s]))
+	while (!ft_strchr(WS, line[eof_s]))
 	{
 		eof[i] = line[eof_s];
 		eof_s++;

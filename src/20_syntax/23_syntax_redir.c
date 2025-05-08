@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   23_syntax_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 15:02:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:21:21 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	conseq_operators_redir(const char *line)
 			if (line[i] == line[i + 1])
 				i++;
 			i++;
-			while (line[i] && (ft_strchr(WHITESPACE, line[i])))
+			while (line[i] && (ft_strchr(WS, line[i])))
 				i++;
 			if (line[i] == '<' || line[i] == '>')
 			{
@@ -66,7 +66,7 @@ bool	misplaced_redir_at_end(const char *line)
 	len = ft_strlen(line);
 	i = len - 1;
 	in_quotes = false;
-	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
+	while (line[i] && (ft_strchr(WS, line[i])))
 		i--;
 	check_in_quotes(line[i], &in_quotes);
 	if (in_quotes)

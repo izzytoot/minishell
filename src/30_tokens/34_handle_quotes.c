@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   34_handle_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:53:10 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 12:49:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:22:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	sort_out_quotes(int *i, const char *line, t_quote *quotes)
 {
-	if ((!quotes->in_squotes && !quotes->in_dquotes) && ft_strchr(QUOTE, line[*i]))
+	if ((!quotes->in_squotes && !quotes->in_dquotes) && ft_strchr(QT, line[*i]))
 		{
 			check_squote(&quotes->in_squotes, line[*i]);
 			check_dquote(&quotes->in_dquotes, line[*i]);
@@ -36,7 +36,7 @@ void	check_squote(bool *in_squotes, char c)
 {
 	static char	quote_char;
 
-	if (!(*in_squotes) && ft_strchr(QUOTE, c))
+	if (!(*in_squotes) && ft_strchr(QT, c))
 	{
 		if (c == 39)
 			*in_squotes = true;
@@ -53,7 +53,7 @@ void	check_dquote(bool *in_dquotes, char c)
 {
 	static char	quote_char;
 
-	if (!(*in_dquotes) && ft_strchr(QUOTE, c))
+	if (!(*in_dquotes) && ft_strchr(QT, c))
 	{
 		if (c == '"')
 			*in_dquotes = true;

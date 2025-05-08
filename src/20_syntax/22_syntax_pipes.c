@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   22_syntax_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:07:29 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/21 14:18:19 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:21:21 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	misplaced_pipe(const char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
+	while (line[i] && (ft_strchr(WS, line[i])))
 		i++;
 	if (pipe_at_beginning(line))
 		return (true);
@@ -33,7 +33,7 @@ bool	pipe_at_beginning(const char *line)
 
 	i = 0;
 	in_quotes = false;
-	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
+	while (line[i] && (ft_strchr(WS, line[i])))
 		i++;
 	check_in_quotes(line[i], &in_quotes);
 	if (in_quotes)
@@ -55,7 +55,7 @@ bool	pipe_at_end(const char *line)
 	len = ft_strlen(line);
 	i = len - 1;
 	in_quotes = false;
-	while (line[i] && (ft_strchr(WHITESPACE, line[i])))
+	while (line[i] && (ft_strchr(WS, line[i])))
 		i--;
 	check_in_quotes(line[i], &in_quotes);
 	if (in_quotes)

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/04 21:31:31 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/08 11:22:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int tk_space(t_msh **msh, int start)
 	line = (*msh)->prompt_line;
 	i = start;
 	j = 0;
-    while (line[i] && ft_strchr(WHITESPACE, line[i]))
+    while (line[i] && ft_strchr(WS, line[i]))
 	{
 		word[j++] = line[i];
 		i++;
@@ -48,7 +48,7 @@ int	tk_word(t_msh **msh, int start)
 	i = start;
 	j = 0;
     while (line[i] && (!ft_strchr(OPERATOR, line[i])
-		&& !ft_strchr(WHITESPACE, line[i]) && !ft_strchr(QUOTE, line[i])))
+		&& !ft_strchr(WS, line[i]) && !ft_strchr(QT, line[i])))
 	{
 		word[j++] = line[i];
 		i++;

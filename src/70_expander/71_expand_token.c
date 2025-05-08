@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/07 20:35:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/08 11:27:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,53 +39,6 @@ void	expand_tk(t_msh **msh, char **arg, char **fname)
 		new_arg = build_new_arg(msh, kw);
 		subst_fname(fname, pre_c, new_arg, post_c);
 	}
-}
-
-char	**build_kw_array(char *arg, int *i) //CORRECT LINES
-{
-	char	**kw;
-	int		count;
-	int		k;
-	int		tmp;
-	
-	tmp = *i;
-	count = count_exp(arg, tmp);
-	k = 0;
-	kw = ft_calloc(MAX_KW, sizeof(char *));
-	while(arg[*i] && !ft_strchr(WHITESPACE, arg[*i])
-		&& !ft_strchr(SYM_EXP, arg[*i]) && !ft_strchr(QUOTE, arg[*i]))
-	{
-		if (arg[*i] == '$' && !arg[*i + 1])
-		{
-			if (k >= MAX_KW - 1)
-				return (free_kw_error(kw));
-			kw[k] = kw_array_util(arg, &k, &i, 1);
-			k++;
-		}
-		while(count > 0)
-		{
-			if (k >= MAX_KW - 1)
-				return (free_kw_error(kw));
-			if (arg[*i] == '$' && arg[*i + 1])
-			{
-				kw[k] = kw_array_util(arg, &k, &i, 2);
-				k++;
-			}
-			if (arg[*i] && check_mid(arg[*i]))
-			{
-				if (count - 1 == 0)
-					kw[k] = kw_array_util(arg, &k, &i, 3);
-				else
-					kw[k] = kw_array_util(arg, &k, &i, 4);
-				k++;	
-			}
-			count--;
-		}
-		if (arg[*i])
-			k++;
-	}
-	kw[k] = NULL;
-	return (kw);
 }
 
 char	*build_new_arg(t_msh **msh, char **kw)
@@ -138,7 +91,7 @@ int	expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag)
 		*flag = true;
 		return (2);
 	}
-	else if(ft_strchr(SYM_EXP, kw[0]) || ft_strchr(WHITESPACE, kw[0]))
+	else if(ft_strchr(SYM_EXP, kw[0]) || ft_strchr(WS, kw[0]))
 	{
 		*new_cont = ft_strdup(kw);
 		return (4);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/08 00:10:42 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:15:29 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		status = exec_pipe(msh, node);
 	else if (type_is_redir(&node->type))
 		status = exec_redir_before_cmd(msh, node);
-	else if (type_is_word(&node->type)) //changed from type_is_word
+	else if (type_is_word(&node->type))
 		status = exec_cmd(msh, node);
-	else if (type_is_arg(&node->type))
-		status = exec_sh_v(&(*msh), node);
 	return (exit_value(msh, status, 1, 0));
 }
 
@@ -73,31 +71,3 @@ char	**remake_args(t_tree_nd *node)
 //	free(quote_tmp); //check free
 	return(new_args);
 }
-/*
-char	*remake_fname(t_tree_nd *node)
-{
-	t_ints		ints;
-	t_flag_str	flags;
-	t_quote		*quote_tmp;
-	char		**new_args;
-
-	init_aux_stucts(&flags, &ints, node);
-	quote_tmp = node->quote_lst;
-	new_args = ft_calloc((node->nb_arg + 1), sizeof(char *));
-	while(ints.i < node->nb_arg)
-	{
-		if (!node->quote_lst->space_case && !flags.written)
-			compose_arg(&ints, &flags, new_args, node);
-		else if (node->quote_lst->space_case && !flags.space_prev)
-			add_last(&ints, &flags, new_args, node);
-		else
-			lonely_arg(&ints, &flags, new_args, &node);
-		if (flags.written)
-			handle_written(&ints, &flags, &node);
-	}
-	new_args[ints.j] = NULL;
-	node->quote_lst = quote_tmp;
-//	free(quote_tmp); //check free
-	return(new_args);
-}
-*/

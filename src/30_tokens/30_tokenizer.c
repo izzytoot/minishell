@@ -3,36 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 16:37:54 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:55:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	empty_case(t_msh **msh);
 
 void	get_tokens(t_msh **msh, int i)
 {
 	const char		*line;
 	t_quote			quotes;
 	
-	quotes.in_squotes = false;
-	quotes.in_dquotes = false;
-	quotes.quote_char = '\0';
+	init_qt_struct(&quotes);
 	line = (*msh)->prompt_line;
 	i = -1;
 	while(line[++i])
 	{
 		quotes.space_case = false;
 		sort_out_quotes(&i, line, &quotes);
-		if ((!quotes.in_squotes || !quotes.in_dquotes) && ft_strchr(QUOTE, line [i]))
+		if ((!quotes.in_squotes || !quotes.in_dquotes) && ft_strchr(QT, line [i]))
 			i++;
-		if (!ft_strchr(QUOTE, line[i]) && (extra_check(&(*msh), &i, line[i], &quotes)))
+		if (!ft_strchr(QT, line[i]) && (extra_check(&(*msh), &i, line[i], &quotes)))
 				;
-		else if (ft_strchr(QUOTE, line[i]))
+		else if (ft_strchr(QT, line[i]))
 			i--;
 		else
 			break ;
@@ -52,6 +48,13 @@ void	get_tokens(t_msh **msh, int i)
 	return ;
 }
 
+void	init_qt_struct(t_quote *quotes)
+{
+	quotes->in_squotes = false;
+	quotes->in_dquotes = false;
+	quotes->quote_char = '\0';
+}
+
 void	empty_case(t_msh **msh)
 {
 	t_tk_lst	*empty_tk;
@@ -66,7 +69,7 @@ void	empty_case(t_msh **msh)
 
 bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 {	
-	if (ft_strchr(WHITESPACE, c) && !quotes->in_quotes)
+	if (ft_strchr(WS, c) && !quotes->in_quotes)
 		*i = tk_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
