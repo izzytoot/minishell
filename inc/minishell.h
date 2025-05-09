@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/09 13:27:33 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 14:53:24 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -479,9 +479,11 @@ bool			check_mid(char c);
 /************ 80_close_and_free ************/
 //80_free_msh.c
 void			free_msh(t_msh *msh);
-void			free_tokens(t_tk_lst *token_list);
 void			free_prompt_line(t_msh **msh);
 void			free_tree(t_tree_nd *node);
+void			ft_free_str_arr(char **array);
+//void			free_tokens(t_tk_lst *token_list);
+//void			free_qt_list(t_quote *qt_list);
 
 //81_close_msh.c
 void			close_minishell(t_msh	*msh, int exit_code);
@@ -495,6 +497,5 @@ char 			**free_kw_error(char **kw);
 void			print_tokens(t_msh **msh);
 void			print_envp_in_struct(t_msh **msh);
 void			print_tree(t_tree_nd *node);
-void	ft_free_str_arr(char **array);
 
 #endif

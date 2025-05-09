@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/09 13:20:21 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 14:52:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,47 +37,12 @@ void	free_prompt_line(t_msh **msh)
 		free_tree((*msh)->tree_root);
 		(*msh)->tree_root = NULL;
 	}
-//	if ((*msh)->token_list)
-//		free_tokens((*msh)->token_list);
+	if ((*msh)->token_list)
+		(*msh)->token_list = safe_free((*msh)->token_list); //instead of calling free_tokens
 	(*msh)->hd_check = true;
 //	safe_dup2(0, STDIN_FILENO, getpid()); //check if needed
 //	safe_dup2(1, STDOUT_FILENO, getpid()); //check if needed
 }
-
-void	free_qt_lst(t_quote *qt_list); //por no .h
-/*
-void	free_tokens(t_tk_lst *token_list)
-{
-	t_tk_lst	*tmp;
-
-	tmp = token_list;
-	while (token_list)
-	{
-		tmp = token_list->next;
-		if (token_list->content)
-			token_list->content = safe_free(token_list->content);
-		token_list = tmp;
-	}
-		token_list = safe_free(token_list);
-}
-	*/
-
-void	free_qt_lst(t_quote *qt_list)
-{
-	t_quote	*tmp;
-
-	tmp = qt_list;
-	while (qt_list)
-	{
-		tmp = qt_list->next;
-		if (qt_list->content)
-			qt_list->content = safe_free(qt_list->content);
-		qt_list = tmp;
-	}
-	qt_list = safe_free(qt_list);
-}
-
-void	ft_free_str_arr(char **array);
 
 void	free_tree(t_tree_nd *node)
 {
@@ -101,7 +66,7 @@ void	free_tree(t_tree_nd *node)
 		node->tmp_file = safe_free(node->tmp_file);
 	}
 	if (node->quote_lst)
-		free_qt_lst(node->quote_lst);
+		node->quote_lst = safe_free(node->quote_lst); //instead of calling free_qt_list
 	node = safe_free(node);
 }
 
@@ -122,3 +87,36 @@ void	ft_free_str_arr(char **array)
 		array = safe_free(array);
 	return ;
 }
+
+/*
+void	free_tokens(t_tk_lst *token_list)
+{
+	t_tk_lst	*tmp;
+
+	tmp = token_list;
+	while (token_list)
+	{
+		tmp = token_list->next;
+		if (token_list->content)
+			token_list->content = safe_free(token_list->content);
+		token_list = tmp;
+	}
+		token_list = safe_free(token_list);
+}
+	
+
+void	free_qt_lst(t_quote *qt_list)
+{
+	t_quote	*tmp;
+
+	tmp = qt_list;
+	while (qt_list)
+	{
+		tmp = qt_list->next;
+		if (qt_list->content)
+			qt_list->content = safe_free(qt_list->content);
+		qt_list = tmp;
+	}
+	qt_list = safe_free(qt_list);
+}
+*/
