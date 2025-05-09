@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/08 10:15:29 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 01:37:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	int	status;
 
 	status = 0;
-	expand_tree(msh, node);
+	expand_args(msh, node);
 	if(node->nb_arg > 1)
 		node->args = remake_args(node);
 	if ((*msh)->debug_mode && node->args) //TO DELETE

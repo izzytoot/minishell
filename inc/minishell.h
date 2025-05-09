@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/08 11:55:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 01:52:23 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,9 +404,6 @@ int				create_file_fd(t_tk_type type, char *file_name);
 void			exec_heredocs(t_msh **msh, t_tree_nd *node);
 void			handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd);
 char			*check_eof(t_tree_nd *node, char *file_name);
-void			expand_line(t_msh **msh, t_hd_lines *lines,
-					t_tree_nd *curr_nd, int hd_fd);
-char			*expand_word(t_msh **msh, char *word);
 
 //64_exec_cmd.c
 int				exec_cmd(t_msh **msh, t_tree_nd *node);
@@ -433,45 +430,53 @@ int				safe_pipe(t_msh **msh, int pipe_fd[2]);
 
 /************ 70_expander ************/
 
-//70_expand_tree.c
-void			expand_tree(t_msh **msh, t_tree_nd *node);
-void			expand_files(t_msh **msh, t_tree_nd *node);
+//70_expand_args.c
+void			expand_args(t_msh **msh, t_tree_nd *node);
 void			expander(t_msh **msh, t_tree_nd **node, char **arg);
+void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
-//71_expand_token.c
+//71_expand_fname.c
+void			expand_files(t_msh **msh, t_tree_nd *node);
+void			subst_fname(char **fname, char *pre_c, char *new_c, char *post_c);
+
+//72_expand_hd.c
+void			expand_line(t_msh **msh, t_hd_lines *lines,
+	t_tree_nd *curr_nd, int hd_fd);
+char			*expand_word(t_msh **msh, char *word);
+
+//73_expand_token.c
 void			expand_tk(t_msh **msh, char **arg, char **fname);
 char			*build_new_arg(t_msh **msh, char **kw);
-void			check_kw_flag(char *kw, bool *flag);
 int				expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag);
+//void			exp_case_2(t_msh **msh, char **kw, int *k, char **new_c, bool flag);
+//void			exp_case_3(t_msh **msh, bool flag, char *kw, char **new_c);
 
-//72_build_kw_array.c
+//74_expand_token_utils.c
+char			*kw_array_util(char *arg, int *k, int **i, int n);
+void			check_kw_flag(char *kw, bool *flag);
+int				count_exp(char *arg, int i);
+int				count_kw(char **kw);
+
+//75_build_kw_array.c
 char			**build_kw_array(char *arg, int *i);
 void			init_kw_vars(int *tmp, int **i, t_ints *ints, char *arg);
 int				dollar_case(char **kw, char *arg, t_ints *ints, int **i);
 int 			build_rest(char **kw, char *arg, t_ints *ints, int **i);
 
-//73_expand_token_utils.c
-int				count_exp(char *arg, int i);
-char			*kw_array_util(char *arg, int *k, int **i, int n);
-int				count_kw(char **kw);
-void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
-void			subst_fname(char **fname, char *pre_c, char *new_c, char *post_c);
-
-//74_get_exp_parts.c
+//76_get_exp_parts.c
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);
 char			*get_mid_cont(char *arg, int *i);
 char			*get_mid_cont_w_sp(char *arg, int *i);
 char			*get_post_cont(char *arg, int *i);
 
-//75_final_expander.c
+//77_final_expander.c
 char 			*get_env_cont(t_list *envp_list,  t_list *vars_list, char *key_word);
 char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);
-char			*get_new_tmp(char *tmp, char *f_c);
 
-//76_expand_utils.c
+//78_expand_utils.c
 void			recurs_exp_tree(t_msh **msh, t_tree_nd *node);
 int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
 bool			check_mid(char c);

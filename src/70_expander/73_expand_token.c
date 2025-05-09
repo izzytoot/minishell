@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   71_expand_token.c                                  :+:      :+:    :+:   */
+/*   73_expand_token.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/08 11:27:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 01:45:15 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,6 @@ char	*build_new_arg(t_msh **msh, char **kw)
 		new_arg = safe_strjoin(new_arg, new_c);
 	}
 	return (new_arg);
-}
-
-void	check_kw_flag(char *kw, bool *flag)
-{
-	if (kw[0] == '$' && !kw[1])
-		*flag = true;
-	else
-		*flag = false;
 }
 
 int	expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag)

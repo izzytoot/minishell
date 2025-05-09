@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   74_get_exp_parts.c                                 :+:      :+:    :+:   */
+/*   76_get_exp_parts.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/08 12:39:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 01:47:28 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,11 @@ char	*get_post_cont(char *arg, int *i)
 	tmp_i = *i;
 	if(!arg[*i])
 		return (NULL);
-	while(arg[(*i)++])
+	while(arg[(*i)])
+	{
 		len++;
+		(*i)++;
+	}
 	if (len == 0)
 		return (NULL);
 	post_content = ft_calloc((len + 1), sizeof(char));
@@ -139,8 +142,7 @@ char	*get_post_cont(char *arg, int *i)
 	*i = tmp_i;
 	while(arg[*i])
 	{
-		post_content[len] = arg[*i];
-		len++;
+		post_content[len++] = arg[*i];
 		(*i)++;
 	}
 	post_content[len] = '\0';

@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   72_expand_token_utils.c                            :+:      :+:    :+:   */
+/*   74_expand_token_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:18:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/07 20:34:16 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 01:45:56 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	count_exp(char *arg, int i)
-{
-	int	count;
-	
-	count = 0;
-	while(arg[i])
-	{
-		if (arg[i] == '$')
-			count++;
-		i++;
-	}	
-	return (count);
-}
 
 char	*kw_array_util(char *arg, int *k, int **i, int n)
 {
@@ -49,6 +35,28 @@ char	*kw_array_util(char *arg, int *k, int **i, int n)
 	}
 }
 
+void	check_kw_flag(char *kw, bool *flag)
+{
+	if (kw[0] == '$' && !kw[1])
+		*flag = true;
+	else
+		*flag = false;
+}
+
+int	count_exp(char *arg, int i)
+{
+	int	count;
+	
+	count = 0;
+	while(arg[i])
+	{
+		if (arg[i] == '$')
+			count++;
+		i++;
+	}	
+	return (count);
+}
+
 int	count_kw(char **kw)
 {
 	int	k;
@@ -62,48 +70,4 @@ int	count_kw(char **kw)
 		k++;
 	}
 	return (count);
-}
-
-void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
-{
-	char	*final_content;
-	
-	if (new_c)
-	{
-		final_content = get_final_cont(new_c, pre_c, post_c);
-		free(*arg);
-		*arg = ft_strdup(final_content);
-	}
-	else if(pre_c || post_c)
-	{	
-		if (pre_c)
-			final_content = ft_strdup(pre_c);
-		if (post_c)
-			final_content = ft_strjoin(final_content, ft_strdup(post_c));
-		free(*arg);
-		*arg = ft_strdup(final_content);
-	}
-	else
-		*arg = NULL;
-}
-
-void	subst_fname(char **fname, char *pre_c, char *new_c, char *post_c)
-{
-	char	*final_content;
-	
-	if (new_c)
-	{
-		final_content = get_final_cont(new_c, pre_c, post_c);
-		*fname = ft_strdup(final_content);
-	}
-	else if(pre_c || post_c)
-	{	
-		if (pre_c)
-			final_content = ft_strdup(pre_c);
-		if (post_c)
-			final_content = ft_strjoin(final_content, ft_strdup(post_c));
-		*fname = ft_strdup(final_content);
-	}
-	else
-		*fname = NULL;
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   70_expand_tree.c                                   :+:      :+:    :+:   */
+/*   70_expand_argsc                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 19:33:28 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 01:46:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	expand_tree(t_msh **msh, t_tree_nd *node)
+void	expand_args(t_msh **msh, t_tree_nd *node)
 {
 	char	**args_cpy;
 	char	*tmp_arg;
@@ -38,28 +38,6 @@ void	expand_tree(t_msh **msh, t_tree_nd *node)
 			node->args = args_cpy;
 	}
 	recurs_exp_tree(msh, node);
-}
-
-void	expand_files(t_msh **msh, t_tree_nd *node)
-{
-	int		i;
-	
-	i = 0;
-	if (!node)
-		return ;
-	if ((type_is_redir(&node->type) && node->file) && node->type != REDIR_HD)
-	{
-		while (node->file[i])
-		{
-			if (node->file[i] == '$')
-				expand_tk(msh, NULL, &node->file);
-			i++;
-		}
-	}
-	if (node->left)
-		expand_files(msh, node->left);
-	if(node->right)
-		expand_files(msh, node->right);
 }
 
 void	expander(t_msh **msh, t_tree_nd **node, char **arg)
@@ -88,4 +66,27 @@ void	expander(t_msh **msh, t_tree_nd **node, char **arg)
 		else
 			return ;
 	}
+}
+
+void	subst_arg(char **arg, char *pre_c, char *new_c, char *post_c)
+{
+	char	*final_content;
+	
+	if (new_c)
+	{
+		final_content = get_final_cont(new_c, pre_c, post_c);
+		free(*arg);
+		*arg = ft_strdup(final_content);
+	}
+	else if(pre_c || post_c)
+	{	
+		if (pre_c)
+			final_content = ft_strdup(pre_c);
+		if (post_c)
+			final_content = ft_strjoin(final_content, ft_strdup(post_c));
+		free(*arg);
+		*arg = ft_strdup(final_content);
+	}
+	else
+		*arg = NULL;
 }
