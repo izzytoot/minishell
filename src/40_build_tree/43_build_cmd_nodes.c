@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/09 13:09:45 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 16:05:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,11 @@ char **join_cmd_and_args(char *cmd, char **args)
 	full_cmd = ft_calloc((arg_count + 2), sizeof(char *));
 	if (!full_cmd)
 		return (NULL);
-	full_cmd[0] = cmd;
-	//full_cmd[0] = ft_strdup(cmd);
+	full_cmd[0] = ft_strdup(cmd);
 	i = 0;
 	while (i < arg_count)
 	{
-		full_cmd[i + 1] = args[i];
-		//full_cmd[i + 1] = ft_strdup(args[i]);
+		full_cmd[i + 1] = ft_strdup(args[i]);
 		i++;
 	}
 	full_cmd[i + 1] = NULL;

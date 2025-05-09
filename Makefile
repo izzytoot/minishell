@@ -6,7 +6,7 @@
 #    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/08 11:28:51 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/09 17:38:12 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,13 +53,15 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./60_exec/64_exec_cmd.c\
 							./60_exec/65_remake_args_utils.c\
 							./60_exec/66_exec_utils.c\
-							./70_expander/70_expand_tree.c\
-							./70_expander/71_expand_token.c\
-							./70_expander/72_build_kw_array.c\
-							./70_expander/73_expand_token_utils.c\
-							./70_expander/74_get_exp_parts.c\
-							./70_expander/75_final_expander.c\
-							./70_expander/76_expand_utils.c\
+							./70_expander/70_expand_args.c\
+							./70_expander/71_expand_fname.c\
+							./70_expander/72_expand_hd.c\
+							./70_expander/73_expand_token.c\
+							./70_expander/74_expand_token_utils.c\
+							./70_expander/75_build_kw_array.c\
+							./70_expander/76_get_exp_parts.c\
+							./70_expander/77_final_expander.c\
+							./70_expander/78_expand_utils.c\
 							./80_close_and_free/80_free_msh.c\
 							./80_close_and_free/81_close_msh.c\
 							./80_close_and_free/82_other_frees.c\

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   75_final_expander.c                                :+:      :+:    :+:   */
+/*   77_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/09 12:55:42 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 00:53:36 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ char	*get_final_cont(char *new_c, char *pre_c, char *post_c)
 	char	*final_content;
 	int		len;
 	char	*tmp;
-	char	*new_tmp;
 	
 	len = ft_strlen(new_c);
 	if (len > 0 && new_c[len - 1] == '\n')
@@ -49,18 +48,15 @@ char	*get_final_cont(char *new_c, char *pre_c, char *post_c)
 	}
 	else
 	{
-		tmp = new_c;
-		//tmp = ft_strdup(new_c);
+		//tmp = new_c;
+		tmp = ft_strdup(new_c);
 		if (pre_c)
 			final_content = ft_strjoin(pre_c, tmp);
 		else
-			final_content = tmp;
-			//final_content = ft_strdup(tmp);
+			//final_content = tmp;
+			final_content = ft_strdup(tmp);
 		if (post_c)
-		{
-			new_tmp = get_new_tmp(tmp, final_content);
-			final_content = ft_strjoin(new_tmp, post_c);
-		}
+			final_content = ft_strjoin(final_content, post_c);
 	}
 	return(final_content);	
 }
@@ -83,18 +79,7 @@ char	*ultimate_joint(char *pre_c, char *tmp)
 	if (pre_c)
 		final_content = ft_strjoin(pre_c, tmp);
 	else
-		final_content = tmp;
-		//final_content = ft_strdup(tmp);
+		//final_content = tmp;
+		final_content = ft_strdup(tmp);
 	return (final_content);
-}
-
-char	*get_new_tmp(char *tmp, char *f_c)
-{
-	char	*new_tmp;
-	
-	free(tmp);
-	new_tmp = ft_calloc((ft_strlen(f_c) + 1), sizeof(char));
-	new_tmp = f_c;
-	//new_tmp = ft_strdup(f_c);
-	return (new_tmp);
 }
