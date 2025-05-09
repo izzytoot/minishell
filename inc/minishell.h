@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/08 11:55:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 13:27:33 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -416,7 +416,7 @@ int				exec_sh_v(t_msh **msh, t_tree_nd *node);
 void			update_shlvl(t_list **env_list);
 
 //65_remake_args_utils.c
-void			init_aux_stucts(t_flag_str *flags, t_ints *ints, t_tree_nd *node);
+void			init_aux_structs(t_flag_str *flags, t_ints *ints, t_tree_nd *node);
 void			compose_arg(t_ints *ints, t_flag_str *flags,
 					char **new_args, t_tree_nd *node);
 void			add_last(t_ints *ints, t_flag_str *flags,
@@ -495,5 +495,6 @@ char 			**free_kw_error(char **kw);
 void			print_tokens(t_msh **msh);
 void			print_envp_in_struct(t_msh **msh);
 void			print_tree(t_tree_nd *node);
+void	ft_free_str_arr(char **array);
 
 #endif

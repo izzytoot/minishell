@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/08 12:39:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 12:54:07 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char	*get_key_word(char *arg, int *i)
 	flag = false;
 	len = get_kw_len(arg, &i, tmp_i, &flag);
 	if (flag)
-		return (ft_strdup("?"));
+		return ("?");
+		//return (ft_strdup("?"));
 	if (!len)
 		return (NULL);
 	key_word = ft_calloc((len + 1), sizeof(char));

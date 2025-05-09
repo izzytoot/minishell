@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/08 11:27:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 12:50:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ char	*build_new_arg(t_msh **msh, char **kw)
 		else if (expand_case(msh, &new_c, kw[k], &flag) == 3 && !flag)
 			new_c = get_env_cont((*msh)->envp_list, (*msh)->vars_list, kw[k]);
 		else if (expand_case(msh, &new_c, kw[k], &flag) == 3 && flag)
-			new_c = ft_strdup(kw[k]);
+			new_c = kw[k];
+//			new_c = ft_strdup(kw[k]);
 		new_arg = safe_strjoin(new_arg, new_c);
 	}
 	return (new_arg);
@@ -82,18 +83,21 @@ int	expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag)
 		return (1);
 	if (ft_strcmp(kw, "0") == 0)
 	{
-		*new_cont = ft_strdup("minishell");
+		*new_cont = "minishell";
+	//	*new_cont = ft_strdup("minishell");
 		return (2);
 	}
 	else if(ft_strcmp(kw, "?") == 0)
 	{
-		*new_cont = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
+		*new_cont = ft_itoa(exit_value(msh, 0, 0, 0));
+	//	*new_cont = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
 		*flag = true;
 		return (2);
 	}
 	else if(ft_strchr(SYM_EXP, kw[0]) || ft_strchr(WS, kw[0]))
 	{
-		*new_cont = ft_strdup(kw);
+		*new_cont = kw;
+//		*new_cont = ft_strdup(kw);
 		return (4);
 	}
 	return (3);

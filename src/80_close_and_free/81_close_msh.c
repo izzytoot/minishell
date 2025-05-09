@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   71_close_msh.c                                     :+:      :+:    :+:   */
+/*   81_close_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/30 15:25:22 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 13:18:07 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	close_minishell(t_msh *msh, int exit_code)
 void	envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array)
 {
 	if (str)
-		free(str);
+		str = safe_free(str);
 	if (list_nd)
-		free(list_nd);
+		list_nd = safe_free(list_nd);
 	if (array)
-		free(array);
+		array = safe_free(array);
 	close_minishell(msh, EXIT_FAILURE);
 }

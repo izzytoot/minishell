@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   74_final_expander.c                                :+:      :+:    :+:   */
+/*   75_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/06 17:49:29 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:55:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ char	*get_final_cont(char *new_c, char *pre_c, char *post_c)
 	}
 	else
 	{
-		tmp = ft_strdup(new_c);
+		tmp = new_c;
+		//tmp = ft_strdup(new_c);
 		if (pre_c)
 			final_content = ft_strjoin(pre_c, tmp);
 		else
-			final_content = ft_strdup(tmp);
+			final_content = tmp;
+			//final_content = ft_strdup(tmp);
 		if (post_c)
 		{
 			new_tmp = get_new_tmp(tmp, final_content);
@@ -81,7 +83,8 @@ char	*ultimate_joint(char *pre_c, char *tmp)
 	if (pre_c)
 		final_content = ft_strjoin(pre_c, tmp);
 	else
-		final_content = ft_strdup(tmp);
+		final_content = tmp;
+		//final_content = ft_strdup(tmp);
 	return (final_content);
 }
 
@@ -91,6 +94,7 @@ char	*get_new_tmp(char *tmp, char *f_c)
 	
 	free(tmp);
 	new_tmp = ft_calloc((ft_strlen(f_c) + 1), sizeof(char));
-	new_tmp = ft_strdup(f_c);
+	new_tmp = f_c;
+	//new_tmp = ft_strdup(f_c);
 	return (new_tmp);
 }

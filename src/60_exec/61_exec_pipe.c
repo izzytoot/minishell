@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   61_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/02 17:24:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:43:33 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 	{
 		perf_left_pipe(msh, fd[0], fd[1], left_pid);
 		status = exec_tree(msh, node->left); //executes left
-		exit (status); // was exit(EXIT_SUCCESS)
+		close_minishell((*msh), status);
 	}
 	right_pid = safe_fork(msh);
 	if (right_pid == 0) //child process (right)
 	{
 		perf_right_pipe(msh, fd[1], fd[0], right_pid);
 		status = exec_tree(msh, node->right);
-		exit (status); // was exit(EXIT_SUCCESS)
+		close_minishell((*msh), status);
 	}
 	close_fd(fd[0], fd[1]);
 	status = safe_waitpid(left_pid, right_pid);
