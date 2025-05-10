@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 02:07:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:30:47 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ char	*build_new_arg(t_msh **msh, char **kw)
 	count = count_kw(kw);
 	while(++k < count)
 	{
-		check_kw_flag(kw[k], &flag);
+		if (k <= 0)
+			check_kw_flag(NULL, kw[k], &flag);
+		else
+			check_kw_flag(kw[k - 1], kw[k], &flag);
 		new_c = NULL;
 		if ((expand_case(msh, &new_c, kw[k], &flag) == 1)
 			|| (expand_case(msh, &new_c, kw[k], &flag) == 4))

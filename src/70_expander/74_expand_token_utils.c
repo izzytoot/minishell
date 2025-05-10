@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:18:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 02:03:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:27:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,15 @@ char	*kw_array_util(char *arg, int *k, int **i, int n)
 	}
 }
 
-void	check_kw_flag(char *kw, bool *flag)
+void	check_kw_flag(char *prev_kw, char *kw, bool *flag)
 {
 	if (kw[0] == '$' && !kw[1])
 		*flag = true;
+	if (prev_kw)
+	{
+		if (ft_strcmp(prev_kw, "?") == 0)
+			*flag = true;
+	}
 	else
 		*flag = false;
 }

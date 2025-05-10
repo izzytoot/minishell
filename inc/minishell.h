@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/10 01:58:02 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:24:10 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -455,7 +455,7 @@ int				expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag);
 
 //74_expand_token_utils.c
 char			*kw_array_util(char *arg, int *k, int **i, int n);
-void			check_kw_flag(char *kw, bool *flag);
+void			check_kw_flag(char *prev_kw, char *kw, bool *flag);
 int				count_exp(char *arg, int i);
 int				count_kw(char **kw);
 
@@ -482,7 +482,7 @@ char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);
 
 //78_expand_utils.c
-void			recurs_exp_tree(t_msh **msh, t_tree_nd *node);
+void			recurs_exp_args(t_msh **msh, t_tree_nd *node);
 int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
 bool			check_mid(char c);
 

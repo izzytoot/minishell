@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/10 02:00:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:10:07 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 			node->quote_lst = tmp_qt;
 			node->args = ft_array_dup(args_cpy);
 	}
-	recurs_exp_tree(msh, node);
+	recurs_exp_args(msh, node);
 }
 
 void	expander(t_msh **msh, t_tree_nd **node, char **arg)
