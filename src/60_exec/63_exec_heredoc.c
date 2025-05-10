@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/10 01:44:50 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 01:59:08 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 		return ;
 	if (node->type == REDIR_HD)
 	{
-		node->tmp_file = ft_strjoin(ft_strdup("/tmp/.heredoc_tmp"),
-			ft_itoa(n++));
+		node->tmp_file = ft_strjoin("/tmp/.heredoc_tmp", ft_itoa(n++));
+//		node->tmp_file = ft_strjoin(ft_strdup("/tmp/.heredoc_tmp"),
+//			ft_itoa(n++));
 		file_fd = create_file_fd(node->type, node->tmp_file);
 		if (file_fd < 0)
 			exit_value(msh, 1, 1, 0);
@@ -73,7 +74,8 @@ char	*check_eof(t_tree_nd *node, char *file_name)
 	if (!node->eof_ch && (file_name[i] == '-' || file_name[i] == '!'))
 		eof = ft_substr(file_name, 1, (ft_strlen(file_name)));
 	else
-		eof = ft_strdup(file_name);
+		eof = file_name;
+//		eof = ft_strdup(file_name);
 	return(eof);
 }
 

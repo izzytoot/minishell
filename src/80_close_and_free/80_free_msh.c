@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   80_free_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 17:03:04 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:41:16 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,13 @@ void	free_msh(t_msh *msh)
 		free_tree(msh->tree_root);
 		msh->tree_root = NULL;
 	}
-	free(msh);
+	msh = safe_free(msh);
 }
 
 void	free_prompt_line(t_msh **msh)
 {
 	if ((*msh)->prompt_line)
-	{
-		free((*msh)->prompt_line);
-		(*msh)->prompt_line = NULL;
-	}
+		(*msh)->prompt_line = safe_free((*msh)->prompt_line);
 	if ((*msh)->tree_root)
 	{
 		free_tree((*msh)->tree_root);
@@ -42,24 +39,10 @@ void	free_prompt_line(t_msh **msh)
 	}
 	if ((*msh)->token_list)
 		free_tokens((*msh)->token_list);
+		//(*msh)->token_list = safe_free((*msh)->token_list); //instead of calling free_tokens
 	(*msh)->hd_check = true;
 //	safe_dup2(0, STDIN_FILENO, getpid()); //check if needed
 //	safe_dup2(1, STDOUT_FILENO, getpid()); //check if needed
-}
-
-void	free_tokens(t_tk_lst *token_list)
-{
-	t_tk_lst	*tmp;
-
-	tmp = token_list;
-	while (token_list)
-	{
-		tmp = token_list->next;
-		if (token_list->content)
-			free(token_list->content);
-		free(token_list);
-		token_list = tmp;
-	}
 }
 
 void	free_tree(t_tree_nd *node)
@@ -71,17 +54,20 @@ void	free_tree(t_tree_nd *node)
 	if (node->right)
 		free_tree(node->right);
 	if (node->file)
-		free(node->file);
+		node->file = safe_free(node->file);
 	if (node->op_content)
-		free(node->op_content);
-	if (node->cmd_content != node->args)
-		ft_free_arrays((void **)node->cmd_content);
+		node->op_content = safe_free(node->op_content);
+	if (node->cmd_content)
+		ft_free_str_arr(node->cmd_content);
 	if (node->args)
-		ft_free_arrays((void **)node->args);
+		ft_free_str_arr(node->args);
 	if(node->tmp_file)
 	{
 		unlink(node->tmp_file);
-		free(node->tmp_file);
+		node->tmp_file = safe_free(node->tmp_file);
 	}
-	free(node);
+	if (node->quote_lst)
+		free_qt_lst(node->quote_lst);	
+		//node->quote_lst = safe_free(node->quote_lst); //instead of calling free_qt_list
+	node = safe_free(node);
 }

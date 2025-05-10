@@ -6,12 +6,11 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:50 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 01:44:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:01:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
 
 void	expand_line(t_msh **msh, t_hd_lines *lines,
 	t_tree_nd *curr_nd, int hd_fd)

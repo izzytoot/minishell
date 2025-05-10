@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/08 10:24:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 16:04:33 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 	}
 	else if (node->type == ENV_CMD)
 	{
-		node->cmd_content = join_cmd_and_args(node->cmd, node->args);
+		node->cmd_content = join_cmd_and_args((node->cmd), node->args);
 		status = exec_env_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
 	}
@@ -104,6 +104,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 			path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
 			perror("msh: execve: "); // check pre-error message
+		close_minishell((*msh), status); //verify status is correct
 	}
 	else
 	{

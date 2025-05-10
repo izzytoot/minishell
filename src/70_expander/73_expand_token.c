@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 01:45:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:07:15 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,28 @@ void	expand_tk(t_msh **msh, char **arg, char **fname)
 	char	*pre_c;
 	char	**kw;
 	char	*post_c;
-	char	*new_arg;
+	char	*new_c;
 	int 	i;
 
-	ft_init_var((void **)&pre_c, (void **)&kw,
-		(void **)&post_c, (void **)&new_arg);
+	ft_init_var((void **)&pre_c, (void **)&kw, (void **)&post_c, (void **)&new_c);
 	i = -1;
 	if (arg)
 	{
 		pre_c = get_pre_cont(*arg, &i);
 		kw = build_kw_array(*arg, &i);
 		post_c = get_post_cont(*arg, &i);
-		new_arg = build_new_arg(msh, kw);
-		subst_arg(arg, pre_c, new_arg, post_c);
+		new_c = build_new_arg(msh, kw);
+		subst_arg(arg, pre_c, new_c, post_c);
 	}
 	else if (fname)
 	{
 		pre_c = get_pre_cont(*fname, &i);
 		kw = build_kw_array(*fname, &i);
 		post_c = get_post_cont(*fname, &i);
-		new_arg = build_new_arg(msh, kw);
-		subst_fname(fname, pre_c, new_arg, post_c);
+		new_c = build_new_arg(msh, kw);
+		subst_fname(fname, pre_c, new_c, post_c);
 	}
+//	ft_free_str_arr(kw);
 }
 
 char	*build_new_arg(t_msh **msh, char **kw)

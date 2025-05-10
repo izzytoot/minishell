@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/10 01:52:23 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 01:58:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,7 +413,7 @@ int				exec_sh_v(t_msh **msh, t_tree_nd *node);
 void			update_shlvl(t_list **env_list);
 
 //65_remake_args_utils.c
-void			init_aux_stucts(t_flag_str *flags, t_ints *ints, t_tree_nd *node);
+void			init_aux_structs(t_flag_str *flags, t_ints *ints, t_tree_nd *node);
 void			compose_arg(t_ints *ints, t_flag_str *flags,
 					char **new_args, t_tree_nd *node);
 void			add_last(t_ints *ints, t_flag_str *flags,
@@ -430,6 +430,8 @@ int				safe_pipe(t_msh **msh, int pipe_fd[2]);
 
 /************ 70_expander ************/
 
+//70_expand_args.c
+void			expand_args(t_msh **msh, t_tree_nd *node);
 //70_expand_args.c
 void			expand_args(t_msh **msh, t_tree_nd *node);
 void			expander(t_msh **msh, t_tree_nd **node, char **arg);
@@ -458,11 +460,13 @@ int				count_exp(char *arg, int i);
 int				count_kw(char **kw);
 
 //75_build_kw_array.c
+//75_build_kw_array.c
 char			**build_kw_array(char *arg, int *i);
 void			init_kw_vars(int *tmp, int **i, t_ints *ints, char *arg);
 int				dollar_case(char **kw, char *arg, t_ints *ints, int **i);
 int 			build_rest(char **kw, char *arg, t_ints *ints, int **i);
 
+//76_get_exp_parts.c
 //76_get_exp_parts.c
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);
@@ -470,6 +474,7 @@ char			*get_mid_cont(char *arg, int *i);
 char			*get_mid_cont_w_sp(char *arg, int *i);
 char			*get_post_cont(char *arg, int *i);
 
+//77_final_expander.c
 //77_final_expander.c
 char 			*get_env_cont(t_list *envp_list,  t_list *vars_list, char *key_word);
 char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
@@ -484,7 +489,6 @@ bool			check_mid(char c);
 /************ 80_close_and_free ************/
 //80_free_msh.c
 void			free_msh(t_msh *msh);
-void			free_tokens(t_tk_lst *token_list);
 void			free_prompt_line(t_msh **msh);
 void			free_tree(t_tree_nd *node);
 
@@ -494,6 +498,9 @@ void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array);
 
 //82_other_frees.c
 char 			**free_kw_error(char **kw);
+void			ft_free_str_arr(char **array); //check if needed
+void			free_tokens(t_tk_lst *token_list);
+void			free_qt_lst(t_quote *qt_list);
 
 /************ others ************/
 //11_debug_utils.c

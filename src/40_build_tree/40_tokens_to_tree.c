@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 16:38:44 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 00:50:53 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ t_tree_nd *new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 	if (!new_nd)
 		return (NULL);
 	if (content)
-		new_nd->op_content = ft_strdup(content);
+		new_nd->op_content = content;
+	//	new_nd->op_content = ft_strdup(content);
 	new_nd->cmd_content = NULL;
 	if (type)
 		new_nd->type = *type;
@@ -84,7 +85,8 @@ void	app_qt(t_tree_nd *new_nd, t_tk_lst *token)
 	t_quote	*new_quote;
 
 	new_quote = ft_calloc(1, sizeof(t_quote));
-	new_quote->content = ft_strdup(token->content);
+	new_quote->content = token->content;
+	//new_quote->content = ft_strdup(token->content);
 	new_quote->in_dquotes = token->quotes.in_dquotes;
 	new_quote->in_squotes = token->quotes.in_squotes;
 	new_quote->space_case = token->quotes.space_case;

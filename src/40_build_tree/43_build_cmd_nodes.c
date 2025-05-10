@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 11:19:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/09 16:05:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	handle_cmd(t_tree_nd *cmd_nd, t_tk_lst **curr_tk, t_list **args)
 		if (type_is_cmd(&(*curr_tk)->type) && !(*curr_tk)->quotes.space_case && (*curr_tk)->prev)
 			(*curr_tk)->type = ARG;
 		if (type_is_arg(&(*curr_tk)->type))
-			ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
+			ft_lstadd_back(&(*args), ft_lstnew((*curr_tk)->content));
+			//ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
 		if (type_is_cmd(&(*curr_tk)->type))
 		{
 				cmd_nd->cmd = (*curr_tk)->content;
