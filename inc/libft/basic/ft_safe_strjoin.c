@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_safe_strjoin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:40:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2024/11/22 15:24:13 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:39:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*safe_strjoin(char *s1, char *s2)
 	{
 		len = ft_strlen(s2);
 		if (len > 0 && s2[len - 1] == '\n')
-			return(ft_substr(s2, 0, len - 1));
+			return (ft_substr(s2, 0, len - 1));
 		else
 			return (ft_strdup(s2));
 	}
@@ -51,7 +51,7 @@ char	*safe_strjoin(char *s1, char *s2)
 	{
 		len = ft_strlen(s1);
 		if (len > 0 && s1[len - 1] == '\n')
-			return(ft_substr(s1, 0, len - 1));
+			return (ft_substr(s1, 0, len - 1));
 		else
 			return (ft_strdup(s1));
 	}

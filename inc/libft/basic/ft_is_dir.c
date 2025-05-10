@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_safe_free.c                                     :+:      :+:    :+:   */
+/*   ft_is_dir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 10:16:31 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 20:39:25 by ddo-carm         ###   ########.fr       */
+/*   Created: 2025/05/10 20:04:57 by ddo-carm          #+#    #+#             */
+/*   Updated: 2025/05/10 20:39:57 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	*safe_free(void *ptr)
+int	ft_is_dir(const char *path)
 {
-	if (ptr)
-		free(ptr);
-	return (NULL);
+	int	fd;
+
+	fd = open(path, __O_DIRECTORY);
+	if (fd >= 0)
+	{
+		close(fd);
+		return (1);
+	}
+	return (0);
 }

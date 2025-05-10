@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/10 19:15:24 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 20:38:37 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,19 +174,19 @@ typedef struct s_flag_str
 	bool	written;
 	bool	space_prev;
 	bool	space_next;
-} t_flag_str;
+}	t_flag_str;
 
 typedef struct s_ints
 {
 	int		i;
 	int		j;
-} t_ints;
+}	t_ints;
 
 typedef struct s_hd_lines
 {
-	char 	*new_l;
+	char	*new_l;
 	char	**exp_newl;
-} t_hd_lines;
+}	t_hd_lines;
 
 typedef struct s_msh
 {
@@ -295,13 +295,13 @@ void			join_rest(t_msh **msh);
 char			*check_env_cmd(char *cmd, char *env_path, int i);
 
 //36_sub_tokenize_utils.c
-t_tk_lst 		*find_file(t_msh **msh);
+t_tk_lst		*find_file(t_msh **msh);
 t_tk_lst		*find_w_tk(t_msh **msh);
 void			join_parts(t_tk_lst	**src, t_tk_lst **target);
 
 //37_token_utils.c
 void			app_tk(t_msh *msh, t_tk_lst *new_tk,
-	char *content, t_tk_type type);
+					char *content, t_tk_type type);
 char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);
 bool			check_builtin(char *str);
@@ -340,7 +340,7 @@ bool			type_is_arg(t_tk_type *type);
 t_tk_lst		*safe_next_tk(t_tk_lst *curr_tk);
 void			add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk);
 bool			check_cmd(t_tk_lst **token_list, bool cmd_exc);
-bool 			search_cmd(t_tk_lst *curr_tk);
+bool			search_cmd(t_tk_lst *curr_tk);
 t_list			*reverse_args(t_list **head);
 
 /************ 50_built_ins ************/
@@ -351,7 +351,8 @@ int				ft_pwd(void);
 int				ft_cd(t_msh **msh, t_tree_nd **node);
 int				get_dir(t_tree_nd **node, char **target_dir);
 int				update_cd_env(t_msh **msh, char *old_pwd);
-int				update_cd_var(t_list **env_list, const char *var_name, const char *data);
+int				update_cd_var(t_list **env_list, const char *var_name,
+					const char *data);
 
 //52_env.c
 int				print_env(t_msh **msh, t_tree_nd **node);
@@ -388,10 +389,12 @@ char			**remake_args(t_tree_nd *node);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
-void			perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid);
-void			perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid);
+void			perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd,
+					int curr_pid);
+void			perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd,
+					int curr_pid);
 int				safe_waitpid(int pid1, int pid2);
-void 			close_fd(int fd_1, int fd_2);
+void			close_fd(int fd_1, int fd_2);
 
 //62_exec_redir.c
 int				exec_redir_before_cmd(t_msh **msh, t_tree_nd *node);
@@ -410,23 +413,26 @@ int				exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_sh_v(t_msh **msh, t_tree_nd *node);
-void			update_shlvl(t_list **env_list);
+int				direct_path(t_msh **msh, t_tree_nd *node);
 
 //65_remake_args_utils.c
-void			init_aux_structs(t_flag_str *flags, t_ints *ints, t_tree_nd *node);
+void			init_aux_structs(t_flag_str *flags, t_ints *ints,
+					t_tree_nd *node);
 void			compose_arg(t_ints *ints, t_flag_str *flags,
 					char **new_args, t_tree_nd *node);
 void			add_last(t_ints *ints, t_flag_str *flags,
 					char **new_args, t_tree_nd *node);
 void			lonely_arg(t_ints *ints, t_flag_str *flags,
 					char **new_args, t_tree_nd **node);
-void			handle_written(t_ints *ints, t_flag_str *flags, t_tree_nd **node);
+void			handle_written(t_ints *ints, t_flag_str *flags,
+					t_tree_nd **node);
 
 //66_exec_utils.c
 int				safe_fork(t_msh **msh);
 int				safe_dup(t_msh **msh, int old_fd, int curr_pid);
 void			safe_dup2(t_msh **msh, int new_fd, int old_fd, int curr_pid);
 int				safe_pipe(t_msh **msh, int pipe_fd[2]);
+void			update_shlvl(t_list **env_list);
 
 /************ 70_expander ************/
 
@@ -439,18 +445,20 @@ void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
 
 //71_expand_fname.c
 void			expand_files(t_msh **msh, t_tree_nd *node);
-void			subst_fname(char **fname, char *pre_c, char *new_c, char *post_c);
+void			subst_fname(char **fname, char *pre_c, char *new_c,
+					char *post_c);
 
 //72_expand_hd.c
 void			expand_line(t_msh **msh, t_hd_lines *lines,
-	t_tree_nd *curr_nd, int hd_fd);
+					t_tree_nd *curr_nd, int hd_fd);
 char			*expand_word(t_msh **msh, char *word);
 
 //73_expand_token.c
 void			expand_tk(t_msh **msh, char **arg, char **fname);
 char			*build_new_arg(t_msh **msh, char **kw);
 int				expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag);
-//void			exp_case_2(t_msh **msh, char **kw, int *k, char **new_c, bool flag);
+//void			exp_case_2(t_msh **msh, char **kw, int *k, char **new_c,
+//					bool flag);
 //void			exp_case_3(t_msh **msh, bool flag, char *kw, char **new_c);
 
 //74_expand_token_utils.c
@@ -464,7 +472,7 @@ int				count_kw(char **kw);
 char			**build_kw_array(char *arg, int *i);
 void			init_kw_vars(int *tmp, int **i, t_ints *ints, char *arg);
 int				sp_cases(char **kw, char *arg, t_ints *ints, int **i);
-int 			build_rest(char **kw, char *arg, t_ints *ints, int **i);
+int				build_rest(char **kw, char *arg, t_ints *ints, int **i);
 
 //76_get_exp_parts.c
 //76_get_exp_parts.c
@@ -476,7 +484,8 @@ char			*get_post_cont(char *arg, int *i);
 
 //77_final_expander.c
 //77_final_expander.c
-char 			*get_env_cont(t_list *envp_list,  t_list *vars_list, char *key_word);
+char			*get_env_cont(t_list *envp_list, t_list *vars_list,
+					char *key_word);
 char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);
@@ -497,7 +506,7 @@ void			close_minishell(t_msh	*msh, int exit_code);
 void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array);
 
 //82_other_frees.c
-char 			**free_kw_error(char **kw);
+char			**free_kw_error(char **kw);
 void			ft_free_str_arr(char **array); //check if needed
 void			free_tokens(t_tk_lst *token_list);
 void			free_qt_lst(t_quote *qt_list);

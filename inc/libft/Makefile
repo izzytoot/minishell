@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
+#    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 13:30:18 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/10 19:29:11 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/10 20:14:46 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS = $(addprefix $(BASIC_PATH)/, ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.
 			ft_lstnew.c ft_lstdelone.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstiter.c \
 			ft_lstlast.c ft_char_to_str.c ft_lstmap.c ft_init_var.c ft_lstsize.c ft_list_to_array.c ft_strlen_until.c \
 			ft_free_arrays.c ft_free_matrix.c ft_error_msg.c ft_close_pipe.c ft_atoi_base.c ft_atol.c \
-			ft_is_space.c ft_atoll.c)
+			ft_is_space.c ft_atoll.c ft_is_dir.c)
 PRINTF_SRCS = $(addprefix $(PRINTF_PATH)/, src/ft_printf.c src/ft_printchar.c src/ft_printstr.c \
 			src/ft_printint_nb.c src/ft_printint_u.c src/ft_printint_hex.c src/ft_printptr.c)
 GNL_SRCS = $(addprefix $(GNL_PATH)/, get_next_line.c get_next_line_utils.c)

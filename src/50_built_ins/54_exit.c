@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   54_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/05 16:56:11 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:31:45 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ void	ft_exit(t_msh **msh, t_tree_nd **node)
 		exit_value(msh, 1, true, false);
 	}
 	else if (ft_convert_value(msh, (*node)->args[0]))
-	{
 		exit_value(msh, 0, false, true);
-	}
 }
 
 //info --> convert the exit code given as arg into 8-bit unsigned integer
