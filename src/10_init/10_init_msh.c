@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 23:49:49 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/10 23:11:48 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*get_prompt(void)
 	char	cwd[PATH_MAX];
 	char	*prompt;
 
+	ft_printf(BBLU "Minishell: " RES);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("getcwd");
