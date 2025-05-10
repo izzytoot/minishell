@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/10 02:24:10 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 19:15:24 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -463,7 +463,7 @@ int				count_kw(char **kw);
 //75_build_kw_array.c
 char			**build_kw_array(char *arg, int *i);
 void			init_kw_vars(int *tmp, int **i, t_ints *ints, char *arg);
-int				dollar_case(char **kw, char *arg, t_ints *ints, int **i);
+int				sp_cases(char **kw, char *arg, t_ints *ints, int **i);
 int 			build_rest(char **kw, char *arg, t_ints *ints, int **i);
 
 //76_get_exp_parts.c

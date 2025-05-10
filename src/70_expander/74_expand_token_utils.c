@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:18:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 02:27:03 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/10 19:49:17 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,37 @@ char	*kw_array_util(char *arg, int *k, int **i, int n)
 		(void)*k;
 		return (get_mid_cont_w_sp(arg, *i));
 	}
+	if (n == 5)
+	{
+		(**i)++;
+		if (arg[**i] == '?')
+			return (ft_strdup("?"));
+		else if (arg[**i] == '0')
+			return (ft_strdup("0"));
+		else if (ft_isdigit(arg[**i]))
+			return (ft_char_to_str(arg[**i]));
+	}
 	else
 	{
 		(void)*k;
 		return (get_mid_cont(arg, *i));
 	}
+	return (NULL);
 }
 
 void	check_kw_flag(char *prev_kw, char *kw, bool *flag)
 {
-	if (kw[0] == '$' && !kw[1])
-		*flag = true;
 	if (prev_kw)
 	{
-		if (ft_strcmp(prev_kw, "?") == 0)
+		if (ft_strcmp(prev_kw, "?") == 0 || isdigit(prev_kw[0]))
 			*flag = true;
+		else
+			*flag = false;
 	}
 	else
 		*flag = false;
+	if (kw[0] == '$' && !kw[1])
+		*flag = true;
 }
 
 int	count_exp(char *arg, int i)

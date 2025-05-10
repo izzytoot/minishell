@@ -6,7 +6,7 @@
 #    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 13:30:18 by icunha-t          #+#    #+#              #
-#    Updated: 2025/04/30 10:29:42 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/10 19:29:11 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS = $(addprefix $(BASIC_PATH)/, ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.
 			ft_strjoin_w_space.c ft_safe_free.c ft_safe_malloc.c ft_strtrim.c ft_strmapi.c ft_striteri.c \
 			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_itoa.c ft_split.c ft_unsplit.c \
 			ft_lstnew.c ft_lstdelone.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstiter.c \
-			ft_lstlast.c ft_lstmap.c ft_init_var.c ft_lstsize.c ft_list_to_array.c ft_strlen_until.c \
+			ft_lstlast.c ft_char_to_str.c ft_lstmap.c ft_init_var.c ft_lstsize.c ft_list_to_array.c ft_strlen_until.c \
 			ft_free_arrays.c ft_free_matrix.c ft_error_msg.c ft_close_pipe.c ft_atoi_base.c ft_atol.c \
 			ft_is_space.c ft_atoll.c)
 PRINTF_SRCS = $(addprefix $(PRINTF_PATH)/, src/ft_printf.c src/ft_printchar.c src/ft_printstr.c \
