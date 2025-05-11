@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/11 20:35:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 23:14:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	join_rest(t_msh **msh)
 	t_tk_lst	*tmp_w;
 	t_tk_lst	*merge_target;
 	
-	if (!(*msh)->token_list->next)
+	if ((*msh)->token_list && !(*msh)->token_list->next)
 		return ;
 	tmp_w = find_w_tk(msh);
 	if (!tmp_w)

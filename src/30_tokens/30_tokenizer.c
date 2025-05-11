@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/08 12:10:21 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 23:27:33 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	get_tokens(t_msh **msh, int i)
 			break ;
 	}
 	sub_tokenize(&(*msh));
-	empty_case(msh);
+	empty_case(msh, (*msh)->prompt_line);
 	if ((*msh)->debug_mode)  //DEBUG TO DELETE
 	{	
 		print_tokens(&(*msh));
@@ -56,11 +56,13 @@ void	init_qt_struct(t_quote *quotes)
 	quotes->quote_char = '\0';
 }
 
-void	empty_case(t_msh **msh)
+void	empty_case(t_msh **msh, const char *line)
 {
 	t_tk_lst	*empty_tk;
 	
-	if (!(*msh)->token_list)
+	if (!line)
+		return;
+	if (ft_strcmp("\"\"", line) == 0)
 	{
 		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk((*msh), empty_tk, "''", ARG);	
