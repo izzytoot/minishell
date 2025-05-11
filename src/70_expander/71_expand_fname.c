@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 02:00:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 21:07:21 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	expand_files(t_msh **msh, t_tree_nd *node)
 		while (node->file[i])
 		{
 			if (node->file[i] == '$')
-				expand_tk(msh, NULL, &node->file);
+				expand_fname(msh, &node->file);
 			i++;
 		}
 	}
@@ -34,23 +34,41 @@ void	expand_files(t_msh **msh, t_tree_nd *node)
 		expand_files(msh, node->right);
 }
 
-
-void	subst_fname(char **fname, char *pre_c, char *new_c, char *post_c)
+void	expand_fname(t_msh **msh, char **fname)
 {
-	char	*final_content;
+	t_exp_cont	parts;
+	t_kw		**kw_lst;
+	int 		i;
+
+	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
+		(void **)&parts.post_c, NULL);
+	i = -1;
+	kw_lst = ft_calloc(MAX_KW, sizeof(t_kw *));
+	parts.pre_c = get_pre_cont(*fname, &i);
+	build_kw_list(&(*kw_lst), *fname, &i);
+	parts.post_c = get_post_cont(*fname, &i);
+	expand_kw(msh, kw_lst);
+	parts.new_c = get_exp_cont(kw_lst);
+	subst_fname(fname, &parts);
+//	free_kw_structs(&parts, kw_lst);
+}
+
+void	subst_fname(char **fname, t_exp_cont *parts)
+{
+	char	*final_c;
 	
-	if (new_c)
+	if (parts->new_c)
 	{
-		final_content = get_final_cont(new_c, pre_c, post_c);
-		*fname = ft_strdup(final_content);
+		final_c = get_final_cont(parts);
+		*fname = ft_strdup(final_c);
 	}
-	else if(pre_c || post_c)
+	else if(parts->pre_c || parts->post_c)
 	{	
-		if (pre_c)
-			final_content = ft_strdup(pre_c);
-		if (post_c)
-			final_content = ft_strjoin(final_content, ft_strdup(post_c));
-		*fname = ft_strdup(final_content);
+		if (parts->pre_c)
+			final_c = ft_strdup(parts->pre_c);
+		if (parts->post_c)
+			final_c = ft_strjoin(final_c, ft_strdup(parts->post_c));
+		*fname = ft_strdup(final_c);
 	}
 	else
 		*fname = NULL;

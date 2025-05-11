@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:50 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 02:01:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 21:07:26 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	expand_line(t_msh **msh, t_hd_lines *lines,
 	t_tree_nd *curr_nd, int hd_fd)
 {
+	(void)msh;
 	int 	i;
 
 	i = 0;
@@ -35,22 +36,24 @@ void	expand_line(t_msh **msh, t_hd_lines *lines,
 
 char	*expand_word(t_msh **msh, char *word)
 {
-	char	*pre_c;
-	char	**kw;
-	char	*post_c;
-	char	*new_c;
+	
+	t_exp_cont	parts;
+	t_kw		**kw_lst;
 	int 	i;
 
-	ft_init_var((void **)&pre_c, (void **)&kw,
-		(void **)&post_c, (void **)&new_c);
+	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
+			(void **)&parts.post_c, NULL);
 	i = 0;
+	kw_lst = ft_calloc(MAX_KW, sizeof(t_kw *));
 	if (word)
 	{
-		pre_c = get_pre_cont(word, &i);
-		kw = build_kw_array(word, &i);
-		post_c = get_post_cont(word, &i);
-		new_c = build_new_arg(msh, kw);
-		subst_arg(&word, pre_c, new_c, post_c);
+		parts.pre_c = get_pre_cont(word, &i);
+		build_kw_list(&(*kw_lst), word, &i);
+		parts.post_c = get_post_cont(word, &i);
+		expand_kw(msh, kw_lst);
+		parts.new_c = get_exp_cont(kw_lst);
+		subst_arg(&word, &parts);
+	//	free_kw_structs(&parts, kw_lst);
 	}
 	else
 		return (NULL);

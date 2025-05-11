@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/10 02:04:24 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 19:33:55 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,18 @@ bool	check_mid(char c)
 	if ((ft_strchr(SYM_EXP, c) || c != '$') && !ft_strchr(QT, c))
 		return (true);
 	return (false);
+}
+
+int	count_exp(char *arg, int i)
+{
+	int	count;
+	
+	count = 0;
+	while(arg[i])
+	{
+		if (arg[i] == '$')
+			count++;
+		i++;
+	}	
+	return (count);
 }

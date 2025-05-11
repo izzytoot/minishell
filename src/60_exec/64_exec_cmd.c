@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/10 23:08:14 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:53:32 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (pid == 0)
 	{
-		if ((node->args[0][0] == '.' && node->args[0][1] == '/') || node->args[0][0] == '/')
+		if (node->args[0] && ((node->args[0][0] == '.' && node->args[0][1] == '/') || node->args[0][0] == '/'))
 		{
 			path = node->args[0];
 			direct_path(&(*msh), node);

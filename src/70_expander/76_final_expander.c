@@ -1,62 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   77_final_expander.c                                :+:      :+:    :+:   */
+/*   76_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 02:08:47 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 19:58:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char *get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
+char	*get_exp_cont(t_kw **kw_lst)
 {
-	int		key_len;
-
-	key_len = ft_strlen(key_word);
-	while (envp_list)
+	char	*exp_c;
+	char	*curr_c;
+	t_kw	*curr_kw;
+	
+	ft_init_var((void **)&exp_c, (void **)&curr_c, NULL, NULL);
+	curr_kw = *kw_lst;
+	while(curr_kw)
 	{
-		if (!ft_strncmp(envp_list->content, key_word, key_len)
-				&& ((char *)envp_list->content)[key_len] == '=')
-			return(&((char *)envp_list->content)[key_len + 1]);
-		envp_list = envp_list->next;
+		curr_c = ft_strdup(curr_kw->kw);
+		exp_c = safe_strjoin(exp_c, curr_c);
+		curr_kw = curr_kw->next;
+		safe_free(curr_c);
 	}
-	while (vars_list)
-	{
-		if (!ft_strncmp(vars_list->content, key_word, key_len)
-			&& ((char *)vars_list->content)[key_len] == '=')
-			return(&((char *)vars_list->content)[key_len + 1]);
-		vars_list = vars_list->next;
-	}
-	return (NULL);
+	return (exp_c);
 }
 
-char	*get_final_cont(char *new_c, char *pre_c, char *post_c)
+char	*get_final_cont(t_exp_cont *parts)
 {
-	char	*final_content;
+	char	*final_c;
 	int		len;
 	char	*tmp;
 	
-	len = ft_strlen(new_c);
-	if (len > 0 && new_c[len - 1] == '\n')
+	len = ft_strlen(parts->new_c);
+	if (len > 0 && parts->new_c[len - 1] == '\n')
 	{
-		tmp = get_tmp(new_c, post_c, len);
-		final_content = ultimate_joint(pre_c, tmp);
+		tmp = get_tmp(parts->new_c, parts->post_c, len);
+		final_c = ultimate_joint(parts->new_c, tmp);
 	}
 	else
 	{
-		tmp = ft_strdup(new_c);
-		if (pre_c)
-			final_content = ft_strjoin(pre_c, tmp);
+		tmp = ft_strdup(parts->new_c);
+		if (parts->pre_c)
+			final_c = ft_strjoin(parts->pre_c, tmp);
 		else
-			final_content = ft_strdup(tmp);
-		if (post_c)
-			final_content = ft_strjoin(final_content, post_c);
+			final_c = ft_strdup(tmp);
+		if (parts->post_c)
+			final_c = ft_strjoin(final_c, parts->post_c);
 	}
-	return(final_content);	
+	return(final_c);	
 }
 
 char	*get_tmp(char *new_c, char *post_c, int len)

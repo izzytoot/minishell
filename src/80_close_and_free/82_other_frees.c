@@ -6,17 +6,16 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/09 16:41:33 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 20:49:33 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	**free_kw_error(char **kw)
+
+void	kw_err(void)
 {
 	ft_dprintf(STDERR_FILENO, ERR_KW);
-	ft_free_arrays((void **)kw);
-	return (NULL);
 }
 
 void	ft_free_str_arr(char **array) //not sure I need this or can just use free_arrays
@@ -61,6 +60,24 @@ void	free_qt_lst(t_quote *qt_list)
 		qt_list = safe_free(qt_list);
 		qt_list = tmp;
 	}
+}
+
+void	free_kw_structs(t_exp_cont *parts, t_kw **kw_lst)
+{
+	if (parts->new_c)
+		parts->new_c = safe_free(parts->new_c);
+	if (parts->post_c)
+		parts->post_c = safe_free(parts->post_c);
+	if (parts->pre_c)
+		parts->pre_c = safe_free(parts->pre_c);
+	(void)kw_lst;
+//	while (*kw_lst)
+//	{
+//		if((*kw_lst)->kw)
+//			(*kw_lst)->kw = safe_free((*kw_lst)->kw);
+//		*kw_lst = (*kw_lst)->next;
+//	}
+//	*kw_lst = safe_free(*kw_lst);
 }
 
 /*

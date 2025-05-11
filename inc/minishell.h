@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/11 17:22:32 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 20:21:50 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,21 @@ typedef struct s_hd_lines
 	char	*new_l;
 	char	**exp_newl;
 }	t_hd_lines;
+
+typedef struct s_exp_cont
+{
+	char	*pre_c;
+	char	*new_c;
+	char	*post_c;
+} t_exp_cont;
+
+typedef struct s_kw
+{
+	char		*kw;
+	struct s_kw	*next;
+	struct s_kw	*prev;
+	bool		exp;
+}	t_kw;
 
 typedef struct s_msh
 {
@@ -439,62 +454,50 @@ void			update_shlvl(t_list **env_list);
 
 //70_expand_args.c
 void			expand_args(t_msh **msh, t_tree_nd *node);
-//70_expand_args.c
-void			expand_args(t_msh **msh, t_tree_nd *node);
 void			expander(t_msh **msh, t_tree_nd **node, char **arg);
-void			subst_arg(char **arg, char *pre_c, char *new_c, char *post_c);
+void			expand_tk(t_msh **msh, char **arg);
+void			subst_arg(char **arg, t_exp_cont *parts);
 
 //71_expand_fname.c
 void			expand_files(t_msh **msh, t_tree_nd *node);
-void			subst_fname(char **fname, char *pre_c, char *new_c,
-					char *post_c);
+void			expand_fname(t_msh **msh, char **fname);
+void			subst_fname(char **fname, t_exp_cont *parts);
 
 //72_expand_hd.c
 void			expand_line(t_msh **msh, t_hd_lines *lines,
 					t_tree_nd *curr_nd, int hd_fd);
 char			*expand_word(t_msh **msh, char *word);
 
-//73_expand_token.c
-void			expand_tk(t_msh **msh, char **arg, char **fname);
-char			*build_new_arg(t_msh **msh, char **kw);
-int				expand_case(t_msh **msh, char **new_cont, char *kw, bool *flag);
-//void			exp_case_2(t_msh **msh, char **kw, int *k, char **new_c,
-//					bool flag);
-//void			exp_case_3(t_msh **msh, bool flag, char *kw, char **new_c);
+//73_build_kw_lst.c 
+void			build_kw_list(t_kw **kw_lst, char *arg, int *i);
+void			get_exp_kw(int next, t_kw *n_kw, char *arg, int *i);
+void			get_mid_kw(int count, t_kw *n_kw, char *arg, int *i);
+char			*get_util(char *arg, int **i, int n);
+void			app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp);
 
-//74_expand_token_utils.c
-char			*kw_array_util(char *arg, int *k, int **i, int n);
-void			check_kw_flag(char *prev_kw, char *kw, bool *flag);
-int				count_exp(char *arg, int i);
-int				count_kw(char **kw);
+//74_expand_key_words.c
+void			expand_kw(t_msh **msh, t_kw **kw_lst);
+int				expand_case(char *kw);
+char 			*get_env_cont(t_list *envp_list,  t_list *vars_list, char *key_word);
 
-//75_build_kw_array.c
-//75_build_kw_array.c
-char			**build_kw_array(char *arg, int *i);
-void			init_kw_vars(int *tmp, int **i, t_ints *ints, char *arg);
-int				sp_cases(char **kw, char *arg, t_ints *ints, int **i);
-int				build_rest(char **kw, char *arg, t_ints *ints, int **i);
-
-//76_get_exp_parts.c
-//76_get_exp_parts.c
+//75_get_parts.c
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);
 char			*get_mid_cont(char *arg, int *i);
 char			*get_mid_cont_w_sp(char *arg, int *i);
 char			*get_post_cont(char *arg, int *i);
 
-//77_final_expander.c
-//77_final_expander.c
-char			*get_env_cont(t_list *envp_list, t_list *vars_list,
-					char *key_word);
-char			*get_final_cont(char *new_c, char *pre_c, char *post_c);
+//76_final_expander.c
+char			*get_exp_cont(t_kw **kw_lst);
+char			*get_final_cont(t_exp_cont *parts);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);
 
-//78_expand_utils.c
+//77_expand_utils.c
 void			recurs_exp_args(t_msh **msh, t_tree_nd *node);
 int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
 bool			check_mid(char c);
+int				count_exp(char *arg, int i);
 
 /************ 80_close_and_free ************/
 //80_free_msh.c
@@ -507,10 +510,11 @@ void			close_minishell(t_msh	*msh, int exit_code);
 void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array);
 
 //82_other_frees.c
-char			**free_kw_error(char **kw);
+void 			kw_err(void);
 void			ft_free_str_arr(char **array); //check if needed
 void			free_tokens(t_tk_lst *token_list);
 void			free_qt_lst(t_quote *qt_list);
+void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
 
 /************ others ************/
 //11_debug_utils.c

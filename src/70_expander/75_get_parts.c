@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/10 02:03:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/11 19:31:31 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*get_pre_cont(char *arg, int *i)
 	pre_content[len] = '\0';
 	return(pre_content);
 }
-
 char	*get_key_word(char *arg, int *i)
 {
 	char	*key_word;
