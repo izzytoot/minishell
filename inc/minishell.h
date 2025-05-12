@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/12 18:08:09 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:40:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ void			check_squote(bool *in_squotes, char c);
 //35_sub_tokenize.c
 void			sub_tokenize(t_msh **msh);
 void			handle_filename(t_msh **msh);
-void			join_filename(t_msh **msh);
+void			join_filename(t_msh **msh, bool hd_flag);
 void			join_rest(t_msh **msh);
 char			*check_env_cmd(char *cmd, char *env_path, int i);
 
@@ -314,6 +314,8 @@ t_tk_lst		*find_file(t_msh **msh);
 t_tk_lst		*find_w_tk(t_msh **msh);
 void			join_parts(t_tk_lst	**src, t_tk_lst **target);
 bool			ch_shlvl(char *word);
+void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
+					t_tk_lst **merge_tg, bool hd_flag);
 
 //37_token_utils.c
 void			app_tk(t_msh *msh, t_tk_lst *new_tk,
@@ -401,7 +403,6 @@ t_list			*copy_env_list(t_list *env_list);
 //60_exec_tree.c
 int				exec_tree(t_msh **msh, t_tree_nd *node);
 char			**remake_args(t_tree_nd *node);
-//char			*remake_fname(t_tree_nd *node);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);

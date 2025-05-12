@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 18:08:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:41:02 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,17 @@ void	sub_tokenize(t_msh **msh)
 void	handle_filename(t_msh **msh)
 {
 	t_tk_lst *curr;
-
+	bool	hd_flag;
+	
 	curr = (*msh)->token_list;
+	hd_flag = false;
 	while (curr)
 	{
 		if (curr->type == REDIR_HD || curr->type == REDIR_APP 
 			|| curr->type == REDIR_IN || curr->type == REDIR_OUT)
 		{
+			if (curr->type == REDIR_HD)
+				hd_flag = true;
 			if (curr->prev->type == W_SPACE && curr->prev->prev->type == WORD)
 				curr->prev->prev->type = FILE_NAME;
 			else if (curr->prev->type == WORD)
@@ -57,22 +61,25 @@ void	handle_filename(t_msh **msh)
 		}
 		curr = curr->next;
 	}
-	join_filename(msh);
+	join_filename(msh, hd_flag);
 }
 
-void	join_filename(t_msh **msh)
+void	join_filename(t_msh **msh, bool hd_flag)
 {
 	t_tk_lst	*tmp_fn;
 	t_tk_lst	*merge_target;
-	
+
 	tmp_fn = find_file(msh);
 	if (!tmp_fn)
 		return ;
+	else
+		expand_fn(msh, &tmp_fn, NULL, hd_flag);
 	if (!tmp_fn->quotes.space_case && tmp_fn->prev)
 	{
 		merge_target = tmp_fn->prev;
 		while (tmp_fn && (!tmp_fn->quotes.space_case && tmp_fn->prev))
 		{
+			expand_fn(msh, &tmp_fn, &merge_target, hd_flag);
 			join_parts(&tmp_fn, &merge_target);
 			if (!tmp_fn->quotes.space_case && merge_target->prev)
 				merge_target = tmp_fn->prev;
@@ -97,7 +104,8 @@ void	join_rest(t_msh **msh)
 	if (!tmp_w)
 		return ;
 	merge_target = tmp_w->prev;
-	while (tmp_w && (!tmp_w->quotes.space_case && tmp_w->prev))
+	while (tmp_w && (!tmp_w->quotes.space_case && tmp_w->prev)
+		&& tmp_w->prev->content[0] != '$')
 	{
 		join_parts(&tmp_w, &merge_target);
 		if (!tmp_w->quotes.space_case && merge_target->prev)
@@ -119,22 +127,22 @@ char	*check_env_cmd(char *cmd, char *env_path, int i)
 	char	**paths;
 	char	*part_path;
 	char	*cmd_path;
-
+	
 	paths = ft_split(env_path, ':');
 	ft_init_var((void **)&part_path, (void **)&cmd_path, NULL, NULL);
 	if (!paths)
 		return (0);
 	while(paths[++i])
-	{
+	{		
 		part_path = ft_strjoin(paths[i], "/");
 		cmd_path = ft_strjoin(part_path, cmd);
-	//	free(part_path); //this was causing segfault
+		//safe_free(part_path); //this is causing segfault
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-			ft_free_arrays((void **)paths);
+		//	ft_free_arrays((void **)paths); //this is causing segfault
 			return(cmd_path);
 		}
-		free(cmd_path);
+		//safe_free(cmd_path); //this is causing segfault
 	}
 	ft_free_arrays((void **)paths);
 	return (NULL);	

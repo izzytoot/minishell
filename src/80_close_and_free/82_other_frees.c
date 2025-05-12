@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/11 20:49:33 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 15:58:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free_str_arr(char **array) //not sure I need this or can just use free_a
 	int	i;
 
 	i = 0;
-	if (!array)
+	if (!(*array))
 		return ;
 	while (array[i])
 	{

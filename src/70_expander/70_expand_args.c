@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/11 21:06:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 12:58:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	expand_tk(t_msh **msh, char **arg)
 	expand_kw(msh, kw_lst);
 	parts.new_c = get_exp_cont(kw_lst);
 	subst_arg(arg, &parts);
-//	free_kw_structs(&parts, kw_lst);
+	free_kw_structs(&parts, kw_lst);
 }
 
 void	subst_arg(char **arg, t_exp_cont *parts)

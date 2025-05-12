@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/11 19:58:42 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 14:04:25 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*get_exp_cont(t_kw **kw_lst)
 		curr_c = ft_strdup(curr_kw->kw);
 		exp_c = safe_strjoin(exp_c, curr_c);
 		curr_kw = curr_kw->next;
-		safe_free(curr_c);
 	}
 	return (exp_c);
 }
