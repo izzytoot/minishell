@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/12 21:43:37 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/12 23:50:52 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,9 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (pid == 0)
 	{
-		path = choose_path(&(*msh), node);
-		if (path == NULL)
-			return (ft_dprintf(STDERR_FILENO, "%s: %s", node->cmd, ERR_DIRNOTFOUND), //changed error message to dir
-					exit_value(msh, 127, 1, 0)); //changed exit to 127 directly
+		status = choose_path(&(*msh), node, &path);
+		if (status != 0)
+			return (exit_value(msh, status, 1, 0));
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
 			perror("msh: execve: "); // check pre-error message
 		close_minishell((*msh), status); //verify status is correct

@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/12 21:43:02 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/12 23:45:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -455,7 +455,7 @@ int				safe_pipe(t_msh **msh, int pipe_fd[2]);
 void			update_shlvl(t_list **env_list);
 
 //67_exec_dir_path.c
-char			*choose_path(t_msh **msh, t_tree_nd *node);
+int				choose_path(t_msh **msh, t_tree_nd *node, char **path);
 int				direct_path(t_msh **msh, t_tree_nd *node);
 
 /************ 70_expander ************/
