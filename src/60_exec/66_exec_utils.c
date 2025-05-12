@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   66_exec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:19:13 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/10 23:04:33 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/13 00:10:01 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,16 @@ int	safe_pipe(t_msh **msh, int pipe_fd[2])
 }
 void	update_shlvl(t_list **env_list)
 {
-	char    *shlvl_value;
-	char    *shlvl_str;
-    int     shlvl;
-	
+	char	*shlvl_value;
+	char	*shlvl_str;
+	int		shlvl;
+
+	printf("Updating SHLVL\n");
 	shlvl_value = get_var_val(*env_list, "SHLVL");
 	if (shlvl_value)
-    {
+	{
 		shlvl = ft_atoi(shlvl_value);
-        shlvl++;
+		shlvl++;
 		shlvl_str = ft_itoa(shlvl);
 		if (!shlvl_str)
 			return ;

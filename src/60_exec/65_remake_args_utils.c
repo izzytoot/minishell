@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   65_remake_args_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:14:35 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/10 00:51:59 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 00:01:46 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	compose_arg(t_ints *ints, t_flag_str *flags, char **new_args, t_tree_nd *no
 		new_args[(*ints).j] = ft_strdup(ft_strjoin(node->args[(*ints).i], node->args[(*ints).i + 1]));
 		(*ints).i++;
 		if (node->quote_lst->next)
-		node->quote_lst = node->quote_lst->next;
+			node->quote_lst = node->quote_lst->next;
 	}
 	else //any other of group
 	{

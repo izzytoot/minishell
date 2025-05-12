@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/12 23:50:52 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/13 00:07:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
 	int	status;
-	
+
 	status = 0;
 	if (node->type == BT_CMD)
 	{
@@ -51,14 +51,15 @@ int	exec_sh_v(t_msh **msh, t_tree_nd *node)
 		{
 			split = ft_split(node->args[i], '=');
 			if (!split || !split[0])
-				return(ft_free_arrays((void *)split), EXIT_FAILURE);
-			if (update_var(&(*msh)->vars_list, split[0], split[1]) != EXIT_SUCCESS)
-				return(ft_free_arrays((void *)split), EXIT_FAILURE);
+				return (ft_free_arrays((void *)split), EXIT_FAILURE);
+			if (update_var(&(*msh)->vars_list, split[0], split[1])
+				!= EXIT_SUCCESS)
+				return (ft_free_arrays((void *)split), EXIT_FAILURE);
 			ft_free_arrays((void *)split);
 		}
 		i++;
 	}
-	if(!(*msh)->vars_list)
+	if (!(*msh)->vars_list)
 		return (-1);
 	return (exit_value(msh, status, 1, 0));
 }
@@ -69,7 +70,7 @@ int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 
 	status = 0;
 	if (ft_strcmp(node->cmd, "echo") == 0)
-		status = ft_echo(&node); //returns exit code
+		status = ft_echo(&node);
 	else if (ft_strcmp(node->cmd, "cd") == 0)
 		status = ft_cd(msh, &node);
 	else if (ft_strcmp(node->cmd, "pwd") == 0)
@@ -98,6 +99,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		status = choose_path(&(*msh), node, &path);
 		if (status != 0)
 			return (exit_value(msh, status, 1, 0));
+		update_shlvl(&(*msh)->envp_list);
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
 			perror("msh: execve: "); // check pre-error message
 		close_minishell((*msh), status); //verify status is correct

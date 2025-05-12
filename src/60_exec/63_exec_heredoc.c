@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/10 01:59:08 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 00:02:08 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,3 @@ char	*check_eof(t_tree_nd *node, char *file_name)
 //		eof = ft_strdup(file_name);
 	return(eof);
 }
-

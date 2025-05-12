@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/12 21:42:45 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/12 23:55:54 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ unsigned int	ft_convert_value(t_msh **msh, char *code)
 	long long	nbr;
 
 	nbr = ft_atoll(code);
-	if ((nbr == LLONG_MAX && ft_strcmp(code, "9223372036854775807")) ||
-		(nbr == LLONG_MIN && ft_strcmp(code, "-9223372036854775808")))
+	if ((nbr == LLONG_MAX && ft_strcmp(code, "9223372036854775807"))
+		|| (nbr == LLONG_MIN && ft_strcmp(code, "-9223372036854775808")))
 	{
-		ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n", code);
+		ft_dprintf(STDERR_FILENO, "msh: exit: %s: numeric argument required\n",
+			code);
 		exit_value(msh, 2, true, true);
 	}
 	return ((unsigned char)nbr);

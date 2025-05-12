@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/12 23:54:14 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/13 00:26:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 	if (!path)
 		*path = NULL;
 	if (node->cmd && (((node->cmd[0] == '.' && node->cmd[1] == '/')
-		|| node->cmd[0] == '/')))
+				|| node->cmd[0] == '/')))
 	{
 		*path = node->cmd;
 		status = direct_path(&(*msh), node);
@@ -30,12 +30,12 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 	return (status);
 }
 
-
 int	direct_path(t_msh **msh, t_tree_nd *node)
 {
 	char	*path;
 	int		status;
 
+	(void)msh;
 	status = 0;
 	path = node->cmd;
 	if (access(path, F_OK) != 0)
@@ -53,6 +53,5 @@ int	direct_path(t_msh **msh, t_tree_nd *node)
 		ft_dprintf(STDERR_FILENO, "msh: %s: Permission denied\n", path);
 		status = 126;
 	}
-	update_shlvl(&(*msh)->envp_list);
 	return (status);
 }
