@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 16:19:28 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:34:08 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,6 @@ char	*check_env_cmd(char *cmd, char *env_path, int i)
 		}
 		//safe_free(cmd_path); //this is causing segfault
 	}
-	ft_free_arrays((void **)paths);
+//	ft_free_arrays((void **)paths);
 	return(NULL);	
 }

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 15:58:35 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:13:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	ft_free_str_arr(char **array) //not sure I need this or can just use free_a
 	while (array[i])
 	{
 		if(array[i])
-			array[i] = safe_free(array[i]);
+			safe_free(array[i]);
 		i++;
 	}
 	if (array)
-		array = safe_free(array);
+		safe_free(array);
 	return ;
 }
 
@@ -44,7 +44,7 @@ void	free_tokens(t_tk_lst *token_list)
 	while (token_list)
 	{
 		tmp = token_list->next;
-		token_list = safe_free(token_list);
+		safe_free(token_list);
 		token_list = tmp;
 	}
 }
@@ -57,7 +57,7 @@ void	free_qt_lst(t_quote *qt_list)
 	while (qt_list)
 	{
 		tmp = qt_list->next;
-		qt_list = safe_free(qt_list);
+		safe_free(qt_list);
 		qt_list = tmp;
 	}
 }
@@ -65,11 +65,11 @@ void	free_qt_lst(t_quote *qt_list)
 void	free_kw_structs(t_exp_cont *parts, t_kw **kw_lst)
 {
 	if (parts->new_c)
-		parts->new_c = safe_free(parts->new_c);
+		safe_free(parts->new_c);
 	if (parts->post_c)
-		parts->post_c = safe_free(parts->post_c);
+		safe_free(parts->post_c);
 	if (parts->pre_c)
-		parts->pre_c = safe_free(parts->pre_c);
+		safe_free(parts->pre_c);
 	(void)kw_lst;
 //	while (*kw_lst)
 //	{

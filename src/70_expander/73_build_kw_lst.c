@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 13:00:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:14:06 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp)
 	
 	tmp = *kw_lst;
 	new_kw->kw = ft_strdup(kw);
-	kw = safe_free(kw);
+	safe_free(kw);
 	new_kw->exp = exp;
 	new_kw->next = NULL;
 	if(tmp)

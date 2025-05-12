@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/11 20:43:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:32:54 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ void	expand_kw(t_msh **msh, t_kw **kw_lst)
 			;
 		else if (expand_case(curr_kw->kw) == 2)
 		{
-			curr_kw->kw = safe_free(curr_kw->kw);
 			curr_kw->kw = ft_strdup("minishell");
 		}
 		else if (expand_case(curr_kw->kw) == 3)
 		{
-			curr_kw->kw = safe_free(curr_kw->kw);
 			curr_kw->kw = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
 		}
 		else if (expand_case(curr_kw->kw) == 6)

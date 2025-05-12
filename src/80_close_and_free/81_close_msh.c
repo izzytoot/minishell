@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/09 13:18:07 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:13:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	close_minishell(t_msh *msh, int exit_code)
 void	envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array)
 {
 	if (str)
-		str = safe_free(str);
+		safe_free(str);
 	if (list_nd)
-		list_nd = safe_free(list_nd);
+		safe_free(list_nd);
 	if (array)
-		array = safe_free(array);
+		safe_free(array);
 	close_minishell(msh, EXIT_FAILURE);
 }
