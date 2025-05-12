@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/11 17:21:53 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 15:55:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ t_tk_lst	*find_w_tk(t_msh **msh)
 	return (NULL);
 }
 
-void	join_parts(t_tk_lst	**src, t_tk_lst **target)
+void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 {
 	char		*cont;
 
-	cont = ft_strjoin((*src)->content, (*target)->content);
+	cont = safe_strjoin((*src)->content, (*tg)->content);
 	free((*src)->content);
 	(*src)->content = cont;
-	(*src)->quotes.space_case = (*target)->quotes.space_case;
-	if ((*target)->prev)
+	(*src)->quotes.space_case = (*tg)->quotes.space_case;
+	if ((*tg)->prev)
 	{
-		(*src)->prev = (*target)->prev;
+		(*src)->prev = (*tg)->prev;
 		(*src)->prev->next = (*src);
 	}
 }
@@ -70,3 +70,29 @@ bool	ch_shlvl(char *word)
 		return (true);
 	return (false);
 }
+
+void	expand_fn(t_msh **msh, t_tk_lst **tmp_fn, t_tk_lst **merge_tg, bool hd_flag)
+{
+	if (hd_flag)
+		return ;
+	if (tmp_fn && ft_strchr((*tmp_fn)->content, '$')
+		&& !(*tmp_fn)->quotes.in_squotes)
+		expand_fname(msh, &(*tmp_fn)->content);
+	if (merge_tg && ft_strchr((*merge_tg)->content, '$')
+		&& !(*merge_tg)->quotes.in_squotes)
+		expand_fname(msh, &(*merge_tg)->content);
+	if (merge_tg && (*merge_tg)->quotes.in_squotes)
+		(*tmp_fn)->quotes.in_squotes = true;
+}
+
+/*
+void	expand_fn(t_msh **msh, t_tk_lst **tmp_fn, t_tk_lst **merge_tg)
+{
+	if ((*tmp_fn)->content[0] == '$' && !(*tmp_fn)->quotes.in_squotes)
+		(*tmp_fn)->content = ft_strdup(get_env_cont((*msh)->envp_list,
+			(*msh)->vars_list, (*tmp_fn)->content + 1));		
+	if ((*merge_tg)->content[0] == '$' && !(*merge_tg)->quotes.in_squotes)
+		(*merge_tg)->content = ft_strdup(get_env_cont((*msh)->envp_list,
+			(*msh)->vars_list, (*merge_tg)->content + 1));
+}
+*/

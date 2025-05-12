@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/11 23:27:33 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 13:49:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	get_tokens(t_msh **msh, int i)
 			i--;
 		else
 			break ;
+	}
+	if ((*msh)->debug_mode)  //DEBUG TO DELETE
+	{	
+		print_tokens(&(*msh));
+		ft_printf("------------------------------\n");
 	}
 	sub_tokenize(&(*msh));
 	empty_case(msh, (*msh)->prompt_line);

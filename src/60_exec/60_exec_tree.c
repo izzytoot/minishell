@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/11 23:31:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 16:19:23 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		printf("\n");
 		printf("------------------------------\n");
 	}
-	expand_files(msh, node);
+//	expand_files(msh, node);
 	if ((*msh)->hd_check)
 	{
 		exec_heredocs(msh, node);
