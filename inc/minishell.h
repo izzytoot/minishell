@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/12 18:40:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:43:02 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,9 +385,9 @@ int				ft_echo(t_tree_nd **node);
 bool			handle_n(t_tree_nd **node, int *i, bool first_flag);
 
 //54_exit.c
-void			ft_exit(t_msh **msh, t_tree_nd **node);	
+int				ft_exit(t_msh **msh, t_tree_nd **node);	
 unsigned int	ft_convert_value(t_msh **msh, char *code);
-int				ft_strnumeric(char *str, t_msh **msh);
+int				ft_strnumeric(char *str);
 
 //55_unset.c
 int				ft_unset(t_msh **msh, t_tree_nd **node);
@@ -398,6 +398,10 @@ int				ft_export(t_msh **msh, t_tree_nd **node);
 t_list			*sort_env(t_list *env_list, int sort);
 void			disp_exported(t_msh **msh);
 t_list			*copy_env_list(t_list *env_list);
+
+//57_export_utils.c
+bool			is_valid_identifier(char *arg);
+bool			export_check(t_msh **msh, char *arg);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c

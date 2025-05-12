@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/12 20:30:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 21:43:37 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 	else if (ft_strcmp(node->cmd, "env") == 0)
 		status = print_env(msh, &node);
 	else if (ft_strcmp(node->cmd, "exit") == 0)
-		ft_exit(msh, &node); // tem que ser transformado em int
+		status = ft_exit(msh, &node);
 	return (exit_value(msh, status, 1, 0));
 }
 

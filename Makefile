@@ -6,7 +6,7 @@
 #    By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/12 17:44:01 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/05/12 21:06:09 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
 							./50_built_ins/54_exit.c\
 							./50_built_ins/55_unset.c\
 							./50_built_ins/56_export.c\
+							./50_built_ins/57_export_utils.c\
 							./60_exec/60_exec_tree.c\
 							./60_exec/61_exec_pipe.c\
 							./60_exec/62_exec_redir.c\
