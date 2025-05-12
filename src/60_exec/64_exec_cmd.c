@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/12 18:31:25 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/12 20:30:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	{
 		path = choose_path(&(*msh), node);
 		if (path == NULL)
-			return (ft_dprintf(STDERR_FILENO, "%s: %s", node->cmd, ERR_CNOTFOUND), 
-					exit_value(msh, status, 1, 0));
+			return (ft_dprintf(STDERR_FILENO, "%s: %s", node->cmd, ERR_DIRNOTFOUND), //changed error message to dir
+					exit_value(msh, 127, 1, 0)); //changed exit to 127 directly
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
 			perror("msh: execve: "); // check pre-error message
 		close_minishell((*msh), status); //verify status is correct

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 15:55:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 20:16:30 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 
 bool	ch_shlvl(char *word)
 {
-	if ((word[0] == '.' && word[1] == '/') || ft_strcmp("/bin/ls", word))
+	if ((word[0] == '.' && word[1] == '/') || ft_strcmp("/bin/ls", word) == 0)
 		return (true);
 	return (false);
 }
