@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/11 19:53:32 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 18:31:25 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		return (exit_value(msh, 0, 1, 0));
 	else
 	{
-		if (node->args[0][0] == '.' && node->args[0][1] == '/')
-	 		status = exec_env_cmd(&(*msh), node);
-		else
-			ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
 		return (exit_value(msh, 127, 1, 0));
 	}
 }
@@ -98,13 +95,10 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (pid == 0)
 	{
-		if (node->args[0] && ((node->args[0][0] == '.' && node->args[0][1] == '/') || node->args[0][0] == '/'))
-		{
-			path = node->args[0];
-			direct_path(&(*msh), node);
-		}
-		else
-			path = check_env_cmd(node->cmd, get_path((*msh)->envp_list), -1);
+		path = choose_path(&(*msh), node);
+		if (path == NULL)
+			return (ft_dprintf(STDERR_FILENO, "%s: %s", node->cmd, ERR_CNOTFOUND), 
+					exit_value(msh, status, 1, 0));
 		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
 			perror("msh: execve: "); // check pre-error message
 		close_minishell((*msh), status); //verify status is correct
@@ -117,31 +111,5 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		if (WIFSIGNALED(status))
 			status = 128 + WTERMSIG(status);
 	}
-	return (exit_value(msh, status, 1, 0));
-}
-
-int	direct_path(t_msh **msh, t_tree_nd *node)
-{
-	char	*path;
-	int		status;
-
-	status = 0;
-	path = node->args[0];
-	if (access(path, F_OK) != 0)
-	{
-		ft_dprintf(STDERR_FILENO, "msh: %s: No such file or directory\n", path);
-		status = 127;
-	}
-	if (ft_is_dir(path))
-	{
-		ft_dprintf(STDERR_FILENO, "msh: %s: Is a directory\n", path);
-		status = 126;
-	}
-	if (access(path, X_OK) != 0)
-	{
-		ft_dprintf(STDERR_FILENO, "msh: %s: Permission denied\n", path);
-		status = 126;
-	}
-	update_shlvl(&(*msh)->envp_list);
 	return (exit_value(msh, status, 1, 0));
 }

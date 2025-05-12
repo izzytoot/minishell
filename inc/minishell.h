@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/12 15:45:18 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/12 18:40:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -430,7 +430,6 @@ int				exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_sh_v(t_msh **msh, t_tree_nd *node);
-int				direct_path(t_msh **msh, t_tree_nd *node);
 
 //65_remake_args_utils.c
 void			init_aux_structs(t_flag_str *flags, t_ints *ints,
@@ -450,6 +449,10 @@ int				safe_dup(t_msh **msh, int old_fd, int curr_pid);
 void			safe_dup2(t_msh **msh, int new_fd, int old_fd, int curr_pid);
 int				safe_pipe(t_msh **msh, int pipe_fd[2]);
 void			update_shlvl(t_list **env_list);
+
+//67_exec_dir_path.c
+char			*choose_path(t_msh **msh, t_tree_nd *node);
+int				direct_path(t_msh **msh, t_tree_nd *node);
 
 /************ 70_expander ************/
 
