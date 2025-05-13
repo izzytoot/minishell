@@ -6,14 +6,11 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/13 17:36:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 18:44:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-
-void	rm_empties(t_tk_lst **curr);
 
 void	sub_tokenize(t_msh **msh)
 {
@@ -42,27 +39,6 @@ void	sub_tokenize(t_msh **msh)
 		curr = curr->next;
 	}
 	check_rep_cmd(&(*msh));
-}
-
-void	rm_empties(t_tk_lst **curr)
-{
-	char	*word;
-
-	if (!(*curr)->prev || (*curr)->prev->type != ARG)
-		return ;
-	if ((*curr)->prev->type == ARG)
-		word = ft_strdup((*curr)->prev->content);
-	if (ft_strcmp("\'\'", word) == 0 && ((*curr)->type == BT_CMD || (*curr)->type == ARG))
-	{
-		if ((*curr)->prev->type == ARG && (*curr)->prev->prev)
-		{
-			(*curr)->prev->prev->next = *curr;
-			(*curr)->prev = (*curr)->prev->prev;
-		}
-		else if ((*curr)->prev->type == ARG && !(*curr)->prev->prev)
-			(*curr)->prev = NULL;
-	}
-	safe_free(word);
 }
 
 void	handle_filename(t_msh **msh)

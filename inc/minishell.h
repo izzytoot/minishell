@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/13 16:00:14 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 18:43:36 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,6 @@ char			*get_eof(const char *line, int hd_index);
 //30_tokenizer.c
 void			get_tokens(t_msh **msh, int i);
 void			init_qt_struct(t_quote *quotes);
-void			empty_case(t_msh **msh, const char *line, int i);
 bool			extra_check(t_msh **msh, int *i, char c, t_quote *quote);
 
 //31_token_words.c
@@ -324,6 +323,10 @@ char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);
 bool			check_builtin(char *str);
 bool			check_shell_var(char *str);
+
+//38_token_empties.c
+void			empty_case(t_msh **msh, const char *line, int i, bool flag);
+void			rm_empties(t_tk_lst **curr);
 
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
