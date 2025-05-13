@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/09 16:05:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 16:23:53 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_tree_nd *build_cmd_nd(t_tk_lst **token_list)
 	curr_token = *token_list;
 	if (!curr_token)
         return NULL;
+	while(curr_token->type == W_SPACE)
+		curr_token = curr_token->next;
 	args = NULL;
 	cmd_nd = new_tree_nd(curr_token, &curr_token->type, NULL);
 	while(curr_token)
@@ -42,7 +44,7 @@ void	handle_cmd(t_tree_nd *cmd_nd, t_tk_lst **curr_tk, t_list **args)
 	while(*curr_tk)
 	{
 		if (type_is_cmd(&(*curr_tk)->type) && !(*curr_tk)->quotes.space_case && (*curr_tk)->prev)
-			(*curr_tk)->type = ARG;
+			(*curr_tk)->type = (*curr_tk)->type;
 		if (type_is_arg(&(*curr_tk)->type))
 			ft_lstadd_back(&(*args), ft_lstnew((*curr_tk)->content));
 			//ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));

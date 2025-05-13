@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/13 12:59:53 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 15:41:44 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		return (exit_value(msh, 0, 1, 0));
 	else
 	{
-			ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
 		return (exit_value(msh, 127, 1, 0));
 	}
 }
@@ -83,6 +83,11 @@ int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 		status = print_env(msh, &node);
 	else if (ft_strcmp(node->cmd, "exit") == 0)
 		status = ft_exit(msh, &node);
+	else if (ft_strcmp(node->cmd, "''") == 0)
+	{
+		ft_dprintf(STDERR_FILENO, "%s: %s", node->cmd, ERR_CNOTFOUND);
+		status = 127;
+	} 
 	return (exit_value(msh, status, 1, 0));
 }
 

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:20:33 by root              #+#    #+#             */
-/*   Updated: 2025/05/09 11:54:35 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 15:51:46 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	tk_pipe(t_msh **msh, int start)
 	pipe[j] = '\0';
 	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, pipe, PIPE);
+	empty_case(msh, line, i);
 	return(i - 1);
 }
 

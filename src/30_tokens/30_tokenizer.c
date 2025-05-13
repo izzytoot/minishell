@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/12 13:49:02 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 18:04:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	get_tokens(t_msh **msh, int i)
 	init_qt_struct(&quotes);
 	line = (*msh)->prompt_line;
 	i = -1;
+	empty_case(msh, (*msh)->prompt_line, 0);
 	while(line[++i])
 	{
 		quotes.space_case = false;
@@ -40,7 +41,6 @@ void	get_tokens(t_msh **msh, int i)
 		ft_printf("------------------------------\n");
 	}
 	sub_tokenize(&(*msh));
-	empty_case(msh, (*msh)->prompt_line);
 	if ((*msh)->debug_mode)  //DEBUG TO DELETE
 	{	
 		print_tokens(&(*msh));
@@ -61,13 +61,29 @@ void	init_qt_struct(t_quote *quotes)
 	quotes->quote_char = '\0';
 }
 
-void	empty_case(t_msh **msh, const char *line)
+void	empty_case(t_msh **msh, const char *line, int i)
 {
 	t_tk_lst	*empty_tk;
+	char		new_line[1024];
+	int			j;
+	int			tmp_i;
 	
+	j = 0;
+	tmp_i = i;
 	if (!line)
 		return;
-	if (ft_strcmp("\"\"", line) == 0)
+	while (ft_strchr(WS, line[i]))
+		i++;
+	while (line[i])
+	{
+		new_line[j++] = line[i];
+		i++;
+	}
+	new_line[j] = '\0';
+	if (ft_strncmp("\"\"", new_line, 2) == 0 && 
+		((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, new_line[2]))
+		|| (!line[tmp_i - 1] && ft_strchr(WS, new_line[2]))
+		|| (!line[tmp_i - 1] && !new_line[2])))
 	{
 		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk((*msh), empty_tk, "''", ARG);	
@@ -81,7 +97,7 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 		*i = tk_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
-	else if (quotes->in_quotes) //deleted !ft_strchr(OPERATOR, c) && 
+	else if (quotes->in_quotes)
 		*i = tk_word_qt(msh, *i, &quotes->in_quotes, &quotes->quote_char);
 	else if (c == '|' && !quotes->in_quotes)
 		*i = tk_pipe(msh, *i);
