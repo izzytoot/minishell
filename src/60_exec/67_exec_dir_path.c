@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   67_exec_dir_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/13 00:26:29 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:05:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 
 	if (!path)
 		*path = NULL;
-	if (node->cmd && (((node->cmd[0] == '.' && node->cmd[1] == '/')
-				|| node->cmd[0] == '/')))
+	//if (node->cmd && (((node->cmd[0] == '.' && node->cmd[1] == '/')
+	//			|| node->cmd[0] == '/')))
+	if (ft_strchr(node->cmd, '/')) //changed to any cmd containing /
 	{
 		*path = node->cmd;
 		status = direct_path(&(*msh), node);

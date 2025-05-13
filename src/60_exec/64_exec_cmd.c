@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/13 00:07:50 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:59:53 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		return (exit_value(msh, 0, 1, 0));
 	else
 	{
-		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+			ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
 		return (exit_value(msh, 127, 1, 0));
 	}
 }

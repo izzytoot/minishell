@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 20:44:18 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/13 13:05:49 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 }
 
 bool	ch_shlvl(char *word)
-{	if ((word[0] == '.' && word[1] == '/') || (ft_strcmp("/bin/ls", word) == 0))
+{	if (ft_strchr(word, '/'))
 		return (true);
 	return (false);
 }
@@ -83,15 +83,3 @@ void	expand_fn(t_msh **msh, t_tk_lst **tmp_fn, t_tk_lst **merge_tg, bool hd_flag
 	if (merge_tg && (*merge_tg)->quotes.in_squotes)
 		(*tmp_fn)->quotes.in_squotes = true;
 }
-
-/*
-void	expand_fn(t_msh **msh, t_tk_lst **tmp_fn, t_tk_lst **merge_tg)
-{
-	if ((*tmp_fn)->content[0] == '$' && !(*tmp_fn)->quotes.in_squotes)
-		(*tmp_fn)->content = ft_strdup(get_env_cont((*msh)->envp_list,
-			(*msh)->vars_list, (*tmp_fn)->content + 1));		
-	if ((*merge_tg)->content[0] == '$' && !(*merge_tg)->quotes.in_squotes)
-		(*merge_tg)->content = ft_strdup(get_env_cont((*msh)->envp_list,
-			(*msh)->vars_list, (*merge_tg)->content + 1));
-}
-*/

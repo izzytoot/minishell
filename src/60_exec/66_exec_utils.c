@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   66_exec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:19:13 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/13 00:10:01 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:34:36 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	update_shlvl(t_list **env_list)
 	char	*shlvl_str;
 	int		shlvl;
 
-	printf("Updating SHLVL\n");
+	//printf("Updating SHLVL\n");
 	shlvl_value = get_var_val(*env_list, "SHLVL");
 	if (shlvl_value)
 	{
