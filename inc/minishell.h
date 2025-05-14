@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/13 18:43:36 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 14:46:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -470,7 +470,6 @@ void			expand_tk(t_msh **msh, char **arg);
 void			subst_arg(char **arg, t_exp_cont *parts);
 
 //71_expand_fname.c
-void			expand_files(t_msh **msh, t_tree_nd *node);
 void			expand_fname(t_msh **msh, char **fname);
 void			subst_fname(char **fname, t_exp_cont *parts);
 
@@ -482,7 +481,6 @@ char			*expand_word(t_msh **msh, char *word);
 //73_build_kw_lst.c 
 void			build_kw_list(t_kw **kw_lst, char *arg, int *i);
 void			get_exp_kw(int next, t_kw *n_kw, char *arg, int *i);
-void			get_mid_kw(int count, t_kw *n_kw, char *arg, int *i);
 char			*get_util(char *arg, int **i, int n);
 void			app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp);
 

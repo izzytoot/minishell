@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 19:32:54 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 14:55:01 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ void	expand_kw(t_msh **msh, t_kw **kw_lst)
 		if (expand_case(curr_kw->kw) == 1 || expand_case(curr_kw->kw) == 4
 			|| (expand_case(curr_kw->kw) == 5 && !(*kw_lst)->next))
 			;
-		else if (expand_case(curr_kw->kw) == 2)
-		{
-			curr_kw->kw = ft_strdup("minishell");
-		}
-		else if (expand_case(curr_kw->kw) == 3)
-		{
-			curr_kw->kw = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
-		}
 		else if (expand_case(curr_kw->kw) == 6)
+			curr_kw->kw = ft_strdup(ft_itoa((*msh)->msh_pid));
+		else if (expand_case(curr_kw->kw) == 2)
+			curr_kw->kw = ft_strdup("minishell");
+		else if (expand_case(curr_kw->kw) == 3)
+			curr_kw->kw = ft_strdup(ft_itoa(exit_value(msh, 0, 0, 0)));
+		else if (expand_case(curr_kw->kw) == 7)
 		{
 			if (curr_kw->exp)
 				curr_kw->kw = get_env_cont((*msh)->envp_list, (*msh)->vars_list, curr_kw->kw);
@@ -51,7 +49,9 @@ int	expand_case(char *kw)
 		return (4);
 	else if (ft_strcmp(kw, "$") == 0)
 		return (5);
-	return (6);
+	else if (ft_strcmp(kw, "$$") == 0)
+		return (6);
+	return (7);
 }
 
 char *get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)

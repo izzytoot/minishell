@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 14:23:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 14:41:41 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	ft_init_msh(t_msh **msh, char **envp)
 	copy_envp(*msh, envp);
 	update_shlvl(&(*msh)->envp_list);
 	(*msh)->msh_pid = getpid();
-	printf("pid is %d\n", (*msh)->msh_pid);
-//	if ((*msh)->debug_mode)
-//		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
-	exit_value(msh, 0, 1, 0); //iniciar o exit_code status
+	exit_value(msh, 0, 1, 0);
 	prompt_and_read(&(*msh));
 }
 
@@ -35,7 +32,6 @@ void	prompt_and_read(t_msh **msh)
 
 	while (1)
 	{
-		printf("pid is %d\n", (*msh)->msh_pid);
 		prompt = get_prompt();
 		line = readline(prompt);
 		free(prompt);
@@ -56,7 +52,6 @@ void	prompt_and_read(t_msh **msh)
 }
 
 //info --> create prompt wih current dir
-
 char	*get_prompt(void)
 {
 	char	cwd[PATH_MAX];

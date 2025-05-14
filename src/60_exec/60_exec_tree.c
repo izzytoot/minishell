@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/12 22:07:00 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:34:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		printf("\n");
 		printf("------------------------------\n");
 	}
-//	expand_files(msh, node);
 	if ((*msh)->hd_check)
 	{
 		exec_heredocs(msh, node);

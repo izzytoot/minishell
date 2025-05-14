@@ -6,33 +6,11 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 15:51:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 14:41:01 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	expand_files(t_msh **msh, t_tree_nd *node)
-{
-	int		i;
-	
-	i = 0;
-	if (!node)
-		return ;
-	if ((type_is_redir(&node->type) && node->file) && node->type != REDIR_HD)
-	{
-		while (node->file[i])
-		{
-			if (node->file[i] == '$')
-				expand_fname(msh, &node->file);
-			i++;
-		}
-	}
-	if (node->left)
-		expand_files(msh, node->left);
-	if(node->right)
-		expand_files(msh, node->right);
-}
 
 void	expand_fname(t_msh **msh, char **fname)
 {

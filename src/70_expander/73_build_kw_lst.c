@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 19:14:06 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 14:52:43 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 			if (arg[*i] && check_mid(arg[*i]))
 			{
 				n_kw = ft_calloc(1, sizeof(t_kw *));
-				get_mid_kw(count, n_kw, arg, i);
+				n_kw->kw = get_util(arg, &i, 4);
 				app_kw(kw_lst, n_kw, n_kw->kw, false);
 			}
 		}
@@ -43,9 +43,9 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 void	get_exp_kw(int next, t_kw *n_kw, char *arg, int *i)
 {
 	if(arg[*i] == '$' && (!next || ft_strchr(WS, next) || (ft_isdigit(next)
-		|| (ft_strchr(SYM_EXP, next) && next != '?'))))
+		|| (ft_strchr(SYM_EXP, next) && next != '?') || next == '$')))
 	{
-		if (ft_isdigit(next) || next == '?')
+		if (ft_isdigit(next) || next == '?' || next == '$')
 			n_kw->kw = get_util(arg, &i, 5);
 		else
 			n_kw->kw = get_util(arg, &i, 1);
@@ -56,15 +56,6 @@ void	get_exp_kw(int next, t_kw *n_kw, char *arg, int *i)
 		if (arg[*i] == '$' && next)
 			n_kw->kw = get_util(arg, &i, 2);
 	}
-}
-
-void	get_mid_kw(int count, t_kw *n_kw, char *arg, int *i)
-{
-(void)count;
-//	if (count - 1 == 0) //check if needed
-//		n_kw->kw = get_util(arg, &i, 3);
-//	else
-		n_kw->kw = get_util(arg, &i, 4);
 }
 
 char	*get_util(char *arg, int **i, int n)
@@ -82,6 +73,8 @@ char	*get_util(char *arg, int **i, int n)
 		(**i)++;
 		if (arg[**i] == '?')
 			return (ft_strdup("?"));
+		if (arg[**i] == '$')
+			return (ft_strdup("$$"));
 		else if (arg[**i] == '0')
 			return (ft_strdup("0"));
 		else if (ft_isdigit(arg[**i]))
