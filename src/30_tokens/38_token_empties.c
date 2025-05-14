@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 15:01:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 15:42:23 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 {
 	t_tk_lst	*empty_tk;
-	char		new_line[1024];
+	char		nl[1024];
 	int			j;
 	int			tmp_i;
 	
@@ -27,13 +27,13 @@ void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 	tmp_i = i;
 	while (line[i])
 	{
-		new_line[j++] = line[i];
+		nl[j++] = line[i];
 		i++;
 	}
-	new_line[j] = '\0';
-	if ((ft_strncmp("\"\"", new_line, 2) || ft_strncmp("''", new_line, 2) == 0) && 
-		((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, new_line[2]))
-		|| (flag && ft_strchr(WS, new_line[2])) || (flag && !new_line[2])))
+	nl[j] = '\0';
+	if ((ft_strncmp("\"\"", nl, 2) == 0|| ft_strncmp("''", nl, 2) == 0) && 
+		((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, nl[2]))
+		|| (flag && ft_strchr(WS, nl[2])) || (flag && !nl[2])))
 	{
 		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk((*msh), empty_tk, "''", ARG);	
