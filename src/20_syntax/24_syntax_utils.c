@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/08 11:22:02 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 19:14:36 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ bool	look_for_pipe(const char *line, int i)
 	i++;
 	if (!line[i])
 		return (false);
-	while (line[i] && (ft_strchr(WS, line[i])
-			|| ft_strchr(QT, line[i])))
+	while (line[i] && (ft_strchr(WS, line[i])))
 		i++;
 	if (line[i] == '|')
 	{
