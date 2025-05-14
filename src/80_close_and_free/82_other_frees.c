@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 19:13:03 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 16:29:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ void	free_tokens(t_tk_lst *token_list)
 	while (token_list)
 	{
 		tmp = token_list->next;
-		safe_free(token_list);
+		if (token_list->content)
+			safe_free(token_list->content);
 		token_list = tmp;
 	}
+	safe_free(token_list);
 }
 
 void	free_qt_lst(t_quote *qt_list)
@@ -60,6 +62,7 @@ void	free_qt_lst(t_quote *qt_list)
 		safe_free(qt_list);
 		qt_list = tmp;
 	}
+	safe_free(qt_list);
 }
 
 void	free_kw_structs(t_exp_cont *parts, t_kw **kw_lst)
@@ -79,36 +82,3 @@ void	free_kw_structs(t_exp_cont *parts, t_kw **kw_lst)
 //	}
 //	*kw_lst = safe_free(*kw_lst);
 }
-
-/*
-void	free_tokens(t_tk_lst *token_list)
-{
-	t_tk_lst	*tmp;
-
-	tmp = token_list;
-	while (token_list)
-	{
-		tmp = token_list->next;
-		if (token_list->content)
-			token_list->content = safe_free(token_list->content);
-		token_list = tmp;
-	}
-		token_list = safe_free(token_list);
-}
-	
-
-void	free_qt_lst(t_quote *qt_list)
-{
-	t_quote	*tmp;
-
-	tmp = qt_list;
-	while (qt_list)
-	{
-		tmp = qt_list->next;
-		if (qt_list->content)
-			qt_list->content = safe_free(qt_list->content);
-		qt_list = tmp;
-	}
-	qt_list = safe_free(qt_list);
-}
-*/

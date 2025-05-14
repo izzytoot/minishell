@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 14:34:35 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 17:12:46 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ char	**remake_args(t_tree_nd *node)
 
 	new_args[ints.j] = NULL;
 	node->quote_lst = quote_tmp;
-//	free(quote_tmp); //check free
 	return(new_args);
 }

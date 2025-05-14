@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/12 19:00:50 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 17:20:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 				//tmp_arg = node->args[i];
 				tmp_arg = ft_strdup(node->args[i]);
 				expander(msh, &node, &tmp_arg);
-				args_cpy[i] = tmp_arg;
+				args_cpy[i] = tmp_arg; //strdup??
 				i++;
 			}
 			args_cpy[i] = NULL;
 			node->quote_lst = tmp_qt;
-			node->args = ft_array_dup(args_cpy);
+			node->args = ft_array_dup_w_null(node, args_cpy, node->nb_arg);
 	}
 	recurs_exp_args(msh, node);
 }
@@ -85,7 +85,7 @@ void	expand_tk(t_msh **msh, char **arg)
 	expand_kw(msh, kw_lst);
 	parts.new_c = get_exp_cont(kw_lst);
 	subst_arg(arg, &parts);
-//	free_kw_structs(&parts, kw_lst);
+	free_kw_structs(&parts, kw_lst);
 }
 
 void	subst_arg(char **arg, t_exp_cont *parts)
@@ -107,4 +107,24 @@ void	subst_arg(char **arg, t_exp_cont *parts)
 	}
 	else
 		*arg = NULL;
+}
+
+char	**ft_array_dup_w_null(t_tree_nd *node, char **array, int n)
+{
+	int		i;
+	int		size;
+	char	**new_array;
+
+	if (!array)
+		return (NULL);
+	size = 0;
+	i = -1;
+	while (n-- >= 0)
+	{
+		if (array[++i])
+			size++;
+	}
+	node->nb_arg = size;
+	new_array = copy_array(size, array);
+	return (new_array);
 }

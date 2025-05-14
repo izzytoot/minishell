@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:27:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/09 13:08:11 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 16:11:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ char	**ft_list_to_array(t_list *list)
 	}
 	array[i] = NULL;
 	i = 0;
-	ft_lstclear(&list, free);
 	return (array);
 }

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 15:27:44 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 17:20:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,31 @@ int	count_exp(char *arg, int i)
 		i++;
 	}	
 	return (count);
+}
+
+char	**copy_array(int size, char **array)
+{
+	char	**new_array;
+	int		n;
+	int		i;
+	
+	new_array = ft_calloc(size + 1, sizeof(char *));
+	if (!new_array)
+		return (NULL);
+	n = -1;
+	i = -1;
+	while (n < size - 1)
+	{
+		if (array[++i])
+		{
+			new_array[++n] = ft_strdup(array[i]);
+			if (!new_array[n])
+			{
+				ft_free_arrays((void **)new_array);
+				return (NULL);
+			}
+		}
+	}
+	new_array[size] = NULL;
+	return(new_array);
 }

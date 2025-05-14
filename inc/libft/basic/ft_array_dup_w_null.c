@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_array_dup.c                                     :+:      :+:    :+:   */
+/*   ft_array_dup_w_null.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-char	**ft_array_dup(char **array)
+char	**ft_array_dup_w_null(char **array, int n)
 {
 	int		i;
 	int		size;
@@ -21,19 +21,27 @@ char	**ft_array_dup(char **array)
 	if (!array)
 		return (NULL);
 	size = 0;
-	while (array[size])
-		size++;
+	i = -1;
+	while (n-- >= 0)
+	{
+		if (array[++i])
+			size++;
+	}
 	new_array = malloc(sizeof(char *) * (size + 1));
 	if (!new_array)
 		return (NULL);
+	n = -1;
 	i = -1;
-	while (++i < size)
+	while (n < size - 1)
 	{
-		new_array[i] = ft_strdup(array[i]);
-		if (!new_array[i])
+		if (array[++i])
 		{
-			ft_free_arrays((void **)new_array);
-			return (NULL);
+			new_array[++n] = ft_strdup(array[i]);
+			if (!new_array[n])
+			{
+				ft_free_arrays((void **)new_array);
+				return (NULL);
+			}
 		}
 	}
 	new_array[size] = NULL;

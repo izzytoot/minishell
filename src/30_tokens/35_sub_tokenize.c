@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/13 18:44:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 16:34:16 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,13 @@ char	*check_env_cmd(char *cmd, char *env_path, int i)
 	{		
 		part_path = ft_strjoin(paths[i], "/");
 		cmd_path = ft_strjoin(part_path, cmd);
-		//safe_free(part_path); //this is causing segfault
+		safe_free(part_path); //this was causing segfault
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-		//	ft_free_arrays((void **)paths); //this is causing segfault
+			ft_free_arrays((void **)paths); //this was causing segfault
 			return(cmd_path);
 		}
-		//safe_free(cmd_path); //this is causing segfault
+		safe_free(cmd_path); //this was causing segfault
 	}
 //	ft_free_arrays((void **)paths);
 	return(NULL);	
