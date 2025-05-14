@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 14:52:43 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 15:15:44 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 
 void	get_exp_kw(int next, t_kw *n_kw, char *arg, int *i)
 {
-	if(arg[*i] == '$' && (!next || ft_strchr(WS, next) || (ft_isdigit(next)
-		|| (ft_strchr(SYM_EXP, next) && next != '?') || next == '$')))
+	if(arg[*i] == '$' && (!next || ft_strchr(WS, next) ||  ft_strchr(QT, next) 
+		|| (ft_isdigit(next) || (ft_strchr(SYM_EXP, next) && next != '?')
+		|| next == '$')))
 	{
 		if (ft_isdigit(next) || next == '?' || next == '$')
 			n_kw->kw = get_util(arg, &i, 5);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   78_expand_utils.c                                  :+:      :+:    :+:   */
+/*   77_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/11 19:33:55 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 15:27:44 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	get_kw_len(char *arg, int **i, int tmp_i, bool *flag)
 
 bool	check_mid(char c)
 {
-	if ((ft_strchr(SYM_EXP, c) || c != '$') && !ft_strchr(QT, c))
+	if ((ft_strchr(SYM_EXP, c) || c != '$') && c != '\"')
 		return (true);
 	return (false);
 }
