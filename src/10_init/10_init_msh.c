@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/13 00:12:25 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:23:15 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_init_msh(t_msh **msh, char **envp)
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
 	update_shlvl(&(*msh)->envp_list);
+	(*msh)->msh_pid = getpid();
+	printf("pid is %d\n", (*msh)->msh_pid);
 //	if ((*msh)->debug_mode)
 //		print_envp_in_struct(&(*msh)); //DEBUG TO DELETE
 	exit_value(msh, 0, 1, 0); //iniciar o exit_code status
@@ -33,6 +35,7 @@ void	prompt_and_read(t_msh **msh)
 
 	while (1)
 	{
+		printf("pid is %d\n", (*msh)->msh_pid);
 		prompt = get_prompt();
 		line = readline(prompt);
 		free(prompt);

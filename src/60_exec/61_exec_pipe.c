@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/09 10:43:33 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 14:26:15 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 
 void	perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid)
 {
+	(*msh)->msh_pid = 0;
 	close(useless_fd); // close read
 	safe_dup2(msh, dup_fd, STDOUT_FILENO, curr_pid); // stdout will write to the pipe instead of the terminal. It replaces the terminal with fd[1] (pipe).
 	close(dup_fd); // original fd[1] is no longer needed
@@ -51,6 +52,7 @@ void	perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid)
 
 void	perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid)
 {
+	(*msh)->msh_pid = 0;
 	close(useless_fd); // close write
 	safe_dup2(msh, dup_fd, STDIN_FILENO, curr_pid); // stdin will write to the pipe instead of the terminal. It replaces the terminal with fd[1] (pipe).
 	close(dup_fd); // original fd[1] is no longer needed

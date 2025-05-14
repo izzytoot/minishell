@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/13 15:41:44 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 14:25:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (pid == 0)
 	{
+		(*msh)->msh_pid = 0;
 		status = choose_path(&(*msh), node, &path);
 		if (status != 0)
 			return (exit_value(msh, status, 1, 0));
