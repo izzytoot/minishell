@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 17:24:16 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 19:41:31 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 	int		curr_pid;
 
 	file_fd = -1;
+	if (!node->file)
+	{
+		ft_dprintf(STDERR_FILENO, "msh: %s: %s", (*msh)->tmp_fname, ERR_AMBREDIR);
+		return (exit_value(msh, 1, 1, 0));
+	}
 	if (node->type != REDIR_HD)
 		file_fd = create_file_fd(node->type, node->file);
 	else

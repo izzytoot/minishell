@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/14 17:20:58 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 19:40:38 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@
 */
 # define ERR_CNOTFOUND "command not found\n"
 # define ERR_DIRNOTFOUND "No such file or directory\n"
+# define ERR_AMBREDIR "ambiguous redirect\n"
 # define ERR_SYN_EMPT "Command '' not found\n"
 # define ERR_SYN_SQT "msh: syntax error - unclosed single quotes\n"
 # define ERR_SYN_DQT "msh: syntax error - unclosed double quotes\n"
@@ -216,6 +217,7 @@ typedef struct s_msh
 	t_list		*vars_list;
 	bool		debug_mode;
 	bool		hd_check;
+	char		*tmp_fname;
 }	t_msh;
 
 /* ************************************************************************** */
