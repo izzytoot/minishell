@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 16:29:35 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 21:04:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	ft_free_str_arr(char **array) //not sure I need this or can just use free_a
 			safe_free(array[i]);
 		i++;
 	}
-	if (array)
-		safe_free(array);
 	return ;
 }
 
