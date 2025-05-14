@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/13 13:05:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 19:02:24 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_tk_lst	*find_w_tk(t_msh **msh)
 	}
 	while (w_tk)
 	{
-		if (w_tk->type == WORD && !ft_strnstr(w_tk->content, "$", ft_strlen(w_tk->content))
+		if (w_tk->type == WORD 
+			&& !ft_strnstr(w_tk->content, "$", ft_strlen(w_tk->content))
 			&& w_tk->prev && w_tk->prev->type == WORD 
 			&& !w_tk->quotes.space_case)
 			return (w_tk);

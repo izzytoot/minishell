@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/13 18:26:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/14 18:59:01 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ int tk_space(t_msh **msh, int start)
 		i++;
 	}
 	word[j] = '\0';
-	new_tk = safe_malloc(sizeof(t_tk_lst));
-	app_tk(*msh, new_tk, word, W_SPACE);
+	if (word[0] != '\0')
+	{
+		new_tk = safe_malloc(sizeof(t_tk_lst));
+		app_tk(*msh, new_tk, word, W_SPACE);	
+	}
 	if ((*msh)->token_list->next)
 		(*msh)->token_list->next->quotes.space_case = true;
 	return(i - 1);
@@ -54,9 +57,12 @@ int	tk_word(t_msh **msh, int start)
 		i++;
 	}
 	word[j] = '\0';
-	new_tk = ft_calloc(1, sizeof(t_tk_lst));
-	app_tk(*msh, new_tk, word, WORD);
-	empty_case(msh, line, i, false);
+	if (word[0] != '\0')
+	{
+		new_tk = ft_calloc(1, sizeof(t_tk_lst));
+		app_tk(*msh, new_tk, word, WORD);
+		empty_case(msh, line, i, false);
+	}
 	return(i - 1);
 }
 
@@ -75,8 +81,11 @@ int	tk_word_qt(t_msh **msh, int start,
     while (line[i] && (line[i] != *quote_char))
 		word[j++] = line[i++];
 	word[j] = '\0';
-	new_tk = ft_calloc(1, sizeof(t_tk_lst));
-	app_tk(*msh, new_tk, word, WORD);
+	if (word[0] != '\0')
+	{
+		new_tk = ft_calloc(1, sizeof(t_tk_lst));
+		app_tk(*msh, new_tk, word, WORD);
+	}
 	if (*quote_char == '\'')
 		(*msh)->token_list->quotes.in_squotes = true;
 	else if (*quote_char == '\"')
