@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 19:41:31 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 20:08:30 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 		if (((*curr_nd)->type == REDIR_OUT || (*curr_nd)->type == REDIR_APP)
 			&& redir_data->orig_stdout == -1)
 			redir_data->orig_stdout = safe_dup(msh, (*curr_nd)->fd, getpid());
-		if ((*curr_nd)->right && type_is_cmd(&(*curr_nd)->right->type)) //keep cmd node if on right
+		if ((*curr_nd)->right && type_is_word(&(*curr_nd)->right->type)) //keep cmd node if on right
 			redir_data->cmd_nd = (*curr_nd)->right;
-		else if ((*curr_nd)->left && type_is_cmd(&(*curr_nd)->left->type)) //keep cmd node if on left
+		else if ((*curr_nd)->left && type_is_word(&(*curr_nd)->left->type)) //keep cmd node if on left
 			redir_data->cmd_nd = (*curr_nd)->left;
 		*curr_nd = (*curr_nd)->left;
 		i++;

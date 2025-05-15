@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/07 11:31:11 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 20:10:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_tree_nd *handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk, bool *cmd_exc)
 	
 	if (!curr_tk || !*curr_tk)
 		return (redir_nd);
-
 	new_redir = new_tree_nd(NULL, &(*curr_tk)->type, &(*curr_tk)->content[0]);
 	add_fname(new_redir, (*curr_tk));
 	new_redir->type = (*curr_tk)->type;
@@ -52,7 +51,7 @@ t_tree_nd *handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk, bool *cmd_exc)
 	else
 		new_redir->fd = STDOUT_FILENO;
 	redir_nd = attach_redir(redir_nd, new_redir);
-	if (!(*curr_tk)->next)
+	if (!(*curr_tk)->next && !check_prev((*curr_tk)))
 		*cmd_exc = true;
 	*curr_tk = safe_next_tk(*curr_tk);
 	return(redir_nd);	
@@ -76,7 +75,7 @@ bool check_cmd(t_tk_lst **token_list, bool cmd_exc)
 		return (false);
 	while(curr_tk)
 	{
-		if(type_is_redir(&curr_tk->type) && !cmd_exc)
+		if(type_is_redir(&curr_tk->type) && !cmd_exc) // we need cmd_exc when cmd is between redris
 		{
 			if (curr_tk->next)
 			{
