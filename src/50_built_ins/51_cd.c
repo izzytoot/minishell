@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/12 21:09:51 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:25:16 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if ((*node)->args[1])
+	//if ((*node)->args[1])
+	if ((*node)->nb_arg > 0) //podemos guiar-nos pelo nb_args que vai sempre estar correto em vez do array de args, que com os pointers é tricky
 	{
 		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
 		return (EXIT_FAILURE);
