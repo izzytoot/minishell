@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/08 11:21:21 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 15:39:57 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ bool	misplaced_redir_at_end(const char *line)
 	check_in_quotes(line[i], &in_quotes);
 	if (in_quotes)
 		return (false);
-	else if (line[i] && !in_quotes && ft_strchr(REDIR, line[i]))
+	else if (line[i] && !in_quotes && (line[i] == '|' && line[i - 1] == '>'))
 		return (true);
+	else if (line[i] && !in_quotes && ft_strchr(REDIR, line[i]))
+			return (true);
 	return (false);
 }
