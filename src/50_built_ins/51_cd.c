@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/15 18:37:39 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/16 00:17:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if ((*node)->args[1])
+	if ((*node)->nb_arg > 1)
 	{
 		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
 		return (EXIT_FAILURE);
