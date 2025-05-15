@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/13 00:02:08 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:23:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 
 	if (!node)
 		return ;
+	if (node->left)
+		exec_heredocs(msh, node->left);
+	if(node->right)
+		exec_heredocs(msh, node->right);
 	if (node->type == REDIR_HD)
 	{
 		node->tmp_file = ft_strjoin("/tmp/.heredoc_tmp", ft_itoa(n++));
@@ -33,10 +37,6 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 			close(file_fd);
 		}
 	}
-	if (node->left)
-		exec_heredocs(msh, node->left);
-	if(node->right)
-		exec_heredocs(msh, node->right);
 }
 
 void		handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)

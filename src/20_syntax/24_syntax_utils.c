@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 19:14:36 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 15:42:57 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	look_for_pipe(const char *line, int i)
 {
+	if (line[i] == '>' && line[i - 1] != '>' && line[i + 1] == '|')
+		return (false);
 	i++;
 	if (!line[i])
 		return (false);

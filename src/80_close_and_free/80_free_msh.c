@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 20:10:10 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 16:34:30 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	free_tree(t_tree_nd *node)
 		safe_free(node->op_content);
 	if (node->cmd_content)
 		ft_free_str_arr(node->cmd_content);
-	if (node->args)
+	if (node->args && !node->cmd_content)
 		ft_free_str_arr(node->args);
 	if(node->tmp_file)
 	{

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:20:33 by root              #+#    #+#             */
-/*   Updated: 2025/05/14 19:01:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 15:51:50 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,21 @@ int	tk_redir_app(t_msh **msh, const char *line, char *redir_app, int i)
 
 int	tk_redir_out(t_msh **msh, const char *line, char *redir_out, int i)
 {
-	int		j;
+	int			j;
 	t_tk_lst	*new_tk;
-	
+	bool		flag;
 	j = 0;
+
+	flag = false;
+	if (line[i + 1] == '|')
+		flag = true;
 	while(line[i] && line[i] == '>')
 	{
 		redir_out[j++] = line[i];
 		i++;
 	}
+	if (flag)
+		i++;
 	redir_out[j] = '\0';
 	if (redir_out[0] != '\0')
 	{
