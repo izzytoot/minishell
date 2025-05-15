@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   38_token_empties.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 15:42:23 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 15:27:28 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	rm_empties(t_tk_lst **curr)
 {
 	char	*word;
 
+	word = NULL;
 	if (!(*curr)->prev || (*curr)->prev->type != ARG)
 		return ;
 	if ((*curr)->prev->type == ARG)
