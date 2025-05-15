@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:07:29 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 15:34:57 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 16:56:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	pipe_at_end(const char *line)
 		return (false);
 	else if (line[i] && !in_quotes && (ft_strchr("|", line[i])))
 	{
-		if (line[i - 1] == '>')
+		if (line[i - 1] == '>' || line[i - 1] == '|')
 			return (false);
 		ft_putstr_fd(ERR_SYN_PIPE, STDERR_FILENO);
 		return (true);

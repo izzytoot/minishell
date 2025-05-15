@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/13 13:05:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 16:25:21 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 		*path = NULL;
 	//if (node->cmd && (((node->cmd[0] == '.' && node->cmd[1] == '/')
 	//			|| node->cmd[0] == '/')))
-	if (ft_strchr(node->cmd, '/')) //changed to any cmd containing /
+	if (ft_strchr(node->cmd, '/') || (!node->cmd && ft_strchr(node->args[0], '/'))) //changed to any cmd containing /
 	{
-		*path = node->cmd;
+		if (!node->cmd)
+			*path = node->args[0];
+		else
+			*path = node->cmd;
 		status = direct_path(&(*msh), node);
 		exit_value(msh, status, 1, 0);
 	}
@@ -38,7 +41,11 @@ int	direct_path(t_msh **msh, t_tree_nd *node)
 
 	(void)msh;
 	status = 0;
-	path = node->cmd;
+	
+	if (!node->cmd)
+		path = node->args[0]; //for case of calling exp dir like $PATH or $HOME
+	else
+		path = node->cmd; //removed ptr of path
 	if (access(path, F_OK) != 0)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: No such file or directory\n", path);

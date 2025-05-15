@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 15:07:07 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 16:44:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_tree_nd *build_cmd_nd(t_tk_lst **token_list)
 	curr_token = *token_list;
 	if (!curr_token)
         return NULL;
-	while(curr_token->type == W_SPACE)
+	while(curr_token && curr_token->type == W_SPACE)
 		curr_token = curr_token->next;
 	args = NULL;
 	cmd_nd = new_tree_nd(curr_token, &curr_token->type, NULL);

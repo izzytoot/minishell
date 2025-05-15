@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 17:12:46 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/15 16:50:36 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	expand_args(msh, node);
 	if(node->nb_arg > 1)
 		node->args = remake_args(node);
+	if (type_is_word(&node->type) && !node->cmd && ft_strchr(node->args[0], '/'))
+		node->type = ENV_CMD;
 	if ((*msh)->debug_mode && node->args) //TO DELETE
 	{
 		printf("------------------------------\n");
