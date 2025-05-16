@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/06 16:50:13 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/16 13:55:28 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	print_tree(t_tree_nd *node)
 	i = -1;
 	if (type_is_redir(&node->type))
 	{
-		ft_printf(GR"deatils of branch"RES);
+		ft_printf(GR"details of branch"RES);
 		ft_printf(BMAG" %s %s "RES, node->op_content, node->file);
 		ft_printf("\n");
 		if (node->fd == 0 || node->fd)
@@ -87,7 +87,7 @@ void	print_tree(t_tree_nd *node)
 	{
 		if (type_is_word(&node->type) && !node->cmd)
 			return ;
-		ft_printf(GR"deatils of branch"RES);
+		ft_printf(GR"details of branch"RES);
 		if (node->type == PIPE)
 			ft_printf(BMAG" %s \n"RES, node->op_content);
 		else if(type_is_word(&node->type) && node->cmd)
