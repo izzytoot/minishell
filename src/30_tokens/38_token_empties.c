@@ -6,25 +6,12 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/16 12:12:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/16 12:29:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool ch_all_same(char *nl)
-{
-	int	i;
-
-	i = 0;
-	while (nl[i] && (nl[i + 1] && !ft_strchr(WS, nl[i + 1])))
-	{
-		if ((nl[i + 1] && (nl[i] != nl[i + 1])) || !ft_strchr(QT, nl[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
 void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 {
 	t_tk_lst	*empty_tk;
@@ -53,6 +40,20 @@ void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 	return ;
 }
 
+bool ch_all_same(char *nl)
+{
+	int	i;
+
+	i = 0;
+	while (nl[i] && (nl[i + 1] && !ft_strchr(WS, nl[i + 1])))
+	{
+		if ((nl[i + 1] && (nl[i] != nl[i + 1])) || !ft_strchr(QT, nl[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 int	exp_to_null(t_msh **msh, int start)
 {
 	int			i;
@@ -78,6 +79,7 @@ void	rm_empties(t_tk_lst **curr)
 {
 	char	*word;
 
+	word = NULL;
 	if (!(*curr)->prev || (*curr)->prev->type != ARG)
 		return ;
 	if ((*curr)->prev->type == ARG)

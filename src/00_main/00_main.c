@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:28:40 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 19:42:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/16 00:24:51 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av, char **envp)
 	if (!msh)
 		close_minishell(msh, EXIT_FAILURE);
 	msh->active = true;
-	msh->debug_mode = false; //DELETE BEFORE SUMISSION
+	msh->debug_mode = true; //DELETE BEFORE SUMISSION
 	ft_init_msh(&msh, envp);
 	return (0);
 }

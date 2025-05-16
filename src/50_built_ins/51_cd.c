@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/15 20:25:16 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/16 00:24:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,15 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	//if ((*node)->args[1])
-	if ((*node)->nb_arg > 0) //podemos guiar-nos pelo nb_args que vai sempre estar correto em vez do array de args, que com os pointers é tricky
+	if ((*node)->nb_arg > 1)
 	{
 		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (!getcwd(cwd, PATH_MAX))
+	if (!getcwd(cwd, sizeof(cwd)))
 		return (perror("cd: getcwd"), EXIT_FAILURE);
-	old_pwd = ft_strjoin(ft_strdup(cwd), "\n");
-	if (get_dir(node, &target_dir) != EXIT_SUCCESS)
+	old_pwd = ft_strdup(cwd);
+	if (get_dir(node, &target_dir) == EXIT_FAILURE)
 		return (free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
@@ -49,21 +48,12 @@ int	get_dir(t_tree_nd **node, char **target_dir)
 {
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if (!(*node)->args[0])
+	if (!(*node)->args[0] || ft_strcmp((*node)->args[0], "~") == 0)
 	{
 		*target_dir = getenv("HOME");
 		if (!*target_dir)
 		{
 			ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
-			return (EXIT_FAILURE);
-		}
-	}
-	else if (ft_strncmp((*node)->args[0], "..", 2) == 0)
-	{
-		*target_dir = getenv("OLDPWD");
-		if (!*target_dir)
-		{
-			ft_putstr_fd("cd: OLDPWD not set\n", STDERR_FILENO);
 			return (EXIT_FAILURE);
 		}
 	}
