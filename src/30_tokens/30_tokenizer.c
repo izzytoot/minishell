@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/16 10:09:11 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/16 14:13:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	get_tokens(t_msh **msh, int i)
 		else
 			break ;
 	}
-	//if ((*msh)->debug_mode)  //DEBUG TO DELETE
-	//{	
-	//	print_tokens(&(*msh));
-	//	ft_printf("------------------------------\n");
-	//}
+	if ((*msh)->debug_mode)  //DEBUG TO DELETE
+	{	
+		print_tokens(&(*msh));
+		ft_printf("------------------------------\n");
+	}
 	sub_tokenize(&(*msh));
 	if ((*msh)->debug_mode)  //DEBUG TO DELETE
 	{	
@@ -62,11 +62,11 @@ void	init_qt_struct(t_quote *quotes)
 }
 
 bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
-{	
+{
+	if (c == '$' && !quotes->in_quotes)
+		*i = exp_to_null(msh, *i);
 	if (ft_strchr(WS, c) && !quotes->in_quotes)
 		*i = tk_space(msh, *i);
-	else if (c == '$' && !quotes->in_quotes)
-		*i = exp_to_null(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
 	else if (quotes->in_quotes)
