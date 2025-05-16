@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/16 00:24:29 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:24:24 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 	if (!getcwd(cwd, sizeof(cwd)))
 		return (perror("cd: getcwd"), EXIT_FAILURE);
 	old_pwd = ft_strdup(cwd);
-	if (get_dir(node, &target_dir) == EXIT_FAILURE)
+	if (get_dir(msh, node, &target_dir) == EXIT_FAILURE)
 		return (free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
@@ -44,21 +44,25 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 
 //info --> get target dir
 
-int	get_dir(t_tree_nd **node, char **target_dir)
+int	get_dir(t_msh **msh, t_tree_nd **node, char **target_dir)
 {
+	char	*home;
+
 	if (!node || !*node)
 		return (EXIT_FAILURE);
 	if (!(*node)->args[0] || ft_strcmp((*node)->args[0], "~") == 0)
 	{
-		*target_dir = getenv("HOME");
-		if (!*target_dir)
+		home = get_var_val((*msh)->envp_list, "HOME");
+
+		if (!home)
 		{
-			ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
+			ft_putstr_fd("msh: cd: HOME not set\n", STDERR_FILENO);
 			return (EXIT_FAILURE);
 		}
+		*target_dir = ft_strdup(home);
 	}
 	else
-		*target_dir = (*node)->args[0];
+		*target_dir = ft_strdup((*node)->args[0]);
 	return (EXIT_SUCCESS);
 }
 

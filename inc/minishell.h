@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/16 16:59:13 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:22:11 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,7 +374,7 @@ int				ft_pwd(void);
 
 //51_cd.c
 int				ft_cd(t_msh **msh, t_tree_nd **node);
-int				get_dir(t_tree_nd **node, char **target_dir);
+int				get_dir(t_msh **msh, t_tree_nd **node, char **target_dir);
 int				update_cd_env(t_msh **msh, char *old_pwd);
 int				update_cd_var(t_list **env_list, const char *var_name,
 					const char *data);
