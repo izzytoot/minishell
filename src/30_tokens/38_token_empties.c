@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   38_token_empties.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/15 15:27:28 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:29:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,53 @@ void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 		i++;
 	tmp_i = i;
 	while (line[i])
-	{
-		nl[j++] = line[i];
-		i++;
-	}
+		nl[j++] = line[i++];
 	nl[j] = '\0';
-	if ((ft_strncmp("\"\"", nl, 2) == 0|| ft_strncmp("''", nl, 2) == 0) && 
-		((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, nl[2]))
-		|| (flag && ft_strchr(WS, nl[2])) || (flag && !nl[2])))
+	if (ft_strchr(QT, nl[0]) && ((ch_all_same(nl) 
+		&& ((flag || ft_strchr(WS, line[tmp_i - 1]) || !line[i - 1])))
+		|| ((ft_strncmp("\"\"", nl, 2) == 0 || ft_strncmp("''", nl, 2) == 0)
+		&& (((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, nl[2]))
+		|| (flag && ft_strchr(WS, nl[2])) || (flag && !nl[2]))))))
 	{
 		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
-		app_tk((*msh), empty_tk, "''", ARG);	
+		app_tk((*msh), empty_tk, "''", ARG);
 	}
 	return ;
+}
+
+bool ch_all_same(char *nl)
+{
+	int	i;
+
+	i = 0;
+	while (nl[i] && (nl[i + 1] && !ft_strchr(WS, nl[i + 1])))
+	{
+		if ((nl[i + 1] && (nl[i] != nl[i + 1])) || !ft_strchr(QT, nl[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+int	exp_to_null(t_msh **msh, int start)
+{
+	int			i;
+	char		exp[5];
+	t_tk_lst	*new_tk;
+	const char *line;
+	
+	i = start + 1;
+	line = (*msh)->prompt_line;
+	while (line[i] && !ft_strchr(WS, line[i]))
+	{
+		if ((line[i + 1] && (line[i] != line[i + 1])) || !ft_strchr(QT, line[i]))
+			return (start);
+		i++;
+	}
+	exp[0] = '\0';	
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
+	app_tk(*msh, new_tk, exp, ARG);
+	return(i - 1);
 }
 
 void	rm_empties(t_tk_lst **curr)

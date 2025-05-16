@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/15 20:13:11 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/16 13:04:20 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,6 @@ int				exit_value(t_msh **msh, int exit_code, int upd_exit, int close);
 void			copy_envp(t_msh *msh, char **envp);
 char			**envp_to_array(t_msh *msh, char **envp);
 void			envp_to_list(t_msh *msh, char **envp);
-char			*add_envp_newline(char *envp);
 
 //12_init_utils.c
 void			init_all_null(t_msh **msh);
@@ -328,6 +327,8 @@ bool			check_shell_var(char *str);
 
 //38_token_empties.c
 void			empty_case(t_msh **msh, const char *line, int i, bool flag);
+bool 			ch_all_same(char *nl);
+int				exp_to_null(t_msh **msh, int start);
 void			rm_empties(t_tk_lst **curr);
 
 /************ 40_build_tree ************/
