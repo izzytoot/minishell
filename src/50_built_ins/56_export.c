@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/12 21:08:50 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/16 01:09:06 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,17 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 void	disp_exported(t_msh **msh)
 {
 	t_list	*current;
+	char	**var_parts;
 
 	current = sort_env((*msh)->envp_list, 1);
 	while (current)
 	{
-		ft_dprintf(STDOUT_FILENO, "declare -x %s", (char *)current->content);
+		var_parts = ft_split(current->content, '=');
+		if (var_parts[1])
+			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n", var_parts[0], var_parts[1]);
+		else
+			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", var_parts[0]);
+		ft_free_arrays((void **)var_parts);
 		current = current->next;
 	}
 }
