@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:17:25 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/15 20:10:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/17 23:44:28 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ bool	check_prev(t_tk_lst *curr_tk)
 	if (!curr_tk->prev)
 		return (false);
 	curr_tmp = curr_tk->prev;
-	while (curr_tmp->type == W_SPACE || curr_tmp->type == FILE_NAME)
+	while (curr_tmp && (curr_tmp->type == W_SPACE || curr_tmp->type == FILE_NAME))
 		curr_tmp = curr_tmp->prev;
-	if (type_is_word(&curr_tmp->type))
+	if (curr_tmp && type_is_word(&curr_tmp->type))
 		return (true);
 	return (false);
 }
