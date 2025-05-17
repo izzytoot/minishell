@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
+#    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/13 18:45:17 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/17 00:27:46 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,57 +16,57 @@
 NAME = minishell
 INC_PATH = ./inc/minishell.h
 SRC_PATH = ./src/
-SRC = $(addprefix $(SRC_PATH), ./00_main/00_main.c \
-							./10_init/10_init_msh.c \
-							./10_init/11_envp_copies.c\
-							./10_init/12_init_utils.c \
-							./20_syntax/20_syntax_check.c \
-							./20_syntax/21_syntax_quotes.c \
-							./20_syntax/22_syntax_pipes.c \
-							./20_syntax/23_syntax_redir.c \
-							./20_syntax/24_syntax_utils.c \
-							./30_tokens/30_tokenizer.c \
-							./30_tokens/31_token_words.c \
-							./30_tokens/32_token_pipes_and_redir_r.c \
-							./30_tokens/33_token_redir_l.c\
-							./30_tokens/34_handle_quotes.c\
-							./30_tokens/35_sub_tokenize.c\
-							./30_tokens/36_sub_tokenize_utils.c\
-							./30_tokens/37_token_utils.c\
-							./30_tokens/38_token_empties.c\
-							./40_build_tree/40_tokens_to_tree.c\
-							./40_build_tree/41_build_pipe_nodes.c\
-							./40_build_tree/42_build_redir_nodes.c\
-							./40_build_tree/43_build_cmd_nodes.c\
-							./40_build_tree/44_type_is_utils.c\
-							./40_build_tree/45_tree_utils.c\
-							./50_built_ins/50_pwd.c\
-							./50_built_ins/51_cd.c\
-							./50_built_ins/52_env.c\
-							./50_built_ins/53_echo.c\
-							./50_built_ins/54_exit.c\
-							./50_built_ins/55_unset.c\
-							./50_built_ins/56_export.c\
-							./50_built_ins/57_export_utils.c\
-							./60_exec/60_exec_tree.c\
-							./60_exec/61_exec_pipe.c\
-							./60_exec/62_exec_redir.c\
-							./60_exec/63_exec_heredoc.c\
-							./60_exec/64_exec_cmd.c\
-							./60_exec/65_remake_args_utils.c\
-							./60_exec/66_exec_utils.c\
-							./60_exec/67_exec_dir_path.c\
-							./70_expander/70_expand_args.c\
-							./70_expander/71_expand_fname.c\
-							./70_expander/72_expand_hd.c\
-							./70_expander/73_build_kw_lst.c\
-							./70_expander/74_expand_key_words.c\
-							./70_expander/75_get_parts.c\
-							./70_expander/76_final_expander.c\
-							./70_expander/77_expand_utils.c\
-							./80_close_and_free/80_free_msh.c\
-							./80_close_and_free/81_close_msh.c\
-							./80_close_and_free/82_other_frees.c\
+SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
+							10_init/10_init_msh.c \
+							10_init/11_envp_copies.c\
+							10_init/12_init_utils.c \
+							20_syntax/20_syntax_check.c \
+							20_syntax/21_syntax_quotes.c \
+							20_syntax/22_syntax_pipes.c \
+							20_syntax/23_syntax_redir.c \
+							20_syntax/24_syntax_utils.c \
+							30_tokens/30_tokenizer.c \
+							30_tokens/31_token_words.c \
+							30_tokens/32_token_pipes_and_redir_r.c \
+							30_tokens/33_token_redir_l.c\
+							30_tokens/34_handle_quotes.c\
+							30_tokens/35_sub_tokenize.c\
+							30_tokens/36_sub_tokenize_utils.c\
+							30_tokens/37_token_utils.c\
+							30_tokens/38_token_empties.c\
+							40_build_tree/40_tokens_to_tree.c\
+							40_build_tree/41_build_pipe_nodes.c\
+							40_build_tree/42_build_redir_nodes.c\
+							40_build_tree/43_build_cmd_nodes.c\
+							40_build_tree/44_type_is_utils.c\
+							40_build_tree/45_tree_utils.c\
+							50_built_ins/50_pwd.c\
+							50_built_ins/51_cd.c\
+							50_built_ins/52_env.c\
+							50_built_ins/53_echo.c\
+							50_built_ins/54_exit.c\
+							50_built_ins/55_unset.c\
+							50_built_ins/56_export.c\
+							50_built_ins/57_export_utils.c\
+							60_exec/60_exec_tree.c\
+							60_exec/61_exec_pipe.c\
+							60_exec/62_exec_redir.c\
+							60_exec/63_exec_heredoc.c\
+							60_exec/64_exec_cmd.c\
+							60_exec/65_remake_args_utils.c\
+							60_exec/66_exec_utils.c\
+							60_exec/67_exec_dir_path.c\
+							70_expander/70_expand_args.c\
+							70_expander/71_expand_fname.c\
+							70_expander/72_expand_hd.c\
+							70_expander/73_build_kw_lst.c\
+							70_expander/74_expand_key_words.c\
+							70_expander/75_get_parts.c\
+							70_expander/76_final_expander.c\
+							70_expander/77_expand_utils.c\
+							80_close_and_free/80_free_msh.c\
+							80_close_and_free/81_close_msh.c\
+							80_close_and_free/82_other_frees.c\
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
 
@@ -109,10 +109,8 @@ RESET	= "\033[0m"
 #==============================================================================#
 #                               RULES & DEPS                                   #
 #==============================================================================#
-all: $(LIBFT) $(NAME) clean msg
-
-%.o: %.c 
-	@$(C_COMP) $(FLAGS) -c $< -o $@
+all: $(LIBFT) $(NAME)
+	@$(MAKE) msg
 
 $(LIBFT):
 	@$(MAKE) $(NODIR) -C $(LIBFT_DIR)
@@ -143,4 +141,4 @@ fcleanall: fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re cleanall fcleanall
+.PHONY: all clean fclean re cleanall fcleanall msg

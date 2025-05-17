@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/16 17:22:11 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/17 12:50:45 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ int				exit_value(t_msh **msh, int exit_code, int upd_exit, int close);
 void			copy_envp(t_msh *msh, char **envp);
 char			**envp_to_array(t_msh *msh, char **envp);
 void			envp_to_list(t_msh *msh, char **envp);
+char			**cpy_for_execve(t_msh **msh);
 
 //12_init_utils.c
 void			init_all_null(t_msh **msh);
@@ -442,6 +443,7 @@ int				exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_sh_v(t_msh **msh, t_tree_nd *node);
+int				safe_execve(t_msh **msh, char *path, char **argv);
 
 //65_remake_args_utils.c
 void			init_aux_structs(t_flag_str *flags, t_ints *ints,
