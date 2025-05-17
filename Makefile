@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
+#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/17 13:48:39 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/05/17 23:51:49 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #                                NAMES & PATHS                                 #
 #==============================================================================#
 NAME = minishell
-INC_PATH = ./inc/minishell.h
+INC_PATH =details
 SRC_PATH = ./src/
 SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							10_init/10_init_msh.c \
