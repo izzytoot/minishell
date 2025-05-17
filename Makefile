@@ -6,7 +6,7 @@
 #    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/17 00:27:46 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/05/17 13:48:39 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,8 +70,8 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							11_debug_utils.c)
 OBJ = $(SRC:.c=.o)
 
-LIBFT_DIR = ./inc/libft/
-LIBFT = ./inc/libft/libft.a
+LIBFT_DIR = ./inc/libft
+LIBFT = $(LIBFT_DIR)/libft.a
 #==============================================================================#
 #                            FLAGS & COMMANDS                                  #
 #==============================================================================#
@@ -106,23 +106,50 @@ BMAG	= "\033[35;1m"
 BCYA	= "\033[36;1m"
 BWHI	= "\033[37;1m"
 RESET	= "\033[0m"
+
+# Background colors
+BGRED	= "\033[41m"
+BGGRN	= "\033[42m"
+BGYEL	= "\033[43m"
+BGBLU	= "\033[44m"
+BGMAG	= "\033[45m"
+BGCYA	= "\033[46m"
+BGWHI	= "\033[47m"
+BGBLA	= "\033[40m"
+
+# Bright (bold/high intensity) background colors
+BGBRED	= "\033[101m"
+BGBGRN	= "\033[102m"
+BGBYEL	= "\033[103m"
+BGBBLU	= "\033[104m"
+BGBMAG	= "\033[105m"
+BGBCYA	= "\033[106m"
+BGBWHI	= "\033[107m"
+
 #==============================================================================#
 #                               RULES & DEPS                                   #
 #==============================================================================#
-all: $(LIBFT) $(NAME)
-	@$(MAKE) msg
+all: $(NAME)
+	
+$(NAME): $(OBJ) $(LIBFT)
+	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $(NAME)
+	@clear
+	@echo $(BBLU) "		   __  __ _      _    _        _ _ "
+	@echo $(BBLU) "		  |  \/  (_)_ _ (_)__| |_  ___| | |"
+	@echo $(BBLU) "		  | |\/| | | ' \| (_-< ' \/ -_) | |"
+	@echo $(BBLU) "		  |_|  |_|_|_||_|_/__/_||_\___|_|_|" $(RESET)
+	@echo "\n"
+	@echo $(BGRN)" $(NAME) was created successfully!" $(RESET)
+	@echo $(BCYA)" This $(NAME) program was created by icunha-t and ddo-carm! ✨" $(RESET)
 
 $(LIBFT):
 	@$(MAKE) $(NODIR) -C $(LIBFT_DIR)
-	
-$(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJ) $(LDFLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
-	@echo $(BGRN)" $(NAME) was created successfully!" $(RESET)
+
+%.o: %.c 
+	@$(C_COMP) $(FLAGS) -I $(INC_PATH) -I $(LIBFT_DIR) -c $< -o $@
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
-msg:
-	@echo $(BCYA)" This $(NAME) program was created by icunha-t and ddo-carm! ✨" $(RESET)
 
 valgrind:
 	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
