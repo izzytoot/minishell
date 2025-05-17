@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/16 01:09:06 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:59:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,50 @@ void	disp_exported(t_msh **msh)
 {
 	t_list	*current;
 	char	**var_parts;
+	char	*escaped;
 
 	current = sort_env((*msh)->envp_list, 1);
 	while (current)
 	{
 		var_parts = ft_split(current->content, '=');
 		if (var_parts[1])
-			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n", var_parts[0], var_parts[1]);
+		{
+			escaped = escape_value(var_parts[1], 0, 0);
+			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n", var_parts[0], escaped);
+			free(escaped);
+		}
 		else
 			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", var_parts[0]);
 		ft_free_arrays((void **)var_parts);
 		current = current->next;
 	}
+}
+
+char	*escape_value(char *value, int i, int j)
+{
+	int		len;
+	char	*escaped;
+
+	len = 0;
+	while (value[i])
+	{
+		if (value[i] == '"' || value[i] == '\\')
+			len++;
+		len++;
+		i++;
+	}
+	escaped = (char *)malloc(len + 1);
+	if (escaped == NULL)
+		return (NULL);
+	i = 0;
+	while (value[i])
+	{
+		if (value[i] == '"' || value[i] == '\\')
+			escaped[j++] = '\\';
+		escaped[j++] = value[i++];
+	}
+	escaped[j] = '\0';
+	return (escaped);
 }
 
 t_list	*sort_env(t_list *env_list, int sort)

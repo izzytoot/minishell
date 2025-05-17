@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_envp_copies.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/16 13:03:58 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/17 12:41:26 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,27 @@ void	envp_to_list(t_msh *msh, char **envp)
 		}
 		ft_lstadd_back(&msh->envp_list, new_node);
 	}
+}
+
+char	**cpy_for_execve(t_msh **msh)
+{
+	int		i;
+	int		len;
+	char	**envp_array;
+
+	i = 0;
+	len = ft_lstsize((*msh)->envp_list);
+	envp_array = malloc(sizeof(char *) * (len + 1));
+	if (!envp_array)
+			envp_fail(*msh, NULL, NULL, NULL);
+	while ((*msh)->envp_list)
+	{
+		envp_array[i] = ft_strdup((*msh)->envp_list->content);
+		if (!envp_array[i])
+			envp_fail(*msh, NULL, NULL, NULL);
+		(*msh)->envp_list = (*msh)->envp_list->next;
+		i++;
+	}
+	envp_array[i] = NULL;
+	return (envp_array);
 }

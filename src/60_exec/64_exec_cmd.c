@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 16:08:17 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/17 12:50:31 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,8 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		status = choose_path(&(*msh), node, &path);
 		if (status != 0)
 			return (exit_value(msh, status, 1, 0));
-		update_shlvl(&(*msh)->envp_list);
-		if (execve(path, node->cmd_content, (*msh)->envp) == -1)
-			perror("msh: execve: "); // check pre-error message
-		close_minishell((*msh), status); //verify status is correct
+		if (safe_execve(msh, path, node->cmd_content))
+			close_minishell((*msh), status); //verify status is correct
 	}
 	else
 	{
@@ -121,4 +119,20 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 			status = 128 + WTERMSIG(status);
 	}
 	return (exit_value(msh, status, 1, 0));
+}
+
+int	safe_execve(t_msh **msh, char *path, char **argv)
+{
+	char	**envp_array;
+
+	envp_array = cpy_for_execve(&(*msh));
+	if (!envp_array)
+		return (EXIT_FAILURE);
+	if (execve(path, argv, envp_array) == -1)
+	{
+		perror("msh: execve:");
+		ft_free_arrays((void **)envp_array);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
