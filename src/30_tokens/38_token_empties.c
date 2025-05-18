@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/16 13:47:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 23:03:25 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 	while (line[i])
 		nl[j++] = line[i++];
 	nl[j] = '\0';
-	if (ft_strchr(QT, nl[0]) && ((ch_all_same(nl) 
+	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
 		&& ((flag || ft_strchr(WS, line[tmp_i - 1]) || !line[i - 1])))
 		|| ((ft_strncmp("\"\"", nl, 2) == 0 || ft_strncmp("''", nl, 2) == 0)
 		&& (((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, nl[2]))
@@ -38,6 +38,30 @@ void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 		app_tk((*msh), empty_tk, "''", ARG);
 	}
 	return ;
+}
+
+bool ch_emp_exp(t_msh **msh, char *nl)
+{
+	int	i;
+	int	j;
+	char kw[2048];
+	
+	i = 0;
+	j = 0;
+	while (nl[i] && (ft_strchr(QT, nl[i]) && !ft_strchr(WS, nl[i])))
+		i++;
+	if (nl[i] != '$')
+		return(false);
+	while(nl[i] && (!ft_strchr(QT, nl[i]) && !ft_strchr(WS, nl[i])))
+	{
+		kw[j] = nl[i];
+		i++;
+		j++;
+	}
+	kw[j] = '\0';
+	if (!get_env_cont((*msh)->envp_list, (*msh)->vars_list, kw))
+		return(true);
+	return (false);
 }
 
 bool ch_all_same(char *nl)
@@ -84,6 +108,20 @@ void	rm_empties(t_tk_lst **curr)
 	word = NULL;
 	if (!(*curr)->prev || (*curr)->prev->type != ARG)
 		return ;
+	if ((*curr)->prev->prev && ft_strcmp("\'\'", (*curr)->content) == 0 && (*curr)->prev->content[0] == '$')
+	{
+		if ((*curr)->next)
+		{
+			(*curr)->prev->next = (*curr)->next;
+			(*curr)->next->prev = (*curr)->prev;
+		}
+		else
+		{
+			(*curr)->prev->next = NULL;
+			*curr = (*curr)->prev;
+		}
+		return ;
+	}
 	if ((*curr)->prev->type == ARG)
 		word = ft_strdup((*curr)->prev->content);
 	if (ft_strcmp("\'\'", word) == 0 && ((*curr)->type == BT_CMD || (*curr)->type == ARG))

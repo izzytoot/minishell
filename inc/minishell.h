@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/18 21:12:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 21:38:18 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,7 @@ bool			check_shell_var(char *str);
 //38_token_empties.c
 void			empty_case(t_msh **msh, const char *line, int i, bool flag);
 bool 			ch_all_same(char *nl);
+bool 			ch_emp_exp(t_msh **msh, char *nl);
 int				exp_to_null(t_msh **msh, int start);
 void			rm_empties(t_tk_lst **curr);
 
