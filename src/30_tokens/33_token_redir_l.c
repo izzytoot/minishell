@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   33_token_redir_l.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 19:01:59 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 16:02:39 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 int	redir_l(t_msh **msh, int start)
 {
 	int			i;
-	const char *line;
+	const char	*line;
 	char		redir_hd[100];
 	char		redir_in[100];
-	
+
 	i = start;
 	line = (*msh)->prompt_line;
 	if (line[i] && line[i + 1] == '<')
 		i = tk_redir_hd(msh, line, redir_hd, i);
 	else
 		i = tk_redir_in(msh, line, redir_in, i);
-	return(i);
+	return (i);
 }
 
 int	tk_redir_hd(t_msh **msh, const char *line, char *redir_hd, int i)
 {
-	int		j;
+	int			j;
 	t_tk_lst	*new_tk;
-	
+
 	j = 0;
-	while(line[i] && line[i] == '<')
+	while (line[i] && line[i] == '<')
 	{
 		redir_hd[j++] = line[i];
 		i++;
@@ -43,18 +43,18 @@ int	tk_redir_hd(t_msh **msh, const char *line, char *redir_hd, int i)
 	if (redir_hd[0] != '\0')
 	{
 		new_tk = safe_malloc(sizeof(t_tk_lst));
-		app_tk(*msh, new_tk, redir_hd, REDIR_HD);	
+		app_tk(*msh, new_tk, redir_hd, REDIR_HD);
 	}
 	return (i - 1);
 }
 
 int	tk_redir_in(t_msh **msh, const char *line, char *redir_in, int i)
 {
-	int		j;
+	int			j;
 	t_tk_lst	*new_tk;
-	
+
 	j = 0;
-	while(line[i] && line[i] == '<')
+	while (line[i] && line[i] == '<')
 	{
 		redir_in[j++] = line[i];
 		i++;
@@ -63,7 +63,7 @@ int	tk_redir_in(t_msh **msh, const char *line, char *redir_in, int i)
 	if (redir_in[0] != '\0')
 	{
 		new_tk = ft_calloc(1, sizeof(t_tk_lst));
-		app_tk(*msh, new_tk, redir_in, REDIR_IN);	
+		app_tk(*msh, new_tk, redir_in, REDIR_IN);
 	}
 	return (i - 1);
 }

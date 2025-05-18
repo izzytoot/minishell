@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   36_sub_tokenize_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 19:02:24 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 16:21:23 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_tk_lst	*find_file(t_msh **msh)
 {
-	t_tk_lst *file;
-	
+	t_tk_lst	*file;
+
 	file = (*msh)->token_list;
 	while (file)
 	{
@@ -28,25 +28,24 @@ t_tk_lst	*find_file(t_msh **msh)
 
 t_tk_lst	*find_w_tk(t_msh **msh)
 {
-	t_tk_lst *w_tk;
-	
+	t_tk_lst	*w_tk;
+
 	w_tk = (*msh)->token_list;
 	while (w_tk)
 	{
 		w_tk = w_tk->next;
 		if (!w_tk->next)
-			break ;	
+			break ;
 	}
 	while (w_tk)
 	{
-		if (w_tk->type == WORD 
+		if (w_tk->type == WORD
 			&& !ft_strnstr(w_tk->content, "$", ft_strlen(w_tk->content))
-			&& w_tk->prev && w_tk->prev->type == WORD 
+			&& w_tk->prev && w_tk->prev->type == WORD
 			&& !w_tk->quotes.space_case)
 			return (w_tk);
 		w_tk = w_tk->prev;
 	}
-	
 	return (NULL);
 }
 
@@ -66,12 +65,14 @@ void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 }
 
 bool	ch_shlvl(char *word)
-{	if (ft_strchr(word, '/'))
+{
+	if (ft_strchr(word, '/'))
 		return (true);
 	return (false);
 }
 
-void	expand_fn(t_msh **msh, t_tk_lst **tmp_fn, t_tk_lst **merge_tg, bool hd_flag)
+void	expand_fn(t_msh **msh, t_tk_lst **tmp_fn, t_tk_lst **merge_tg,
+				bool hd_flag)
 {
 	if (hd_flag)
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_envp_copies.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/17 12:41:26 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:57:17 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**cpy_for_execve(t_msh **msh)
 	len = ft_lstsize((*msh)->envp_list);
 	envp_array = malloc(sizeof(char *) * (len + 1));
 	if (!envp_array)
-			envp_fail(*msh, NULL, NULL, NULL);
+		envp_fail(*msh, NULL, NULL, NULL);
 	while ((*msh)->envp_list)
 	{
 		envp_array[i] = ft_strdup((*msh)->envp_list->content);

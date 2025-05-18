@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   61_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 14:26:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 17:06:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	exec_pipe(t_msh **msh, t_tree_nd *node)
 {
-	int	fd[2]; // fd[0]: read process, fd[1]: write process
+	int		fd[2]; // fd[0]: read process, fd[1]: write process
 	pid_t	left_pid;
 	pid_t	right_pid;
-	int 	status;
-	
+	int		status;
+
 	status = 0;
 	if (safe_pipe(msh, fd) < 0)
-		return (exit_value(msh, 32, 1, 0)) ; //broken pipe is 32?
+		return (exit_value(msh, 32, 1, 0)); //broken pipe is 32?
 	left_pid = safe_fork(msh);
 	if (left_pid == 0) //child process (left)
 	{
@@ -61,7 +61,7 @@ void	perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid)
 
 int	safe_waitpid(int pid1, int pid2)
 {
-	int status;
+	int	status;
 
 	status = 0;
 	if (pid1)
@@ -83,7 +83,7 @@ int	safe_waitpid(int pid1, int pid2)
 	return (status);
 }
 
-void close_fd(int fd_1, int fd_2)
+void	close_fd(int fd_1, int fd_2)
 {
 	close(fd_1);
 	close(fd_2);

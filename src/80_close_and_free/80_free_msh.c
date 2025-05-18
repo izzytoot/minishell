@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   80_free_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 16:34:30 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:44:38 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	free_tree(t_tree_nd *node)
 		ft_free_str_arr(node->cmd_content);
 	if (node->args && !node->cmd_content)
 		ft_free_str_arr(node->args);
-	if(node->tmp_file)
+	if (node->tmp_file)
 	{
 		unlink(node->tmp_file);
 		safe_free(node->tmp_file);
 	}
 	if (node->quote_lst)
-		free_qt_lst(node->quote_lst);	
+		free_qt_lst(node->quote_lst);
 	safe_free(node);
 }

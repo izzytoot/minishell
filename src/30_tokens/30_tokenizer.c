@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/16 14:13:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 16:12:32 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ void	get_tokens(t_msh **msh, int i)
 {
 	const char		*line;
 	t_quote			quotes;
-	
+
 	init_qt_struct(&quotes);
 	line = (*msh)->prompt_line;
 	i = -1;
 	empty_case(msh, (*msh)->prompt_line, 0, true);
-	while(line[++i])
+	while (line[++i])
 	{
 		quotes.space_case = false;
 		sort_out_quotes(&i, line, &quotes);
-		if ((!quotes.in_squotes || !quotes.in_dquotes) && ft_strchr(QT, line [i]))
+		if ((!quotes.in_squotes || !quotes.in_dquotes)
+			&& ft_strchr(QT, line [i]))
 			i++;
 		if (line[i] && line[i] != quotes.quote_char
 			&& (extra_check(&(*msh), &i, line[i], &quotes)))
@@ -35,14 +36,14 @@ void	get_tokens(t_msh **msh, int i)
 		else
 			break ;
 	}
-	if ((*msh)->debug_mode)  //DEBUG TO DELETE
-	{	
+	if ((*msh)->debug_mode) //DEBUG TO DELETE
+	{
 		print_tokens(&(*msh));
 		ft_printf("------------------------------\n");
 	}
 	sub_tokenize(&(*msh));
-	if ((*msh)->debug_mode)  //DEBUG TO DELETE
-	{	
+	if ((*msh)->debug_mode) //DEBUG TO DELETE
+	{
 		print_tokens(&(*msh));
 		ft_printf("------------------------------\n");
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   73_build_kw_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 15:15:44 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:26:14 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 	t_kw	*n_kw;
 	int		count;
 	char	next;
-	
+
 	count = count_exp(arg, *i);
 	if (count >= MAX_KW - 1)
 		return (kw_err());
-	while(arg[*i] && !ft_strchr(WS, arg[*i])
+	while (arg[*i] && !ft_strchr(WS, arg[*i])
 		&& !ft_strchr(SYM_EXP, arg[*i]) && !ft_strchr(QT, arg[*i]))
-	{	
-		while(count-- > 0)
+	{
+		while (count-- > 0)
 		{
 			next = arg[*i + 1];
 			n_kw = ft_calloc(1, sizeof(t_kw *));
@@ -42,9 +42,9 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 
 void	get_exp_kw(int next, t_kw *n_kw, char *arg, int *i)
 {
-	if(arg[*i] == '$' && (!next || ft_strchr(WS, next) ||  ft_strchr(QT, next) 
-		|| (ft_isdigit(next) || (ft_strchr(SYM_EXP, next) && next != '?')
-		|| next == '$')))
+	if (arg[*i] == '$' && (!next || ft_strchr(WS, next) || ft_strchr(QT, next)
+			|| (ft_isdigit(next) || (ft_strchr(SYM_EXP, next) && next != '?')
+				|| next == '$')))
 	{
 		if (ft_isdigit(next) || next == '?' || next == '$')
 			n_kw->kw = get_util(arg, &i, 5);
@@ -89,15 +89,15 @@ char	*get_util(char *arg, int **i, int n)
 void	app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp)
 {
 	t_kw	*tmp;
-	
+
 	tmp = *kw_lst;
 	new_kw->kw = ft_strdup(kw);
 	safe_free(kw);
 	new_kw->exp = exp;
 	new_kw->next = NULL;
-	if(tmp)
+	if (tmp)
 	{
-		while(tmp->next)
+		while (tmp->next)
 			tmp = tmp->next;
 		new_kw->prev = tmp;
 		tmp->next = new_kw;
@@ -105,6 +105,6 @@ void	app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp)
 	else
 	{
 		*kw_lst = new_kw;
-		new_kw->prev = NULL;	
+		new_kw->prev = NULL;
 	}
 }

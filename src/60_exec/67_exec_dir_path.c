@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/16 00:25:02 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/18 18:10:54 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 	status = 0;
 	//if (node->cmd && (((node->cmd[0] == '.' && node->cmd[1] == '/')
 	//			|| node->cmd[0] == '/')))
-	if (ft_strchr(node->cmd, '/') || (!node->cmd && ft_strchr(node->args[0], '/'))) //changed to any cmd containing /
+	if (ft_strchr(node->cmd, '/') || (!node->cmd
+			&& ft_strchr(node->args[0], '/'))) //changed to any cmd containing /
 	{
 		if (!node->cmd)
 			*path = node->args[0];
 		else
 			*path = node->cmd;
-		status = direct_path(&(*msh), node);
+		status = direct_path(node);
 		exit_value(msh, status, 1, 0);
 	}
 	else
@@ -35,14 +36,12 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 	return (status);
 }
 
-int	direct_path(t_msh **msh, t_tree_nd *node)
+int	direct_path(t_tree_nd *node)
 {
 	char	*path;
 	int		status;
 
-	(void)msh;
 	status = 0;
-	
 	if (!node->cmd)
 		path = node->args[0]; //for case of calling exp dir like $PATH or $HOME
 	else

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   82_other_frees.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 21:04:58 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:48:38 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
 
 void	kw_err(void)
 {
@@ -27,7 +26,7 @@ void	ft_free_str_arr(char **array) //not sure I need this or can just use free_a
 		return ;
 	while (array[i])
 	{
-		if(array[i])
+		if (array[i])
 			safe_free(array[i]);
 		i++;
 	}

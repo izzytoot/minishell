@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   37_token_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/09 13:02:55 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 16:31:17 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,27 @@ void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 	msh->token_list = new_tk;
 }
 
-char *get_path(t_list *envp_list)
+char	*get_path(t_list *envp_list)
 {
-	while(envp_list)
+	while (envp_list)
 	{
 		if (!ft_strncmp(envp_list->content, "PATH=", 5))
-			return(envp_list->content + 5);
+			return (envp_list->content + 5);
 		envp_list = envp_list->next;
 	}
 	return (NULL);
 }
 
-void check_rep_cmd(t_msh **msh)
+void	check_rep_cmd(t_msh **msh)
 {
-	t_tk_lst 	*curr;
+	t_tk_lst	*curr;
 	bool		cmd_ch;
-	
+
 	curr = (*msh)->token_list;
 	cmd_ch = false;
 	while (curr && curr->next)
 		curr = curr->next;
-	while(curr)
+	while (curr)
 	{
 		if (type_is_cmd(&curr->type))
 		{
@@ -61,10 +61,10 @@ void check_rep_cmd(t_msh **msh)
 
 bool	check_builtin(char *str)
 {
-	if (!ft_strcmp(str, "pwd")|| !ft_strcmp(str, "cd")
+	if (!ft_strcmp(str, "pwd") || !ft_strcmp(str, "cd")
 		|| !ft_strcmp(str, "env") || (!ft_strcmp(str, "echo")
-		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
-		|| !ft_strcmp(str, "exit")))
+			|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
+			|| !ft_strcmp(str, "exit")))
 		return (true);
 	return (false);
 }

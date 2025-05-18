@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/17 12:50:45 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/18 18:09:46 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ typedef struct s_exp_cont
 	char	*pre_c;
 	char	*new_c;
 	char	*post_c;
-} t_exp_cont;
+}	t_exp_cont;
 
 typedef struct s_kw
 {
@@ -328,7 +328,7 @@ bool			check_shell_var(char *str);
 
 //38_token_empties.c
 void			empty_case(t_msh **msh, const char *line, int i, bool flag);
-bool 			ch_all_same(char *nl);
+bool			ch_all_same(char *nl);
 int				exp_to_null(t_msh **msh, int start);
 void			rm_empties(t_tk_lst **curr);
 
@@ -466,7 +466,7 @@ void			update_shlvl(t_list **env_list);
 
 //67_exec_dir_path.c
 int				choose_path(t_msh **msh, t_tree_nd *node, char **path);
-int				direct_path(t_msh **msh, t_tree_nd *node);
+int				direct_path(t_tree_nd *node);
 
 /************ 70_expander ************/
 
@@ -495,7 +495,8 @@ void			app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp);
 //74_expand_key_words.c
 void			expand_kw(t_msh **msh, t_kw **kw_lst);
 int				expand_case(char *kw);
-char 			*get_env_cont(t_list *envp_list,  t_list *vars_list, char *key_word);
+char			*get_env_cont(t_list *envp_list, t_list *vars_list,
+					char *key_word);
 
 //75_get_parts.c
 char			*get_pre_cont(char *arg, int *i);
@@ -528,7 +529,7 @@ void			close_minishell(t_msh	*msh, int exit_code);
 void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array);
 
 //82_other_frees.c
-void 			kw_err(void);
+void			kw_err(void);
 void			ft_free_str_arr(char **array); //check if needed
 void			free_tokens(t_tk_lst *token_list);
 void			free_qt_lst(t_quote *qt_list);

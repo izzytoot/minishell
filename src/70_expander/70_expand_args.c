@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   70_expand_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 20:34:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:24:19 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 		return ;
 	if ((type_is_word(&node->type) && node->args))
 	{
-			tmp_qt = node->quote_lst;
-			args_cpy = ft_calloc((node->nb_arg + 1), sizeof(char *));
-			while (node->args[i])
-			{
-				//tmp_arg = node->args[i];
-				tmp_arg = ft_strdup(node->args[i]);
-				expander(msh, &node, &tmp_arg);
-				args_cpy[i] = tmp_arg; //strdup??
-				i++;
-			}
-			args_cpy[i] = NULL;
-			node->quote_lst = tmp_qt;
-			node->args = ft_array_dup_w_null(node, args_cpy, node->nb_arg);
+		tmp_qt = node->quote_lst;
+		args_cpy = ft_calloc((node->nb_arg + 1), sizeof(char *));
+		while (node->args[i])
+		{
+			//tmp_arg = node->args[i];
+			tmp_arg = ft_strdup(node->args[i]);
+			expander(msh, &node, &tmp_arg);
+			args_cpy[i] = tmp_arg; //strdup??
+			i++;
+		}
+		args_cpy[i] = NULL;
+		node->quote_lst = tmp_qt;
+		node->args = ft_array_dup_w_null(node, args_cpy, node->nb_arg);
 	}
 	recurs_exp_args(msh, node);
 }
@@ -58,8 +58,8 @@ void	expander(t_msh **msh, t_tree_nd **node, char **arg)
 	}
 	else
 	{
-		while((*arg)[j] && !ft_strchr("$", (*arg)[j]))
-		 	++j;
+		while ((*arg)[j] && !ft_strchr("$", (*arg)[j]))
+			++j;
 		if ((*arg)[j] == '$')
 			expand_tk(msh, arg);
 		if ((*node)->quote_lst->next)
@@ -73,7 +73,7 @@ void	expand_tk(t_msh **msh, char **arg)
 {
 	t_exp_cont	parts;
 	t_kw		**kw_lst;
-	int 		i;
+	int			i;
 
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
@@ -91,14 +91,14 @@ void	expand_tk(t_msh **msh, char **arg)
 void	subst_arg(char **arg, t_exp_cont *parts)
 {
 	char	*final_c;
-	
+
 	if (parts->new_c)
 	{
 		final_c = get_final_cont(parts);
 		*arg = ft_strdup(final_c);
 	}
-	else if(parts->pre_c || parts->post_c)
-	{	
+	else if (parts->pre_c || parts->post_c)
+	{
 		if (parts->pre_c)
 			final_c = ft_strdup(parts->pre_c);
 		if (parts->post_c)

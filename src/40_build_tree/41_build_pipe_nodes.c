@@ -3,29 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   41_build_pipe_nodes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:23 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 14:28:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:41:54 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_nd *build_pipe_nd(t_tk_lst **token_list)
+t_tree_nd	*build_pipe_nd(t_tk_lst **token_list)
 {
-	t_tk_lst *curr_token;
+	t_tk_lst	*curr_token;
 	t_tree_nd	*pipe_nd;
-	t_tk_lst *left_tokens;
-	t_tk_lst *prev_token;
-	 
+	t_tk_lst	*left_tokens;
+	t_tk_lst	*prev_token;
+
 	curr_token = *token_list;
 	ft_init_var((void **)&pipe_nd, (void **)&prev_token, NULL, NULL);
-	while(curr_token)
+	while (curr_token)
 	{
 		if (curr_token->type == PIPE)
 		{
-			pipe_nd = new_tree_nd(NULL, &curr_token->type, &curr_token->content[0]);
+			pipe_nd = new_tree_nd(NULL, &curr_token->type,
+					&curr_token->content[0]);
 			curr_token = curr_token->next;
 			left_tokens = curr_token;
 			prev_token->next = NULL; // cut right list
@@ -37,5 +38,5 @@ t_tree_nd *build_pipe_nd(t_tk_lst **token_list)
 		prev_token = curr_token;
 		curr_token = curr_token->next;
 	}
-	return(build_redir_nd(token_list));
+	return (build_redir_nd(token_list));
 }
