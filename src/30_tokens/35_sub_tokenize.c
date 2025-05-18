@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 19:31:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 23:05:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sub_tokenize(t_msh **msh)
 	curr = (*msh)->token_list;
 	word = NULL;
 	env_path = get_path((*msh)->envp_list);
-	while(curr)
+	while (curr)
 	{
 		if (curr->type == WORD || curr->type == ARG)
 		{
@@ -43,14 +43,14 @@ void	sub_tokenize(t_msh **msh)
 
 void	handle_filename(t_msh **msh)
 {
-	t_tk_lst *curr;
-	bool	hd_flag;
-	
+	t_tk_lst	*curr;
+	bool		hd_flag;
+
 	curr = (*msh)->token_list;
 	hd_flag = false;
 	while (curr)
 	{
-		if (curr->type == REDIR_HD || curr->type == REDIR_APP 
+		if (curr->type == REDIR_HD || curr->type == REDIR_APP
 			|| curr->type == REDIR_IN || curr->type == REDIR_OUT)
 		{
 			if (curr->type == REDIR_HD)
@@ -98,7 +98,7 @@ void	join_rest(t_msh **msh)
 {
 	t_tk_lst	*tmp_w;
 	t_tk_lst	*merge_target;
-	
+
 	if ((*msh)->token_list && !(*msh)->token_list->next)
 		return ;
 	tmp_w = find_w_tk(msh);
@@ -128,23 +128,23 @@ char	*check_env_cmd(char *cmd, char *env_path, int i)
 	char	**paths;
 	char	*part_path;
 	char	*cmd_path;
-	
+
 	paths = ft_split(env_path, ':');
 	ft_init_var((void **)&part_path, (void **)&cmd_path, NULL, NULL);
 	if (!paths)
 		return (0);
-	while(paths[++i])
-	{		
+	while (paths[++i])
+	{
 		part_path = ft_strjoin(paths[i], "/");
 		cmd_path = ft_strjoin(part_path, cmd);
 		safe_free(part_path); //this was causing segfault
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
 			ft_free_arrays((void **)paths); //this was causing segfault
-			return(cmd_path);
+			return (cmd_path);
 		}
 		safe_free(cmd_path); //this was causing segfault
 	}
 //	ft_free_arrays((void **)paths);
-	return(NULL);	
+	return (NULL);
 }

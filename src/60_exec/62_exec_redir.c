@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   62_exec_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 20:08:30 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 17:41:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 int	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 {
 	t_redir_data	redir_data;
-	t_tree_nd 		*redir_nodes[32]; //adjust max redirects
-	t_tree_nd 		*curr_node;
+	t_tree_nd		*redir_nodes[32]; //adjust max redirects
+	t_tree_nd		*curr_node;
 	int				i;
 	int				status;
-	
+
 	curr_node = node;
 	redir_data.cmd_nd = NULL;
 	redir_data.orig_stdin = -1;
 	redir_data.orig_stdout = -1;
 	status = 0;
 	i = collect_redirs_and_cmd(msh, &curr_node, redir_nodes, &redir_data);
-	while(--i >= 0)
+	while (--i >= 0)
 	{
 		status = exec_redir(msh, redir_nodes[i]); //exec redir from left to right
 		if (status != 0) // If redirection fails, stop execution
@@ -47,7 +47,7 @@ int	collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 	int	i;
 
 	i = 0;
-	while(*curr_nd && type_is_redir(&(*curr_nd)->type)) //collect redir from right to left
+	while (*curr_nd && type_is_redir(&(*curr_nd)->type)) //collect redir from right to left
 	{
 		redir_nd[i] = *curr_nd;
 		if (((*curr_nd)->type == REDIR_IN || (*curr_nd)->type == REDIR_HD)
@@ -74,7 +74,8 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 	file_fd = -1;
 	if (!node->file)
 	{
-		ft_dprintf(STDERR_FILENO, "msh: %s: %s", (*msh)->tmp_fname, ERR_AMBREDIR);
+		ft_dprintf(STDERR_FILENO, "msh: %s: %s", (*msh)->tmp_fname,
+			ERR_AMBREDIR);
 		return (exit_value(msh, 1, 1, 0));
 	}
 	if (node->type != REDIR_HD)
@@ -85,17 +86,14 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 		return (exit_value(msh, 1, 1, 0));
 	curr_pid = getpid();
 	if (node->type == REDIR_HD)
-	{
-	 	file_fd = open(node->tmp_file, O_RDONLY);
-	 	safe_dup2(msh, file_fd, STDIN_FILENO, curr_pid);
-	 	close(file_fd);
-	}
+		safe_dup2(msh, file_fd, STDIN_FILENO, curr_pid);
 	else
 		safe_dup2(msh, file_fd, node->fd, curr_pid);
+	close(file_fd);
 	return (exit_value(msh, 0, 1, 0));
 }
 
-int  create_file_fd(t_tk_type type, char *file_name)
+int	create_file_fd(t_tk_type type, char *file_name)
 {
 	int	file_fd;
 

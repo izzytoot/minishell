@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:19:13 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/16 00:57:38 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/18 18:07:44 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	safe_fork(t_msh **msh)
 		perror("msh: fork: "); // check pre-error message
 		if (pid == 0) //if in child
 			exit_value(msh, 1, 1, 1);
-		return(-1);
+		return (-1);
 	}
-	return (pid);	
+	return (pid);
 }
 
-int safe_dup(t_msh **msh, int old_fd, int curr_pid)
+int	safe_dup(t_msh **msh, int old_fd, int curr_pid)
 {
 	int	new_fd;
 	
@@ -47,7 +47,7 @@ int safe_dup(t_msh **msh, int old_fd, int curr_pid)
 closes dest_fd
 duplicates src_fd to dest_fd - dest_fd is now src_fd
 */
-void safe_dup2(t_msh **msh, int src_fd, int dest_fd, int curr_pid)
+void	safe_dup2(t_msh **msh, int src_fd, int dest_fd, int curr_pid)
 {
 	if (dup2(src_fd, dest_fd) < 0)
 	{
@@ -61,7 +61,7 @@ void safe_dup2(t_msh **msh, int src_fd, int dest_fd, int curr_pid)
 
 int	safe_pipe(t_msh **msh, int pipe_fd[2])
 {
-	int pid;
+	int	pid;
 
 	pid = getpid();
 	if (pipe(pipe_fd) < 0) // anything writen to fd[1] can be read from fd[0].
@@ -69,10 +69,11 @@ int	safe_pipe(t_msh **msh, int pipe_fd[2])
 		perror("msh: pipe: "); // check pre-error message
 		if (pid == 0)
 			exit_value(msh, 1, 1, 1);
-		return(-1);
+		return (-1);
 	}
-	return(0);
+	return (0);
 }
+
 void	update_shlvl(t_list **env_list)
 {
 	char	*shlvl_value;

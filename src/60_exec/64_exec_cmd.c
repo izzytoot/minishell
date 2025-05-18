@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 20:57:25 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 23:08:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 	{
 		ft_dprintf(STDERR_FILENO, "%s: %s", node->cmd, ERR_CNOTFOUND);
 		status = 127;
-	} 
+	}
 	return (exit_value(msh, status, 1, 0));
 }
 

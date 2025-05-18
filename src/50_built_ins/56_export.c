@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/16 16:59:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/18 17:01:30 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	disp_exported(t_msh **msh)
 		if (var_parts[1])
 		{
 			escaped = escape_value(var_parts[1], 0, 0);
-			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n", var_parts[0], escaped);
+			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n",
+				var_parts[0], escaped);
 			free(escaped);
 		}
 		else

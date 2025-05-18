@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/16 17:24:24 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/18 17:01:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	get_dir(t_msh **msh, t_tree_nd **node, char **target_dir)
 	if (!(*node)->args[0] || ft_strcmp((*node)->args[0], "~") == 0)
 	{
 		home = get_var_val((*msh)->envp_list, "HOME");
-
 		if (!home)
 		{
 			ft_putstr_fd("msh: cd: HOME not set\n", STDERR_FILENO);

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 23:03:25 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 23:08:47 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 	char		nl[1024];
 	int			j;
 	int			tmp_i;
-	
+
 	j = 0;
 	if (!line)
-		return;
+		return ;
 	while (ft_strchr(WS, line[i]))
 		i++;
 	tmp_i = i;
@@ -83,22 +83,23 @@ int	exp_to_null(t_msh **msh, int start)
 	int			i;
 	char		exp[5];
 	t_tk_lst	*new_tk;
-	const char *line;
-	
+	const char	*line;
+
 	i = start + 1;
 	line = (*msh)->prompt_line;
 	if (line[i] && !ft_strchr(QT, line[i]))
 		return (start);
 	while (line[i] && !ft_strchr(WS, line[i]))
 	{
-		if ((line[i + 1] && (line[i] != line[i + 1])) || !ft_strchr(QT, line[i]))
+		if ((line[i + 1] && (line[i] != line[i + 1]))
+			|| !ft_strchr(QT, line[i]))
 			return (start);
 		i++;
 	}
-	exp[0] = '\0';	
+	exp[0] = '\0';
 	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, exp, ARG);
-	return(i - 1);
+	return (i - 1);
 }
 
 void	rm_empties(t_tk_lst **curr)
@@ -124,7 +125,8 @@ void	rm_empties(t_tk_lst **curr)
 	}
 	if ((*curr)->prev->type == ARG)
 		word = ft_strdup((*curr)->prev->content);
-	if (ft_strcmp("\'\'", word) == 0 && ((*curr)->type == BT_CMD || (*curr)->type == ARG))
+	if (ft_strcmp("\'\'", word) == 0 && ((*curr)->type == BT_CMD
+			|| (*curr)->type == ARG))
 	{
 		if ((*curr)->prev->type == ARG && (*curr)->prev->prev)
 		{

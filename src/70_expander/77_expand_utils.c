@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   77_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 17:20:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:33:19 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	recurs_exp_args(t_msh **msh, t_tree_nd *node)
 {
 	if (node->left)
 		expand_args(msh, node->left);
-	if(node->right)
+	if (node->right)
 		expand_args(msh, node->right);
 }
 
@@ -25,7 +25,7 @@ int	get_kw_len(char *arg, int **i, int tmp_i, bool *flag)
 	int	len;
 
 	len = 0;
-	while(!ft_strchr(WS, arg[(**i)++]))
+	while (!ft_strchr(WS, arg[(**i)++]))
 	{
 		if (arg[tmp_i + 1] == '?')
 		{
@@ -33,8 +33,8 @@ int	get_kw_len(char *arg, int **i, int tmp_i, bool *flag)
 			*flag = true;
 			return (1);
 		}
-		if(arg[**i] == '$' || ft_strchr(SYM_EXP, arg[**i]))
-			break;
+		if (arg[**i] == '$' || ft_strchr(SYM_EXP, arg[**i]))
+			break ;
 		len++;
 	}
 	return (len);
@@ -50,14 +50,14 @@ bool	check_mid(char c)
 int	count_exp(char *arg, int i)
 {
 	int	count;
-	
+
 	count = 0;
-	while(arg[i])
+	while (arg[i])
 	{
 		if (arg[i] == '$')
 			count++;
 		i++;
-	}	
+	}
 	return (count);
 }
 
@@ -66,7 +66,7 @@ char	**copy_array(int size, char **array)
 	char	**new_array;
 	int		n;
 	int		i;
-	
+
 	new_array = ft_calloc(size + 1, sizeof(char *));
 	if (!new_array)
 		return (NULL);
@@ -85,5 +85,5 @@ char	**copy_array(int size, char **array)
 		}
 	}
 	new_array[size] = NULL;
-	return(new_array);
+	return (new_array);
 }

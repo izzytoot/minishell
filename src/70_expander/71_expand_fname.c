@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   71_expand_fname.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 20:14:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:21:02 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	expand_fname(t_msh **msh, char **fname)
 {
 	t_exp_cont	parts;
 	t_kw		**kw_lst;
-	int 		i;
+	int			i;
 	char		*tmp_fname;
-	
+
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
 	i = -1;
@@ -40,14 +40,14 @@ void	expand_fname(t_msh **msh, char **fname)
 void	subst_fname(char **fname, t_exp_cont *parts)
 {
 	char	*final_c;
-	
+
 	if (parts->new_c)
 	{
 		final_c = get_final_cont(parts);
 		*fname = ft_strdup(final_c);
 	}
-	else if(parts->pre_c || parts->post_c)
-	{	
+	else if (parts->pre_c || parts->post_c)
+	{
 		if (parts->pre_c)
 			final_c = ft_strdup(parts->pre_c);
 		if (parts->post_c)

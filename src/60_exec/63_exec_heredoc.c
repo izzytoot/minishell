@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 17:23:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:12:08 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 		return ;
 	if (node->left)
 		exec_heredocs(msh, node->left);
-	if(node->right)
+	if (node->right)
 		exec_heredocs(msh, node->right);
 	if (node->type == REDIR_HD)
 	{
@@ -39,23 +39,23 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 	}
 }
 
-void		handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
+void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 {
-	t_tree_nd 	*curr_nd;
-	char 		*eof;
+	t_tree_nd	*curr_nd;
+	char		*eof;
 	t_hd_lines	lines;
-	
+
 	curr_nd = node;
 	eof = check_eof(curr_nd, curr_nd->file);
-	while(1)
+	while (1)
 	{
 		lines.new_l = readline("> ");
 		if (!lines.new_l)
-			break;
+			break ;
 		if (ft_strcmp(lines.new_l, eof) == 0)
 		{
 			free(lines.new_l);
-			break;
+			break ;
 		}
 		expand_line(msh, &lines, curr_nd, hd_fd);
 		ft_putstr_fd("\n", hd_fd);
@@ -68,7 +68,7 @@ char	*check_eof(t_tree_nd *node, char *file_name)
 {
 	int		i;
 	char	*eof;
-	
+
 	i = 0;
 	eof = NULL;
 	if (!node->eof_ch && (file_name[i] == '-' || file_name[i] == '!'))
@@ -76,5 +76,5 @@ char	*check_eof(t_tree_nd *node, char *file_name)
 	else
 		eof = file_name;
 //		eof = ft_strdup(file_name);
-	return(eof);
+	return (eof);
 }

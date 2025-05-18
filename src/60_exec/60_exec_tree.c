@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 16:50:36 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:06:13 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	if (!node)
 		return (exit_value(msh, 0, 1, 0)); //changed exit status from 2 to 0
 	expand_args(msh, node);
-	if(node->nb_arg > 1)
+	if (node->nb_arg > 1)
 		node->args = remake_args(node);
-	if (type_is_word(&node->type) && !node->cmd && ft_strchr(node->args[0], '/'))
+	if (type_is_word(&node->type) && !node->cmd
+		&& ft_strchr(node->args[0], '/'))
 		node->type = ENV_CMD;
 	if ((*msh)->debug_mode && node->args) //TO DELETE
 	{
 		printf("------------------------------\n");
 		printf(GR"new args are: "RES);
-		int i = -1;
-		while(node->args[++i])
+		int	i = -1;
+		while (node->args[++i])
 			printf(BMAG"%s "RES, node->args[i]);
 		printf("\n");
 		printf("------------------------------\n");
@@ -38,7 +39,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	{
 		exec_heredocs(msh, node);
 		(*msh)->hd_check = false;
-	}	
+	}
 	if (node->type == PIPE)
 		status = exec_pipe(msh, node);
 	else if (type_is_redir(&node->type))
@@ -58,7 +59,7 @@ char	**remake_args(t_tree_nd *node)
 	init_aux_structs(&flags, &ints, node);
 	quote_tmp = node->quote_lst;
 	new_args = ft_calloc((node->nb_arg + 1), sizeof(char *));
-	while(ints.i < node->nb_arg)
+	while (ints.i < node->nb_arg)
 	{
 		if (!node->quote_lst->space_case && !flags.written)
 			compose_arg(&ints, &flags, new_args, node);
@@ -69,8 +70,7 @@ char	**remake_args(t_tree_nd *node)
 		if (flags.written)
 			handle_written(&ints, &flags, &node);
 	}
-
 	new_args[ints.j] = NULL;
 	node->quote_lst = quote_tmp;
-	return(new_args);
+	return (new_args);
 }

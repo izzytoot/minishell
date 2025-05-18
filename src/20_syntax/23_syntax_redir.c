@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   23_syntax_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 15:39:57 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 16:00:18 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ bool	misplaced_redir_at_end(const char *line)
 	else if (line[i] && !in_quotes && (line[i] == '|' && line[i - 1] == '>'))
 		return (true);
 	else if (line[i] && !in_quotes && ft_strchr(REDIR, line[i]))
-			return (true);
+		return (true);
 	return (false);
 }

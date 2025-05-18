@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   76_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/12 14:04:25 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:23:25 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ char	*get_exp_cont(t_kw **kw_lst)
 	char	*exp_c;
 	char	*curr_c;
 	t_kw	*curr_kw;
-	
+
 	ft_init_var((void **)&exp_c, (void **)&curr_c, NULL, NULL);
 	curr_kw = *kw_lst;
-	while(curr_kw)
+	while (curr_kw)
 	{
 		curr_c = ft_strdup(curr_kw->kw);
 		exp_c = safe_strjoin(exp_c, curr_c);
@@ -34,7 +34,7 @@ char	*get_final_cont(t_exp_cont *parts)
 	char	*final_c;
 	int		len;
 	char	*tmp;
-	
+
 	len = ft_strlen(parts->new_c);
 	if (len > 0 && parts->new_c[len - 1] == '\n')
 	{
@@ -51,14 +51,14 @@ char	*get_final_cont(t_exp_cont *parts)
 		if (parts->post_c)
 			final_c = ft_strjoin(final_c, parts->post_c);
 	}
-	return(final_c);	
+	return (final_c);
 }
 
 char	*get_tmp(char *new_c, char *post_c, int len)
 {
 	char	*tmp;
-	
-	if (post_c)			
+
+	if (post_c)
 		tmp = ft_strjoin(ft_substr(new_c, 0, len - 1), post_c);
 	else
 		tmp = ft_substr(new_c, 0, len - 1);
@@ -68,7 +68,7 @@ char	*get_tmp(char *new_c, char *post_c, int len)
 char	*ultimate_joint(char *pre_c, char *tmp)
 {
 	char	*final_content;
-	
+
 	if (pre_c)
 		final_content = ft_strjoin(pre_c, tmp);
 	else

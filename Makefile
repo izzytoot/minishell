@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
+#    By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/17 23:51:49 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/18 18:18:28 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -168,4 +168,4 @@ fcleanall: fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re cleanall fcleanall msg
+.PHONY: all clean fclean re cleanall fcleanall

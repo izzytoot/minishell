@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 21:12:14 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 23:06:12 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parse_line(t_msh **msh)
 {
 	t_tree_nd	*tree_root;
-	
+
 	if (!(*msh)->token_list)
 		return ;
 	(*msh)->tree_root = build_pipe_nd(msh, &(*msh)->token_list);
@@ -24,9 +24,9 @@ void	parse_line(t_msh **msh)
 		print_tree(tree_root);
 }
 
-t_tree_nd *new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
+t_tree_nd	*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 {
-	t_tree_nd *new_nd;
+	t_tree_nd	*new_nd;
 
 	new_nd = ft_calloc(1, sizeof(t_tree_nd));
 	if (!new_nd)
@@ -59,11 +59,11 @@ void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
 	t_tk_lst	*curr_tk;
 	t_tk_lst	*curr_tk_tmp;
 	int			count;
-	
+
 	curr_tk = token;
 	curr_tk_tmp = token;
 	count = 0;
-	while(curr_tk)
+	while (curr_tk)
 	{
 		if (curr_tk->type == ARG)
 			count++;
@@ -72,7 +72,7 @@ void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
 	if (count <= 0)
 		return ;
 	new_nd->quote_lst = ft_calloc(count, sizeof(t_quote));
-	while(curr_tk_tmp)
+	while (curr_tk_tmp)
 	{
 		if (curr_tk_tmp->type == ARG)
 			app_qt(new_nd, curr_tk_tmp);
@@ -97,7 +97,7 @@ void	app_qt(t_tree_nd *new_nd, t_tk_lst *token)
 	new_quote->quote_char = token->quotes.quote_char;
 	new_quote->next = new_nd->quote_lst;
 	new_quote->prev = NULL;
-	if(new_nd->quote_lst)
+	if (new_nd->quote_lst)
 		new_nd->quote_lst->prev = new_quote;
 	new_nd->quote_lst = new_quote;
 }

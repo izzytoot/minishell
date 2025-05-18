@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 14:41:41 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 15:58:41 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 void	ft_init_msh(t_msh **msh, char **envp)
-{	
+{
 	// if (!isatty(STDIN_FILENO)) // nao funciona com tester
 	// 	close_minishell(*msh, EXIT_FAILURE);
 	(*msh)->hd_check = true;
@@ -52,6 +52,7 @@ void	prompt_and_read(t_msh **msh)
 }
 
 //info --> create prompt wih current dir
+
 char	*get_prompt(void)
 {
 	char	cwd[PATH_MAX];
@@ -74,11 +75,11 @@ char	*get_prompt(void)
 
 int	exit_value(t_msh **msh, int exit_code, int upd_exit, int close)
 {
-static int	current_code;
+	static int	current_code;
 
-if (upd_exit == true)
-	current_code = exit_code;
-if (close == true)
-	close_minishell(*msh, current_code);
-return (current_code);
+	if (upd_exit == true)
+		current_code = exit_code;
+	if (close == true)
+		close_minishell(*msh, current_code);
+	return (current_code);
 }

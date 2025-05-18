@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 21:17:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 23:07:48 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 t_tree_nd *build_cmd_nd(t_msh **msh, t_tk_lst **token_list)
 {
 	t_tk_lst	*curr_token;
-	t_list 		*args;
-	t_tree_nd 	*cmd_nd;
+	t_list		*args;
+	t_tree_nd	*cmd_nd;
 
 	curr_token = *token_list;
 	if (!curr_token)
-        return NULL;
-	while(curr_token && curr_token->type == W_SPACE)
+		return (NULL);
+	while (curr_token && curr_token->type == W_SPACE)
 		curr_token = curr_token->next;
 	args = NULL;
 	cmd_nd = new_tree_nd(curr_token, &curr_token->type, NULL);
-	while(curr_token)
+	while (curr_token)
 	{
 		if (type_is_word(&curr_token->type))
 			handle_cmd(msh, cmd_nd, &curr_token, &args);
@@ -42,7 +42,7 @@ t_tree_nd *build_cmd_nd(t_msh **msh, t_tk_lst **token_list)
 void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 	t_list **args)
 {
-	while(*curr_tk)
+	while (*curr_tk)
 	{
 		if (type_is_cmd(&(*curr_tk)->type) && !(*curr_tk)->quotes.space_case
 			&& (*curr_tk)->prev)
@@ -52,8 +52,8 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 			//ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
 		if (type_is_cmd(&(*curr_tk)->type))
 		{
-				cmd_nd->cmd = (*curr_tk)->content;
-				cmd_nd->cmd_type = (*curr_tk)->type;
+			cmd_nd->cmd = (*curr_tk)->content;
+			cmd_nd->cmd_type = (*curr_tk)->type;
 		}
 		if (type_is_word(&(*curr_tk)->type))
 		{
@@ -68,7 +68,7 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 	}
 }
 
-char **join_cmd_and_args(char *cmd, char **args)
+char	**join_cmd_and_args(char *cmd, char **args)
 {
 	int		arg_count;
 	char	**full_cmd;
@@ -77,7 +77,7 @@ char **join_cmd_and_args(char *cmd, char **args)
 	arg_count = 0;
 	full_cmd = NULL;
 	if (!cmd)
-	 	return (args);
+		return (args);
 	while (args && args[arg_count])
 		arg_count++;
 	full_cmd = ft_calloc((arg_count + 2), sizeof(char *));
