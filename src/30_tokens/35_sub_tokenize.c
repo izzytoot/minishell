@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 16:34:16 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 19:31:52 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	join_filename(t_msh **msh, bool hd_flag)
 		return ;
 	else
 		expand_fn(msh, &tmp_fn, NULL, hd_flag);
-	if (!tmp_fn->quotes.space_case && tmp_fn->prev)
+	if (!tmp_fn->quotes.space_case && tmp_fn->prev && tmp_fn->prev->type == WORD)
 	{
 		merge_target = tmp_fn->prev;
 		while (tmp_fn && (!tmp_fn->quotes.space_case && tmp_fn->prev))
