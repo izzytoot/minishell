@@ -6,13 +6,13 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 20:10:03 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 20:45:16 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_nd *build_redir_nd(t_tk_lst **token_list)
+t_tree_nd *build_redir_nd(t_msh **msh, t_tk_lst **token_list)
 {
 	t_tk_lst	*curr_tk;
 	t_tree_nd 	*redir_nd;
@@ -31,7 +31,7 @@ t_tree_nd *build_redir_nd(t_tk_lst **token_list)
 			curr_tk = curr_tk->next;
 	}
 	if(check_cmd(token_list, cmd_exc))
-		cmd_nd = build_cmd_nd(token_list);
+		cmd_nd = build_cmd_nd(msh, token_list);
 	if (redir_nd)
 		return (add_left(redir_nd, cmd_nd, cmd_exc));
 	return (cmd_nd);

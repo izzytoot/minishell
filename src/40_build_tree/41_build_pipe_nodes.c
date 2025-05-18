@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   41_build_pipe_nodes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:23 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/04/23 14:28:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/18 20:44:51 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_nd *build_pipe_nd(t_tk_lst **token_list)
+t_tree_nd *build_pipe_nd(t_msh **msh, t_tk_lst **token_list)
 {
 	t_tk_lst *curr_token;
 	t_tree_nd	*pipe_nd;
@@ -30,12 +30,12 @@ t_tree_nd *build_pipe_nd(t_tk_lst **token_list)
 			left_tokens = curr_token;
 			prev_token->next = NULL; // cut right list
 			left_tokens->prev = NULL;// cut left list
-			pipe_nd->right = build_redir_nd(token_list);
-			pipe_nd->left = build_pipe_nd(&left_tokens);
+			pipe_nd->right = build_redir_nd(msh, token_list);
+			pipe_nd->left = build_pipe_nd(msh, &left_tokens);
 			return (pipe_nd);
 		}
 		prev_token = curr_token;
 		curr_token = curr_token->next;
 	}
-	return(build_redir_nd(token_list));
+	return(build_redir_nd(msh, token_list));
 }

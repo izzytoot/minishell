@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/10 00:50:53 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 21:12:14 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parse_line(t_msh **msh)
 	
 	if (!(*msh)->token_list)
 		return ;
-	(*msh)->tree_root = build_pipe_nd(&(*msh)->token_list);
+	(*msh)->tree_root = build_pipe_nd(msh, &(*msh)->token_list);
 	tree_root = (*msh)->tree_root;
 	if ((*msh)->debug_mode) //FOR DEBUGGING
 		print_tree(tree_root);

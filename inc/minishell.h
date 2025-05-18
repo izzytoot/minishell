@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/17 12:50:45 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/18 21:12:27 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,10 +340,10 @@ void			add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token);
 void			app_qt(t_tree_nd *new_nd, t_tk_lst *token);
 
 //41_build_pipe__nodes.c
-t_tree_nd		*build_pipe_nd(t_tk_lst **tokens);
+t_tree_nd		*build_pipe_nd(t_msh **msh, t_tk_lst **tokens);
 
 //42_build_redir_nodes.c
-t_tree_nd		*build_redir_nd(t_tk_lst **token_list);
+t_tree_nd		*build_redir_nd(t_msh **msh, t_tk_lst **token_list);
 t_tree_nd		*handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk,
 					bool *cmd_exc);
 t_tree_nd		*attach_redir(t_tree_nd *redir_nd, t_tree_nd *new_redir);
@@ -351,8 +351,8 @@ bool			check_cmd(t_tk_lst **token_list, bool cmd_exc);
 bool			search_cmd(t_tk_lst *curr_tk);
 
 //43_build_cmd_nodes.c
-t_tree_nd		*build_cmd_nd(t_tk_lst **token_list);
-void			handle_cmd(t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
+t_tree_nd		*build_cmd_nd(t_msh **msh, t_tk_lst **token_list);
+void			handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 					t_list **args);
 char			**join_cmd_and_args(char *cmd, char **args);
 

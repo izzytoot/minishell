@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 20:34:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/18 21:09:43 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,12 @@ char	**ft_array_dup_w_null(t_tree_nd *node, char **array, int n)
 	if (!array)
 		return (NULL);
 	size = 0;
-	i = -1;
-	while (n-- >= 0)
+	i = 0;
+	while (n-- > 0)
 	{
-		if (array[++i])
+		if (array[i])
 			size++;
+		i++;
 	}
 	node->nb_arg = size;
 	new_array = copy_array(size, array);
