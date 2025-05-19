@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+         #
+#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/18 18:18:28 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/05/19 12:44:34 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #                                NAMES & PATHS                                 #
 #==============================================================================#
 NAME = minishell
-INC_PATH =details
+INC_PATH = details
 SRC_PATH = ./src/
 SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							10_init/10_init_msh.c \
@@ -68,7 +68,9 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							80_close_and_free/81_close_msh.c\
 							80_close_and_free/82_other_frees.c\
 							11_debug_utils.c)
-OBJ = $(SRC:.c=.o)
+TMP = ./tmp
+OBJ = $(patsubst $(SRC_PATH)%,$(TMP)/%,$(SRC:.c=.o))
+
 
 LIBFT_DIR = ./inc/libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -130,7 +132,7 @@ BGBWHI	= "\033[107m"
 #                               RULES & DEPS                                   #
 #==============================================================================#
 all: $(NAME)
-	
+		
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $(NAME)
 	@clear
@@ -145,8 +147,10 @@ $(NAME): $(OBJ) $(LIBFT)
 $(LIBFT):
 	@$(MAKE) $(NODIR) -C $(LIBFT_DIR)
 
-%.o: %.c 
+$(TMP)/%.o: $(SRC_PATH)%.c
+	@mkdir -p $(dir $@)
 	@$(C_COMP) $(FLAGS) -I $(INC_PATH) -I $(LIBFT_DIR) -c $< -o $@
+
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
@@ -157,8 +161,9 @@ valgrind:
 
 clean:
 	@$(RM) $(OBJ)
+	@rm -rf $(TMP)
 	@echo $(RED) "All minishell .o files were deleted!" $(RESET)
-
+	
 fclean: clean
 	@$(RM) $(NAME)
 	@echo $(RED) "$(NAME) was deleted!" $(RESET)
