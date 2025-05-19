@@ -102,7 +102,7 @@ int	exp_to_null(t_msh **msh, int start)
 	return (i - 1);
 }
 
-void	rm_empties(t_tk_lst **curr)
+void	rm_empties(t_tk_lst **curr) //REDUCE LINE
 {
 	char	*word;
 
