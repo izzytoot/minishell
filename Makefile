@@ -6,7 +6,7 @@
 #    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/19 12:44:34 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/19 17:55:35 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,10 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							40_build_tree/40_tokens_to_tree.c\
 							40_build_tree/41_build_pipe_nodes.c\
 							40_build_tree/42_build_redir_nodes.c\
-							40_build_tree/43_build_cmd_nodes.c\
-							40_build_tree/44_type_is_utils.c\
-							40_build_tree/45_tree_utils.c\
+							40_build_tree/43_build_redir_nodes_utils.c\
+							40_build_tree/44_build_cmd_nodes.c\
+							40_build_tree/45_type_is_utils.c\
+							40_build_tree/46_tree_utils.c\
 							50_built_ins/50_pwd.c\
 							50_built_ins/51_cd.c\
 							50_built_ins/52_env.c\

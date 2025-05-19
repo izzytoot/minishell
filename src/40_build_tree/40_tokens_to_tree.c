@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 23:06:12 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 17:48:59 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_tree_nd	*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 	new_nd->eof_ch = false;
 	new_nd->tmp_file = NULL;
 	new_nd->exp_hd = false;
+	new_nd->cmd_r = false;
 	if (curr_tk)
 		add_quote_structs(new_nd, curr_tk);
 	return (new_nd);

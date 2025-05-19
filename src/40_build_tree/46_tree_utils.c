@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:17:25 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/19 16:32:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 17:53:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ t_tk_lst	*safe_next_tk(t_tk_lst *curr_tk)
 	else
 		next_tk = curr_tk->next;
 	return (next_tk);
+}
+
+t_tk_lst	*safe_prev_tk(t_tk_lst *curr_tk)
+{
+	t_tk_lst	*prev_tk;
+
+	prev_tk = curr_tk;
+	if (prev_tk->next && prev_tk->next->type == W_SPACE)
+		prev_tk = prev_tk->prev->prev;
+	else
+		prev_tk = curr_tk->prev;
+	return (prev_tk);
 }
 
 void	add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk)
@@ -48,40 +60,6 @@ void	add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk)
 	}
 	else
 		new_redir->file = ft_strdup("");
-}
-
-bool	check_prev(t_tk_lst *curr_tk) 
-{
-	t_tk_lst	*curr_tmp;
-
-	if (!curr_tk->prev)
-		return (false);
-	curr_tmp = curr_tk->prev;
-	while (curr_tmp && (curr_tmp->type == W_SPACE
-			|| curr_tmp->type == FILE_NAME))
-		curr_tmp = curr_tmp->prev;
-	if (curr_tmp && type_is_word(&curr_tmp->type))
-		return (true);
-	return (false);
-}
-
-t_tree_nd	*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd, bool cmd_on_r)
-{
-	t_tree_nd	*leftmost;
-	t_tree_nd	*final_redir;
-
-	final_redir = redir_nd;
-	leftmost = NULL;
-	if (cmd_nd && !cmd_on_r)
-	{
-		leftmost = final_redir;
-		while (leftmost->left)
-			leftmost = leftmost->left;
-		leftmost->left = cmd_nd;
-	}
-	else if (cmd_nd && cmd_on_r)
-		final_redir->right = cmd_nd;
-	return (final_redir);
 }
 
 t_list	*reverse_args(t_list **head)

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/19 16:30:33 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 17:54:57 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ typedef struct s_tree_nd
 	struct s_tree_nd	*right;
 	struct s_quote		*quote_lst;
 	bool				exp_hd;
+	bool				cmd_r;
 }	t_tree_nd;
 
 typedef struct s_redir_data
@@ -345,29 +346,33 @@ t_tree_nd		*build_pipe_nd(t_msh **msh, t_tk_lst **tokens);
 
 //42_build_redir_nodes.c
 t_tree_nd		*build_redir_nd(t_msh **msh, t_tk_lst **token_list);
-t_tree_nd		*handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk,
-					bool *cmd_on_r);
-t_tree_nd		*attach_redir(t_tree_nd *redir_nd, t_tree_nd *new_redir);
-bool			check_cmd(t_tk_lst **token_list, bool cmd_on_r);
-bool			search_cmd(t_tk_lst *curr_tk);
+t_tree_nd		*handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk);
+bool			check_cmd(t_tk_lst **token_list);
+bool			search_cmd(t_tk_lst *curr_tk, int way);
 
-//43_build_cmd_nodes.c
+//43_build_redir_nodes_utils.c
+bool			next_is_redir(t_tk_lst *curr_tk);
+bool			check_prev(t_tk_lst *curr_tk);
+t_tree_nd		*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd);
+t_tree_nd		*attach_redir(t_tree_nd *redir_nd, t_tree_nd *new_redir);
+
+
+//44_build_cmd_nodes.c
 t_tree_nd		*build_cmd_nd(t_msh **msh, t_tk_lst **token_list);
 void			handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 					t_list **args);
 char			**join_cmd_and_args(char *cmd, char **args);
 
-//44_type_is_utils.c
+//45_type_is_utils.c
 bool			type_is_redir(t_tk_type *type);
 bool			type_is_word(t_tk_type *type);
 bool			type_is_cmd(t_tk_type *type);
 bool			type_is_arg(t_tk_type *type);
 
-//45_tree_utils.c
+//46_tree_utils.c
 t_tk_lst		*safe_next_tk(t_tk_lst *curr_tk);
+t_tk_lst		*safe_prev_tk(t_tk_lst *curr_tk);
 void			add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk);
-bool			check_prev(t_tk_lst *curr_tk);
-t_tree_nd		*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd, bool cmd_on_r);
 t_list			*reverse_args(t_list **head);
 
 /************ 50_built_ins ************/
