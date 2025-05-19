@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 18:06:13 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:58:55 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	**remake_args(t_tree_nd *node)
 	init_aux_structs(&flags, &ints, node);
 	quote_tmp = node->quote_lst;
 	new_args = ft_calloc((node->nb_arg + 1), sizeof(char *));
+	if (!node->cmd && !node->quote_lst->space_case)
+		node->quote_lst->space_case = true;
 	while (ints.i < node->nb_arg)
 	{
 		if (!node->quote_lst->space_case && !flags.written)

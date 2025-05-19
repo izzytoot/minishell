@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 23:08:47 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 11:56:47 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,13 @@ void	rm_empties(t_tk_lst **curr)
 	char	*word;
 
 	word = NULL;
-	if (!(*curr)->prev || (*curr)->prev->type != ARG)
+	if (!(*curr)->prev)
 		return ;
 	if ((*curr)->prev->prev && ft_strcmp("\'\'", (*curr)->content) == 0 && (*curr)->prev->content[0] == '$')
 	{
 		if ((*curr)->next)
 		{
+			(*curr)->next->quotes.space_case = (*curr)->quotes.space_case;
 			(*curr)->prev->next = (*curr)->next;
 			(*curr)->next->prev = (*curr)->prev;
 		}
@@ -125,11 +126,16 @@ void	rm_empties(t_tk_lst **curr)
 	}
 	if ((*curr)->prev->type == ARG)
 		word = ft_strdup((*curr)->prev->content);
+	else if ((*curr)->prev->type == W_SPACE && (*curr)->prev->prev)
+		word = ft_strdup((*curr)->prev->prev->content);
+	else
+		return ;
 	if (ft_strcmp("\'\'", word) == 0 && ((*curr)->type == BT_CMD
 			|| (*curr)->type == ARG))
 	{
 		if ((*curr)->prev->type == ARG && (*curr)->prev->prev)
 		{
+			(*curr)->quotes.space_case = (*curr)->prev->quotes.space_case;
 			(*curr)->prev->prev->next = *curr;
 			(*curr)->prev = (*curr)->prev->prev;
 		}
