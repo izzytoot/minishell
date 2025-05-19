@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/19 11:56:47 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 12:14:57 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	exp_to_null(t_msh **msh, int start)
 
 	i = start + 1;
 	line = (*msh)->prompt_line;
-	if (line[i] && !ft_strchr(QT, line[i]))
+	if (!line[i] || (line[i] && !ft_strchr(QT, line[i])))
 		return (start);
 	while (line[i] && !ft_strchr(WS, line[i]))
 	{

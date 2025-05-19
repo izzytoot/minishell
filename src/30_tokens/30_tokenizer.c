@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 11:16:48 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 12:12:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,6 @@ void	get_tokens(t_msh **msh, int i)
 	return ;
 }
 
-void	init_qt_struct(t_quote *quotes)
-{
-	quotes->in_squotes = false;
-	quotes->in_dquotes = false;
-	quotes->quote_char = '\0';
-}
-
 bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 {
 	if (c == '$' && !quotes->in_quotes)
@@ -81,4 +74,11 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 	else
 		return (false);
 	return (true);
+}
+
+void	init_qt_struct(t_quote *quotes)
+{
+	quotes->in_squotes = false;
+	quotes->in_dquotes = false;
+	quotes->quote_char = '\0';
 }
