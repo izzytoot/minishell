@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   45_tree_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:17:25 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 16:46:05 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:32:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk)
 		//new_redir->file = ft_strdup(curr_tk->prev->content);
 	}
 	else
-		new_redir->file = NULL;
+		new_redir->file = ft_strdup("");
 }
 
-bool	check_prev(t_tk_lst *curr_tk)
+bool	check_prev(t_tk_lst *curr_tk) 
 {
 	t_tk_lst	*curr_tmp;
 
@@ -65,21 +65,21 @@ bool	check_prev(t_tk_lst *curr_tk)
 	return (false);
 }
 
-t_tree_nd	*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd, bool cmd_exc)
+t_tree_nd	*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd, bool cmd_on_r)
 {
 	t_tree_nd	*leftmost;
 	t_tree_nd	*final_redir;
 
 	final_redir = redir_nd;
 	leftmost = NULL;
-	if (cmd_nd && !cmd_exc)
+	if (cmd_nd && !cmd_on_r)
 	{
 		leftmost = final_redir;
 		while (leftmost->left)
 			leftmost = leftmost->left;
 		leftmost->left = cmd_nd;
 	}
-	else if (cmd_nd && cmd_exc)
+	else if (cmd_nd && cmd_on_r)
 		final_redir->right = cmd_nd;
 	return (final_redir);
 }

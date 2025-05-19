@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/18 23:05:45 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 16:30:33 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,9 +346,9 @@ t_tree_nd		*build_pipe_nd(t_msh **msh, t_tk_lst **tokens);
 //42_build_redir_nodes.c
 t_tree_nd		*build_redir_nd(t_msh **msh, t_tk_lst **token_list);
 t_tree_nd		*handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk,
-					bool *cmd_exc);
+					bool *cmd_on_r);
 t_tree_nd		*attach_redir(t_tree_nd *redir_nd, t_tree_nd *new_redir);
-bool			check_cmd(t_tk_lst **token_list, bool cmd_exc);
+bool			check_cmd(t_tk_lst **token_list, bool cmd_on_r);
 bool			search_cmd(t_tk_lst *curr_tk);
 
 //43_build_cmd_nodes.c
@@ -367,7 +367,7 @@ bool			type_is_arg(t_tk_type *type);
 t_tk_lst		*safe_next_tk(t_tk_lst *curr_tk);
 void			add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk);
 bool			check_prev(t_tk_lst *curr_tk);
-t_tree_nd		*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd, bool cmd_exc);
+t_tree_nd		*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd, bool cmd_on_r);
 t_list			*reverse_args(t_list **head);
 
 /************ 50_built_ins ************/

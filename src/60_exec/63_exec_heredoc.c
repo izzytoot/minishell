@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 18:12:08 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:15:27 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,14 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		lines.new_l = readline("> ");
 		if (!lines.new_l)
 			break ;
-		if (ft_strcmp(lines.new_l, eof) == 0)
+		if ((!eof && ft_strcmp(lines.new_l, "\0") == 0) || (ft_strcmp(lines.new_l, eof) == 0))
 		{
-			free(lines.new_l);
+			safe_free(lines.new_l);
 			break ;
 		}
 		expand_line(msh, &lines, curr_nd, hd_fd);
 		ft_putstr_fd("\n", hd_fd);
-		free(lines.new_l);
-		lines.new_l = NULL;
+		safe_free(lines.new_l);
 	}
 }
 
@@ -70,11 +69,12 @@ char	*check_eof(t_tree_nd *node, char *file_name)
 	char	*eof;
 
 	i = 0;
-	eof = NULL;
+	eof = ft_strdup("");
+	if (!file_name)
+		return (NULL);
 	if (!node->eof_ch && (file_name[i] == '-' || file_name[i] == '!'))
 		eof = ft_substr(file_name, 1, (ft_strlen(file_name)));
 	else
-		eof = file_name;
-//		eof = ft_strdup(file_name);
+		eof = ft_strdup(file_name);
 	return (eof);
 }

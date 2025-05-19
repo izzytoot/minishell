@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 23:05:58 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 13:49:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	handle_filename(t_msh **msh)
 		if (curr->type == REDIR_HD || curr->type == REDIR_APP
 			|| curr->type == REDIR_IN || curr->type == REDIR_OUT)
 		{
+			if (!curr->prev)
+				return;
 			if (curr->type == REDIR_HD)
 				hd_flag = true;
 			if (curr->prev->type == W_SPACE && curr->prev->prev->type == WORD)
