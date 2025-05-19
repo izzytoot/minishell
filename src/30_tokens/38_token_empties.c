@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/19 17:57:43 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 18:18:43 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,7 @@ bool ch_all_same(char *nl)
 	return (true);
 }
 
-int	exp_to_null(t_msh **msh, int start)
-{
-	int			i;
-	char		exp[5];
-	t_tk_lst	*new_tk;
-	const char	*line;
-
-	i = start + 1;
-	line = (*msh)->prompt_line;
-	if (!line[i] || (line[i] && !ft_strchr(QT, line[i])))
-		return (start);
-	while (line[i] && !ft_strchr(WS, line[i]))
-	{
-		if ((line[i + 1] && (line[i] != line[i + 1]))
-			|| !ft_strchr(QT, line[i]))
-			return (start);
-		i++;
-	}
-	exp[0] = '\0';
-	new_tk = ft_calloc(1, sizeof(t_tk_lst));
-	app_tk(*msh, new_tk, exp, ARG);
-	return (i - 1);
-}
-
-void	rm_empties(t_tk_lst **curr) //REDUCE LINE
+void	rm_empties(t_tk_lst **curr)
 {
 	char	*word;
 
@@ -111,17 +87,7 @@ void	rm_empties(t_tk_lst **curr) //REDUCE LINE
 		return ;
 	if ((*curr)->prev->prev && ft_strcmp("\'\'", (*curr)->content) == 0 && (*curr)->prev->content[0] == '$')
 	{
-		if ((*curr)->next)
-		{
-			(*curr)->next->quotes.space_case = (*curr)->quotes.space_case;
-			(*curr)->prev->next = (*curr)->next;
-			(*curr)->next->prev = (*curr)->prev;
-		}
-		else
-		{
-			(*curr)->prev->next = NULL;
-			*curr = (*curr)->prev;
-		}
+		rm_empties_util(&curr, 0);
 		return ;
 	}
 	if ((*curr)->prev->type == ARG)
@@ -132,15 +98,35 @@ void	rm_empties(t_tk_lst **curr) //REDUCE LINE
 		return ;
 	if (ft_strcmp("\'\'", word) == 0 && ((*curr)->type == BT_CMD
 			|| (*curr)->type == ARG))
-	{
-		if ((*curr)->prev->type == ARG && (*curr)->prev->prev)
-		{
-			(*curr)->quotes.space_case = (*curr)->prev->quotes.space_case;
-			(*curr)->prev->prev->next = *curr;
-			(*curr)->prev = (*curr)->prev->prev;
-		}
-		else if ((*curr)->prev->type == ARG && !(*curr)->prev->prev)
-			(*curr)->prev = NULL;
-	}
+		rm_empties_util(&curr, 1);
 	safe_free(word);
+}
+
+void	rm_empties_util(t_tk_lst ***curr, int type)
+{
+	if (type == 0)
+	{
+		if ((**curr)->next)
+		{
+			(**curr)->next->quotes.space_case = (**curr)->quotes.space_case;
+			(**curr)->prev->next = (**curr)->next;
+			(**curr)->next->prev = (**curr)->prev;
+		}
+		else
+		{
+			(**curr)->prev->next = NULL;
+			**curr = (**curr)->prev;
+		}	
+	}
+	if (type == 1)
+	{
+		if ((**curr)->prev->type == ARG && (**curr)->prev->prev)
+		{
+			(**curr)->quotes.space_case = (**curr)->prev->quotes.space_case;
+			(**curr)->prev->prev->next = **curr;
+			(**curr)->prev = (**curr)->prev->prev;
+		}
+		else if ((**curr)->prev->type == ARG && !(**curr)->prev->prev)
+			(**curr)->prev = NULL;	
+	}
 }

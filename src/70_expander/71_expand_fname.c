@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   71_expand_fname.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 18:21:02 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:39:52 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	expand_fname(t_msh **msh, char **fname)
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
 	i = -1;
-	tmp_fname = ft_strdup(*fname);
+	if ((*fname)[0] == '$' && ft_strchr(QT, (*fname)[1]))
+		tmp_fname = ft_strdup(++*fname);
+	else
+		tmp_fname = ft_strdup(*fname);
 	kw_lst = ft_calloc(MAX_KW, sizeof(t_kw *));
 	parts.pre_c = get_pre_cont(*fname, &i);
 	build_kw_list(&(*kw_lst), *fname, &i);

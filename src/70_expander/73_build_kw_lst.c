@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   73_build_kw_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 18:26:14 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:29:31 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,23 @@ void	app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp)
 		*kw_lst = new_kw;
 		new_kw->prev = NULL;
 	}
+}
+
+bool	check_dollar_w_qts(char **str)
+{
+	int		n;
+	char	c;
+	
+	n = 0;
+	while((*str)[n])
+	{
+		c = (*str)[n];
+		n++;
+	}
+	if (c == '$')
+	{
+		(*str) = ft_strdup_until((*str), c);
+		return (true);
+	}
+	return (false);
 }

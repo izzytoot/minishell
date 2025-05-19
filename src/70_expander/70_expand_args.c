@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 23:08:16 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 19:29:25 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 	int		i;
 	t_quote	*tmp_qt;
 
-	i = 0;
+	i = -1;
 	if (!node)
 		return ;
 	if ((type_is_word(&node->type) && node->args))
 	{
 		tmp_qt = node->quote_lst;
 		args_cpy = ft_calloc((node->nb_arg + 1), sizeof(char *));
-		while (node->args[i])
+		while (node->args[++i])
 		{
-			//tmp_arg = node->args[i];
+			if (node->quote_lst->next->in_quotes)
+				check_dollar_w_qts(&node->args[i]);
 			tmp_arg = ft_strdup(node->args[i]);
 			expander(msh, &node, &tmp_arg);
 			args_cpy[i] = tmp_arg; //strdup??
-			i++;
 		}
 		args_cpy[i] = NULL;
 		node->quote_lst = tmp_qt;

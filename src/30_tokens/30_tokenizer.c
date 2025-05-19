@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 12:12:37 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 18:19:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,28 @@ void	init_qt_struct(t_quote *quotes)
 	quotes->in_squotes = false;
 	quotes->in_dquotes = false;
 	quotes->quote_char = '\0';
+}
+
+int	exp_to_null(t_msh **msh, int start)
+{
+	int			i;
+	char		exp[5];
+	t_tk_lst	*new_tk;
+	const char	*line;
+
+	i = start + 1;
+	line = (*msh)->prompt_line;
+	if (!line[i] || (line[i] && !ft_strchr(QT, line[i])))
+		return (start);
+	while (line[i] && !ft_strchr(WS, line[i]))
+	{
+		if ((line[i + 1] && (line[i] != line[i + 1]))
+			|| !ft_strchr(QT, line[i]))
+			return (start);
+		i++;
+	}
+	exp[0] = '\0';
+	new_tk = ft_calloc(1, sizeof(t_tk_lst));
+	app_tk(*msh, new_tk, exp, ARG);
+	return (i - 1);
 }

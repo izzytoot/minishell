@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strdup_until.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 16:46:19 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 19:18:53 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 19:15:29 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup_until(const char *s, char u)
 {
 	int		len;
 	int		i;
@@ -20,18 +20,18 @@ char	*ft_strdup(const char *s)
 
 	if (!s)
 		return (NULL);
-	len = ft_strlen(s);
+	len = ft_strlen_until(s, u);
 	dest = malloc(sizeof(char) * (len + 1));
 	if (!dest)
 		return (NULL);
 	i = 0;
 	if (!s)
 		return (NULL);
-	while (s[i])
+	while (i < len)
 	{
 		dest[i] = s[i];
 		i++;
 	}
-	dest[i] = '\0';
+	dest[++i] = '\0';
 	return (dest);
 }

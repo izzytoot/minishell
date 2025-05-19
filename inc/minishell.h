@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/19 17:54:57 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/19 19:29:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ char			*get_eof(const char *line, int hd_index);
 void			get_tokens(t_msh **msh, int i);
 void			init_qt_struct(t_quote *quotes);
 bool			extra_check(t_msh **msh, int *i, char c, t_quote *quote);
+int				exp_to_null(t_msh **msh, int start);
 
 //31_token_words.c
 int				tk_word(t_msh **msh, int start);
@@ -331,8 +332,8 @@ bool			check_shell_var(char *str);
 void			empty_case(t_msh **msh, const char *line, int i, bool flag);
 bool 			ch_all_same(char *nl);
 bool 			ch_emp_exp(t_msh **msh, char *nl);
-int				exp_to_null(t_msh **msh, int start);
 void			rm_empties(t_tk_lst **curr);
+void			rm_empties_util(t_tk_lst ***curr, int type);
 
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
@@ -497,6 +498,7 @@ void			build_kw_list(t_kw **kw_lst, char *arg, int *i);
 void			get_exp_kw(int next, t_kw *n_kw, char *arg, int *i);
 char			*get_util(char *arg, int **i, int n);
 void			app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp);
+bool			check_dollar_w_qts(char **str);
 
 //74_expand_key_words.c
 void			expand_kw(t_msh **msh, t_kw **kw_lst);
