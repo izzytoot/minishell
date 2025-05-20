@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 18:28:24 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 00:33:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		if (status != 0)
 			return (exit_value(msh, status, 1, 0));
 		if (safe_execve(msh, path, node->cmd_content))
-			close_minishell((*msh), status); //verify status is correct
+			close_minishell((*msh), status);	
 	}
 	else
 	{
 		waitpid(pid, &status, 0); //wait for exit code from child
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
-		if (WIFSIGNALED(status))
+		else if (WIFSIGNALED(status))
 			status = 128 + WTERMSIG(status);
 	}
 	return (exit_value(msh, status, 1, 0));
