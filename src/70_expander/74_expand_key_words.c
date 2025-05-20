@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   74_expand_key_words.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 18:36:46 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:21:21 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,25 @@ char	*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 		vars_list = vars_list->next;
 	}
 	return (NULL);
+}
+
+char	**ft_array_dup_w_null(t_tree_nd *node, char **array, int n)
+{
+	int		i;
+	int		size;
+	char	**new_array;
+
+	if (!array)
+		return (NULL);
+	size = 0;
+	i = 0;
+	while (n-- > 0)
+	{
+		if (array[i])
+			size++;
+		i++;
+	}
+	node->nb_arg = size;
+	new_array = copy_array(size, array);
+	return (new_array);
 }

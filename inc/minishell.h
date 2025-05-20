@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/20 11:28:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 16:48:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -480,10 +480,10 @@ int				direct_path(t_tree_nd *node);
 
 //70_expand_args.c
 void			expand_args(t_msh **msh, t_tree_nd *node);
+void			expand_loop(t_msh **msh, t_tree_nd *node, char **args_cpy);
 void			expander(t_msh **msh, t_tree_nd **node, char **arg);
 void			expand_tk(t_msh **msh, char **arg);
 void			subst_arg(char **arg, t_exp_cont *parts);
-char			**ft_array_dup_w_null(t_tree_nd *node, char **array, int n);
 
 //71_expand_fname.c
 void			expand_fname(t_msh **msh, char **fname);
@@ -494,6 +494,7 @@ void			expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
 void			expand_line(t_msh **msh, t_hd_lines *lines,
 					t_tree_nd *curr_nd, int hd_fd);
 char			*expand_word(t_msh **msh, char *word);
+char			*get_pre_cont_hd(char *arg, int *i);
 
 //73_build_kw_lst.c 
 void			build_kw_list(t_kw **kw_lst, char *arg, int *i);
@@ -507,6 +508,7 @@ void			expand_kw(t_msh **msh, t_kw **kw_lst);
 int				expand_case(char *kw);
 char			*get_env_cont(t_list *envp_list, t_list *vars_list,
 					char *key_word);
+char			**ft_array_dup_w_null(t_tree_nd *node, char **array, int n);
 
 //75_get_parts.c
 char			*get_pre_cont(char *arg, int *i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   75_get_parts.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 18:31:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:33:27 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_pre_cont(char *arg, int *i)
 	char	*pre_content;
 	int		len;
 
-	len = 0;
+	len = -1;
 	while (!ft_strchr("$", arg[++*i]))
 		len++;
 	if (!len)

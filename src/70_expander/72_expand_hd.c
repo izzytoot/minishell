@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   72_expand_hd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:50 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 18:20:30 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:15:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,77 @@ char	*expand_word(t_msh **msh, char *word)
 	kw_lst = ft_calloc(MAX_KW, sizeof(t_kw *));
 	if (word)
 	{
-		parts.pre_c = get_pre_cont(word, &i);
+		parts.pre_c = get_pre_cont_hd(word, &i);
 		build_kw_list(&(*kw_lst), word, &i);
 		parts.post_c = get_post_cont(word, &i);
 		expand_kw(msh, kw_lst);
 		parts.new_c = get_exp_cont(kw_lst);
 		subst_arg(&word, &parts);
-	//	free_kw_structs(&parts, kw_lst);
+		free_kw_structs(&parts, kw_lst);
 	}
 	else
 		return (NULL);
 	return (word);
+}
+
+void	wr_pre_cont_hd(char *arg, char **pre_content)
+{
+	static int		len;
+	static int		i;
+	
+	if (arg[i] == '$' && ft_strchr(QT,arg[i + 1]))
+	{
+		(*pre_content)[len] = arg[len];
+		len++;
+		i++;
+	}
+	while (arg[i] && arg[i] != '$')
+	{
+		(*pre_content)[len] = arg[len];
+		len++;
+		i++;
+		if (arg[i] == '$' && ft_strchr(QT,arg[i + 1]))
+			wr_pre_cont_hd(arg, pre_content);
+	}
+	(*pre_content)[len] = '\0';
+	len = 0;
+	i = 0;
+}
+
+int	len_pre_cont_hd(char *arg)
+{
+	static int		len;
+	static int		i;
+	int		tmp_i;
+
+	if (arg[i] == '$' && ft_strchr(QT,arg[i + 1]))
+	{
+		len++;
+		i++;
+	}
+	while (arg[i] && arg[i] != '$')
+	{
+		len++;
+		i++;
+		if (arg[i] == '$' && ft_strchr(QT,arg[i + 1]))
+			len_pre_cont_hd(arg);			
+	}
+	len = 0;
+	tmp_i = i;
+	i = 0;
+	return (tmp_i);
+}
+
+char	*get_pre_cont_hd(char *arg, int *i)
+{
+	char	*pre_content;
+	int		len;
+	
+	len = len_pre_cont_hd(arg);
+	if (!len)
+		return (NULL);
+	*i = len;
+	pre_content = ft_calloc((len + 1), sizeof(char));
+	wr_pre_cont_hd(arg, &pre_content);
+	return (pre_content);
 }

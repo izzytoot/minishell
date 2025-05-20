@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   77_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 18:33:19 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:19:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ int	count_exp(char *arg, int i)
 	while (arg[i])
 	{
 		if (arg[i] == '$')
+		{
+			if (arg[i + 1] != '$')
+				i++;
 			count++;
+		}
 		i++;
 	}
 	return (count);

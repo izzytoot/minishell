@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 19:29:25 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 16:21:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,38 @@
 void	expand_args(t_msh **msh, t_tree_nd *node)
 {
 	char	**args_cpy;
-	char	*tmp_arg;
-	int		i;
 	t_quote	*tmp_qt;
 
-	i = -1;
 	if (!node)
 		return ;
 	if ((type_is_word(&node->type) && node->args))
 	{
 		tmp_qt = node->quote_lst;
 		args_cpy = ft_calloc((node->nb_arg + 1), sizeof(char *));
-		while (node->args[++i])
-		{
-			if (node->quote_lst->next->in_quotes)
-				check_dollar_w_qts(&node->args[i]);
-			tmp_arg = ft_strdup(node->args[i]);
-			expander(msh, &node, &tmp_arg);
-			args_cpy[i] = tmp_arg; //strdup??
-		}
-		args_cpy[i] = NULL;
+		expand_loop(msh, node, args_cpy);
 		node->quote_lst = tmp_qt;
 		node->args = ft_array_dup_w_null(node, args_cpy, node->nb_arg);
 	}
 	recurs_exp_args(msh, node);
+}
+
+void	expand_loop(t_msh **msh, t_tree_nd *node, char **args_cpy)
+{
+	char	*tmp_arg;
+	int		i;
+
+	i = -1;
+	while (node->args[++i])
+	{
+		if (node->quote_lst->next->in_quotes)
+			check_dollar_w_qts(&node->args[i]);
+		if (!node->args[i])
+			continue;
+		tmp_arg = ft_strdup(node->args[i]);
+		expander(msh, &node, &tmp_arg);
+		args_cpy[i] = tmp_arg; //strdup??
+	}
+	args_cpy[i] = NULL;
 }
 
 void	expander(t_msh **msh, t_tree_nd **node, char **arg)
@@ -107,25 +115,4 @@ void	subst_arg(char **arg, t_exp_cont *parts)
 	}
 	else
 		*arg = NULL;
-}
-
-char	**ft_array_dup_w_null(t_tree_nd *node, char **array, int n)
-{
-	int		i;
-	int		size;
-	char	**new_array;
-
-	if (!array)
-		return (NULL);
-	size = 0;
-	i = 0;
-	while (n-- > 0)
-	{
-		if (array[i])
-			size++;
-		i++;
-	}
-	node->nb_arg = size;
-	new_array = copy_array(size, array);
-	return (new_array);
 }
