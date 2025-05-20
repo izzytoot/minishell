@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 15:33:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 00:53:38 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_pre_cont(char *arg, int *i)
 	char	*pre_content;
 	int		len;
 
-	len = -1;
+	len = 0;
 	while (!ft_strchr("$", arg[++*i]))
 		len++;
 	if (!len)
