@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/19 19:39:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 10:50:48 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ void	expand_fname(t_msh **msh, char **fname)
 	int			i;
 	char		*tmp_fname;
 
+	i = 0;
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
-	i = -1;
-	if ((*fname)[0] == '$' && ft_strchr(QT, (*fname)[1]))
-		tmp_fname = ft_strdup(++*fname);
-	else
-		tmp_fname = ft_strdup(*fname);
+	tmp_fname = ft_strdup(*fname);
 	kw_lst = ft_calloc(MAX_KW, sizeof(t_kw *));
 	parts.pre_c = get_pre_cont(*fname, &i);
 	build_kw_list(&(*kw_lst), *fname, &i);

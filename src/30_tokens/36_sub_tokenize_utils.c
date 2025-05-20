@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   36_sub_tokenize_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 16:21:23 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_tk_lst	*find_w_tk(t_msh **msh)
 		if (w_tk->type == WORD
 			&& !ft_strnstr(w_tk->content, "$", ft_strlen(w_tk->content))
 			&& w_tk->prev && w_tk->prev->type == WORD
-			&& !w_tk->quotes.space_case)
+			&& !w_tk->quotes.sp_case)
 			return (w_tk);
 		w_tk = w_tk->prev;
 	}
@@ -55,8 +55,8 @@ void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 
 	cont = safe_strjoin((*src)->content, (*tg)->content);
 	free((*src)->content);
-	(*src)->content = cont;
-	(*src)->quotes.space_case = (*tg)->quotes.space_case;
+	(*src)->content = ft_strdup(cont);
+	(*src)->quotes.sp_case = (*tg)->quotes.sp_case;
 	if ((*tg)->prev)
 	{
 		(*src)->prev = (*tg)->prev;

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 17:48:59 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	app_qt(t_tree_nd *new_nd, t_tk_lst *token)
 	//new_quote->content = ft_strdup(token->content);
 	new_quote->in_dquotes = token->quotes.in_dquotes;
 	new_quote->in_squotes = token->quotes.in_squotes;
-	new_quote->space_case = token->quotes.space_case;
+	new_quote->sp_case = token->quotes.sp_case;
 	if (new_quote->in_dquotes || new_quote->in_squotes)
 		new_quote->in_quotes = true;
 	else

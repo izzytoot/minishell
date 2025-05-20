@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   43_build_cmd_nodes.c                               :+:      :+:    :+:   */
+/*   44_build_cmd_nodes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 23:07:48 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 {
 	while (*curr_tk)
 	{
-		if (type_is_cmd(&(*curr_tk)->type) && !(*curr_tk)->quotes.space_case
+		if (type_is_cmd(&(*curr_tk)->type) && !(*curr_tk)->quotes.sp_case
 			&& (*curr_tk)->prev)
 			(*curr_tk)->type = (*curr_tk)->type;
 		if (type_is_arg(&(*curr_tk)->type))

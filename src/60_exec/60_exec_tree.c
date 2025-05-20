@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 11:58:55 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ char	**remake_args(t_tree_nd *node)
 	init_aux_structs(&flags, &ints, node);
 	quote_tmp = node->quote_lst;
 	new_args = ft_calloc((node->nb_arg + 1), sizeof(char *));
-	if (!node->cmd && !node->quote_lst->space_case)
-		node->quote_lst->space_case = true;
+	if (!node->cmd && !node->quote_lst->sp_case)
+		node->quote_lst->sp_case = true;
 	while (ints.i < node->nb_arg)
 	{
-		if (!node->quote_lst->space_case && !flags.written)
+		if (!node->quote_lst->sp_case && !flags.written)
 			compose_arg(&ints, &flags, new_args, node);
-		else if (node->quote_lst->space_case && !flags.space_prev)
+		else if (node->quote_lst->sp_case && !flags.space_prev)
 			add_last(&ints, &flags, new_args, node);
 		else
 			lonely_arg(&ints, &flags, new_args, &node);

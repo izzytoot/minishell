@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   65_remake_args_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:14:35 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 18:15:57 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	init_aux_structs(t_flag_str *flags, t_ints *ints, t_tree_nd *node)
 {
 	(*flags).written = false;
 	(*flags).space_prev = true;
-	(*flags).space_next = node->quote_lst->space_case;
+	(*flags).space_next = node->quote_lst->sp_case;
 	(*ints).i = 0;
 	(*ints).j = 0;
 }
@@ -43,7 +43,7 @@ void	compose_arg(t_ints *ints, t_flag_str *flags, char **new_args,
 			new_args[(*ints).j] = ft_strdup(ft_strjoin(new_args[(*ints).j],
 						node->args[(*ints).i]));
 		}
-		else //last arg when lonely (!space_case)
+		else //last arg when lonely (!sp_case)
 //			new_args[(*ints).j] = node->args[(*ints).i];
 			new_args[(*ints).j] = ft_strdup(node->args[(*ints).i]);
 	}
@@ -80,7 +80,7 @@ void	lonely_arg(t_ints *ints, t_flag_str *flags, char **new_args,
 void	handle_written(t_ints *ints, t_flag_str *flags, t_tree_nd **node)
 {
 	(*ints).i++;
-	if (!(*node)->quote_lst->space_case)
+	if (!(*node)->quote_lst->sp_case)
 		(*flags).space_next = false;
 	else
 	{

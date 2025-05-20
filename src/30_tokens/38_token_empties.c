@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/19 18:18:43 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	rm_empties_util(t_tk_lst ***curr, int type)
 	{
 		if ((**curr)->next)
 		{
-			(**curr)->next->quotes.space_case = (**curr)->quotes.space_case;
+			(**curr)->next->quotes.sp_case = (**curr)->quotes.sp_case;
 			(**curr)->prev->next = (**curr)->next;
 			(**curr)->next->prev = (**curr)->prev;
 		}
@@ -122,7 +122,7 @@ void	rm_empties_util(t_tk_lst ***curr, int type)
 	{
 		if ((**curr)->prev->type == ARG && (**curr)->prev->prev)
 		{
-			(**curr)->quotes.space_case = (**curr)->prev->quotes.space_case;
+			(**curr)->quotes.sp_case = (**curr)->prev->quotes.sp_case;
 			(**curr)->prev->prev->next = **curr;
 			(**curr)->prev = (**curr)->prev->prev;
 		}

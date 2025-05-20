@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/19 19:29:31 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 10:59:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp)
 	}
 }
 
-bool	check_dollar_w_qts(char **str)
+void	check_dollar_w_qts(char **str)
 {
 	int		n;
 	char	c;
@@ -121,9 +121,5 @@ bool	check_dollar_w_qts(char **str)
 		n++;
 	}
 	if (c == '$')
-	{
 		(*str) = ft_strdup_until((*str), c);
-		return (true);
-	}
-	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/19 19:29:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct s_quote
 	bool			in_squotes;
 	bool			in_dquotes;
 	bool			in_quotes;
-	bool			space_case;
+	bool			sp_case;
 	char			quote_char;
 	char			*content;
 	struct s_quote	*next;
@@ -498,7 +498,7 @@ void			build_kw_list(t_kw **kw_lst, char *arg, int *i);
 void			get_exp_kw(int next, t_kw *n_kw, char *arg, int *i);
 char			*get_util(char *arg, int **i, int n);
 void			app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp);
-bool			check_dollar_w_qts(char **str);
+void			check_dollar_w_qts(char **str);
 
 //74_expand_key_words.c
 void			expand_kw(t_msh **msh, t_kw **kw_lst);
