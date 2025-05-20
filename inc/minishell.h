@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/20 16:48:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 17:48:29 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -495,6 +495,8 @@ void			expand_line(t_msh **msh, t_hd_lines *lines,
 					t_tree_nd *curr_nd, int hd_fd);
 char			*expand_word(t_msh **msh, char *word);
 char			*get_pre_cont_hd(char *arg, int *i);
+int				len_pre_cont_hd(char *arg, int i);
+int				wr_pre_cont_hd(char *arg, char **pre_content, int i, int len);
 
 //73_build_kw_lst.c 
 void			build_kw_list(t_kw **kw_lst, char *arg, int *i);
