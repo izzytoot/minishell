@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:28:15 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,6 +278,8 @@ void			get_tokens(t_msh **msh, int i);
 void			init_qt_struct(t_quote *quotes);
 bool			extra_check(t_msh **msh, int *i, char c, t_quote *quote);
 int				exp_to_null(t_msh **msh, int start);
+void			app_tk(t_msh *msh, t_tk_lst *new_tk,
+					char *content, t_tk_type type);
 
 //31_token_words.c
 int				tk_word(t_msh **msh, int start);
@@ -321,8 +323,7 @@ void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
 					t_tk_lst **merge_tg, bool hd_flag);
 
 //37_token_utils.c
-void			app_tk(t_msh *msh, t_tk_lst *new_tk,
-					char *content, t_tk_type type);
+bool			tk_in_qts(t_tk_lst *tk);
 char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);
 bool			check_builtin(char *str);
@@ -487,7 +488,8 @@ char			**ft_array_dup_w_null(t_tree_nd *node, char **array, int n);
 //71_expand_fname.c
 void			expand_fname(t_msh **msh, char **fname);
 void			subst_fname(char **fname, t_exp_cont *parts);
-
+void			expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
+					t_tk_lst *merge_tg, bool hd_flag);
 //72_expand_hd.c
 void			expand_line(t_msh **msh, t_hd_lines *lines,
 					t_tree_nd *curr_nd, int hd_fd);

@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   37_token_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:21:51 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 16:31:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:28:36 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
-{
-	new_tk->type = type;
-	if (content)
-		new_tk->content = ft_strdup(content);
-	new_tk->next = msh->token_list;
-	new_tk->prev = NULL;
-	if (msh->token_list)
-		msh->token_list->prev = new_tk;
-	msh->token_list = new_tk;
-}
 
 char	*get_path(t_list *envp_list)
 {
@@ -79,5 +67,14 @@ bool	check_shell_var(char *str)
 		else
 			return (false);
 	}
+	return (false);
+}
+
+bool	tk_in_qts(t_tk_lst *tk)
+{
+	if (!tk)
+		return (false);
+	if (tk->quotes.in_dquotes || tk->quotes.in_squotes)
+		return (true);
 	return (false);
 }

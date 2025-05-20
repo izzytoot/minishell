@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 11:14:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:28:19 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,6 @@ void	handle_filename(t_msh **msh)
 	join_filename(msh, hd_flag);
 }
 
-bool	tk_in_qts(t_tk_lst *tk)
-{
-	if (!tk)
-		return (false);
-	if (tk->quotes.in_dquotes || tk->quotes.in_squotes)
-		return (true);
-	return (false);
-}
-
-void	remove_merge_tg(t_msh **msh, t_tk_lst *tmp_fn, t_tk_lst *merge_tg)
-{
-	if (!merge_tg->prev)
-	{
-		(*msh)->token_list = tmp_fn;
-		(*msh)->token_list->prev = NULL;
-	}
-	else
-	{
-		merge_tg->prev->next = tmp_fn;
-		tmp_fn->prev = merge_tg->prev;
-	}
-}
-
 void	join_filename(t_msh **msh, bool hd_flag)
 {
 	t_tk_lst	*tmp_fn;
@@ -103,20 +80,7 @@ void	join_filename(t_msh **msh, bool hd_flag)
 	if (!tmp_fn->quotes.sp_case && tmp_fn->prev && tmp_fn->prev->type == WORD)
 	{
 		merge_tg = tmp_fn->prev;
-		while (tmp_fn && (!tmp_fn->quotes.sp_case && tmp_fn->prev))
-		{
-			if (tk_in_qts(merge_tg))
-				check_dollar_w_qts(&tmp_fn->content);
-			expand_fn(msh, &tmp_fn, &merge_tg, hd_flag);
-			join_parts(&tmp_fn, &merge_tg);
-			if (!tmp_fn->quotes.sp_case && merge_tg->prev)
-				merge_tg = tmp_fn->prev;
-			else
-			{
-				remove_merge_tg(msh, tmp_fn, merge_tg);
-				break ;
-			}
-		}
+		expand_and_join_fname(msh, tmp_fn, merge_tg, hd_flag);
 	}
 }
 

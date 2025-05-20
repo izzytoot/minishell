@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:28:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,16 @@ int	exp_to_null(t_msh **msh, int start)
 	new_tk = ft_calloc(1, sizeof(t_tk_lst));
 	app_tk(*msh, new_tk, exp, ARG);
 	return (i - 1);
+}
+
+void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
+{
+	new_tk->type = type;
+	if (content)
+		new_tk->content = ft_strdup(content);
+	new_tk->next = msh->token_list;
+	new_tk->prev = NULL;
+	if (msh->token_list)
+		msh->token_list->prev = new_tk;
+	msh->token_list = new_tk;
 }

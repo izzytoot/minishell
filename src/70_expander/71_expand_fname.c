@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 10:50:48 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/20 11:24:57 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,32 @@ void	subst_fname(char **fname, t_exp_cont *parts)
 	}
 	else
 		*fname = NULL;
+}
+
+void	expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
+	t_tk_lst *merge_tg, bool hd_flag)
+{
+	while (tmp_fn && (!tmp_fn->quotes.sp_case && tmp_fn->prev))
+	{
+		if (tk_in_qts(merge_tg))
+			check_dollar_w_qts(&tmp_fn->content);
+		expand_fn(msh, &tmp_fn, &merge_tg, hd_flag);
+		join_parts(&tmp_fn, &merge_tg);
+		if (!tmp_fn->quotes.sp_case && merge_tg->prev)
+			merge_tg = tmp_fn->prev;
+		else
+		{
+			if (!merge_tg->prev)
+			{
+				(*msh)->token_list = tmp_fn;
+				(*msh)->token_list->prev = NULL;
+			}
+			else
+			{
+				merge_tg->prev->next = tmp_fn;
+				tmp_fn->prev = merge_tg->prev;
+			}
+			break ;
+		}
+	}
 }
