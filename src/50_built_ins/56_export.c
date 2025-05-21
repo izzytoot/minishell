@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   56_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/18 17:01:30 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:57:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 	char	**var_info;
 	int		i;
 
+
 	if (!node || !*node)
 		return (EXIT_FAILURE);
 	if (!(*node)->args[0])
-	{
-		disp_exported(msh);
-		return (0);
-	}
+		return (disp_exported(msh), 0);
 	else
 	{
 		i = 0;
@@ -34,8 +32,8 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 			if (!export_check(msh, (*node)->args[i]))
 				return (exit_value(msh, 1, 1, 0));
 			var_info = ft_split((*node)->args[i], '=');
-			add_new_var(&(*msh)->envp_list, var_info[0],
-				ft_strjoin(var_info[1], "\n"));
+			add_export_var(&(*msh)->envp_list, var_info[0],
+				var_info[1]);
 			i++;
 		}
 	}
@@ -46,7 +44,6 @@ void	disp_exported(t_msh **msh)
 {
 	t_list	*current;
 	char	**var_parts;
-	char	*escaped;
 
 	current = sort_env((*msh)->envp_list, 1);
 	while (current)
@@ -54,10 +51,8 @@ void	disp_exported(t_msh **msh)
 		var_parts = ft_split(current->content, '=');
 		if (var_parts[1])
 		{
-			escaped = escape_value(var_parts[1], 0, 0);
 			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n",
-				var_parts[0], escaped);
-			free(escaped);
+				var_parts[0], var_parts[1]);
 		}
 		else
 			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", var_parts[0]);

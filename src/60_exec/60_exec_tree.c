@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/21 17:36:10 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:51:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 
 	status = 0;
 	if (!node)
-		return (exit_value(msh, 0, 1, 0)); //changed exit status from 2 to 0
+		return (exit_value(msh, 0, 0, 0)); //changed exit status from 2 to 0
 	expand_args(msh, node);
 	if (node->nb_arg > 1)
 		node->args = remake_args(msh, node);
