@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 11:28:42 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:01:05 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	get_tokens(t_msh **msh, int i)
 	init_qt_struct(&quotes);
 	line = (*msh)->prompt_line;
 	i = -1;
-	empty_case(msh, (*msh)->prompt_line, 0, true);
+	empty_case(msh, line, 0, true);
 	while (line[++i])
 	{
 		quotes.sp_case = false;

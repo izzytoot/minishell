@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:10:09 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 
 	status = 0;
 	if (!node)
-		return (exit_value(msh, 0, 1, 0)); //changed exit status from 2 to 0
+		return (exit_value(msh, 0, 0, 0)); //changed exit status from 2 to 0
 	expand_args(msh, node);
 	if (node->nb_arg > 1)
 		node->args = remake_args(node);

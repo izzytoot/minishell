@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/20 17:48:29 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 18:09:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,6 +419,8 @@ char			*escape_value(char *value, int i, int j);
 //57_export_utils.c
 bool			is_valid_identifier(char *arg);
 bool			export_check(t_msh **msh, char *arg);
+void			add_export_var(t_list **env_list, const char *var_name,
+					const char *data);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c
