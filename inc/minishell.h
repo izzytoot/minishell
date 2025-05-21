@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/20 17:48:29 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:35:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,7 +423,8 @@ bool			export_check(t_msh **msh, char *arg);
 /************ 60_exec_tree ************/
 //60_exec_tree.c
 int				exec_tree(t_msh **msh, t_tree_nd *node);
-char			**remake_args(t_tree_nd *node);
+char			**remake_args(t_msh **msh, t_tree_nd *node);
+void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
@@ -510,7 +511,7 @@ void			expand_kw(t_msh **msh, t_kw **kw_lst);
 int				expand_case(char *kw);
 char			*get_env_cont(t_list *envp_list, t_list *vars_list,
 					char *key_word);
-char			**ft_array_dup_w_null(t_tree_nd *node, char **array, int n);
+char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);
 
 //75_get_parts.c
 char			*get_pre_cont(char *arg, int *i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   70_expand_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 16:21:13 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:22:35 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 		args_cpy = ft_calloc((node->nb_arg + 1), sizeof(char *));
 		expand_loop(msh, node, args_cpy);
 		node->quote_lst = tmp_qt;
-		node->args = ft_array_dup_w_null(node, args_cpy, node->nb_arg);
+		node->args = ft_array_dup_null(node, args_cpy, node->nb_arg);
 	}
 	recurs_exp_args(msh, node);
 }
