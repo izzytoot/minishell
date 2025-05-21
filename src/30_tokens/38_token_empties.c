@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/21 14:48:28 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:05:55 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ bool ch_all_same(char *nl)
 			return (false);
 		i++;
 	}
-	return (true);
+	if (!nl[i])
+		return (true);
+	return (false);
 }
 
 void	rm_empties(t_tk_lst **curr)
