@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   35_sub_tokenize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 11:28:19 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 19:14:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ void	sub_tokenize(t_msh **msh)
 				curr->type = ENV_CMD;
 			else
 				curr->type = ARG;
-			rm_empties(&curr);
+			//rm_empties(&curr);
 		}
 		curr = curr->next;
 	}
 	check_rep_cmd(&(*msh));
+	rm_empties((*msh)->token_list);
 }
 
 void	handle_filename(t_msh **msh)

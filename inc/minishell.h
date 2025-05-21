@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/21 17:35:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:54:57 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,8 +333,9 @@ bool			check_shell_var(char *str);
 void			empty_case(t_msh **msh, const char *line, int i, bool flag);
 bool 			ch_all_same(char *nl);
 bool 			ch_emp_exp(t_msh **msh, char *nl);
-void			rm_empties(t_tk_lst **curr);
-void			rm_empties_util(t_tk_lst ***curr, int type);
+void			rm_empties(t_tk_lst *token);
+//void			rm_empties(t_tk_lst **curr);
+void			rm_empties_util(t_tk_lst **curr, int type);
 
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
