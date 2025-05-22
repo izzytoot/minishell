@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/22 13:43:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:53:53 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,11 +420,12 @@ int				ft_export(t_msh **msh, t_tree_nd **node);
 t_list			*sort_env(t_list *env_list, int sort);
 void			disp_exported(t_msh **msh);
 t_list			*copy_env_list(t_list *env_list);
-char			*escape_value(char *value, int i, int j);
 
 //57_export_utils.c
 bool			is_valid_identifier(char *arg);
 bool			export_check(t_msh **msh, char *arg);
+void			add_export_var(t_list **env_list, const char *var_name,
+					const char *data);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c
