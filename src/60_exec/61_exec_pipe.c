@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   61_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/21 01:00:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 16:43:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,19 @@ void	perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid)
 
 int	safe_waitpid(int pid1, int pid2)
 {
-	int	status;
+	int	status_left = 0;
+	int	status_right = 0;
 
-	status = 0;
-	if (pid1)
-	{
-		waitpid(pid1, &status, 0);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			status = 128 + WTERMSIG(status);
-	}
-	if (pid2)
-	{
-		waitpid(pid2, &status, 0);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			status = 128 + WTERMSIG(status);
-	}
-	return (status);
+	if (pid1 > 0)
+		waitpid(pid1, &status_left, 0);
+	if (pid2 > 0)
+		waitpid(pid2, &status_right, 0);
+	if (WIFEXITED(status_right))
+		return WEXITSTATUS(status_right);
+	else if (WIFSIGNALED(status_right))
+		return 128 + WTERMSIG(status_right);
+	else
+		return (1);
 }
 
 void	close_fd(int fd_1, int fd_2)

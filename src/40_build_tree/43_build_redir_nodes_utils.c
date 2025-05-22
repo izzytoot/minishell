@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   43_build_redir_nodes_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 17:50:27 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/19 17:54:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 16:24:00 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 bool	next_is_redir(t_tk_lst *curr_tk)
 {
+	if (!curr_tk->next)
+		return (false);
 	if (curr_tk->next->type == W_SPACE)
 		curr_tk = curr_tk->next;
-	if (curr_tk->next->type == FILE_NAME 
-		|| ft_strchr(REDIR, curr_tk->next->content[0]))
+	if (curr_tk->next && (curr_tk->next->type == FILE_NAME 
+		|| ft_strchr(REDIR, curr_tk->next->content[0])))
 		return (true);
 	return (false);
 }
