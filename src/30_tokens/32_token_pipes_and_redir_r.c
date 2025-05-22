@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   32_token_pipes_and_redir_r.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:20:33 by root              #+#    #+#             */
-/*   Updated: 2025/05/18 16:19:55 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 00:41:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	tk_pipe(t_msh **msh, int start)
 	{
 		new_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk(*msh, new_tk, pipe, PIPE);
-		empty_case(msh, line, i, true);
+		i = empty_case(msh, line, i, true);
 	}
 	return (i - 1);
 }

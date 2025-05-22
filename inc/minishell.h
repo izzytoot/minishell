@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/22 16:48:38 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:08:49 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,11 +330,17 @@ bool			check_builtin(char *str);
 bool			check_shell_var(char *str);
 
 //38_token_empties.c
-void			empty_case(t_msh **msh, const char *line, int i, bool flag);
+int				empty_case(t_msh **msh, const char *line, int i, bool flag);
+int				sp_for_empty_case (t_msh **msh, const char *line, int i);
 bool 			ch_all_same(char *nl);
 bool 			ch_emp_exp(t_msh **msh, char *nl);
-void			rm_empties(t_tk_lst **curr);
-void			rm_empties_util(t_tk_lst ***curr, int type);
+
+//39_rm_empties.c
+void			rm_empties(t_tk_lst **token);
+void			rm_empties_case(t_tk_lst **curr, bool env);
+void			empties_rmv_exp(t_tk_lst ***curr);
+void			empties_rmv_tk(t_tk_lst ***curr);
+void			first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env);
 
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
@@ -425,7 +431,8 @@ void			add_export_var(t_list **env_list, const char *var_name,
 /************ 60_exec_tree ************/
 //60_exec_tree.c
 int				exec_tree(t_msh **msh, t_tree_nd *node);
-char			**remake_args(t_tree_nd *node);
+char			**remake_args(t_msh **msh, t_tree_nd *node);
+void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
@@ -515,7 +522,7 @@ void			expand_kw(t_msh **msh, t_kw **kw_lst);
 int				expand_case(char *kw);
 char			*get_env_cont(t_list *envp_list, t_list *vars_list,
 					char *key_word);
-char			**ft_array_dup_w_null(t_tree_nd *node, char **array, int n);
+char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);
 
 //75_get_parts.c
 char			*get_pre_cont(char *arg, int *i);

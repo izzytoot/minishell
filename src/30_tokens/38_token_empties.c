@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   38_token_empties.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 12:19:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	empty_case(t_msh **msh, const char *line, int i, bool flag)
+int	empty_case(t_msh **msh, const char *line, int i, bool flag)
 {
 	t_tk_lst	*empty_tk;
 	char		nl[1024];
 	int			j;
 	int			tmp_i;
-
+	
 	j = 0;
 	if (!line)
-		return ;
-	while (ft_strchr(WS, line[i]))
-		i++;
+		return (i);
+	i = sp_for_empty_case (msh, line, i);
 	tmp_i = i;
+	j = 0;
 	while (line[i])
 		nl[j++] = line[i++];
 	nl[j] = '\0';
@@ -37,7 +37,15 @@ void	empty_case(t_msh **msh, const char *line, int i, bool flag)
 		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk((*msh), empty_tk, "''", ARG);
 	}
-	return ;
+	return (tmp_i);
+}
+int	sp_for_empty_case (t_msh **msh, const char *line, int i) //THIS ONE
+{
+	if (line[i] && ft_strchr(WS, line[i]))
+		i = tk_space(msh, i);
+	while (line[i] && ft_strchr(WS, line[i]))
+		i++;
+	return (i);
 }
 
 bool ch_emp_exp(t_msh **msh, char *nl)
@@ -75,58 +83,7 @@ bool ch_all_same(char *nl)
 			return (false);
 		i++;
 	}
-	return (true);
-}
-
-void	rm_empties(t_tk_lst **curr)
-{
-	char	*word;
-
-	word = NULL;
-	if (!(*curr)->prev)
-		return ;
-	if ((*curr)->prev->prev && ft_strcmp("\'\'", (*curr)->content) == 0 && (*curr)->prev->content[0] == '$')
-	{
-		rm_empties_util(&curr, 0);
-		return ;
-	}
-	if ((*curr)->prev->type == ARG)
-		word = ft_strdup((*curr)->prev->content);
-	else if ((*curr)->prev->type == W_SPACE && (*curr)->prev->prev)
-		word = ft_strdup((*curr)->prev->prev->content);
-	else
-		return ;
-	if (ft_strcmp("\'\'", word) == 0 && ((*curr)->type == BT_CMD
-			|| (*curr)->type == ARG))
-		rm_empties_util(&curr, 1);
-	safe_free(word);
-}
-
-void	rm_empties_util(t_tk_lst ***curr, int type)
-{
-	if (type == 0)
-	{
-		if ((**curr)->next)
-		{
-			(**curr)->next->quotes.sp_case = (**curr)->quotes.sp_case;
-			(**curr)->prev->next = (**curr)->next;
-			(**curr)->next->prev = (**curr)->prev;
-		}
-		else
-		{
-			(**curr)->prev->next = NULL;
-			**curr = (**curr)->prev;
-		}	
-	}
-	if (type == 1)
-	{
-		if ((**curr)->prev->type == ARG && (**curr)->prev->prev)
-		{
-			(**curr)->quotes.sp_case = (**curr)->prev->quotes.sp_case;
-			(**curr)->prev->prev->next = **curr;
-			(**curr)->prev = (**curr)->prev->prev;
-		}
-		else if ((**curr)->prev->type == ARG && !(**curr)->prev->prev)
-			(**curr)->prev = NULL;	
-	}
+	if (!nl[i + 1])
+		return (true);
+	return (false);
 }

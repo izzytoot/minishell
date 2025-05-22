@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   74_expand_key_words.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 16:21:21 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:22:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 	return (NULL);
 }
 
-char	**ft_array_dup_w_null(t_tree_nd *node, char **array, int n)
+char	**ft_array_dup_null(t_tree_nd *node, char **array, int n)
 {
 	int		i;
 	int		size;

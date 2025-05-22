@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   45_tree_utils.c                                    :+:      :+:    :+:   */
+/*   46_tree_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:17:25 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/19 17:53:13 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/21 15:03:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_tk_lst	*safe_next_tk(t_tk_lst *curr_tk)
 	t_tk_lst	*next_tk;
 
 	next_tk = curr_tk;
-	if (next_tk->next && next_tk->next->type == W_SPACE)
+	if (next_tk->next && next_tk->next->next && next_tk->next->type == W_SPACE)
 		next_tk = next_tk->next->next;
 	else
 		next_tk = curr_tk->next;
@@ -29,7 +29,7 @@ t_tk_lst	*safe_prev_tk(t_tk_lst *curr_tk)
 	t_tk_lst	*prev_tk;
 
 	prev_tk = curr_tk;
-	if (prev_tk->next && prev_tk->next->type == W_SPACE)
+	if (prev_tk->prev && prev_tk->prev->type == W_SPACE && prev_tk->prev->prev)
 		prev_tk = prev_tk->prev->prev;
 	else
 		prev_tk = curr_tk->prev;

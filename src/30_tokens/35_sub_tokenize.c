@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/22 13:48:13 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:09:55 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ void	sub_tokenize(t_msh **msh)
 				curr->type = ENV_CMD;
 			else
 				curr->type = ARG;
-			rm_empties(&curr);
+			//rm_empties(&curr);
 		}
 		curr = curr->next;
 	}
 	check_rep_cmd(&(*msh));
+	rm_empties(&(*msh)->token_list);
 }
 
 void	handle_filename(t_msh **msh)
