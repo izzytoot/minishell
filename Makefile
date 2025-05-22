@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/22 12:21:53 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/05/22 16:57:26 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 C_COMP = cc
 
 FLAGS = -Wall -Werror -Wextra
-FLAGS += -g -O0
+FLAGS += -g -O0 -fPIE
 LDFLAGS = -lreadline
 RM = rm -f
 

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 15:23:35 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 20:36:16 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int	exp_to_null(t_msh **msh, int start)
 void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 {
 	new_tk->type = type;
+	if (ft_strcmp("''", content) == 0)
+		msh->empties = true;
 	if (content)
 		new_tk->content = ft_strdup(content);
 	new_tk->next = msh->token_list;

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/22 12:19:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:30:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	empty_case(t_msh **msh, const char *line, int i, bool flag)
 	int			tmp_i;
 	
 	j = 0;
-	if (!line)
+	if (!line[i])
 		return (i);
 	i = sp_for_empty_case (msh, line, i);
 	tmp_i = i;
@@ -28,6 +28,8 @@ int	empty_case(t_msh **msh, const char *line, int i, bool flag)
 	while (line[i])
 		nl[j++] = line[i++];
 	nl[j] = '\0';
+	if (!nl[0])
+		return (tmp_i);
 	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
 		&& ((flag || ft_strchr(WS, line[tmp_i - 1]) || !line[i - 1])))
 		|| ((ft_strncmp("\"\"", nl, 2) == 0 || ft_strncmp("''", nl, 2) == 0)
@@ -60,6 +62,9 @@ bool ch_emp_exp(t_msh **msh, char *nl)
 		i++;
 	if (nl[i] != '$')
 		return(false);
+	i++;
+	if (ft_strchr(QT, nl[i]))
+		return(false); 
 	while(nl[i] && (!ft_strchr(QT, nl[i]) && !ft_strchr(WS, nl[i])))
 	{
 		kw[j] = nl[i];

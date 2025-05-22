@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   75_get_parts.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/21 00:53:38 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 20:13:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ char	*get_pre_cont(char *arg, int *i)
 	int		len;
 
 	len = 0;
-	while (!ft_strchr("$", arg[++*i]))
-		len++;
+	while (!ft_strchr("$", arg[*i]))
+	{
+		len++;	
+		++(*i);
+	}
 	if (!len)
 		return (NULL);
 	pre_content = ft_calloc((len + 1), sizeof(char));
