@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   54_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/12 23:55:54 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:11:56 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	ft_exit(t_msh **msh, t_tree_nd **node)
 	char			**args;
 
 	args = (*node)->args;
-	ft_printf("exit\n");
+	if (isatty(STDIN_FILENO))
+		ft_printf("exit\n");
 	if (args[0] && ft_strcmp(args[0], "--") == 0)
 		args++;
 	if (!args[0])
