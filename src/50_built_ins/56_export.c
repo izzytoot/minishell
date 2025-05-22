@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 12:36:14 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:01:46 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 {
 	char	**var_info;
 	int		i;
-
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
@@ -32,8 +31,7 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 			if (!export_check(msh, (*node)->args[i]))
 				return (exit_value(msh, 1, 1, 0));
 			var_info = ft_split((*node)->args[i], '=');
-			add_export_var(&(*msh)->envp_list, var_info[0],
-				var_info[1]);
+			add_export_var(&(*msh)->envp_list, var_info[0], var_info[1]);
 			i++;
 		}
 	}

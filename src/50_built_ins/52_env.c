@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/21 17:43:32 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:48:20 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int	update_var(t_list **env_list, const char *var_name, const char *data)
 	t_list	*current;
 	size_t	var_name_len;
 	char	*new_entry;
-	char	*joined_value;
 
+	if (!var_name || !env_list)
+		return (EXIT_FAILURE);
 	var_name_len = ft_strlen(var_name);
 	current = *env_list;
 	while (current)
@@ -55,9 +56,7 @@ int	update_var(t_list **env_list, const char *var_name, const char *data)
 			&& ((char *)(current->content))[var_name_len] == '=')
 		{
 			free(current->content);
-			joined_value = ft_strjoin(var_name, "=");
-			new_entry = ft_strjoin(joined_value, data);
-			free(joined_value);
+			new_entry = update_var_util(var_name, data);
 			if (!new_entry)
 				return (EXIT_FAILURE);
 			current->content = new_entry;
@@ -65,8 +64,23 @@ int	update_var(t_list **env_list, const char *var_name, const char *data)
 		}
 		current = current->next;
 	}
-	add_new_var(env_list, var_name, data);
-	return (EXIT_SUCCESS);
+	return (add_new_var(env_list, var_name, data), EXIT_SUCCESS);
+}
+
+char *update_var_util(const char *var_name, const char *data)
+{
+	char	*joined_value;
+	char	*new_entry;
+
+	joined_value = ft_strjoin(var_name, "=");
+	if (!joined_value)
+		return (NULL);
+	if (data)
+		new_entry = ft_strjoin(joined_value, data);
+	else
+		new_entry = ft_strdup(joined_value);
+	free(joined_value);
+	return (new_entry);
 }
 
 //info --> adds a new var_name with new data to the env list

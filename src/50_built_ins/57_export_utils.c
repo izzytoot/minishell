@@ -6,12 +6,11 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 12:29:27 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:06:59 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
 
 bool	is_valid_identifier(char *arg)
 {
@@ -45,26 +44,31 @@ bool	export_check(t_msh **msh, char *arg)
 	return (exit_value(msh, 0, 1, 0), true);
 }
 
-void	add_export_var(t_list **env_list, const char *var_name,
-	const char *data)
+void	add_export_var(t_list **env_list, const char *var_name, const char *data)
 {
+	t_list	*current;
+	size_t	var_len;
 	char	*new_entry;
-	char	*joined_value;
 	t_list	*new_node;
-	
-	new_entry = NULL;
-	joined_value = ft_strjoin(var_name, "=");
-	if (data)
-		new_entry = ft_strjoin(joined_value, data);
-	else if (!data)
-		new_entry = ft_strdup(joined_value);
-	free(joined_value);
-	joined_value = NULL;
+
+	var_len = ft_strlen(var_name);
+	current = *env_list;
+	while (current)
+	{
+		if (ft_strncmp(current->content, var_name, var_len) == 0
+			&& ((char *)current->content)[var_len] == '=')
+		{
+			free(current->content);
+			current->content = update_var_util(var_name, data);
+			return ;
+		}
+		current = current->next;
+	}
+	new_entry = update_var_util(var_name, data);
+	if (!new_entry)
+		return ;
 	new_node = ft_lstnew(new_entry);
 	if (!new_node)
-	{
-		free(new_entry);
-		return ;
-	}
+		return (free(new_entry));
 	ft_lstadd_back(env_list, new_node);
 }
