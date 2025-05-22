@@ -6,13 +6,11 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 14:55:38 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:21:54 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-int	is_direct_command(t_tree_nd *node);
-int	handle_direct_command(t_msh **msh, t_tree_nd *node, char **path);
 
 int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 {

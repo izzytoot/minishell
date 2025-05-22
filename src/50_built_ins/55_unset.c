@@ -23,6 +23,8 @@ int	ft_unset(t_msh **msh, t_tree_nd **node)
 	i = 0;
 	while ((*node)->args[i])
 	{
+		if (ft_strncmp((*node)->args[i], "-", 1) == 0)
+			return (0);
 		ft_delete_var(&(*msh)->envp_list, (*node)->args[i]);
 		i++;
 	}
