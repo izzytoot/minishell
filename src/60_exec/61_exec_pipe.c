@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 16:43:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:52:14 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ void	perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid)
 
 int	safe_waitpid(int pid1, int pid2)
 {
-	int	status_left = 0;
-	int	status_right = 0;
+	int	status_left;
+	int	status_right;
 
+	status_left = 0;
+	status_right = 0;
 	if (pid1 > 0)
 		waitpid(pid1, &status_left, 0);
 	if (pid2 > 0)
