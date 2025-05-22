@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/21 18:53:33 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:29:27 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,13 @@ void	add_export_var(t_list **env_list, const char *var_name,
 	char	*new_entry;
 	char	*joined_value;
 	t_list	*new_node;
-	char	*escaped;
 	
 	new_entry = NULL;
 	joined_value = ft_strjoin(var_name, "=");
 	if (data)
 		new_entry = ft_strjoin(joined_value, data);
 	else if (!data)
-	{
-		escaped = escape_value("=\"\"", 0, 0);
-		new_entry = ft_strjoin(var_name, escaped);
-		free(escaped);
-	}
+		new_entry = ft_strdup(joined_value);
 	free(joined_value);
 	joined_value = NULL;
 	new_node = ft_lstnew(new_entry);

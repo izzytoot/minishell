@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/21 18:57:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:36:14 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,49 +43,26 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 void	disp_exported(t_msh **msh)
 {
 	t_list	*current;
-	char	**var_parts;
+	char	*equal_sign;
+	int		name_len;
 
 	current = sort_env((*msh)->envp_list, 1);
 	while (current)
 	{
-		var_parts = ft_split(current->content, '=');
-		if (var_parts[1])
+		equal_sign = ft_strchr(current->content, '=');
+		if (equal_sign)
 		{
-			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n",
-				var_parts[0], var_parts[1]);
+			name_len = ft_strlen_until(current->content, '=');
+			write(STDOUT_FILENO, "declare -x ", 12);
+			write(STDOUT_FILENO, current->content, name_len);
+			write(STDOUT_FILENO, "=\"", 2);
+			write(STDOUT_FILENO, equal_sign + 1, ft_strlen(equal_sign + 1));
+			write(STDOUT_FILENO, "\"\n", 2);
 		}
 		else
-			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", var_parts[0]);
-		ft_free_arrays((void **)var_parts);
+			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", current->content);
 		current = current->next;
 	}
-}
-
-char	*escape_value(char *value, int i, int j)
-{
-	int		len;
-	char	*escaped;
-
-	len = 0;
-	while (value[i])
-	{
-		if (value[i] == '"' || value[i] == '\\')
-			len++;
-		len++;
-		i++;
-	}
-	escaped = (char *)malloc(len + 1);
-	if (escaped == NULL)
-		return (NULL);
-	i = 0;
-	while (value[i])
-	{
-		if (value[i] == '"' || value[i] == '\\')
-			escaped[j++] = '\\';
-		escaped[j++] = value[i++];
-	}
-	escaped[j] = '\0';
-	return (escaped);
 }
 
 t_list	*sort_env(t_list *env_list, int sort)
