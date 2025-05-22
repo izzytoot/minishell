@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/22 01:13:09 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 13:43:20 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,11 +331,16 @@ bool			check_shell_var(char *str);
 
 //38_token_empties.c
 int				empty_case(t_msh **msh, const char *line, int i, bool flag);
+int				sp_for_empty_case (t_msh **msh, const char *line, int i);
 bool 			ch_all_same(char *nl);
 bool 			ch_emp_exp(t_msh **msh, char *nl);
+
+//39_rm_empties.c
 void			rm_empties(t_tk_lst **token);
-//void			rm_empties(t_tk_lst **curr);
-void			rm_empties_util(t_tk_lst ***curr, int type);
+void			rm_empties_case(t_tk_lst **curr, bool env);
+void			empties_rmv_exp(t_tk_lst ***curr);
+void			empties_rmv_tk(t_tk_lst ***curr);
+void			first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env);
 
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c

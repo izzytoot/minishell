@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
+#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/19 17:55:35 by isabel           ###   ########.fr        #
+#    Updated: 2025/05/22 12:21:53 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							30_tokens/36_sub_tokenize_utils.c\
 							30_tokens/37_token_utils.c\
 							30_tokens/38_token_empties.c\
+							30_tokens/39_rm_empties.c\
 							40_build_tree/40_tokens_to_tree.c\
 							40_build_tree/41_build_pipe_nodes.c\
 							40_build_tree/42_build_redir_nodes.c\
