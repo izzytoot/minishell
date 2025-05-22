@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 00:37:17 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	tk_word(t_msh **msh, int start)
 	{
 		new_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk(*msh, new_tk, word, WORD);
-		empty_case(msh, line, i, false);
+		i = empty_case(msh, line, i, false);
 	}
 	return (i - 1);
 }

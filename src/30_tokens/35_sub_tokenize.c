@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   35_sub_tokenize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/21 19:14:18 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 01:11:27 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	sub_tokenize(t_msh **msh)
 		curr = curr->next;
 	}
 	check_rep_cmd(&(*msh));
-	rm_empties((*msh)->token_list);
+	rm_empties(&(*msh)->token_list);
 }
 
 void	handle_filename(t_msh **msh)
