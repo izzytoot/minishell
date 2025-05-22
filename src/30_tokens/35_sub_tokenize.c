@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   35_sub_tokenize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/22 17:09:55 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:32:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	sub_tokenize(t_msh **msh)
 				curr->type = ENV_CMD;
 			else
 				curr->type = ARG;
-			//rm_empties(&curr);
 		}
 		curr = curr->next;
 	}
