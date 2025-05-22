@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   56_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 18:38:27 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 23:18:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	disp_exported(t_msh **msh)
 	t_list	*current;
 	char	*equal_sign;
 	int		name_len;
+	char	*var_name;
 
 	current = sort_env((*msh)->envp_list, 1);
 	while (current)
@@ -55,11 +56,12 @@ void	disp_exported(t_msh **msh)
 		if (equal_sign)
 		{
 			name_len = ft_strlen_until(current->content, '=');
-			write(STDOUT_FILENO, "declare -x ", 12);
-			write(STDOUT_FILENO, current->content, name_len);
-			write(STDOUT_FILENO, "=\"", 2);
-			write(STDOUT_FILENO, equal_sign + 1, ft_strlen(equal_sign + 1));
-			write(STDOUT_FILENO, "\"\n", 2);
+			var_name = ft_substr(current->content, 0, name_len);
+			if (!var_name)
+				return ;
+			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n",
+				var_name, equal_sign + 1);
+			free(var_name);
 		}
 		else
 			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", current->content);

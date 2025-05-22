@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   81_close_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:25:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/21 00:08:30 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 21:24:49 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	close_minishell(t_msh *msh, int exit_code)
 	exit (exit_code);
 }
 
-void	envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array)
+void	envp_fail(t_msh *msh, char *str, t_list *list_nd, char **array)
 {
 	if (str)
 		safe_free(str);

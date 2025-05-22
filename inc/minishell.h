@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/22 17:36:40 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 21:24:56 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -552,7 +552,7 @@ void			free_tree(t_tree_nd *node);
 
 //81_close_msh.c
 void			close_minishell(t_msh	*msh, int exit_code);
-void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char *array);
+void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char **array);
 
 //82_other_frees.c
 void			kw_err(void);

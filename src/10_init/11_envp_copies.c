@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 15:57:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 21:26:11 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,20 @@ char	**cpy_for_execve(t_msh **msh)
 	int		i;
 	int		len;
 	char	**envp_array;
+	t_list	*current;
 
 	i = 0;
 	len = ft_lstsize((*msh)->envp_list);
 	envp_array = malloc(sizeof(char *) * (len + 1));
 	if (!envp_array)
 		envp_fail(*msh, NULL, NULL, NULL);
-	while ((*msh)->envp_list)
+	current = (*msh)->envp_list;
+	while (current)
 	{
-		envp_array[i] = ft_strdup((*msh)->envp_list->content);
+		envp_array[i] = ft_strdup((char *)current->content);
 		if (!envp_array[i])
-			envp_fail(*msh, NULL, NULL, NULL);
-		(*msh)->envp_list = (*msh)->envp_list->next;
+			envp_fail(*msh, NULL, NULL, envp_array);
+		current = current->next;
 		i++;
 	}
 	envp_array[i] = NULL;
