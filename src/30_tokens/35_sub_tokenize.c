@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   35_sub_tokenize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 11:28:19 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 13:48:13 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	sub_tokenize(t_msh **msh)
 			word = curr->content;
 			if (check_builtin(word))
 				curr->type = BT_CMD;
-			else if (check_env_cmd(word, env_path, -1) || (ch_shlvl(word)))
+			else if (check_env_cmd(word, env_path, -1) || (ch_shlvl(msh, word)))
 				curr->type = ENV_CMD;
 			else
 				curr->type = ARG;

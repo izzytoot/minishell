@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   36_sub_tokenize_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/22 15:08:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,23 @@ void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 	}
 }
 
-bool	ch_shlvl(char *word)
+bool	ch_shlvl(t_msh **msh, char *word)
 {
+	t_list	*curr;
+
 	if (ft_strchr(word, '/'))
 		return (true);
+	if (ft_strcmp(word, "minishell") == 0)
+	{
+		curr = (*msh)->envp_list;
+		while(curr)
+		{
+			if (ft_strncmp((*msh)->envp_list->content, "PATH=", 5) == 0)
+				return (false);
+			curr = curr->next;
+		}
+		return (true);
+	}
 	return (false);
 }
 

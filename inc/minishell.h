@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/22 12:35:54 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:47:47 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,7 +318,7 @@ char			*check_env_cmd(char *cmd, char *env_path, int i);
 t_tk_lst		*find_file(t_msh **msh);
 t_tk_lst		*find_w_tk(t_msh **msh);
 void			join_parts(t_tk_lst	**src, t_tk_lst **target);
-bool			ch_shlvl(char *word);
+bool			ch_shlvl(t_msh **msh, char *word);
 void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
 					t_tk_lst **merge_tg, bool hd_flag);
 
