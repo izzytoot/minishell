@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 18:24:05 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:38:27 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,24 @@ t_list	*copy_env_list(t_list *env_list)
 {
 	t_list	*cpy;
 	t_list	*new;
+	char	*content_dup;
 
 	cpy = NULL;
 	while (env_list)
 	{
-		new = ft_lstnew(ft_strdup((char *)env_list->content));
-		if (!new)
+		content_dup = ft_strdup((char *)env_list->content);
+		if (!content_dup)
+		{
+			ft_lstclear(&cpy, free);
 			return (NULL);
+		}
+		new = ft_lstnew(content_dup);
+		if (!new)
+		{
+			free(content_dup);
+			ft_lstclear(&cpy, free);
+			return (NULL);
+		}
 		ft_lstadd_back(&cpy, new);
 		env_list = env_list->next;
 	}

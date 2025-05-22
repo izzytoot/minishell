@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 17:37:50 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:43:36 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ char *update_var_util(const char *var_name, const char *data)
 	joined_value = ft_strjoin(var_name, "=");
 	if (!joined_value)
 		return (NULL);
-	if (data)
-		new_entry = ft_strjoin(joined_value, data);
-	else
+	if (!data)
 		new_entry = ft_strdup(joined_value);
+	else
+		new_entry = ft_strjoin(joined_value, data);
 	free(joined_value);
 	return (new_entry);
 }
