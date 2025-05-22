@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/21 17:22:35 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 20:16:33 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	expand_tk(t_msh **msh, char **arg)
 
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
-	i = -1;
+	i = 0;
 	kw_lst = ft_calloc(MAX_KW, sizeof(t_kw *));
 	parts.pre_c = get_pre_cont(*arg, &i);
 	build_kw_list(&(*kw_lst), *arg, &i);

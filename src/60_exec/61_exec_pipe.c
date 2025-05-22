@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 16:52:14 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:56:14 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,26 @@ void	perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd, int curr_pid)
 
 int	safe_waitpid(int pid1, int pid2)
 {
-	int	status_left;
-	int	status_right;
+	int	status;
 
-	status_left = 0;
-	status_right = 0;
-	if (pid1 > 0)
-		waitpid(pid1, &status_left, 0);
-	if (pid2 > 0)
-		waitpid(pid2, &status_right, 0);
-	if (WIFEXITED(status_right))
-		return WEXITSTATUS(status_right);
-	else if (WIFSIGNALED(status_right))
-		return 128 + WTERMSIG(status_right);
-	else
-		return (1);
+	status = 0;
+	if (pid1)
+	{
+		waitpid(pid1, &status, 0);
+		if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			status = 128 + WTERMSIG(status);
+	}
+	if (pid2)
+	{
+		waitpid(pid2, &status, 0);
+		if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			status = 128 + WTERMSIG(status);
+	}
+	return (status);
 }
 
 void	close_fd(int fd_1, int fd_2)

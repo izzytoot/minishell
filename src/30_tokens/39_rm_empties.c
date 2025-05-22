@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 17:24:50 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 21:15:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	rm_empties(t_tk_lst **token)
 
 	curr = token;
 	env = false;
-	first_and_pipe(&curr, NULL, NULL);
-	if (!*curr || !(*curr)->prev)
+	if (!*curr || !(*curr)->content)
 	 	return ;
+	first_and_pipe(&curr, NULL, NULL);
+	if (!(*curr)->prev)
+		return ;
 	if ((*curr)->type == ENV_CMD)
 		env = true;
 	while (*curr)

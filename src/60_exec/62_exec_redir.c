@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   62_exec_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 17:41:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:54:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ int	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 	{
 		status = exec_redir(msh, redir_nodes[i]); //exec redir from left to right
 		if (status != 0) // If redirection fails, stop execution
+		{
+			if (redir_data.orig_stdin != -1)
+				safe_dup2(msh, redir_data.orig_stdin, 0, getpid());
+			if (redir_data.orig_stdout != -1)
+				safe_dup2(msh, redir_data.orig_stdout, 1, getpid());
 			return (exit_value(msh, status, 1, 0));
+		}
 	}
 	if (redir_data.cmd_nd)
 		status = exec_tree(msh, redir_data.cmd_nd); //exec cmd on the correct fd if cmd on the right
@@ -83,7 +89,10 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 	else
 		file_fd = open(node->tmp_file, O_RDONLY);
 	if (file_fd < 0)
+	{
+		close(file_fd);
 		return (exit_value(msh, 1, 1, 0));
+	}
 	curr_pid = getpid();
 	if (node->type == REDIR_HD)
 		safe_dup2(msh, file_fd, STDIN_FILENO, curr_pid);
