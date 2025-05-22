@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 16:48:20 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:37:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char *update_var_util(const char *var_name, const char *data)
 
 //info --> adds a new var_name with new data to the env list
 
-void	add_new_var(t_list **env_list, const char *var_name,
+int	add_new_var(t_list **env_list, const char *var_name,
 			const char *data)
 {
 	char	*new_entry;
@@ -94,19 +94,20 @@ void	add_new_var(t_list **env_list, const char *var_name,
 
 	joined_value = ft_strjoin(var_name, "=");
 	if (!joined_value)
-		return ;
+		return (EXIT_FAILURE);
 	new_entry = ft_strjoin(joined_value, data);
 	free(joined_value);
 	joined_value = NULL;
 	if (!new_entry)
-		return ;
+		return (EXIT_FAILURE);
 	new_node = ft_lstnew(new_entry);
 	if (!new_node)
 	{
 		free(new_entry);
-		return ;
+		return (EXIT_FAILURE);
 	}
 	ft_lstadd_back(env_list, new_node);
+	return (EXIT_SUCCESS);
 }
 
 char	*get_var_val(t_list *env_list, const char *var_name)

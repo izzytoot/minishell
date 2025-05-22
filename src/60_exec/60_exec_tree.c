@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 15:23:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:17:46 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 	env_path = get_path((*msh)->envp_list);
 	if (check_builtin((*new_args)[0]))
 		node->type = BT_CMD;
-	else if (check_env_cmd((*new_args)[0], env_path, -1) || (ch_shlvl((*new_args)[0])))
+	else if (check_env_cmd((*new_args)[0], env_path, -1) || (ch_shlvl(msh, (*new_args)[0])))
 		node->type = ENV_CMD;
 	if (node->type == BT_CMD || node->type == ENV_CMD)
 	{

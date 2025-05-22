@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/22 17:08:49 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:36:40 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,7 +398,7 @@ int				update_cd_var(t_list **env_list, const char *var_name,
 int				print_env(t_msh **msh, t_tree_nd **node);
 int				update_var(t_list **env_list, const char *var_name,
 					const char *content);
-void			add_new_var(t_list **env_list, const char *var_name,
+int				add_new_var(t_list **env_list, const char *var_name,
 					const char *data);
 char			*get_var_val(t_list *env_list, const char *var_name);
 char			*update_var_util(const char *var_name, const char *data);

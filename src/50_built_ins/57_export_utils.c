@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 17:10:47 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:19:21 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ bool	export_check(t_msh **msh, char *arg)
 		exit_value(msh, 1, 1, 0);
 		return (false);
 	}
-	return (exit_value(msh, 0, 1, 0), true);
+	exit_value(msh, 0, 1, 0);
+	return (true);
 }
 
 void	add_export_var(t_list **env_list, const char *var_name, const char *data)
