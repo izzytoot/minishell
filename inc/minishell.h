@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/22 23:23:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:54:06 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 # define ERR_CD_ARGS "msh: cd: too many arguments\n"
 # define ERR_UNKRED "unknown redirection type\n"
 # define ERR_KW "msh: too many keywords for expander\n"
+# define ERR_HD_EOF "msh: warning: here-document delimited by end-of-file (wanted '"
 
 //constants
 # define WS " \t\n\r\v\f"
