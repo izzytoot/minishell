@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 15:23:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/24 00:38:01 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char		**ft_split(char const *str, char c);
 char		**ft_list_to_array(t_list *list);
 char		**ft_array_dup(char **array);
 char		**ft_array_dup_w_null(char **array, int n);
+char		**ft_array_join(char **arr1, char **arr2);
 
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);

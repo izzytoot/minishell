@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 13:30:18 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/22 16:57:15 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/05/24 00:35:23 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DPRINTF_PATH = ./dprintf
 
 SRCS = $(addprefix $(BASIC_PATH)/, ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
 			ft_strcpy.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memcmp.c \
-			ft_memcpy.c ft_memmove.c ft_memset.c ft_memchr.c ft_strchr.c ft_strlcat.c \
+			ft_memcpy.c ft_memmove.c ft_arrayjoin.c ft_memset.c ft_memchr.c ft_strchr.c ft_strlcat.c \
 			ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strcmp.c ft_strnstr.c ft_strrchr.c \
 			ft_tolower.c ft_safe_strjoin.c ft_toupper.c ft_strdup_until.c ft_strdup.c ft_calloc.c ft_substr.c ft_strjoin.c \
 			ft_strjoin_w_space.c ft_safe_free.c ft_safe_malloc.c ft_array_dup_w_null.c ft_array_dup.c ft_strtrim.c ft_strmapi.c ft_striteri.c \

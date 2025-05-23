@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/23 19:14:10 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/24 01:01:26 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -439,7 +439,7 @@ void			add_export_var(t_list **env_list, const char *var_name,
 /************ 60_exec_tree ************/
 //60_exec_tree.c
 int				exec_tree(t_msh **msh, t_tree_nd *node);
-char			**remake_args(t_msh **msh, t_tree_nd *node);
+char			**remake_args(t_tree_nd *node);
 void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
 int				output_cmd_errors(t_msh **msh, t_tree_nd *node);
 

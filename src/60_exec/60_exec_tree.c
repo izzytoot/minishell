@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 19:15:23 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/24 01:02:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		return (exit_value(msh, 0, 0, 0)); //changed exit status from 2 to 0
 	expand_args(msh, node);
 	if (node->nb_arg > 1)
-		node->args = remake_args(msh, node);
+		node->args = remake_args(node);
 	if (type_is_word(&node->type) && !node->cmd
 		&& ft_strchr(node->args[0], '/'))
 		node->type = ENV_CMD;
@@ -45,11 +45,15 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	else if (type_is_redir(&node->type))
 		status = exec_redir_before_cmd(msh, node);
 	else if (type_is_word(&node->type))
+	{
+		if (!node->cmd && node->args[0])
+			sub_cmd(msh, node, &node->args);
 		status = exec_cmd(msh, node);
+	}
 	return (exit_value(msh, status, 1, 0));
 }
 
-char	**remake_args(t_msh **msh, t_tree_nd *node)
+char	**remake_args(t_tree_nd *node)
 {
 	t_ints		ints;
 	t_flag_str	flags;
@@ -74,36 +78,31 @@ char	**remake_args(t_msh **msh, t_tree_nd *node)
 	}
 	new_args[ints.j] = NULL;
 	node->quote_lst = quote_tmp; //don´t think we use this again. Check to del and educe lines
-	if (!node->cmd && new_args[0])
-		sub_cmd(msh, node, &new_args);
 	return (new_args);
 }
 
 void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 {
 	char		*env_path;
-
+	int			i;
+	char		**sep_args;
+	int	count;
+	
 	env_path = get_path((*msh)->envp_list);
-	if (check_builtin((*new_args)[0]))
+	i = -1;
+	count = 1;
+	sep_args = ft_split((*new_args)[0], ' ');
+	while (sep_args[++i])
+		count++;
+	if (check_builtin(sep_args[0]))
 		node->type = BT_CMD;
-	else if (check_env_cmd((*new_args)[0], env_path, -1) || (ch_shlvl(msh, (*new_args)[0])))
+	else if (check_env_cmd(sep_args[0], env_path, -1) || (ch_shlvl(msh, sep_args[0])))
 		node->type = ENV_CMD;
+	i = 0;
 	if (node->type == BT_CMD || node->type == ENV_CMD)
 	{
-		node->cmd = ft_strdup((*new_args)[0]);
-		(*new_args) = ft_array_dup(++(*new_args));	
+		node->cmd = ft_strdup(sep_args[0]);
+		if (count > 1)
+				(*new_args) = ft_array_join((ft_array_dup(++sep_args)), (ft_array_dup(++(*new_args))));
 	}
-}
-
-int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
-{
-	if (node->type == ARG && !node->args[0])
-		return (exit_value(msh, 0, 1, 0));
-	else if (node->type == ARG && (ft_strcmp(".", node->args[0]) == 0))
-	{
-		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_PT);
-		return (exit_value(msh, 2, 1, 0));
-	}
-	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
-	return (exit_value(msh, 127, 1, 0));
 }
