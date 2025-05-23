@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/23 14:58:48 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:22:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -565,6 +565,7 @@ void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
 
 //90_signals.c
 void			signal_handler(int sig);
+void			signal_handles_hd(int sig);
 
 /************ others ************/
 //11_debug_utils.c

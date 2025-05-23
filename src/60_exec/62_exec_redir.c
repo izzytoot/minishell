@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   62_exec_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 19:54:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:55:19 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: %s", (*msh)->tmp_fname,
 			ERR_AMBREDIR);
+		printf("ERROR");
 		return (exit_value(msh, 1, 1, 0));
 	}
 	if (node->type != REDIR_HD)
@@ -90,8 +91,9 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 		file_fd = open(node->tmp_file, O_RDONLY);
 	if (file_fd < 0)
 	{
+		printf("ERROR2");
 		close(file_fd);
-		return (exit_value(msh, 1, 1, 0));
+		return (exit_value(msh, 1, 0, 0));
 	}
 	curr_pid = getpid();
 	if (node->type == REDIR_HD)

@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 13:05:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:49:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,22 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 			exit_value(msh, 1, 1, 0);
 		else
 		{
-			handle_hd(msh, node, file_fd);
+			int pid = safe_fork(msh);
+			int status = 0;
+			if (pid == 0)
+			{
+				signal(SIGINT, signal_handles_hd);
+				handle_hd(msh, node, file_fd);
+			}
+			else
+			{
+				signal(SIGINT, SIG_IGN);
+				waitpid(pid, &status, 0);
+				if (WIFEXITED(status))
+					status = WEXITSTATUS(status);
+				printf("AQUI!!!!!!");
+				exit_value(msh, 130, 1, 0);
+			}
 			close(file_fd);
 		}
 	}
@@ -50,16 +65,18 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 	while (1)
 	{
 		lines.new_l = readline("> ");
+		if (exit_value(NULL, 0, 0, 0) == -1)
+			exit_value(msh, 130, 1, 1);
 		if (!lines.new_l)
 		{
 			ft_dprintf(STDERR_FILENO, ERR_HD_EOF);
 			ft_dprintf(STDERR_FILENO, "%s')\n", eof);
-			break ;
+			exit_value(msh, 0, 1, 1);
 		}
 		if ((!eof && ft_strcmp(lines.new_l, "\0") == 0) || (ft_strcmp(lines.new_l, eof) == 0))
 		{
 			safe_free(lines.new_l);
-			break ;
+			exit_value(msh, 0, 1, 1);
 		}
 		expand_line(msh, &lines, curr_nd, hd_fd);
 		ft_putstr_fd("\n", hd_fd);
