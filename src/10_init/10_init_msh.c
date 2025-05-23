@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 16:56:31 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:59:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_init_msh(t_msh **msh, char **envp)
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
 	update_shlvl(&(*msh)->envp_list);
-	(*msh)->msh_pid = getpid();
 	exit_value(msh, 0, 1, 0);
 	prompt_and_read(&(*msh));
 }

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/21 17:22:18 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:50:59 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	expand_kw(t_msh **msh, t_kw **kw_lst)
 			|| (expand_case(curr_kw->kw) == 5 && !(*kw_lst)->next))
 			;
 		else if (expand_case(curr_kw->kw) == 6)
-			curr_kw->kw = ft_strdup(ft_itoa((*msh)->msh_pid));
+			curr_kw->kw = ft_strdup(ERR_PID_EXP);
 		else if (expand_case(curr_kw->kw) == 2)
 			curr_kw->kw = ft_strdup("minishell");
 		else if (expand_case(curr_kw->kw) == 3)

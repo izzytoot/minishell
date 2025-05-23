@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/23 17:05:50 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:59:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@
 # define ERR_UNKRED "unknown redirection type\n"
 # define ERR_KW "msh: too many keywords for expander\n"
 # define ERR_PT "msh: .: filename argument required\n.: usage: . filename [arguments]\n"
+# define ERR_PID_EXP "msh: PID expansion unsupported\n"
 
 
 //constants
@@ -212,7 +213,6 @@ typedef struct s_msh
 {
 	bool		active;
 	char		*dir;
-	int			msh_pid;
 	char		*prompt_line;
 	t_tk_lst	*token_list;
 	t_tree_nd	*tree_root;
