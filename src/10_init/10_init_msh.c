@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 20:26:46 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:37:10 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ void	prompt_and_read(t_msh **msh)
 		line = readline(prompt);
 		free(prompt);
 		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
+		{
+			ft_printf("exit\n");
 			break ;
-		add_history (line);
+		}
+		if (*line)
+			add_history (line);
 		(*msh)->token_list = NULL;
 		(*msh)->prompt_line = line;
 		if (line && (syntax_is_ok(&(*msh)) == 0))
@@ -46,8 +50,8 @@ void	prompt_and_read(t_msh **msh)
 			get_tokens(&(*msh), -1);
 			exec_tree(&(*msh), (*msh)->tree_root);
 		}
-		if ((*msh)->debug_mode)
-			ft_printf("status is %d\n", exit_value(msh, 0, 0, 0));
+		if ((*msh)->debug_mode) //DELETE
+			ft_printf("status is %d\n", exit_value(msh, 0, 0, 0)); //DELETE
 		free_prompt_line(&(*msh));
 	}
 }

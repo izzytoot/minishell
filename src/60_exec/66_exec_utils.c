@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   66_exec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:19:13 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 18:07:44 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:41:18 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,5 @@ void	update_shlvl(t_list **env_list)
 		free(shlvl_str);
 	}
 	else
-		update_var(env_list, "SHLVL", "1\n");
+		update_var(env_list, "SHLVL", "1");
 }
