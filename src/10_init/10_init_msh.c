@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 12:37:10 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:42:19 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_init_msh(t_msh **msh, char **envp)
 	copy_envp(*msh, envp);
 	update_shlvl(&(*msh)->envp_list);
 	(*msh)->msh_pid = getpid();
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	exit_value(msh, 0, 1, 0);
 	prompt_and_read(&(*msh));
 }
@@ -62,14 +64,23 @@ char	*get_prompt(void)
 {
 	char	cwd[PATH_MAX];
 	char	*prompt;
+	char	*colored_prefix;
+	char	*tmp;
 
-	ft_printf(BBLU "Minishell: " RES);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("getcwd");
 		return (ft_strdup("$ "));
 	}
-	prompt = ft_strjoin(cwd, " $ ");
+	colored_prefix = ft_strjoin(BBLU "Minishell: ", RES);
+	if (!colored_prefix)
+		return (ft_strdup("$ "));
+	tmp = ft_strjoin(colored_prefix, cwd);
+	free(colored_prefix);
+	if (!tmp)
+		return (ft_strdup("$ "));
+	prompt = ft_strjoin(tmp, " $ ");
+	free(tmp);
 	if (!prompt)
 	{
 		perror("ft_strjoin");
@@ -82,6 +93,8 @@ int	exit_value(t_msh **msh, int exit_code, int upd_exit, int close)
 {
 	static int	current_code;
 
+	if (!msh)
+		(void)msh;
 	if (upd_exit == true)
 		current_code = exit_code;
 	if (close == true)
