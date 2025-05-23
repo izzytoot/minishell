@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/23 16:34:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:48:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,75 +15,18 @@
 void	sub_tokenize(t_msh **msh)
 {
 	t_tk_lst	*curr;
-	char		*word;
-	char		*env_path;
 
 	handle_filename(msh);
 	join_rest(msh);
 	curr = (*msh)->token_list;
-	word = NULL;
-	env_path = get_path((*msh)->envp_list);
 	while (curr)
 	{
-		if (curr->type == WORD || curr->type == ARG)
-		{			
-			word = curr->content;
-			if (check_builtin(word))
-				curr->type = BT_CMD;
-			else if (((ft_strcmp(word, ".") != 0) && (ft_strcmp(word, "..") != 0))
-				&& (check_env_cmd(word, env_path, -1) || ch_shlvl(msh, word)))
-				curr->type = ENV_CMD;
-			else
-				curr->type = ARG;
-		}
+		attribute_type(msh, curr);
 		curr = curr->next;
 	}
 	check_rep_cmd(&(*msh));
-	if ((*msh)->empties)
+	if ((*msh)->empties && (*msh)->token_list && (*msh)->token_list->content)
 		rm_empties(&(*msh)->token_list);
-}
-
-void	handle_filename(t_msh **msh)
-{
-	t_tk_lst	*curr;
-	bool		hd_flag;
-
-	curr = (*msh)->token_list;
-	hd_flag = false;
-	while (curr)
-	{
-		if (curr->type == REDIR_HD || curr->type == REDIR_APP
-			|| curr->type == REDIR_IN || curr->type == REDIR_OUT)
-		{
-			if (!curr->prev)
-				return;
-			if (curr->type == REDIR_HD)
-				hd_flag = true;
-			if (curr->prev->type == W_SPACE && curr->prev->prev->type == WORD)
-				curr->prev->prev->type = FILE_NAME;
-			else if (curr->prev->type == WORD)
-				curr->prev->type = FILE_NAME;
-		}
-		curr = curr->next;
-	}
-	join_filename(msh, hd_flag);
-}
-
-void	join_filename(t_msh **msh, bool hd_flag)
-{
-	t_tk_lst	*tmp_fn;
-	t_tk_lst	*merge_tg;
-
-	tmp_fn = find_file(msh);
-	if (!tmp_fn)
-		return ;
-	else if (!(tk_in_qts(tmp_fn->prev)))
-		expand_fn(msh, &tmp_fn, NULL, hd_flag);
-	if (!tmp_fn->quotes.sp_case && tmp_fn->prev && tmp_fn->prev->type == WORD)
-	{
-		merge_tg = tmp_fn->prev;
-		expand_and_join_fname(msh, tmp_fn, merge_tg, hd_flag);
-	}
 }
 
 void	join_rest(t_msh **msh)
@@ -115,28 +58,25 @@ void	join_rest(t_msh **msh)
 	}
 }
 
-char	*check_env_cmd(char *cmd, char *env_path, int i)
+t_tk_lst	*find_w_tk(t_msh **msh)
 {
-	char	**paths;
-	char	*part_path;
-	char	*cmd_path;
+	t_tk_lst	*w_tk;
 
-	paths = ft_split(env_path, ':');
-	ft_init_var((void **)&part_path, (void **)&cmd_path, NULL, NULL);
-	if (!paths)
-		return (0);
-	while (paths[++i])
+	w_tk = (*msh)->token_list;
+	while (w_tk)
 	{
-		part_path = ft_strjoin(paths[i], "/");
-		cmd_path = ft_strjoin(part_path, cmd);
-		safe_free(part_path); //this was causing segfault
-		if (access(cmd_path, F_OK | X_OK) == 0)
-		{
-			ft_free_arrays((void **)paths); //this was causing segfault
-			return (cmd_path);
-		}
-		safe_free(cmd_path); //this was causing segfault
+		w_tk = w_tk->next;
+		if (!w_tk->next)
+			break ;
 	}
-//	ft_free_arrays((void **)paths);
+	while (w_tk)
+	{
+		if (w_tk->type == WORD
+			&& !ft_strnstr(w_tk->content, "$", ft_strlen(w_tk->content))
+			&& w_tk->prev && w_tk->prev->type == WORD
+			&& !w_tk->quotes.sp_case)
+			return (w_tk);
+		w_tk = w_tk->prev;
+	}
 	return (NULL);
 }

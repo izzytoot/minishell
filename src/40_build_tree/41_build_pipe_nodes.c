@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   41_build_pipe_nodes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:23 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 23:06:51 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/23 19:35:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_nd *build_pipe_nd(t_msh **msh, t_tk_lst **token_list)
+t_tree_nd	*build_pipe_nd(t_msh **msh, t_tk_lst **token_list)
 {
 	t_tk_lst	*curr_token;
 	t_tree_nd	*pipe_nd;
@@ -38,5 +38,5 @@ t_tree_nd *build_pipe_nd(t_msh **msh, t_tk_lst **token_list)
 		prev_token = curr_token;
 		curr_token = curr_token->next;
 	}
-	return(build_redir_nd(msh, token_list));
+	return (build_redir_nd(msh, token_list));
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   44_build_cmd_nodes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/23 19:39:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_nd *build_cmd_nd(t_msh **msh, t_tk_lst **token_list)
+t_tree_nd	*build_cmd_nd(t_msh **msh, t_tk_lst **token_list)
 {
 	t_tk_lst	*curr_token;
 	t_list		*args;
@@ -36,7 +36,7 @@ t_tree_nd *build_cmd_nd(t_msh **msh, t_tk_lst **token_list)
 	cmd_nd->nb_arg = ft_lstsize(args);
 	cmd_nd->args = ft_list_to_array(args);
 	cmd_nd->cmd_content = join_cmd_and_args(cmd_nd->cmd, cmd_nd->args);
-	return(cmd_nd);
+	return (cmd_nd);
 }
 
 void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
@@ -48,8 +48,7 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 			&& (*curr_tk)->prev)
 			(*curr_tk)->type = (*curr_tk)->type;
 		if (type_is_arg(&(*curr_tk)->type))
-			ft_lstadd_back(&(*args), ft_lstnew((*curr_tk)->content));
-			//ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
+			ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
 		if (type_is_cmd(&(*curr_tk)->type))
 		{
 			cmd_nd->cmd = (*curr_tk)->content;
@@ -57,12 +56,12 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 		}
 		if (type_is_word(&(*curr_tk)->type))
 		{
-			if ((*curr_tk)->type == ARG && (*curr_tk)->content[0] == '$' 
-				&& !get_env_cont((*msh)->envp_list, (*msh)->vars_list, 
+			if ((*curr_tk)->type == ARG && (*curr_tk)->content[0] == '$'
+				&& !get_env_cont((*msh)->envp_list, (*msh)->vars_list,
 					(*curr_tk)->content + 1))
 				;
 			else
-				cmd_nd->type = (*curr_tk)->type;	
+				cmd_nd->type = (*curr_tk)->type;
 		}
 		*curr_tk = (*curr_tk)->next;
 	}

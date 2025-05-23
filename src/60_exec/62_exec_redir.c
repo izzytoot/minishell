@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 17:07:32 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:20:37 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,21 @@ int	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 	int				status;
 
 	curr_node = node;
-	redir_data.cmd_nd = NULL;
-	redir_data.orig_stdin = -1;
-	redir_data.orig_stdout = -1;
 	status = 0;
+	init_str_reset_std(msh, &redir_data, 1);
 	i = collect_redirs_and_cmd(msh, &curr_node, redir_nodes, &redir_data);
 	while (--i >= 0)
 	{
 		status = exec_redir(msh, redir_nodes[i]); //exec redir from left to right
 		if (status != 0) // If redirection fails, stop execution
 		{
-			if (redir_data.orig_stdin != -1)
-				safe_dup2(msh, redir_data.orig_stdin, 0);
-			if (redir_data.orig_stdout != -1)
-				safe_dup2(msh, redir_data.orig_stdout, 1);
+			init_str_reset_std(msh, &redir_data, 2);
 			return (exit_value(msh, status, 1, 0));
 		}
 	}
 	if (redir_data.cmd_nd)
 		status = exec_tree(msh, redir_data.cmd_nd); //exec cmd on the correct fd if cmd on the right
-	if (redir_data.orig_stdin != -1)
-		safe_dup2(msh, redir_data.orig_stdin, 0); //restore original fd - terminal
-	if (redir_data.orig_stdout != -1)
-		safe_dup2(msh, redir_data.orig_stdout, 1); //restore original fd - terminal
+	init_str_reset_std(msh, &redir_data, 2);
 	return (exit_value(msh, status, 1, 0));
 }
 
@@ -123,4 +115,21 @@ int	create_file_fd(t_tk_type type, char *file_name)
 		return (-1);
 	}
 	return (file_fd);
+}
+
+void	init_str_reset_std(t_msh **msh, t_redir_data *redir_data, int n)
+{
+	if (n == 1)
+	{
+		redir_data->cmd_nd = NULL;
+		redir_data->orig_stdin = -1;
+		redir_data->orig_stdout = -1;	
+	}
+	if (n == 2)
+	{
+		if (redir_data->orig_stdin != -1)
+			safe_dup2(msh, redir_data->orig_stdin, 0);
+		if (redir_data->orig_stdout != -1)
+			safe_dup2(msh, redir_data->orig_stdout, 1);		
+	}
 }

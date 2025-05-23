@@ -6,13 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 16:07:23 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:36:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tree_nd *build_redir_nd(t_msh **msh, t_tk_lst **token_list)
+t_tree_nd	*build_redir_nd(t_msh **msh, t_tk_lst **token_list)
 {
 	t_tk_lst	*curr_tk;
 	t_tree_nd	*redir_nd;
@@ -29,7 +29,7 @@ t_tree_nd *build_redir_nd(t_msh **msh, t_tk_lst **token_list)
 		else
 			curr_tk = curr_tk->next;
 	}
-	if(check_cmd(token_list))
+	if (check_cmd(token_list))
 		cmd_nd = build_cmd_nd(msh, token_list);
 	if (redir_nd)
 		return (add_left(redir_nd, cmd_nd));
@@ -50,7 +50,7 @@ t_tree_nd	*handle_redir(t_msh **msh, t_tree_nd *redir_nd, t_tk_lst **curr_tk)
 	else
 		new_redir->fd = STDOUT_FILENO;
 	redir_nd = attach_redir(redir_nd, new_redir);
-	if ((!(*curr_tk)->next || next_is_redir(*curr_tk)) 
+	if ((!(*curr_tk)->next || next_is_redir(*curr_tk))
 		&& check_prev((*curr_tk)))
 		new_redir->cmd_r = true;
 	*curr_tk = safe_next_tk(*curr_tk);
@@ -89,26 +89,26 @@ bool	search_cmd(t_tk_lst *curr_tk, int way)
 	if (way == 1)
 	{
 		while (curr_tk && (!type_is_redir(&curr_tk->type)
-			|| !(curr_tk->type == FILE_NAME)))
+				|| !(curr_tk->type == FILE_NAME)))
 		{
 			if (type_is_word(&curr_tk->type))
 				return (true);
 			curr_tk = safe_next_tk(curr_tk);
 		}
 		if (curr_tk)
-			curr_tk = safe_next_tk(curr_tk);	
+			curr_tk = safe_next_tk(curr_tk);
 	}
 	if (way == 0)
 	{
 		while (curr_tk && (!type_is_redir(&curr_tk->type)
-			|| !(curr_tk->type == FILE_NAME)))
+				|| !(curr_tk->type == FILE_NAME)))
 		{
 			if (type_is_word(&curr_tk->type))
 				return (true);
 			curr_tk = safe_prev_tk(curr_tk);
 		}
 		if (curr_tk)
-			curr_tk = safe_prev_tk(curr_tk);	
+			curr_tk = safe_prev_tk(curr_tk);
 	}
 	return (false);
 }

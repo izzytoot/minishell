@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   52_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 23:05:19 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:41:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	update_var(t_list **env_list, const char *var_name, const char *data)
 	return (add_new_var(env_list, var_name, data), EXIT_SUCCESS);
 }
 
-char *update_var_util(const char *var_name, const char *data)
+char	*update_var_util(const char *var_name, const char *data)
 {
 	char	*joined_value;
 	char	*new_entry;

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 17:59:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:15:48 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,44 +31,7 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 	else if (exec_sh_v(&(*msh), node) == 0)
 		return (exit_value(msh, 0, 1, 0));
 	else
-	{
-		if (node->type == ARG && !node->args[0])
-			return (exit_value(msh, 0, 1, 0));
-		else if (node->type == ARG && (ft_strcmp(".", node->args[0]) == 0))
-		{
-			ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_PT);
-			return (exit_value(msh, 2, 1, 0));
-		}
-		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
-		return (exit_value(msh, 127, 1, 0));
-	}
-}
-
-int	exec_sh_v(t_msh **msh, t_tree_nd *node)
-{
-	int		status;
-	int		i;
-	char	**split;
-
-	status = 0;
-	i = 0;
-	while (node->args[i])
-	{
-		if (check_shell_var(node->args[i]))
-		{
-			split = ft_split(node->args[i], '=');
-			if (!split || !split[0])
-				return (ft_free_arrays((void *)split), EXIT_FAILURE);
-			if (update_var(&(*msh)->vars_list, split[0], split[1])
-				!= EXIT_SUCCESS)
-				return (ft_free_arrays((void *)split), EXIT_FAILURE);
-			ft_free_arrays((void *)split);
-		}
-		i++;
-	}
-	if (!(*msh)->vars_list)
-		return (-1);
-	return (exit_value(msh, status, 1, 0));
+		return (output_cmd_errors(msh, node));
 }
 
 int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
@@ -116,12 +79,39 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	}
 	else
 	{
-		waitpid(pid, &status, 0); //wait for exit code from child
+		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 			status = 128 + WTERMSIG(status);
 	}
+	return (exit_value(msh, status, 1, 0));
+}
+
+int	exec_sh_v(t_msh **msh, t_tree_nd *node)
+{
+	int		status;
+	int		i;
+	char	**split;
+
+	status = 0;
+	i = 0;
+	while (node->args[i])
+	{
+		if (check_shell_var(node->args[i]))
+		{
+			split = ft_split(node->args[i], '=');
+			if (!split || !split[0])
+				return (ft_free_arrays((void *)split), EXIT_FAILURE);
+			if (update_var(&(*msh)->vars_list, split[0], split[1])
+				!= EXIT_SUCCESS)
+				return (ft_free_arrays((void *)split), EXIT_FAILURE);
+			ft_free_arrays((void *)split);
+		}
+		i++;
+	}
+	if (!(*msh)->vars_list)
+		return (-1);
 	return (exit_value(msh, status, 1, 0));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   57_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 18:19:21 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:42:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	export_check(t_msh **msh, char *arg)
 	return (true);
 }
 
-void	add_export_var(t_list **env_list, const char *var_name, const char *data)
+void	add_export_var(t_list **env_lst, const char *var_name, const char *data)
 {
 	t_list	*current;
 	size_t	var_len;
@@ -53,7 +53,7 @@ void	add_export_var(t_list **env_list, const char *var_name, const char *data)
 	t_list	*new_node;
 
 	var_len = ft_strlen(var_name);
-	current = *env_list;
+	current = *env_lst;
 	while (current)
 	{
 		if (ft_strncmp(current->content, var_name, var_len) == 0
@@ -71,5 +71,5 @@ void	add_export_var(t_list **env_list, const char *var_name, const char *data)
 	new_node = ft_lstnew(new_entry);
 	if (!new_node)
 		return (free(new_entry));
-	ft_lstadd_back(env_list, new_node);
+	ft_lstadd_back(env_lst, new_node);
 }

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 15:51:15 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:34:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ t_tree_nd	*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 		new_nd->type = *type;
 	else
 		new_nd->type = -1;
+	if (curr_tk)
+		add_quote_structs(new_nd, curr_tk);
+	new_tree_nd_util(new_nd);
+	return (new_nd);
+}
+
+void	new_tree_nd_util(t_tree_nd	*new_nd)
+{
 	new_nd->args = NULL;
 	new_nd->nb_arg = 0;
 	new_nd->left = NULL;
@@ -51,9 +59,6 @@ t_tree_nd	*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 	new_nd->exp_hd = false;
 	new_nd->cmd_r = false;
 	new_nd->ch_ambg = false;
-	if (curr_tk)
-		add_quote_structs(new_nd, curr_tk);
-	return (new_nd);
 }
 
 void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)

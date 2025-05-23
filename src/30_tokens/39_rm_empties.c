@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 21:15:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:32:25 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	rm_empties(t_tk_lst **token)
 
 	curr = token;
 	env = false;
-	if (!*curr || !(*curr)->content)
-	 	return ;
 	first_and_pipe(&curr, NULL, NULL);
 	if (!(*curr)->prev)
 		return ;
@@ -48,12 +46,12 @@ void	rm_empties_case(t_tk_lst **curr, bool env)
 	if ((*curr)->next && (*curr)->next->type == W_SPACE
 		&& (*curr)->next->next)
 	{
-		if (((*curr)->next->next->type == BT_CMD ||
-			(*curr)->next->next->type == ARG) && !env)
+		if (((*curr)->next->next->type == BT_CMD
+				|| (*curr)->next->next->type == ARG) && !env)
 			empties_rmv_tk(&curr);
 	}
-	else if ((*curr)->next && ((*curr)->next->type == BT_CMD ||
-		(*curr)->next->type == ARG) && !env)
+	else if ((*curr)->next && ((*curr)->next->type == BT_CMD
+			|| (*curr)->next->type == ARG) && !env)
 		empties_rmv_tk(&curr);
 }
 
@@ -69,7 +67,7 @@ void	empties_rmv_exp(t_tk_lst ***curr)
 	{
 		(**curr)->prev->next = NULL;
 		(**curr) = (**curr)->prev;
-	}	
+	}
 }
 
 void	empties_rmv_tk(t_tk_lst ***curr)
@@ -82,7 +80,7 @@ void	empties_rmv_tk(t_tk_lst ***curr)
 			(**curr)->next->prev = (**curr)->prev->prev;
 			(**curr)->prev->prev->next = (**curr)->next;
 			(**curr) = (**curr)->prev->prev;
-			}
+		}
 		else
 		{
 			(**curr)->next->prev = (**curr)->prev;
@@ -93,7 +91,7 @@ void	empties_rmv_tk(t_tk_lst ***curr)
 	else
 	{
 		(**curr)->next->prev = NULL;
-		(**curr) = (**curr)->next;	
+		(**curr) = (**curr)->next;
 	}
 }
 
@@ -106,9 +104,11 @@ void	first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env)
 	}
 	if (curr_p)
 	{
-		if ((curr_p && curr_p->type == PIPE && ((curr_p->prev && curr_p->prev->type != ENV_CMD )
-			|| ((curr_p->prev && curr_p->prev->type == W_SPACE)
-			&& (curr_p->prev->prev && curr_p->prev->prev->type != ENV_CMD)))))
-			*env = true;	
+		if ((curr_p && curr_p->type == PIPE
+				&& ((curr_p->prev && curr_p->prev->type != ENV_CMD)
+					|| ((curr_p->prev && curr_p->prev->type == W_SPACE)
+						&& (curr_p->prev->prev
+							&& curr_p->prev->prev->type != ENV_CMD)))))
+			*env = true;
 	}
 }

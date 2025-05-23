@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/23 17:59:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:14:10 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,31 +314,27 @@ void			check_squote(bool *in_squotes, char c);
 
 //35_sub_tokenize.c
 void			sub_tokenize(t_msh **msh);
+void			join_rest(t_msh **msh);
+t_tk_lst		*find_w_tk(t_msh **msh);
+
+//36_sub_tokenize_files.c
 void			handle_filename(t_msh **msh);
 void			join_filename(t_msh **msh, bool hd_flag);
-void			join_rest(t_msh **msh);
-char			*check_env_cmd(char *cmd, char *env_path, int i);
-
-//36_sub_tokenize_utils.c
 t_tk_lst		*find_file(t_msh **msh);
-t_tk_lst		*find_w_tk(t_msh **msh);
-void			join_parts(t_tk_lst	**src, t_tk_lst **target);
-bool			ch_shlvl(t_msh **msh, char *word);
 void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
 					t_tk_lst **merge_tg, bool hd_flag);
 
-//37_token_utils.c
-bool			tk_in_qts(t_tk_lst *tk);
-char			*get_path(t_list *envp_list);
-void			check_rep_cmd(t_msh **msh);
-bool			check_builtin(char *str);
-bool			check_shell_var(char *str);
+//37_sub_tokenize_utils.c
+bool			ch_shlvl(t_msh **msh, char *word);
+void			attribute_type(t_msh **msh, t_tk_lst *curr);
+char			*check_env_cmd(char *cmd, char *env_path, int i);
+void			join_parts(t_tk_lst	**src, t_tk_lst **target);
 
 //38_token_empties.c
 int				empty_case(t_msh **msh, const char *line, int i, bool flag);
 int				sp_for_empty_case (t_msh **msh, const char *line, int i);
-bool 			ch_all_same(char *nl);
 bool 			ch_emp_exp(t_msh **msh, char *nl);
+bool 			ch_all_same(char *nl);
 
 //39_rm_empties.c
 void			rm_empties(t_tk_lst **token);
@@ -347,10 +343,17 @@ void			empties_rmv_exp(t_tk_lst ***curr);
 void			empties_rmv_tk(t_tk_lst ***curr);
 void			first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env);
 
+//40_token_utils.c
+bool			tk_in_qts(t_tk_lst *tk);
+char			*get_path(t_list *envp_list);
+void			check_rep_cmd(t_msh **msh);
+bool			check_builtin(char *str);
+bool			check_shell_var(char *str);
 /************ 40_build_tree ************/
 //40_tokens_to_tree.c
 void			parse_line(t_msh **msh);
 t_tree_nd		*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content);
+void			new_tree_nd_util(t_tree_nd	*new_nd);
 void			add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token);
 void			app_qt(t_tree_nd *new_nd, t_tk_lst *token);
 
@@ -438,6 +441,7 @@ void			add_export_var(t_list **env_list, const char *var_name,
 int				exec_tree(t_msh **msh, t_tree_nd *node);
 char			**remake_args(t_msh **msh, t_tree_nd *node);
 void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
+int				output_cmd_errors(t_msh **msh, t_tree_nd *node);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
@@ -452,6 +456,8 @@ int				collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 					t_tree_nd **redir_nd, t_redir_data *redir_data);
 int				exec_redir(t_msh **msh, t_tree_nd *node);
 int				create_file_fd(t_tk_type type, char *file_name);
+void			init_str_reset_std(t_msh **msh, t_redir_data *redir_data, int n);
+
 
 //63_exec_heredoc.c
 void			exec_heredocs(t_msh **msh, t_tree_nd *node);

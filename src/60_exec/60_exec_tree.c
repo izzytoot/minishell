@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 23:23:43 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:15:23 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,17 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 		node->cmd = ft_strdup((*new_args)[0]);
 		(*new_args) = ft_array_dup(++(*new_args));	
 	}
+}
+
+int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
+{
+	if (node->type == ARG && !node->args[0])
+		return (exit_value(msh, 0, 1, 0));
+	else if (node->type == ARG && (ft_strcmp(".", node->args[0]) == 0))
+	{
+		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_PT);
+		return (exit_value(msh, 2, 1, 0));
+	}
+	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+	return (exit_value(msh, 127, 1, 0));
 }

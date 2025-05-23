@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:17:25 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/23 16:11:04 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:40:54 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ch_ambg(t_msh **msh, t_tree_nd *new_redir, char *fname, t_tk_lst *tk)
 {
 	int		i;
 	bool	qts;
-	
+
 	i = -1;
 	qts = false;
 	if (tk->quotes.in_dquotes || tk->quotes.in_squotes)
@@ -73,18 +73,16 @@ void	add_fname(t_msh **msh, t_tree_nd *new_redir, t_tk_lst *curr_tk)
 			&& !(curr_tk->prev->prev->quotes.in_dquotes
 				|| curr_tk->prev->prev->quotes.in_squotes))
 			new_redir->exp_hd = true;
-		new_redir->file = curr_tk->prev->prev->content;
+		new_redir->file = ft_strdup(curr_tk->prev->prev->content);
 		ch_ambg(msh, new_redir, new_redir->file, curr_tk->prev->prev);
-		//new_redir->file = ft_strdup(curr_tk->prev->prev->content);	
 	}
 	else if (curr_tk->prev)
 	{
 		if (new_redir->type == REDIR_HD && !(curr_tk->prev->quotes.in_dquotes
 				|| curr_tk->prev->quotes.in_squotes))
 			new_redir->exp_hd = true;
-		new_redir->file = curr_tk->prev->content;
+		new_redir->file = ft_strdup(curr_tk->prev->content);
 		ch_ambg(msh, new_redir, new_redir->file, curr_tk->prev);
-		//new_redir->file = ft_strdup(curr_tk->prev->content);
 	}
 	else
 		new_redir->file = ft_strdup("");
