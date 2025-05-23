@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   40_tokens_to_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 11:07:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/23 15:51:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_tree_nd	*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 	new_nd->tmp_file = NULL;
 	new_nd->exp_hd = false;
 	new_nd->cmd_r = false;
+	new_nd->ch_ambg = false;
 	if (curr_tk)
 		add_quote_structs(new_nd, curr_tk);
 	return (new_nd);

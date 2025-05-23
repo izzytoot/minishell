@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/22 21:09:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:34:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ void	sub_tokenize(t_msh **msh)
 	while (curr)
 	{
 		if (curr->type == WORD || curr->type == ARG)
-		{
+		{			
 			word = curr->content;
 			if (check_builtin(word))
 				curr->type = BT_CMD;
-			else if (check_env_cmd(word, env_path, -1) || (ch_shlvl(msh, word)))
+			else if (((ft_strcmp(word, ".") != 0) && (ft_strcmp(word, "..") != 0))
+				&& (check_env_cmd(word, env_path, -1) || ch_shlvl(msh, word)))
 				curr->type = ENV_CMD;
 			else
 				curr->type = ARG;

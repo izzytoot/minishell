@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/22 23:23:17 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:05:50 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@
 # define ERR_CD_ARGS "msh: cd: too many arguments\n"
 # define ERR_UNKRED "unknown redirection type\n"
 # define ERR_KW "msh: too many keywords for expander\n"
+# define ERR_PT "msh: .: filename argument required\n.: usage: . filename [arguments]\n"
+
 
 //constants
 # define WS " \t\n\r\v\f"
@@ -162,6 +164,7 @@ typedef struct s_tree_nd
 	struct s_quote		*quote_lst;
 	bool				exp_hd;
 	bool				cmd_r;
+	bool				ch_ambg;
 }	t_tree_nd;
 
 typedef struct s_redir_data
@@ -220,6 +223,7 @@ typedef struct s_msh
 	bool		hd_check;
 	char		*tmp_fname;
 	bool		empties;
+	bool		child;
 }	t_msh;
 
 /* ************************************************************************** */
@@ -355,7 +359,7 @@ t_tree_nd		*build_pipe_nd(t_msh **msh, t_tk_lst **tokens);
 
 //42_build_redir_nodes.c
 t_tree_nd		*build_redir_nd(t_msh **msh, t_tk_lst **token_list);
-t_tree_nd		*handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk);
+t_tree_nd		*handle_redir(t_msh **msh, t_tree_nd *redir_nd, t_tk_lst **curr_tk);
 bool			check_cmd(t_tk_lst **token_list);
 bool			search_cmd(t_tk_lst *curr_tk, int way);
 
@@ -381,7 +385,7 @@ bool			type_is_arg(t_tk_type *type);
 //46_tree_utils.c
 t_tk_lst		*safe_next_tk(t_tk_lst *curr_tk);
 t_tk_lst		*safe_prev_tk(t_tk_lst *curr_tk);
-void			add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk);
+void			add_fname(t_msh **msh, t_tree_nd *new_redir, t_tk_lst *curr_tk);
 t_list			*reverse_args(t_list **head);
 
 /************ 50_built_ins ************/
@@ -437,10 +441,8 @@ void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
-void			perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd,
-					int curr_pid);
-void			perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd,
-					int curr_pid);
+void			perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd);
+void			perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd);
 int				safe_waitpid(int pid1, int pid2);
 void			close_fd(int fd_1, int fd_2);
 
@@ -477,8 +479,8 @@ void			handle_written(t_ints *ints, t_flag_str *flags,
 
 //66_exec_utils.c
 int				safe_fork(t_msh **msh);
-int				safe_dup(t_msh **msh, int old_fd, int curr_pid);
-void			safe_dup2(t_msh **msh, int new_fd, int old_fd, int curr_pid);
+int				safe_dup(t_msh **msh, int old_fd);
+void			safe_dup2(t_msh **msh, int new_fd, int old_fd);
 int				safe_pipe(t_msh **msh, int pipe_fd[2]);
 void			update_shlvl(t_list **env_list);
 

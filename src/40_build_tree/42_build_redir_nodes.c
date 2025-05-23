@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42_build_redir_nodes.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:37:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 17:53:54 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/23 16:07:23 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_tree_nd *build_redir_nd(t_msh **msh, t_tk_lst **token_list)
 	while (curr_tk && (curr_tk->next || type_is_redir(&curr_tk->type)))
 	{
 		if (type_is_redir(&curr_tk->type))
-			redir_nd = handle_redir(redir_nd, &curr_tk);
+			redir_nd = handle_redir(msh, redir_nd, &curr_tk);
 		else
 			curr_tk = curr_tk->next;
 	}
@@ -36,14 +36,14 @@ t_tree_nd *build_redir_nd(t_msh **msh, t_tk_lst **token_list)
 	return (cmd_nd);
 }
 
-t_tree_nd	*handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk)
+t_tree_nd	*handle_redir(t_msh **msh, t_tree_nd *redir_nd, t_tk_lst **curr_tk)
 {
 	t_tree_nd	*new_redir;
 
 	if (!curr_tk || !*curr_tk)
 		return (redir_nd);
 	new_redir = new_tree_nd(NULL, &(*curr_tk)->type, &(*curr_tk)->content[0]);
-	add_fname(new_redir, (*curr_tk));
+	add_fname(msh, new_redir, (*curr_tk));
 	new_redir->type = (*curr_tk)->type;
 	if ((*curr_tk)->type == REDIR_IN || (*curr_tk)->type == REDIR_HD)
 		new_redir->fd = STDIN_FILENO;

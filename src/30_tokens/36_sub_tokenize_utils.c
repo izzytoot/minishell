@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   36_sub_tokenize_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/22 15:10:36 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:22:45 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ bool	ch_shlvl(t_msh **msh, char *word)
 {
 	t_list	*curr;
 
+	if (!word)
+		return (false);
 	if (ft_strchr(word, '/'))
 		return (true);
 	if (ft_strcmp(word, "minishell") == 0)

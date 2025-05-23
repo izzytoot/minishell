@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 12:37:10 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:56:31 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_init_msh(t_msh **msh, char **envp)
 	// 	close_minishell(*msh, EXIT_FAILURE);
 	(*msh)->hd_check = true;
 	(*msh)->empties = false;
+	(*msh)->child = false;
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
 	update_shlvl(&(*msh)->envp_list);

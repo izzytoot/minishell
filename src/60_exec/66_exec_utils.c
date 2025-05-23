@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   66_exec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:19:13 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 12:41:18 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:01:27 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ int	safe_fork(t_msh **msh)
 			exit_value(msh, 1, 1, 1);
 		return (-1);
 	}
+	(*msh)->child = true;
 	return (pid);
 }
 
-int	safe_dup(t_msh **msh, int old_fd, int curr_pid)
+int	safe_dup(t_msh **msh, int old_fd)
 {
 	int	new_fd;
 	
@@ -36,7 +37,7 @@ int	safe_dup(t_msh **msh, int old_fd, int curr_pid)
 	{
 		perror("msh: dup: "); // msh: dup: Bad file descriptor
 		close(new_fd);
-		if (curr_pid == 0)
+		if ((*msh)->child)
 			exit_value(msh, 1, 1, 1);
 		return (-1);
 	}
@@ -47,13 +48,13 @@ int	safe_dup(t_msh **msh, int old_fd, int curr_pid)
 closes dest_fd
 duplicates src_fd to dest_fd - dest_fd is now src_fd
 */
-void	safe_dup2(t_msh **msh, int src_fd, int dest_fd, int curr_pid)
+void	safe_dup2(t_msh **msh, int src_fd, int dest_fd)
 {
 	if (dup2(src_fd, dest_fd) < 0)
 	{
 		perror("msh: dup2: ");
 		close(src_fd);
-		if (curr_pid == 0)
+		if ((*msh)->child)
 			exit_value(msh, 1, 1, 1);
 	}
 	close(src_fd);
@@ -61,13 +62,10 @@ void	safe_dup2(t_msh **msh, int src_fd, int dest_fd, int curr_pid)
 
 int	safe_pipe(t_msh **msh, int pipe_fd[2])
 {
-	int	pid;
-
-	pid = getpid();
 	if (pipe(pipe_fd) < 0) // anything writen to fd[1] can be read from fd[0].
 	{
 		perror("msh: pipe: "); // check pre-error message
-		if (pid == 0)
+		if ((*msh)->child)
 			exit_value(msh, 1, 1, 1);
 		return (-1);
 	}

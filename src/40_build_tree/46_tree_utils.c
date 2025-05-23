@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:17:25 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/21 15:03:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:11:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,33 @@ t_tk_lst	*safe_prev_tk(t_tk_lst *curr_tk)
 	return (prev_tk);
 }
 
-void	add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk)
+void	ch_ambg(t_msh **msh, t_tree_nd *new_redir, char *fname, t_tk_lst *tk)
+{
+	int		i;
+	bool	qts;
+	
+	i = -1;
+	qts = false;
+	if (tk->quotes.in_dquotes || tk->quotes.in_squotes)
+		qts = true;
+	if (!fname)
+		return ;
+	if (!qts && fname[0])
+	{
+		while (fname[++i])
+		{
+			if (strchr(WS, fname[i]))
+			{
+				(*msh)->tmp_fname = ft_strdup(fname);
+				new_redir->ch_ambg = true;
+				return ;
+			}
+		}
+	}
+	new_redir->ch_ambg = false;
+}
+
+void	add_fname(t_msh **msh, t_tree_nd *new_redir, t_tk_lst *curr_tk)
 {
 	if (new_redir->type == REDIR_HD && curr_tk->prev
 		&& curr_tk->prev->type == W_SPACE)
@@ -48,6 +74,7 @@ void	add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk)
 				|| curr_tk->prev->prev->quotes.in_squotes))
 			new_redir->exp_hd = true;
 		new_redir->file = curr_tk->prev->prev->content;
+		ch_ambg(msh, new_redir, new_redir->file, curr_tk->prev->prev);
 		//new_redir->file = ft_strdup(curr_tk->prev->prev->content);	
 	}
 	else if (curr_tk->prev)
@@ -56,6 +83,7 @@ void	add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk)
 				|| curr_tk->prev->quotes.in_squotes))
 			new_redir->exp_hd = true;
 		new_redir->file = curr_tk->prev->content;
+		ch_ambg(msh, new_redir, new_redir->file, curr_tk->prev);
 		//new_redir->file = ft_strdup(curr_tk->prev->content);
 	}
 	else

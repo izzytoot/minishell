@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 19:54:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:07:32 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ int	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 		if (status != 0) // If redirection fails, stop execution
 		{
 			if (redir_data.orig_stdin != -1)
-				safe_dup2(msh, redir_data.orig_stdin, 0, getpid());
+				safe_dup2(msh, redir_data.orig_stdin, 0);
 			if (redir_data.orig_stdout != -1)
-				safe_dup2(msh, redir_data.orig_stdout, 1, getpid());
+				safe_dup2(msh, redir_data.orig_stdout, 1);
 			return (exit_value(msh, status, 1, 0));
 		}
 	}
 	if (redir_data.cmd_nd)
 		status = exec_tree(msh, redir_data.cmd_nd); //exec cmd on the correct fd if cmd on the right
 	if (redir_data.orig_stdin != -1)
-		safe_dup2(msh, redir_data.orig_stdin, 0, getpid()); //restore original fd - terminal
+		safe_dup2(msh, redir_data.orig_stdin, 0); //restore original fd - terminal
 	if (redir_data.orig_stdout != -1)
-		safe_dup2(msh, redir_data.orig_stdout, 1, getpid()); //restore original fd - terminal
+		safe_dup2(msh, redir_data.orig_stdout, 1); //restore original fd - terminal
 	return (exit_value(msh, status, 1, 0));
 }
 
@@ -58,10 +58,10 @@ int	collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 		redir_nd[i] = *curr_nd;
 		if (((*curr_nd)->type == REDIR_IN || (*curr_nd)->type == REDIR_HD)
 			&& redir_data->orig_stdin == -1)
-			redir_data->orig_stdin = safe_dup(msh, (*curr_nd)->fd, getpid());
+			redir_data->orig_stdin = safe_dup(msh, (*curr_nd)->fd);
 		if (((*curr_nd)->type == REDIR_OUT || (*curr_nd)->type == REDIR_APP)
 			&& redir_data->orig_stdout == -1)
-			redir_data->orig_stdout = safe_dup(msh, (*curr_nd)->fd, getpid());
+			redir_data->orig_stdout = safe_dup(msh, (*curr_nd)->fd);
 		if ((*curr_nd)->right && type_is_word(&(*curr_nd)->right->type)) //keep cmd node if on right
 			redir_data->cmd_nd = (*curr_nd)->right;
 		else if ((*curr_nd)->left && type_is_word(&(*curr_nd)->left->type)) //keep cmd node if on left
@@ -75,10 +75,9 @@ int	collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 int	exec_redir(t_msh **msh, t_tree_nd *node)
 {
 	int		file_fd;
-	int		curr_pid;
 
 	file_fd = -1;
-	if (!node->file)
+	if (!node->file || node->ch_ambg)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: %s", (*msh)->tmp_fname,
 			ERR_AMBREDIR);
@@ -93,11 +92,10 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 		close(file_fd);
 		return (exit_value(msh, 1, 1, 0));
 	}
-	curr_pid = getpid();
 	if (node->type == REDIR_HD)
-		safe_dup2(msh, file_fd, STDIN_FILENO, curr_pid);
+		safe_dup2(msh, file_fd, STDIN_FILENO);
 	else
-		safe_dup2(msh, file_fd, node->fd, curr_pid);
+		safe_dup2(msh, file_fd, node->fd);
 	close(file_fd);
 	return (exit_value(msh, 0, 1, 0));
 }
