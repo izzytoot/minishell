@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/24 01:01:26 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/24 01:35:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,6 +440,7 @@ void			add_export_var(t_list **env_list, const char *var_name,
 //60_exec_tree.c
 int				exec_tree(t_msh **msh, t_tree_nd *node);
 char			**remake_args(t_tree_nd *node);
+bool			ch_if_sub_cmd(t_tree_nd *node);
 void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
 int				output_cmd_errors(t_msh **msh, t_tree_nd *node);
 

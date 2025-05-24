@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/24 01:02:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/24 01:36:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		status = exec_redir_before_cmd(msh, node);
 	else if (type_is_word(&node->type))
 	{
-		if (!node->cmd && node->args[0])
-			sub_cmd(msh, node, &node->args);
+		if (ch_if_sub_cmd(node))
+			sub_cmd(msh, node, &node->args);				
 		status = exec_cmd(msh, node);
 	}
 	return (exit_value(msh, status, 1, 0));
@@ -81,6 +81,17 @@ char	**remake_args(t_tree_nd *node)
 	return (new_args);
 }
 
+bool	ch_if_sub_cmd(t_tree_nd *node)
+{
+	if (node->cmd || !node->args[0])
+		return (false);
+	if ((ft_strcmp(node->args[0], ".") == 0) || (ft_strcmp(node->args[0], "..") == 0))
+		return (false);
+	if (!node->cmd && node->args[0])
+		return (true);
+	return (false);
+}
+
 void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 {
 	char		*env_path;
@@ -105,4 +116,17 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 		if (count > 1)
 				(*new_args) = ft_array_join((ft_array_dup(++sep_args)), (ft_array_dup(++(*new_args))));
 	}
+}
+
+int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
+{
+	if (node->type == ARG && !node->args[0])
+		return (exit_value(msh, 0, 1, 0));
+	else if (node->type == ARG && (ft_strcmp(".", node->args[0]) == 0))
+	{
+		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_PT);
+		return (exit_value(msh, 2, 1, 0));
+	}
+	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+	return (exit_value(msh, 127, 1, 0));
 }
