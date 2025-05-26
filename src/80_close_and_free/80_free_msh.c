@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 14:58:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:59:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	free_prompt_line(t_msh **msh)
 		free_tree((*msh)->tree_root);
 		(*msh)->tree_root = NULL;
 	}
-//	if ((*msh)->token_list)
-//		free_tokens((*msh)->token_list); //invalid and double frees because feed in tree. have to check
+	//if ((*msh)->token_list)
+	//	free_tokens((*msh)->token_list); //invalid and double frees because feed in tree. have to check
 	(*msh)->hd_check = true;
 	(*msh)->empties = false;
 }

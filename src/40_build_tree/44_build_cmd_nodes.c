@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 14:40:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:19:11 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_tree_nd	*build_cmd_nd(t_msh **msh, t_tk_lst **token_list)
 	args = reverse_args(&args);
 	cmd_nd->nb_arg = ft_lstsize(args);
 	cmd_nd->args = ft_list_to_array(args);
+	ft_lstclear(&args, free); //LEAKS
 	cmd_nd->cmd_content = join_cmd_and_args(cmd_nd->cmd, cmd_nd->args);
 	return (cmd_nd);
 }
@@ -48,7 +49,7 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 			&& (*curr_tk)->prev)
 			(*curr_tk)->type = (*curr_tk)->type;
 		if (type_is_arg(&(*curr_tk)->type))
-			ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content)));
+			ft_lstadd_back(&(*args), ft_lstnew((*curr_tk)->content)); //LEAKS
 		if (type_is_cmd(&(*curr_tk)->type))
 		{
 			cmd_nd->cmd = (*curr_tk)->content;

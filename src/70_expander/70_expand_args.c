@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 15:05:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:13:13 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 		expand_loop(msh, node, args_cpy);
 		node->quote_lst = tmp_qt;
 		node->args = ft_array_dup_null(node, args_cpy, node->nb_arg);
+		ft_free_arrays((void**)args_cpy); //LEAKS WORKED WITH JUST EXTI
 	}
 	recurs_exp_args(msh, node);
 }
