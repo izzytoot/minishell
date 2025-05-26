@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/26 12:25:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 12:45:54 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	empty_case(t_msh **msh, const char *line, int i, bool fl)
 	int			j;
 	int			tmp_i;
 
-	if (!line[i])
-		return (i);
 	i = sp_for_empty_case (msh, line, i);
 	tmp_i = i;
 	j = 0;
