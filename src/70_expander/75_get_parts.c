@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 20:13:09 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:04:46 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_pre_cont(char *arg, int *i)
 	len = 0;
 	while (!ft_strchr("$", arg[*i]))
 	{
-		len++;	
+		len++;
 		++(*i);
 	}
 	if (!len)

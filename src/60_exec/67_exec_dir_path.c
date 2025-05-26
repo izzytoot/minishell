@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 18:55:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:59:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	direct_path(t_tree_nd *node)
 
 	status = 0;
 	if (!node->cmd)
-		path = node->args[0]; //for case of calling exp dir like $PATH or $HOME
+		path = node->args[0];
 	else
-		path = node->cmd; //removed ptr of path
+		path = node->cmd;
 	if (access(path, F_OK) != 0)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: No such file or directory\n", path);
@@ -76,11 +76,11 @@ int	is_direct_command(t_tree_nd *node)
 int	handle_direct_command(t_msh **msh, t_tree_nd *node, char **path)
 {
 	int	status;
-	
+
 	if (!node->cmd)
-			*path = node->args[0];
-		else
-			*path = node->cmd;
+		*path = node->args[0];
+	else
+		*path = node->cmd;
 	status = direct_path(node);
 	return (exit_value(msh, status, 1, 0));
 }

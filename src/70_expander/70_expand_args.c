@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 13:52:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:05:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,21 @@ void	expand_loop(t_msh **msh, t_tree_nd *node, char **args_cpy)
 {
 	char	*tmp_arg;
 	int		i;
-	
+
 	i = -1;
 	while (node->args[++i])
 	{
-		if (!node->quote_lst->sp_case && node->quote_lst->next->in_quotes)
+		if (!node->quote_lst->sp_case && node->quote_lst->next
+			&& node->quote_lst->next->in_quotes)
 		{
-			if(check_dollar_w_qts(&node->args[i]))
+			if (check_dollar_w_qts(&node->args[i]))
 			{
 				node->quote_lst->sp_case = node->quote_lst->next->sp_case;
 				node->quote_lst = node->quote_lst->next;
 			}
 		}
 		if (!node->args[i])
-			continue;
+			continue ;
 		tmp_arg = ft_strdup(node->args[i]);
 		expander(msh, &node, &tmp_arg);
 		args_cpy[i] = tmp_arg; //strdup??

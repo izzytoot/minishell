@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/23 18:38:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:36:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	ch_shlvl(t_msh **msh, char *word)
 	if (ft_strcmp(word, "minishell") == 0)
 	{
 		curr = (*msh)->envp_list;
-		while(curr)
+		while (curr)
 		{
 			if (ft_strncmp((*msh)->envp_list->content, "PATH=", 5) == 0)
 				return (false);
@@ -36,12 +36,12 @@ bool	ch_shlvl(t_msh **msh, char *word)
 
 void	attribute_type(t_msh **msh, t_tk_lst *curr)
 {
-	char 	*word;
+	char	*word;
 	char	*env_path;
-	
+
 	env_path = get_path((*msh)->envp_list);
 	if (curr->type == WORD || curr->type == ARG)
-	{			
+	{
 		word = ft_strdup(curr->content);
 		if (check_builtin(word))
 			curr->type = BT_CMD;

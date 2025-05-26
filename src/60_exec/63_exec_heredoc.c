@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/19 14:15:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/26 14:51:33 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		lines.new_l = readline("> ");
 		if (!lines.new_l)
 			break ;
-		if ((!eof && ft_strcmp(lines.new_l, "\0") == 0) || (ft_strcmp(lines.new_l, eof) == 0))
+		if ((!eof && ft_strcmp(lines.new_l, "\0") == 0)
+			|| (ft_strcmp(lines.new_l, eof) == 0))
 		{
 			safe_free(lines.new_l);
 			break ;

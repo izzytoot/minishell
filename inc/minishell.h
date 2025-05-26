@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/26 13:47:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:17:34 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@
 # define WS " \t\n\r\v\f"
 # define OPERATOR "|<>"
 # define NON_EOF "|<>&" //check if there are more
-# define SYM_EXP ".,-+:/@^&*!~=#?[]{}%"
+# define SYM_EXP ".,-+:/^&*!~=#?[]{}%\\"
 # define REDIR "<>"
 # define QT "\"\'"
 # define MAX_KW 128
@@ -499,7 +499,6 @@ int				handle_direct_command(t_msh **msh, t_tree_nd *node,
 					char **path);
 
 /************ 70_expander ************/
-
 //70_expand_args.c
 void			expand_args(t_msh **msh, t_tree_nd *node);
 void			expand_loop(t_msh **msh, t_tree_nd *node, char **args_cpy);

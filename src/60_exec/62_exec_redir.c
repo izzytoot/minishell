@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 18:20:37 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:51:00 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 {
 	t_redir_data	redir_data;
-	t_tree_nd		*redir_nodes[32]; //adjust max redirects
+	t_tree_nd		*redir_nodes[32];
 	t_tree_nd		*curr_node;
 	int				i;
 	int				status;
@@ -26,15 +26,15 @@ int	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 	i = collect_redirs_and_cmd(msh, &curr_node, redir_nodes, &redir_data);
 	while (--i >= 0)
 	{
-		status = exec_redir(msh, redir_nodes[i]); //exec redir from left to right
-		if (status != 0) // If redirection fails, stop execution
+		status = exec_redir(msh, redir_nodes[i]);
+		if (status != 0)
 		{
 			init_str_reset_std(msh, &redir_data, 2);
 			return (exit_value(msh, status, 1, 0));
 		}
 	}
 	if (redir_data.cmd_nd)
-		status = exec_tree(msh, redir_data.cmd_nd); //exec cmd on the correct fd if cmd on the right
+		status = exec_tree(msh, redir_data.cmd_nd);
 	init_str_reset_std(msh, &redir_data, 2);
 	return (exit_value(msh, status, 1, 0));
 }
@@ -45,7 +45,7 @@ int	collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 	int	i;
 
 	i = 0;
-	while (*curr_nd && type_is_redir(&(*curr_nd)->type)) //collect redir from right to left
+	while (*curr_nd && type_is_redir(&(*curr_nd)->type))
 	{
 		redir_nd[i] = *curr_nd;
 		if (((*curr_nd)->type == REDIR_IN || (*curr_nd)->type == REDIR_HD)
@@ -54,9 +54,9 @@ int	collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 		if (((*curr_nd)->type == REDIR_OUT || (*curr_nd)->type == REDIR_APP)
 			&& redir_data->orig_stdout == -1)
 			redir_data->orig_stdout = safe_dup(msh, (*curr_nd)->fd);
-		if ((*curr_nd)->right && type_is_word(&(*curr_nd)->right->type)) //keep cmd node if on right
+		if ((*curr_nd)->right && type_is_word(&(*curr_nd)->right->type))
 			redir_data->cmd_nd = (*curr_nd)->right;
-		else if ((*curr_nd)->left && type_is_word(&(*curr_nd)->left->type)) //keep cmd node if on left
+		else if ((*curr_nd)->left && type_is_word(&(*curr_nd)->left->type))
 			redir_data->cmd_nd = (*curr_nd)->left;
 		*curr_nd = (*curr_nd)->left;
 		i++;
@@ -99,11 +99,11 @@ int	create_file_fd(t_tk_type type, char *file_name)
 	if (type == REDIR_IN)
 		file_fd = open(file_name, O_RDONLY);
 	else if (type == REDIR_OUT)
-		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644); //644 user can read&write; others can only read
+		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (type == REDIR_APP)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (type == REDIR_HD)
-		file_fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0600); //hd temporary file
+		file_fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0600);
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: %s\n", ERR_UNKRED, strerror(errno));
@@ -123,13 +123,13 @@ void	init_str_reset_std(t_msh **msh, t_redir_data *redir_data, int n)
 	{
 		redir_data->cmd_nd = NULL;
 		redir_data->orig_stdin = -1;
-		redir_data->orig_stdout = -1;	
+		redir_data->orig_stdout = -1;
 	}
 	if (n == 2)
 	{
 		if (redir_data->orig_stdin != -1)
 			safe_dup2(msh, redir_data->orig_stdin, 0);
 		if (redir_data->orig_stdout != -1)
-			safe_dup2(msh, redir_data->orig_stdout, 1);		
+			safe_dup2(msh, redir_data->orig_stdout, 1);
 	}
 }

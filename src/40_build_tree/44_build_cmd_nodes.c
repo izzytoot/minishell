@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 13:00:40 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:40:11 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 		}
 		if (type_is_word(&(*curr_tk)->type))
 		{
-			if ((*curr_tk)->type == ARG && (*curr_tk)->content[0] == '$' 
+			if ((*curr_tk)->type == ARG && (*curr_tk)->content[0] == '$'
 				&& (*curr_tk)->content[1] && !get_env_cont((*msh)->envp_list,
-				(*msh)->vars_list, (*curr_tk)->content + 1))
+					(*msh)->vars_list, (*curr_tk)->content + 1))
 				;
-			else //HERE
+			else
 				cmd_nd->type = (*curr_tk)->type;
 		}
 		*curr_tk = (*curr_tk)->next;

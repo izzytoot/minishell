@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 17:59:34 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:48:48 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 int	exec_pipe(t_msh **msh, t_tree_nd *node)
 {
-	int		fd[2]; // fd[0]: read process, fd[1]: write process
 	pid_t	left_pid;
 	pid_t	right_pid;
 	int		status;
+	int		fd[2];
 
 	status = 0;
 	if (safe_pipe(msh, fd) < 0)
 		return (exit_value(msh, 32, 1, 0)); //broken pipe is 32?
 	left_pid = safe_fork(msh);
-	if (left_pid == 0) //child process (left)
+	if (left_pid == 0)
 	{
 		perf_left_pipe(msh, fd[0], fd[1]);
-		status = exec_tree(msh, node->left); //executes left
+		status = exec_tree(msh, node->left);
 		close_minishell((*msh), status);
 	}
 	right_pid = safe_fork(msh);
-	if (right_pid == 0) //child process (right)
+	if (right_pid == 0)
 	{
 		perf_right_pipe(msh, fd[1], fd[0]);
 		status = exec_tree(msh, node->right);
@@ -38,22 +38,22 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 	}
 	close_fd(fd[0], fd[1]);
 	status = safe_waitpid(left_pid, right_pid);
-	return (exit_value(msh, status, 1, 0)); //added
+	return (exit_value(msh, status, 1, 0));
 }
 
 void	perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd)
 {
-	close(useless_fd); // close read
-	safe_dup2(msh, dup_fd, STDOUT_FILENO); // stdout will write to the pipe instead of the terminal. It replaces the terminal with fd[1] (pipe).
-	close(dup_fd); // original fd[1] is no longer needed
+	close(useless_fd);
+	safe_dup2(msh, dup_fd, STDOUT_FILENO);
+	close(dup_fd);
 	return ;
 }
 
 void	perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd)
 {
-	close(useless_fd); // close write
-	safe_dup2(msh, dup_fd, STDIN_FILENO); // stdin will write to the pipe instead of the terminal. It replaces the terminal with fd[1] (pipe).
-	close(dup_fd); // original fd[1] is no longer needed
+	close(useless_fd);
+	safe_dup2(msh, dup_fd, STDIN_FILENO);
+	close(dup_fd);
 	return ;
 }
 

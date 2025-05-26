@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   72_expand_hd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:50 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 17:48:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/26 15:04:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,33 @@ char	*get_pre_cont_hd(char *arg, int *i)
 {
 	char	*pre_content;
 	int		len;
-	
+
 	len = len_pre_cont_hd(arg, 0);
 	if (!len)
 		return (NULL);
 	*i = len;
 	pre_content = ft_calloc((len + 1), sizeof(char));
-		len = wr_pre_cont_hd(arg, &pre_content, 0, 0);
+	len = wr_pre_cont_hd(arg, &pre_content, 0, 0);
 	pre_content[len] = '\0';
 	return (pre_content);
 }
 
 int	len_pre_cont_hd(char *arg, int i)
 {
-	if (arg[i] == '$' && ft_strchr(QT,arg[i + 1]))
+	if (arg[i] == '$' && ft_strchr(QT, arg[i + 1]))
 		i++;
 	while (arg[i] && arg[i] != '$')
 	{
 		i++;
-		if (arg[i] == '$' && ft_strchr(QT,arg[i + 1]))
-			i = len_pre_cont_hd(arg, i);			
+		if (arg[i] == '$' && ft_strchr(QT, arg[i + 1]))
+			i = len_pre_cont_hd(arg, i);
 	}
 	return (i);
 }
 
 int	wr_pre_cont_hd(char *arg, char **pre_content, int i, int len)
-{	
-	if (arg[i] == '$' && ft_strchr(QT,arg[i + 1]))
+{
+	if (arg[i] == '$' && ft_strchr(QT, arg[i + 1]))
 	{
 		(*pre_content)[len] = arg[len];
 		len++;
@@ -100,7 +100,7 @@ int	wr_pre_cont_hd(char *arg, char **pre_content, int i, int len)
 		(*pre_content)[len] = arg[len];
 		len++;
 		i++;
-		if (arg[i] == '$' && ft_strchr(QT,arg[i + 1]))
+		if (arg[i] == '$' && ft_strchr(QT, arg[i + 1]))
 			len = wr_pre_cont_hd(arg, pre_content, i, len);
 	}
 	return (len);

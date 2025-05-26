@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/24 01:36:28 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/26 14:52:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		if (status != 0)
 			return (exit_value(msh, status, 1, 0));
 		if (safe_execve(msh, path, node->cmd_content))
-			close_minishell((*msh), status);	
+			close_minishell((*msh), status);
 	}
 	else
 	{
@@ -130,4 +130,3 @@ int	safe_execve(t_msh **msh, char *path, char **argv)
 	}
 	return (EXIT_SUCCESS);
 }
-

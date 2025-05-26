@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:33:42 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 18:37:35 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:34:41 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	handle_filename(t_msh **msh)
 			|| curr->type == REDIR_IN || curr->type == REDIR_OUT)
 		{
 			if (!curr->prev)
-				return;
+				return ;
 			if (curr->type == REDIR_HD)
 				hd_flag = true;
 			if (curr->prev->type == W_SPACE && curr->prev->prev->type == WORD)

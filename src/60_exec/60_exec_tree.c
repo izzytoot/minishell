@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/24 01:36:58 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/26 14:46:37 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	else if (type_is_word(&node->type))
 	{
 		if (ch_if_sub_cmd(node))
-			sub_cmd(msh, node, &node->args);				
+			sub_cmd(msh, node, &node->args);
 		status = exec_cmd(msh, node);
 	}
 	return (exit_value(msh, status, 1, 0));
@@ -57,14 +57,12 @@ char	**remake_args(t_tree_nd *node)
 {
 	t_ints		ints;
 	t_flag_str	flags;
-	t_quote		*quote_tmp; //don´t think we use this again. Check to del and reduce lines
+	t_quote		*quote_tmp;
 	char		**new_args;
 
 	init_aux_structs(&flags, &ints, node);
-	quote_tmp = node->quote_lst; //don´t think we use this again. Check to del and reduce lines
+	quote_tmp = node->quote_lst;
 	new_args = ft_calloc((node->nb_arg + 1), sizeof(char *));
-//	if (!node->cmd && !node->quote_lst->sp_case)
-//		node->quote_lst->sp_case = true;
 	while (ints.i < node->nb_arg)
 	{
 		if (!node->quote_lst->sp_case && !flags.written)
@@ -77,7 +75,7 @@ char	**remake_args(t_tree_nd *node)
 			handle_written(&ints, &flags, &node);
 	}
 	new_args[ints.j] = NULL;
-	node->quote_lst = quote_tmp; //don´t think we use this again. Check to del and educe lines
+	node->quote_lst = quote_tmp;
 	return (new_args);
 }
 
@@ -85,7 +83,8 @@ bool	ch_if_sub_cmd(t_tree_nd *node)
 {
 	if (node->cmd || !node->args[0])
 		return (false);
-	if ((ft_strcmp(node->args[0], ".") == 0) || (ft_strcmp(node->args[0], "..") == 0))
+	if ((ft_strcmp(node->args[0], ".") == 0)
+		|| (ft_strcmp(node->args[0], "..") == 0))
 		return (false);
 	if (!node->cmd && node->args[0])
 		return (true);
@@ -97,8 +96,8 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 	char		*env_path;
 	int			i;
 	char		**sep_args;
-	int	count;
-	
+	int			count;
+
 	env_path = get_path((*msh)->envp_list);
 	i = -1;
 	count = 1;
@@ -107,14 +106,16 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 		count++;
 	if (check_builtin(sep_args[0]))
 		node->type = BT_CMD;
-	else if (check_env_cmd(sep_args[0], env_path, -1) || (ch_shlvl(msh, sep_args[0])))
+	else if (check_env_cmd(sep_args[0], env_path, -1)
+		|| (ch_shlvl(msh, sep_args[0])))
 		node->type = ENV_CMD;
 	i = 0;
 	if (node->type == BT_CMD || node->type == ENV_CMD)
 	{
 		node->cmd = ft_strdup(sep_args[0]);
 		if (count > 1)
-				(*new_args) = ft_array_join((ft_array_dup(++sep_args)), (ft_array_dup(++(*new_args))));
+			(*new_args) = ft_array_join((ft_array_dup(++sep_args)),
+					(ft_array_dup(++(*new_args))));
 	}
 }
 

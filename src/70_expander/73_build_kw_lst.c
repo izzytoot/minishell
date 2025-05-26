@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/26 13:46:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:13:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,46 +109,20 @@ void	app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp)
 	}
 }
 
-char	*ft_strdup_until_m(const char *s, char c)
-{
-	int		len;
-	int		i;
-	char	*dest;
-
-	if (!s)
-		return (NULL);
-	len = ft_strlen_until(s, c);
-	if (!len)
-		return (NULL);
-	dest = malloc(sizeof(char) * (len + 1));
-	if (!dest)
-		return (NULL);
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (i < len)
-	{
-		dest[i] = s[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
 bool	check_dollar_w_qts(char **str)
 {
 	int		i;
 	char	c;
-	
+
 	i = 0;
-	while((*str)[i])
+	while ((*str)[i])
 	{
 		c = (*str)[i];
 		i++;
 	}
 	if (c == '$')
 	{
-		(*str) = ft_strdup_until_m((*str), c);
+		(*str) = ft_strdup_until((*str), c);
 		return (true);
 	}
 	return (false);
