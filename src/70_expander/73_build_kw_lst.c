@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/23 15:42:48 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:46:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ char	*ft_strdup_until_m(const char *s, char c)
 	return (dest);
 }
 
-void	check_dollar_w_qts(char **str)
+bool	check_dollar_w_qts(char **str)
 {
 	int		i;
 	char	c;
@@ -147,5 +147,9 @@ void	check_dollar_w_qts(char **str)
 		i++;
 	}
 	if (c == '$')
+	{
 		(*str) = ft_strdup_until_m((*str), c);
+		return (true);
+	}
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/26 12:16:18 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:47:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -525,7 +525,7 @@ void			build_kw_list(t_kw **kw_lst, char *arg, int *i);
 void			get_exp_kw(int next, t_kw *n_kw, char *arg, int *i);
 char			*get_util(char *arg, int **i, int n);
 void			app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp);
-void			check_dollar_w_qts(char **str);
+bool			check_dollar_w_qts(char **str);
 
 //74_expand_key_words.c
 void			expand_kw(t_msh **msh, t_kw **kw_lst);

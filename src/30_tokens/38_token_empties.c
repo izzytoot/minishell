@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/26 12:45:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:00:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ch_emp_exp(t_msh **msh, char *nl)
 
 	i = 0;
 	j = 0;
-	while (nl[i] && (ft_strchr(QT, nl[i]) && !ft_strchr(WS, nl[i])))
+	while (nl[i] && (nl[i] == '\"' ) && !ft_strchr(WS, nl[i]))
 		i++;
 	if (nl[i] != '$')
 		return (0);
