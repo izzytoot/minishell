@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/24 01:35:58 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/26 12:16:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,7 +333,7 @@ void			join_parts(t_tk_lst	**src, t_tk_lst **target);
 //38_token_empties.c
 int				empty_case(t_msh **msh, const char *line, int i, bool flag);
 int				sp_for_empty_case (t_msh **msh, const char *line, int i);
-bool 			ch_emp_exp(t_msh **msh, char *nl);
+int 			ch_emp_exp(t_msh **msh, char *nl);
 bool 			ch_all_same(char *nl);
 
 //39_rm_empties.c
