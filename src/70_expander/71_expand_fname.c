@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/20 11:24:57 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/27 12:00:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	expand_fname(t_msh **msh, char **fname)
 	if (!(*fname))
 		(*msh)->tmp_fname = ft_strdup(tmp_fname);
 	else
-		free(tmp_fname);
+		tmp_fname = safe_free(tmp_fname); //LEAKS
 	free_kw_structs(&parts, kw_lst);
 }
 

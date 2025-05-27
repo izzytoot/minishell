@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   37_sub_tokenize_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/26 14:36:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/27 10:58:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,15 @@ char	*check_env_cmd(char *cmd, char *env_path, int i)
 	{
 		part_path = ft_strjoin(paths[i], "/");
 		cmd_path = ft_strjoin(part_path, cmd);
-		safe_free(part_path); //this was causing segfault
+		safe_free(part_path);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-			ft_free_arrays((void **)paths); //this was causing segfault
+			ft_free_arrays((void **)paths);
 			return (cmd_path);
 		}
-		safe_free(cmd_path); //this was causing segfault
+		safe_free(cmd_path);
 	}
-//	ft_free_arrays((void **)paths);
+	ft_free_arrays((void **)paths);
 	return (NULL);
 }
 

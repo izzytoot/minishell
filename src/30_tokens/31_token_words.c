@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:07:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 00:37:17 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/27 11:08:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	tk_word_qt(t_msh **msh, int start,
 		(*msh)->token_list->quotes.in_squotes = true;
 	else if (*quote_char == '\"')
 		(*msh)->token_list->quotes.in_dquotes = true;
-	(*msh)->token_list->quotes.content = ft_strdup(word);
+	//(*msh)->token_list->quotes.content = ft_strdup(word);
 	*in_quotes = false;
 	return (i - 1);
 }

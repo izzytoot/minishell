@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   80_free_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 17:59:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:12:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_msh(t_msh *msh)
 		ft_free_arrays((void *)msh->envp);
 	if (msh->vars_list)
 		ft_free_arrays((void *)msh->vars_list);
+	if (msh->tmp_fname)
+		msh->tmp_fname = safe_free(msh->tmp_fname); //LEAKS
 	if (msh->tree_root)
 	{
 		free_tree(msh->tree_root);
@@ -31,14 +33,12 @@ void	free_msh(t_msh *msh)
 void	free_prompt_line(t_msh **msh)
 {
 	if ((*msh)->prompt_line)
-		safe_free((*msh)->prompt_line);
+		(*msh)->prompt_line = safe_free((*msh)->prompt_line);
 	if ((*msh)->tree_root)
 	{
 		free_tree((*msh)->tree_root);
 		(*msh)->tree_root = NULL;
 	}
-	//if ((*msh)->token_list)
-	//	free_tokens((*msh)->token_list); //invalid and double frees because feed in tree. have to check
 	(*msh)->hd_check = true;
 	(*msh)->empties = false;
 }
@@ -53,17 +53,23 @@ void	free_tree(t_tree_nd *node)
 		free_tree(node->right);
 	if (node->file)
 		node->file = safe_free(node->file);
-	if (node->op_content)
-		safe_free(node->op_content);
-	if (node->cmd_content)
-		ft_free_str_arr(node->cmd_content);
-	if (node->args && !node->cmd_content)
-		ft_free_str_arr(node->args);
 	if (node->tmp_file)
 	{
 		unlink(node->tmp_file);
-		safe_free(node->tmp_file);
+		node->tmp_file = safe_free(node->tmp_file);
 	}
+	if (node->op_content)
+		node->op_content = safe_free(node->op_content);
+	if (node->cmd) //LEAKS
+		node->cmd = safe_free(node->cmd);
+	if (node->cmd_content) //LEAKS
+		ft_free_str_arr(node->cmd_content);
+	if (node->args) //LEAKS
+		ft_free_str_arr(node->args);
+	/*if (node->cmd_content)
+		ft_free_str_arr(node->cmd_content);
+	if (node->args && !node->cmd_content)
+		ft_free_str_arr(node->args);*/
 	if (node->quote_lst)
 		free_qt_lst(node->quote_lst);
 	safe_free(node);

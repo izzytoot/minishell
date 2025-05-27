@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   56_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 23:18:07 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:26:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if (!(*node)->args[0])
+	if (!(*node)->args) //leaks, changed from !(*node)->args[0]
 		return (disp_exported(msh), 0);
 	else
 	{

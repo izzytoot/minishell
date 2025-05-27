@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   54_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 16:11:56 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:09:23 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,26 @@ int	ft_exit(t_msh **msh, t_tree_nd **node)
 	args = (*node)->args;
 	if (isatty(STDIN_FILENO))
 		ft_printf("exit\n");
-	if (args[0] && ft_strcmp(args[0], "--") == 0)
+	if (args && args[0] && ft_strcmp(args[0], "--") == 0)
 		args++;
-	if (!args[0])
+	if (args && !args[0])
 		exit_value(msh, exit_value(msh, 0, false, false), true, true);
-	if (!ft_strnumeric(args[0]))
+	if (args && !ft_strnumeric(args[0]))
 	{
 		ft_dprintf(STDERR_FILENO,
 			"msh: exit: %s: numeric argument required\n", args[0]);
 		exit_value(msh, 2, true, true);
 	}
-	if (args[1])
+	if (args && args[1])
 	{
 		ft_dprintf(STDERR_FILENO, "msh: exit: too many arguments\n");
 		exit_value(msh, 1, true, false);
 		return (1);
 	}
-	exit_code = ft_convert_value(msh, args[0]);
+	if (args)
+		exit_code = ft_convert_value(msh, args[0]);
+	else
+		exit_code = 0;
 	exit_value(msh, exit_code, true, true);
 	return (exit_code);
 }

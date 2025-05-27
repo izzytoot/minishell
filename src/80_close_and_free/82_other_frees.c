@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   82_other_frees.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 18:48:38 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:03:55 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_free_str_arr(char **array) //not sure I need this or can just use free_a
 	return ;
 }
 
-void	free_tokens(t_tk_lst *token_list)
+void	free_sp_tk(t_tk_lst *token_list)
 {
 	t_tk_lst	*tmp;
 
@@ -41,11 +41,40 @@ void	free_tokens(t_tk_lst *token_list)
 	while (token_list)
 	{
 		tmp = token_list->next;
-		if (token_list->content)
+		if (token_list->type == W_SPACE && token_list->content)
+		{
 			safe_free(token_list->content);
+		}
 		token_list = tmp;
 	}
 	safe_free(token_list);
+}
+
+void	free_tokens(t_tk_lst *token_list, int n)
+{
+	t_tk_lst	*tmp;
+
+	tmp = token_list;
+	if (n == 1)
+	{
+		if (token_list->content)
+			token_list->content = safe_free(token_list->content);
+		if (token_list->quotes.content)
+			token_list->quotes.content = safe_free(token_list->quotes.content);
+	}
+	if (n == 2)
+	{
+		while (token_list)
+		{
+			tmp = token_list->next;
+			if (token_list->content)
+				token_list->content = safe_free(token_list->content);
+			if (token_list->quotes.content)
+				token_list->quotes.content = safe_free(token_list->quotes.content);
+			token_list = tmp;
+		}
+		token_list = safe_free(token_list);	
+	}
 }
 
 void	free_qt_lst(t_quote *qt_list)
@@ -56,7 +85,8 @@ void	free_qt_lst(t_quote *qt_list)
 	while (qt_list)
 	{
 		tmp = qt_list->next;
-		safe_free(qt_list);
+		if (qt_list->content)
+			qt_list->content = safe_free(qt_list->content);
 		qt_list = tmp;
 	}
 	safe_free(qt_list);

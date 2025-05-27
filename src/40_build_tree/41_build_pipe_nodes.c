@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   41_build_pipe_nodes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:23 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 19:35:15 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:48:30 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ t_tree_nd	*build_pipe_nd(t_msh **msh, t_tk_lst **token_list)
 		{
 			pipe_nd = new_tree_nd(NULL, &curr_token->type,
 					&curr_token->content[0]);
+			free_tokens(curr_token, 1);
 			curr_token = curr_token->next;
 			left_tokens = curr_token;
-			prev_token->next = NULL; // cut right list
-			left_tokens->prev = NULL;// cut left list
+			prev_token->next = NULL;
+			left_tokens->prev = NULL;
 			pipe_nd->right = build_redir_nd(msh, token_list);
+			free_tokens(*token_list, 2);
 			pipe_nd->left = build_pipe_nd(msh, &left_tokens);
+			free_tokens(left_tokens, 2);
 			return (pipe_nd);
 		}
 		prev_token = curr_token;

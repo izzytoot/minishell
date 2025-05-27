@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   53_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/05 17:04:50 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:21:28 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int	ft_echo(t_tree_nd **node)
 	first_flag = true;
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	nline = handle_n(node, &i, first_flag);
-	while ((*node)->args[i])
+	if ((*node)->args) //leaks - added line
+		nline = handle_n(node, &i, first_flag);
+	while ((*node)->args && (*node)->args[i]) //leaks - added (*node)->args && 
 	{
 		ft_putstr_fd((*node)->args[i], STDOUT_FILENO);
 		if ((*node)->args[i + 1] && (*node)->quote_lst

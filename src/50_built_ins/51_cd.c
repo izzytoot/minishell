@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   51_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/18 17:01:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:12:36 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	get_dir(t_msh **msh, t_tree_nd **node, char **target_dir)
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if (!(*node)->args[0] || ft_strcmp((*node)->args[0], "~") == 0)
+	if (!(*node)->args || ((*node)->args[0] && ft_strcmp((*node)->args[0], "~") == 0)) //LEAKS changed from (!(*node)->args[0] || ft_strcmp((*node)->args[0], "~") == 0)
 	{
 		home = get_var_val((*msh)->envp_list, "HOME");
 		if (!home)

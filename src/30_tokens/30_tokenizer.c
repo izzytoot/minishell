@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 17:53:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:10:18 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	init_qt_struct(t_quote *quotes)
 {
 	quotes->in_squotes = false;
 	quotes->in_dquotes = false;
+	quotes->content = NULL;
 	quotes->quote_char = '\0';
 }
 
@@ -114,7 +115,15 @@ void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 	if (ft_strcmp("''", content) == 0)
 		msh->empties = true;
 	if (content)
+	{
 		new_tk->content = ft_strdup(content);
+		new_tk->quotes.content = ft_strdup(content); //leaks
+	}
+	else //leaks
+	{
+		new_tk->content = NULL;
+		new_tk->quotes.content = NULL;	
+	} //leaks
 	new_tk->next = msh->token_list;
 	new_tk->prev = NULL;
 	if (msh->token_list)
