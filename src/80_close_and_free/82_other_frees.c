@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/27 12:03:55 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/27 15:10:09 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,6 @@
 void	kw_err(void)
 {
 	ft_dprintf(STDERR_FILENO, ERR_KW);
-}
-
-void	ft_free_str_arr(char **array) //not sure I need this or can just use free_arrays
-{
-	int	i;
-
-	i = 0;
-	if (!(*array))
-		return ;
-	while (array[i])
-	{
-		if (array[i])
-			safe_free(array[i]);
-		i++;
-	}
-	return ;
-}
-
-void	free_sp_tk(t_tk_lst *token_list)
-{
-	t_tk_lst	*tmp;
-
-	tmp = token_list;
-	while (token_list)
-	{
-		tmp = token_list->next;
-		if (token_list->type == W_SPACE && token_list->content)
-		{
-			safe_free(token_list->content);
-		}
-		token_list = tmp;
-	}
-	safe_free(token_list);
 }
 
 void	free_tokens(t_tk_lst *token_list, int n)
@@ -61,6 +28,7 @@ void	free_tokens(t_tk_lst *token_list, int n)
 			token_list->content = safe_free(token_list->content);
 		if (token_list->quotes.content)
 			token_list->quotes.content = safe_free(token_list->quotes.content);
+		token_list = safe_free(token_list);
 	}
 	if (n == 2)
 	{
@@ -71,9 +39,9 @@ void	free_tokens(t_tk_lst *token_list, int n)
 				token_list->content = safe_free(token_list->content);
 			if (token_list->quotes.content)
 				token_list->quotes.content = safe_free(token_list->quotes.content);
+			token_list = safe_free(token_list);	
 			token_list = tmp;
 		}
-		token_list = safe_free(token_list);	
 	}
 }
 

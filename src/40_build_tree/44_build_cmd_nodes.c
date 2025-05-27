@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/27 14:02:23 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/27 15:15:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_tree_nd	*build_cmd_nd(t_msh **msh, t_tk_lst **token_list)
 			curr_token = curr_token->next;
 	}
 	args = reverse_args(&args);
+	printf("arg is %s\n", (char *)args->content);
 	cmd_nd->nb_arg = ft_lstsize(args);
 	if (args)
 		cmd_nd->args = ft_list_to_array(args);

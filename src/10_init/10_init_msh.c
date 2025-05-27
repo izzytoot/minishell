@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/27 13:45:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/27 14:39:44 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ int	exit_value(t_msh **msh, int exit_code, int upd_exit, int close)
 {
 	static int	current_code;
 
-	if (upd_exit == true)
+	if (upd_exit == 1)
 		current_code = exit_code;
-	if (close == true)
+	if (close == 1)
 		close_minishell(*msh, current_code);
 	return (current_code);
 }

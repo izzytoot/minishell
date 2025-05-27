@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/27 11:39:12 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/27 14:57:33 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -565,7 +565,6 @@ void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char **array);
 
 //82_other_frees.c
 void			kw_err(void);
-void			ft_free_str_arr(char **array); //check if needed
 void			free_tokens(t_tk_lst *token_list, int n);
 void			free_qt_lst(t_quote *qt_list);
 void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
