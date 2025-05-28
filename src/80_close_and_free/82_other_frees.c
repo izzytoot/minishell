@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/28 00:05:35 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 11:17:55 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,12 @@ void	free_kw_structs(t_exp_cont *parts, t_kw **kw_lst)
 //		*kw_lst = (*kw_lst)->next;
 //	}
 //	*kw_lst = safe_free(*kw_lst);
+}
+
+void	free_export_dups(char *str, t_list *list)
+{
+	if (str)
+		str = safe_free(str);
+	if (list)
+		list = safe_free(list);
 }

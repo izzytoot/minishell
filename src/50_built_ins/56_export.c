@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/27 22:47:54 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 11:17:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	disp_exported(t_msh **msh)
 			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", current->content);
 		current = current->next;
 	}
+	ft_lstclear(&current, free);
 }
 
 t_list	*sort_env(t_list *env_list, int sort)
@@ -121,6 +122,7 @@ t_list	*copy_env_list(t_list *env_list)
 			return (NULL);
 		}
 		ft_lstadd_back(&cpy, new);
+		free_export_dups(content_dup, new);
 		env_list = env_list->next;
 	}
 	return (cpy);
