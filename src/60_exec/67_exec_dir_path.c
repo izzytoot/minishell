@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   67_exec_dir_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/26 14:59:04 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:18:49 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 		return (exit_value(msh, direct_path(node), 1, 0));
 	}
 	env_path = get_path((*msh)->envp_list);
-	*path = check_env_cmd(node->cmd, env_path, -1);
+	*path = check_env_cmd(node->cmd, env_path, -1, 2);
 	return (0);
 }
 

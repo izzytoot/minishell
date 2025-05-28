@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/28 15:10:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 17:20:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,17 @@ void	attribute_type(t_msh **msh, t_tk_lst *curr)
 		if (check_builtin(word))
 			curr->type = BT_CMD;
 		else if (((ft_strcmp(word, ".") != 0) && (ft_strcmp(word, "..") != 0))
-			&& (check_env_cmd(word, env_path, -1) || ch_shlvl(msh, word)))
+			&& (check_env_cmd(word, env_path, -1, 1) || ch_shlvl(msh, word)))
 			curr->type = ENV_CMD;
 		else
 			curr->type = ARG;
-		//if (look_for_exp(curr, word))
-		//	curr->quotes.exp = true;
-		free(word);
+		if (look_for_exp(curr, word))
+			curr->quotes.exp = true;
+		word = safe_free(word);
 	}
 }
 
-char	*check_env_cmd(char *cmd, char *env_path, int i)
+char	*check_env_cmd(char *cmd, char *env_path, int i, int n)
 {
 	char	**paths;
 	char	*part_path;
@@ -89,9 +89,14 @@ char	*check_env_cmd(char *cmd, char *env_path, int i)
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
 			ft_free_arrays((void **)paths);
+			if (n == 1)
+			{
+				cmd_path = safe_free(cmd_path);
+				return ("true");	
+			}
 			return (cmd_path);
 		}
-		safe_free(cmd_path);
+		cmd_path = safe_free(cmd_path);
 	}
 	ft_free_arrays((void **)paths);
 	return (NULL);

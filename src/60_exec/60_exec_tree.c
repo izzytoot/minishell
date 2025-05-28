@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   60_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 18:23:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:18:40 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+bool	arg_expansions(t_tree_nd *node)
+{
+	t_quote	*curr_qt;
+	
+	curr_qt = node->quote_lst;
+	while (curr_qt)
+	{
+		if (curr_qt->exp)
+			return (true);
+		curr_qt = curr_qt->next;
+	}
+	return (false);
+}
 
 int	exec_tree(t_msh **msh, t_tree_nd *node)
 {
@@ -19,9 +33,10 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (!node)
 		return (exit_value(msh, 0, 0, 0)); //changed exit status from 2 to 0
-	expand_args(msh, node);
-	if (node->nb_arg > 1)
-		node->args = remake_args(node);
+	if (arg_expansions(node))
+		expand_args(msh, node);
+	if (node->nb_arg > 1 && arg_expansions(node)) //only if there are expansions
+		node->args = remake_args(node);	
 	if (type_is_word(&node->type) && !node->cmd
 		&& ft_strchr(node->args[0], '/'))
 		node->type = ENV_CMD;
@@ -106,7 +121,7 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 		count++;
 	if (check_builtin(sep_args[0]))
 		node->type = BT_CMD;
-	else if (check_env_cmd(sep_args[0], env_path, -1)
+	else if (check_env_cmd(sep_args[0], env_path, -1, 1)
 		|| (ch_shlvl(msh, sep_args[0])))
 		node->type = ENV_CMD;
 	i = 0;
