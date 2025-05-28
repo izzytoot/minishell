@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/28 12:12:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 14:30:50 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct s_quote
 	bool			sp_case;
 	char			quote_char;
 	char			*content;
+	bool			exp;
 	struct s_quote	*next;
 	struct s_quote	*prev;
 }	t_quote;

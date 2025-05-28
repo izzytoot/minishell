@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/27 10:58:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 15:10:15 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,21 @@ bool	ch_shlvl(t_msh **msh, char *word)
 	return (false);
 }
 
+bool	look_for_exp(t_tk_lst *curr, char *word) //PUT IN .H
+{
+	int	i;
+
+	i = -1;
+	if (curr->quotes.in_squotes)
+		return (false);
+	while(word[++i])
+	{
+		if (word[i] == '$')
+			return (true);
+	}
+	return (false);
+}
+
 void	attribute_type(t_msh **msh, t_tk_lst *curr)
 {
 	char	*word;
@@ -50,6 +65,8 @@ void	attribute_type(t_msh **msh, t_tk_lst *curr)
 			curr->type = ENV_CMD;
 		else
 			curr->type = ARG;
+		//if (look_for_exp(curr, word))
+		//	curr->quotes.exp = true;
 		free(word);
 	}
 }
