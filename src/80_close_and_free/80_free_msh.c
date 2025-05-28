@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/27 14:57:58 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 10:51:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_msh(t_msh *msh)
 		ft_lstclear(&msh->envp_list, free);
 	if (msh->envp)
 		ft_free_arrays((void *)msh->envp);
+	if (msh->dir)
+		msh->dir = safe_free(msh->dir);
 	if (msh->vars_list)
 		ft_free_arrays((void *)msh->vars_list);
 	if (msh->tmp_fname)
@@ -74,5 +76,5 @@ void	free_tree(t_tree_nd *node)
 (node->args);*/
 	if (node->quote_lst)
 		free_qt_lst(node->quote_lst);
-	safe_free(node);
+	node = safe_free(node);
 }

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/27 15:10:09 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 00:05:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	free_qt_lst(t_quote *qt_list)
 		tmp = qt_list->next;
 		if (qt_list->content)
 			qt_list->content = safe_free(qt_list->content);
+		qt_list = safe_free(qt_list);
 		qt_list = tmp;
 	}
-	safe_free(qt_list);
+	qt_list = safe_free(qt_list);
 }
 
 void	free_kw_structs(t_exp_cont *parts, t_kw **kw_lst)

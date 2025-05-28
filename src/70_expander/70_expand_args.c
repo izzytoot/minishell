@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   70_expand_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 18:13:13 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/28 10:49:18 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 		args_cpy = ft_calloc((node->nb_arg + 1), sizeof(char *));
 		expand_loop(msh, node, args_cpy);
 		node->quote_lst = tmp_qt;
+		ft_free_arrays((void **)node->args);
 		node->args = ft_array_dup_null(node, args_cpy, node->nb_arg);
 		ft_free_arrays((void**)args_cpy); //LEAKS WORKED WITH JUST EXTI
 	}

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/27 14:12:36 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/27 23:02:57 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 		return (free(old_pwd), EXIT_FAILURE);
 	}
 	update_cd_env(msh, old_pwd);
+	target_dir = safe_free(target_dir); //LEAKS - added this line
 	return (free(old_pwd), EXIT_SUCCESS);
 }
 

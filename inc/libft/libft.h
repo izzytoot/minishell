@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/24 00:38:01 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 10:33:07 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char		*ft_unsplit(char **args);
 char		*safe_strjoin(char *s1, char *s2);
 char		*ft_strcpy(char *dest, char *src);
 char		**ft_split(char const *str, char c);
-char		**ft_list_to_array(t_list *list);
+void		ft_list_to_array(char ***str, t_list **list);
 char		**ft_array_dup(char **array);
 char		**ft_array_dup_w_null(char **array, int n);
 char		**ft_array_join(char **arr1, char **arr2);

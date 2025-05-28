@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/27 11:52:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 00:11:12 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	parse_line(t_msh **msh)
 	if (!(*msh)->token_list)
 		return ;
 	(*msh)->tree_root = build_pipe_nd(msh, &(*msh)->token_list);
-	free_tokens((*msh)->token_list, 2); //LEAKS
+	if ((*msh)->tree_root->type != PIPE)
+		free_tokens((*msh)->token_list, 2); //LEAKS
 	tree_root = (*msh)->tree_root;
 	if ((*msh)->debug_mode) //FOR DEBUGGING
 		print_tree(tree_root);
@@ -78,8 +79,7 @@ void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
 		curr_tk = curr_tk->next;
 	}
 	if (count <= 0)
-		return ;
-	new_nd->quote_lst = ft_calloc(count, sizeof(t_quote));
+		return ; //LEAKS - removed new_nd->quote_lst = ft_calloc(count, sizeof(t_quote));
 	while (curr_tk_tmp)
 	{
 		if (curr_tk_tmp->type == ARG)
