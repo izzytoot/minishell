@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   57_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/23 19:42:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:13:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,12 @@ void	add_export_var(t_list **env_lst, const char *var_name, const char *data)
 	if (!new_node)
 		return (free(new_entry));
 	ft_lstadd_back(env_lst, new_node);
+}
+
+void	free_and_clear(char *str, t_list *lst) //leaks - created to reduce lines in copy_env_list
+{
+	if (str)
+		str = safe_free(str);
+	if (lst)
+		ft_lstclear(&lst, free);
 }

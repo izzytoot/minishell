@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 23:40:49 by root              #+#    #+#             */
-/*   Updated: 2025/05/27 15:20:16 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 12:31:50 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	ft_free_arrays(void **array)
 			array[i] = safe_free(array[i]);
 		i++;
 	}
-	array = safe_free(array);
+	free(array);
 	return ;
 }

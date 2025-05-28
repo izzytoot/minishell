@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/28 11:17:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 12:13:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 void	disp_exported(t_msh **msh)
 {
 	t_list	*current;
+	t_list	*head;
 	char	*equal_sign;
 	int		name_len;
 	char	*var_name;
 
 	current = sort_env((*msh)->envp_list, 1);
+	head = current;
 	while (current)
 	{
 		equal_sign = ft_strchr(current->content, '=');
@@ -67,7 +69,7 @@ void	disp_exported(t_msh **msh)
 			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", current->content);
 		current = current->next;
 	}
-	ft_lstclear(&current, free);
+	free_and_clear(NULL, head); //LEAKS added this line
 }
 
 t_list	*sort_env(t_list *env_list, int sort)
@@ -103,27 +105,27 @@ t_list	*copy_env_list(t_list *env_list)
 {
 	t_list	*cpy;
 	t_list	*new;
+	t_list	*env_list_tmp;
 	char	*content_dup;
 
 	cpy = NULL;
-	while (env_list)
+	env_list_tmp = env_list;
+	while (env_list_tmp)
 	{
-		content_dup = ft_strdup((char *)env_list->content);
+		content_dup = ft_strdup((char *)env_list_tmp->content);
 		if (!content_dup)
 		{
-			ft_lstclear(&cpy, free);
+			free_and_clear(NULL, cpy);
 			return (NULL);
 		}
 		new = ft_lstnew(content_dup);
 		if (!new)
 		{
-			free(content_dup);
-			ft_lstclear(&cpy, free);
+			free_and_clear(content_dup, cpy);
 			return (NULL);
 		}
 		ft_lstadd_back(&cpy, new);
-		free_export_dups(content_dup, new);
-		env_list = env_list->next;
+		env_list_tmp = env_list_tmp->next;
 	}
 	return (cpy);
 }

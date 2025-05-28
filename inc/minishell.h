@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/28 11:17:18 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 12:12:27 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,6 +435,7 @@ bool			is_valid_identifier(char *arg);
 bool			export_check(t_msh **msh, char *arg);
 void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
+void			free_and_clear(char *str, t_list *lst);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c
@@ -566,7 +567,6 @@ void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char **array);
 //82_other_frees.c
 void			kw_err(void);
 void			free_tokens(t_tk_lst *token_list, int n);
-void			free_export_dups(char *str, t_list *list);
 void			free_qt_lst(t_quote *qt_list);
 void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
 
