@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/28 16:21:28 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 23:32:47 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 	}
 	else if (node->type == ENV_CMD)
 	{
-//LEAKS check if have to free cmd_content first
+		if (node->cmd_content) //LEAKS - added free before subs
+			ft_free_arrays((void **)node->cmd_content);
 		node->cmd_content = join_cmd_and_args((node->cmd), node->args);
 		status = exec_env_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));

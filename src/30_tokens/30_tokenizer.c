@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/28 14:31:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 20:34:07 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ void	init_qt_struct(t_quote *quotes)
 {
 	quotes->in_squotes = false;
 	quotes->in_dquotes = false;
+	quotes->in_quotes = false;
 	quotes->content = NULL;
 	quotes->exp	= false;
 	quotes->quote_char = '\0';
+	quotes->sp_case = false;
 }
 
 int	exp_to_null(t_msh **msh, int start)

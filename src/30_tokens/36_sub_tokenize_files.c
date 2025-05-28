@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   36_sub_tokenize_files.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:33:42 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 14:34:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:59:49 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	join_filename(t_msh **msh, bool hd_flag)
 	tmp_fn = find_file(msh);
 	if (!tmp_fn)
 		return ;
-	else if (!(tk_in_qts(tmp_fn->prev)))
+	else if (tmp_fn->prev && tmp_fn->prev->type != W_SPACE
+			&& !(tk_in_qts(tmp_fn->prev)))
 		expand_fn(msh, &tmp_fn, NULL, hd_flag);
 	if (!tmp_fn->quotes.sp_case && tmp_fn->prev && tmp_fn->prev->type == WORD)
 	{

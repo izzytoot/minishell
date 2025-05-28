@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/23 18:42:45 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/05/28 23:22:37 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -161,6 +161,21 @@ $(TMP)/%.o: $(SRC_PATH)%.c
 valgrind:
 	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
 	/usr/bin/valgrind --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
+
+sync:
+	@tmux new-window  -n sync
+	@tmux send-keys './minishell' C-m Escape
+	@tmux split-window -h
+	@tmux send-keys -t sync.2 'bash' C-m
+	@tmux select-pane -t sync.1
+	@tmux setw synchronize-panes on
+
+vgdb:
+	tmux new-window  -n vGdb
+	tmux send-keys 'valgrind -q --vgdb-error=0 ./minishell' C-m Escape
+	tmux split-window -h
+	tmux send-keys -t Gdb.2 'gdbtui ./minishell' C-m
+	tmux select-pane -t vGdb.1
 
 clean:
 	@$(RM) $(OBJ)
