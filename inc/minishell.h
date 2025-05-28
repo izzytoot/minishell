@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/28 17:19:28 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 17:36:53 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,7 @@ void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
 bool			ch_shlvl(t_msh **msh, char *word);
 void			attribute_type(t_msh **msh, t_tk_lst *curr);
 char			*check_env_cmd(char *cmd, char *env_path, int i, int n);
+void			get_cmd_path(char	*path, char	**part_path, char **cmd_path, char *cmd);
 void			join_parts(t_tk_lst	**src, t_tk_lst **target);
 
 //38_token_empties.c

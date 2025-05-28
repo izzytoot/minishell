@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/28 17:20:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/28 17:37:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,14 @@ char	*check_env_cmd(char *cmd, char *env_path, int i, int n)
 	paths = ft_split(env_path, ':');
 	ft_init_var((void **)&part_path, (void **)&cmd_path, NULL, NULL);
 	if (!paths)
-		return (0);
+		return (NULL);
 	while (paths[++i])
 	{
-		part_path = ft_strjoin(paths[i], "/");
-		cmd_path = ft_strjoin(part_path, cmd);
-		safe_free(part_path);
+		get_cmd_path(paths[i], &part_path, &cmd_path, cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
 			ft_free_arrays((void **)paths);
-			if (n == 1)
+			if (n == 1) //leaks - added case 1 for freeing cmd_path when not used
 			{
 				cmd_path = safe_free(cmd_path);
 				return ("true");	
@@ -100,6 +98,13 @@ char	*check_env_cmd(char *cmd, char *env_path, int i, int n)
 	}
 	ft_free_arrays((void **)paths);
 	return (NULL);
+}
+
+void	get_cmd_path(char	*path, char	**part_path, char **cmd_path, char *cmd) //leaks - added function to reduce lines
+{
+	*part_path = ft_strjoin(path, "/");
+	*cmd_path = ft_strjoin(*part_path, cmd);
+	*part_path = safe_free(*part_path);
 }
 
 void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
