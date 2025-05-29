@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/28 17:18:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/29 17:42:33 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 			(*new_args) = ft_array_join((ft_array_dup(++sep_args)),
 					(ft_array_dup(++(*new_args))));
 	}
+	ft_free_arrays((void **)sep_args);
 }
 
 int	output_cmd_errors(t_msh **msh, t_tree_nd *node)

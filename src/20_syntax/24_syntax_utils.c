@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/29 15:47:37 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/29 18:16:45 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ bool	line_and_hd_index(t_msh **msh, const char **line, int *hd_index)
 
 bool	look_for_pipe(const char *line, int i)
 {
+	if (i == 0) //leaks - added to avoid invalid read
+		return (false);
 	if (line[i] == '>' && line[i - 1] != '>' && line[i + 1] == '|')
 		return (false);
 	i++;
