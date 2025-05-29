@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/28 17:36:53 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/29 15:46:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,7 @@ void			conseq_redir_l_case(const char *line, int i);
 bool			misplaced_redir_at_end(const char *line);
 
 //24_syntax_utils.c
+bool			line_and_hd_index(t_msh **msh, const char **line, int *hd_index);
 bool			look_for_pipe(const char *line, int i);
 bool			check_in_quotes(char c, bool *in_quotes);
 int				check_if_hd(const char *line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/05/02 16:54:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:45:14 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	syntax_is_ok(t_msh **msh)
 	const char	*line;
 	int			hd_index;
 
-	line = (*msh)->prompt_line;
-	hd_index = check_if_hd(line);
+	if (!line_and_hd_index(msh, &line, &hd_index))
+		return (0);
 	if (any_of_these_syn(line))
 		return (exit_value(msh, 2, 1, 0));
 	if (hd_index >= 0)

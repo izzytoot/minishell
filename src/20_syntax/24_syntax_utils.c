@@ -6,11 +6,20 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 15:42:57 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/29 15:47:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+bool	line_and_hd_index(t_msh **msh, const char **line, int *hd_index)
+{
+	*line = (*msh)->prompt_line;
+	if (!*line[0])
+		return (false);
+	*hd_index = check_if_hd(*line);
+	return(true);	
+}
 
 bool	look_for_pipe(const char *line, int i)
 {
