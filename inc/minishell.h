@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/23 18:22:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 11:47:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,7 @@ void			copy_envp(t_msh *msh, char **envp);
 char			**envp_to_array(t_msh *msh, char **envp);
 void			envp_to_list(t_msh *msh, char **envp);
 char			**cpy_for_execve(t_msh **msh);
+void			env_i(t_list **env_list);
 
 //12_init_utils.c
 void			init_all_null(t_msh **msh);

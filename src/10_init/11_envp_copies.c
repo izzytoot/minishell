@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:44:25 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 21:26:11 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 11:50:55 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,22 @@ char	**cpy_for_execve(t_msh **msh)
 	}
 	envp_array[i] = NULL;
 	return (envp_array);
+}
+
+void	env_i(t_list **env_list)
+{
+	char	*pwd_value;
+	char	*_value;
+	char	cwd[PATH_MAX];
+
+	pwd_value = get_var_val(*env_list, "PWD");
+	_value = get_var_val(*env_list, "_");
+	if (!pwd_value || !_value)
+	{
+		if (!getcwd(cwd, sizeof(cwd)))
+			return ;
+		update_var(env_list, "PWD", cwd);
+		update_var(env_list, "_", "/usr/bin/env");
+	}
+	return ;
 }
