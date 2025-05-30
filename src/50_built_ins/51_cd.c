@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/18 17:01:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:03:46 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,16 @@
 int	ft_cd(t_msh **msh, t_tree_nd **node)
 {
 	char	*target_dir;
-	char	cwd[PATH_MAX];
 	char	*old_pwd;
+	char	*cwd;
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
 	if ((*node)->nb_arg > 1)
-	{
-		ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO);
+		return (ft_putstr_fd(ERR_CD_ARGS, STDERR_FILENO), EXIT_FAILURE);
+	old_pwd = safe_getcwd(*msh, true);
+	if (!old_pwd)
 		return (EXIT_FAILURE);
-	}
-	if (!getcwd(cwd, sizeof(cwd)))
-		return (perror("cd: getcwd"), EXIT_FAILURE);
-	old_pwd = ft_strdup(cwd);
 	if (get_dir(msh, node, &target_dir) == EXIT_FAILURE)
 		return (free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
@@ -38,8 +35,38 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 			target_dir);
 		return (free(old_pwd), EXIT_FAILURE);
 	}
+	cwd = safe_getcwd(*msh, false);
+	if (!cwd)
+		return (free(old_pwd), ft_putstr_fd(ERR_2FOLDER, STDERR_FILENO),
+			EXIT_FAILURE);
 	update_cd_env(msh, old_pwd);
-	return (free(old_pwd), EXIT_SUCCESS);
+	return (free(old_pwd), free(cwd), EXIT_SUCCESS);
+}
+
+char *safe_getcwd(t_msh *msh, bool silent)
+{
+	char cwd[PATH_MAX];
+	char *backup;
+	static bool error_printed;
+
+	if (getcwd(cwd, sizeof(cwd)))
+		return (error_printed = false, ft_strdup(cwd));
+	if (!silent && !error_printed)
+	{
+		ft_putstr_fd(ERR_2FOLDER, STDERR_FILENO);
+		error_printed = true;
+	}
+	backup = get_var_val(msh->envp_list, "PWD");
+	if (!backup)
+	{
+		if (!silent && !error_printed)
+		{
+			perror("cd: getcwd and no backup PWD");
+			error_printed = true;
+		}
+		return (NULL);
+	}
+	return (ft_strdup(backup));
 }
 
 //info --> get target dir
@@ -69,26 +96,24 @@ int	get_dir(t_msh **msh, t_tree_nd **node, char **target_dir)
 
 int	update_cd_env(t_msh **msh, char *old_pwd)
 {
-	char	cwd[PATH_MAX];
+	char	*cwd;
 	char	*pwd;
 
 	if (update_cd_var(&(*msh)->envp_list, "OLDPWD", old_pwd) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (!getcwd(cwd, sizeof(cwd)))
+	cwd = safe_getcwd(*msh, true);
+	if (!cwd)
 	{
 		perror("cd: getcwd");
 		return (EXIT_FAILURE);
 	}
 	pwd = ft_strjoin(cwd, "\n");
+	free(cwd);
 	if (!pwd)
 		return (EXIT_FAILURE);
 	if (update_cd_var(&(*msh)->envp_list, "PWD", pwd) != EXIT_SUCCESS)
-	{
-		free(pwd);
-		return (EXIT_FAILURE);
-	}
-	free(pwd);
-	return (EXIT_SUCCESS);
+		return (free(pwd), EXIT_FAILURE);
+	return (free(pwd), EXIT_SUCCESS);
 }
 
 int	update_cd_var(t_list **env_list, const char *var_name, const char *data)

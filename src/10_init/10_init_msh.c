@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/30 11:48:05 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:08:40 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	prompt_and_read(t_msh **msh)
 
 	while (1)
 	{
-		prompt = get_prompt();
+		prompt = get_prompt(*msh);
 		line = readline(prompt);
 		free(prompt);
 		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
@@ -61,23 +61,36 @@ void	prompt_and_read(t_msh **msh)
 
 //info --> create prompt wih current dir
 
-char	*get_prompt(void)
+char	*get_display_path(t_msh *msh)
 {
-	char	cwd[PATH_MAX];
+	char	*cwd;
+	char	*backup;
+
+	cwd = safe_getcwd(msh, true);
+	if (cwd && access(cwd, F_OK) == 0)
+		return (cwd);
+	backup = get_var_val(msh->envp_list, "PWD");
+	if (backup)
+		return (ft_strtrim(backup,"\n"));
+	return (ft_strdup("[unknown]"));
+}
+
+char	*get_prompt(t_msh *msh)
+{
+	char	*path;
 	char	*prompt;
 	char	*colored_prefix;
 	char	*tmp;
 
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-	{
-		perror("getcwd");
+	path = get_display_path(msh);
+	if (!path)
 		return (ft_strdup("$ "));
-	}
 	colored_prefix = ft_strjoin(BBLU "Minishell: ", RES);
 	if (!colored_prefix)
 		return (ft_strdup("$ "));
-	tmp = ft_strjoin(colored_prefix, cwd);
+	tmp = ft_strjoin(colored_prefix, path);
 	free(colored_prefix);
+	free(path);
 	if (!tmp)
 		return (ft_strdup("$ "));
 	prompt = ft_strjoin(tmp, " $ ");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   67_exec_dir_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 18:55:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:52:27 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 		return (handle_direct_command(msh, node, path));
 	if (ft_strcmp(node->cmd, "minishell") == 0)
 	{
-		cwd = getcwd(NULL, 0);
+		cwd = safe_getcwd(*msh, true);
 		if (!cwd)
 			return (exit_value(msh, 1, 1, 0));
 		*path = ft_strjoin(cwd, "/minishell");

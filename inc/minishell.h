@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/30 11:47:35 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:50:33 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@
 # define ERR_UNKRED "unknown redirection type\n"
 # define ERR_KW "msh: too many keywords for expander\n"
 # define ERR_HD_EOF "msh: warning: here-document delimited by end-of-file (wanted '"
+# define ERR_2FOLDER "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
 
 //constants
 # define WS " \t\n\r\v\f"
@@ -235,7 +236,8 @@ int				main(int ac, char **av, char **envp);
 //10_init_msh.c
 void			ft_init_msh(t_msh **msh, char **envp);
 void			prompt_and_read(t_msh **msh);
-char			*get_prompt(void);
+char			*get_prompt(t_msh *msh);
+char			*get_display_path(t_msh *msh);
 int				exit_value(t_msh **msh, int exit_code, int upd_exit, int close);
 //11_envp_copies.c
 void			copy_envp(t_msh *msh, char **envp);
@@ -396,6 +398,7 @@ int				get_dir(t_msh **msh, t_tree_nd **node, char **target_dir);
 int				update_cd_env(t_msh **msh, char *old_pwd);
 int				update_cd_var(t_list **env_list, const char *var_name,
 					const char *data);
+char			*safe_getcwd(t_msh *msh, bool silent);
 
 //52_env.c
 int				print_env(t_msh **msh, t_tree_nd **node);
