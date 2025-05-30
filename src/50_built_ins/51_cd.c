@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/27 23:02:57 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 16:43:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 		return (perror("cd: getcwd"), EXIT_FAILURE);
 	old_pwd = ft_strdup(cwd);
 	if (get_dir(msh, node, &target_dir) == EXIT_FAILURE)
-		return (free(old_pwd), EXIT_FAILURE);
+		return (free(target_dir), free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: cd: %s: No such file or directory\n",
 			target_dir);
-		return (free(old_pwd), EXIT_FAILURE);
+		return (free(target_dir), free(old_pwd), EXIT_FAILURE);
 	}
 	update_cd_env(msh, old_pwd);
-	target_dir = safe_free(target_dir); //LEAKS - added this line
-	return (free(old_pwd), EXIT_SUCCESS);
+	return (free(target_dir), free(old_pwd), EXIT_SUCCESS);
 }
 
 //info --> get target dir
