@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:42:59 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/30 13:44:43 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 16:08:28 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ bool	ch_if_sub_cmd(t_tree_nd *node)
 		return (false);
 	if ((ft_strcmp(node->args[0], ".") == 0)
 		|| (ft_strcmp(node->args[0], "..") == 0))
+		return (false);
+	if (node->quote_lst->in_quotes)
 		return (false);
 	if (!node->cmd && node->args[0])
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/30 15:54:19 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 15:59:38 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ch_emp_exp(t_msh **msh, char *nl)
 	if (nl[i] != '$')
 		return (0);
 	i++;
-	if (ft_strchr(QT, nl[i]))
+	if (ft_strchr(QT, nl[i]) || ft_strchr(WS, nl[i]))
 		return (0);
 	while (nl[i] && (!ft_strchr(QT, nl[i]) && !ft_strchr(WS, nl[i])
 			&& !ft_strchr(SYM_EXP, nl[i])))

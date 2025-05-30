@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/30 15:46:08 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 16:29:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,6 +446,8 @@ void			free_and_clear(char *str, t_list *lst);
 int				exec_tree(t_msh **msh, t_tree_nd *node);
 char			**remake_args(t_tree_nd *node);
 void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
+void			sub_cmd_util(t_tree_nd *node, char **sep_args, int count,
+				char ****new_args);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
