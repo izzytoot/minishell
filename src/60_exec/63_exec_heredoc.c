@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 14:51:33 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/05/29 23:31:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 {
 	int			file_fd;
+	char		*nb; //leaks - created to be freed
 	static int	n;
-
+	
 	if (!node)
 		return ;
 	if (node->left)
@@ -25,9 +26,8 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 		exec_heredocs(msh, node->right);
 	if (node->type == REDIR_HD)
 	{
-		node->tmp_file = ft_strjoin("/tmp/.heredoc_tmp", ft_itoa(n++));
-//		node->tmp_file = ft_strjoin(ft_strdup("/tmp/.heredoc_tmp"),
-//			ft_itoa(n++));
+		nb = ft_itoa(n++);
+		node->tmp_file = ft_strjoin("/tmp/.heredoc_tmp", nb);
 		file_fd = create_file_fd(node->type, node->tmp_file);
 		if (file_fd < 0)
 			exit_value(msh, 1, 1, 0);
@@ -36,6 +36,7 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 			handle_hd(msh, node, file_fd);
 			close(file_fd);
 		}
+		nb = safe_free(nb); //leaks 
 	}
 }
 
@@ -60,8 +61,9 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		}
 		expand_line(msh, &lines, curr_nd, hd_fd);
 		ft_putstr_fd("\n", hd_fd);
-		safe_free(lines.new_l);
+		lines.new_l = safe_free(lines.new_l);
 	}
+	eof = safe_free(eof); //leaks
 }
 
 char	*check_eof(t_tree_nd *node, char *file_name)
@@ -72,10 +74,19 @@ char	*check_eof(t_tree_nd *node, char *file_name)
 	i = 0;
 	eof = ft_strdup("");
 	if (!file_name)
+	{
+		eof = safe_free(eof); //leaks
 		return (NULL);
+	}
 	if (!node->eof_ch && (file_name[i] == '-' || file_name[i] == '!'))
+	{
+		eof = safe_free(eof); //leaks
 		eof = ft_substr(file_name, 1, (ft_strlen(file_name)));
+	}
 	else
+	{
+		eof = safe_free(eof); //leaks
 		eof = ft_strdup(file_name);
+	}
 	return (eof);
 }

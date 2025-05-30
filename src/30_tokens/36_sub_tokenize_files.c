@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:33:42 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/28 22:59:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/29 18:45:52 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	handle_filename(t_msh **msh)
 	t_tk_lst	*curr;
 	bool		hd_flag;
 
-	curr = (*msh)->token_list;
+	curr = (*msh)->token_list; //add if !curr
 	hd_flag = false;
 	while (curr)
 	{
@@ -46,8 +46,8 @@ void	join_filename(t_msh **msh, bool hd_flag)
 	tmp_fn = find_file(msh);
 	if (!tmp_fn)
 		return ;
-	else if (tmp_fn->prev && tmp_fn->prev->type != W_SPACE
-			&& !(tk_in_qts(tmp_fn->prev)))
+	else if (!tmp_fn->prev || (tmp_fn->prev && tmp_fn->prev->type != W_SPACE
+			&& !(tk_in_qts(tmp_fn->prev))))
 		expand_fn(msh, &tmp_fn, NULL, hd_flag);
 	if (!tmp_fn->quotes.sp_case && tmp_fn->prev && tmp_fn->prev->type == WORD)
 	{

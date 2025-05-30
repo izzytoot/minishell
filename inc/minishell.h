@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/29 15:46:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 13:45:10 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,9 +444,7 @@ void			free_and_clear(char *str, t_list *lst);
 //60_exec_tree.c
 int				exec_tree(t_msh **msh, t_tree_nd *node);
 char			**remake_args(t_tree_nd *node);
-bool			ch_if_sub_cmd(t_tree_nd *node);
 void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
-int				output_cmd_errors(t_msh **msh, t_tree_nd *node);
 
 //61_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
@@ -501,6 +499,11 @@ int				direct_path(t_tree_nd *node);
 int				is_direct_command(t_tree_nd *node);
 int				handle_direct_command(t_msh **msh, t_tree_nd *node,
 					char **path);
+
+//68_exec_utils_2.c
+bool			arg_expansions(t_tree_nd *node);
+bool			ch_if_sub_cmd(t_tree_nd *node);
+int				output_cmd_errors(t_msh **msh, t_tree_nd *node);
 
 /************ 70_expander ************/
 //70_expand_args.c

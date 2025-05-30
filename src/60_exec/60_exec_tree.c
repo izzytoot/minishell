@@ -6,25 +6,11 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/29 17:42:33 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 13:46:08 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-bool	arg_expansions(t_tree_nd *node)
-{
-	t_quote	*curr_qt;
-	
-	curr_qt = node->quote_lst;
-	while (curr_qt)
-	{
-		if (curr_qt->exp)
-			return (true);
-		curr_qt = curr_qt->next;
-	}
-	return (false);
-}
 
 int	exec_tree(t_msh **msh, t_tree_nd *node)
 {
@@ -94,18 +80,6 @@ char	**remake_args(t_tree_nd *node)
 	return (new_args);
 }
 
-bool	ch_if_sub_cmd(t_tree_nd *node)
-{
-	if (node->cmd || !node->args[0])
-		return (false);
-	if ((ft_strcmp(node->args[0], ".") == 0)
-		|| (ft_strcmp(node->args[0], "..") == 0))
-		return (false);
-	if (!node->cmd && node->args[0])
-		return (true);
-	return (false);
-}
-
 void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 {
 	char		*env_path;
@@ -133,17 +107,4 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 					(ft_array_dup(++(*new_args))));
 	}
 	ft_free_arrays((void **)sep_args);
-}
-
-int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
-{
-	if (node->type == ARG && !node->args[0])
-		return (exit_value(msh, 0, 1, 0));
-	else if (node->type == ARG && (ft_strcmp(".", node->args[0]) == 0))
-	{
-		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_PT);
-		return (exit_value(msh, 2, 1, 0));
-	}
-	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
-	return (exit_value(msh, 127, 1, 0));
 }
