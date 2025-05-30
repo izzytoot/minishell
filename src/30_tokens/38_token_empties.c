@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/30 15:59:38 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 17:04:56 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	empty_case(t_msh **msh, const char *line, int i, bool fl)
 	int			j;
 	int			tmp_i;
 
-	i = sp_for_empty_case (msh, line, i);
+	i = sp_for_empty_case (msh, line, i, 2);
 	tmp_i = i;
 	j = 0;
 	while (line[i])
@@ -49,7 +49,9 @@ int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
 	int			j;
 	int			tmp_i;
 
-	i = sp_for_empty_case (msh, line, i);
+	if (sp_for_empty_case(msh, line, i, 1))
+		return (0);
+	i = sp_for_empty_case(msh, line, i, 2);
 	tmp_i = i;
 	j = 0;
 	while (line[i])
@@ -66,12 +68,28 @@ int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
 	return (0);
 }
 
-int	sp_for_empty_case(t_msh **msh, const char *line, int i)
+int	sp_for_empty_case(t_msh **msh, const char *line, int i, int n)
 {
-	if (line[i] && ft_strchr(WS, line[i]))
-		i = tk_space(msh, i);
-	while (line[i] && ft_strchr(WS, line[i]))
-		i++;
+	int	j;
+	if (n == 1)
+	{
+		j = -1;
+		while(line[++j])
+		{
+			if (!ft_strchr(WS, line[j]))
+				break;
+		}
+		if (line[j] == '\0')
+			return (1);
+		return (0);
+	}
+	if (n == 2)
+	{
+		if (line[i] && ft_strchr(WS, line[i]))
+			i = tk_space(msh, i);
+		while (line[i] && ft_strchr(WS, line[i]))
+			i++;
+	}
 	return (i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/30 16:29:03 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 16:59:59 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,7 +336,7 @@ void			join_parts(t_tk_lst	**src, t_tk_lst **target);
 //38_token_empties.c
 int				empty_case(t_msh **msh, const char *line, int i, bool flag);
 int				ch_empty_case(t_msh **msh, const char *line, int i, bool fl);
-int				sp_for_empty_case (t_msh **msh, const char *line, int i);
+int				sp_for_empty_case (t_msh **msh, const char *line, int i, int n);
 int 			ch_emp_exp(t_msh **msh, char *nl);
 int 			ch_all_same(char *nl);
 
