@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 18:49:42 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:30:19 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 				if (WIFEXITED(status))
 					status = WEXITSTATUS(status);
 				printf("AQUI!!!!!!");
-				exit_value(msh, 130, 1, 0);
+				exit_value(msh, status, 1, 0);
 			}
 			close(file_fd);
 		}
