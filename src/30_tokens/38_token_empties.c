@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/29 23:42:46 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 15:54:19 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,35 @@ int	empty_case(t_msh **msh, const char *line, int i, bool fl)
 	{
 		if (ch_emp_exp(msh, nl))
 			tmp_i = (tmp_i + ch_emp_exp(msh, nl));
+		if (ch_all_same(nl))
+			tmp_i = (tmp_i + ch_all_same(nl));
 		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk((*msh), empty_tk, "''", ARG);
 	}
 	return (tmp_i);
+}
+
+int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
+{
+	char		nl[1024];
+	int			j;
+	int			tmp_i;
+
+	i = sp_for_empty_case (msh, line, i);
+	tmp_i = i;
+	j = 0;
+	while (line[i])
+		nl[j++] = line[i++];
+	nl[j] = '\0';
+	if (!nl[0])
+		return (tmp_i);
+	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
+				&& ((fl || ft_strchr(WS, line[tmp_i - 1]) || !line[i - 1])))
+			|| ((ft_strncmp("\"\"", nl, 2) == 0 || ft_strncmp("''", nl, 2) == 0)
+				&& (((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, nl[2]))
+						|| (fl && ft_strchr(WS, nl[2])) || (fl && !nl[2]))))))
+		return (1);
+	return (0);
 }
 
 int	sp_for_empty_case(t_msh **msh, const char *line, int i)
@@ -78,7 +103,7 @@ int	ch_emp_exp(t_msh **msh, char *nl)
 	return (0);
 }
 
-bool	ch_all_same(char *nl)
+int	ch_all_same(char *nl)
 {
 	int	i;
 
@@ -86,10 +111,10 @@ bool	ch_all_same(char *nl)
 	while (nl[i] && (nl[i + 1] && !ft_strchr(WS, nl[i + 1])))
 	{
 		if ((nl[i + 1] && (nl[i] != nl[i + 1])) || !ft_strchr(QT, nl[i]))
-			return (false);
+			return (0);
 		i++;
 	}
-	if (!nl[i + 1])
-		return (true);
-	return (false);
+	if (!nl[i + 1] || (nl[i + 1] && ft_strchr(WS, nl[i + 1])))
+		return (i);
+	return (0);
 }

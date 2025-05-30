@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/29 22:05:18 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 15:25:21 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void	rm_empties_case(t_tk_lst **curr, bool env)
 	else if ((*curr)->next && ((*curr)->next->type == BT_CMD
 			|| (*curr)->next->type == ARG) && !env)
 		empties_rmv_tk(&curr);
+	else if (!(*curr)->next && (*curr)->prev && !(*curr)->quotes.sp_case
+			&& ((*curr)->prev->type == BT_CMD || (*curr)->prev->type == ARG) && !env)
+			empties_rmv_tk(&curr);
 }
 
 void	empties_rmv_exp(t_tk_lst ***curr)
@@ -76,18 +79,19 @@ void	empties_rmv_exp(t_tk_lst ***curr)
 		(**curr) = curr_prev;
 	}
 }
+void	empties_rmv_tk_util(t_tk_lst ****curr);
 
 void	empties_rmv_tk(t_tk_lst ***curr)
 {
 	t_tk_lst *curr_prev;
-	t_tk_lst *curr_next;
-	
-	(**curr)->next->quotes.sp_case = (**curr)->quotes.sp_case;
-	if ((**curr)->prev)
+
+	if ((**curr)->prev && (**curr)->next)
 	{
+		(**curr)->next->quotes.sp_case = (**curr)->quotes.sp_case;
 		if ((**curr)->prev->type == W_SPACE && (**curr)->prev->prev)
 		{
-			curr_prev = (**curr)->prev->prev;
+			curr_prev = (**curr)->prev->prev; // add for curr->prev - free_tokens(**curr, 1); //leaks - added free curr
+			free_tokens((**curr)->prev, 1);
 			(**curr)->next->prev = (**curr)->prev->prev;
 			(**curr)->prev->prev->next = (**curr)->next;
 			free_tokens(**curr, 1); //leaks - added free curr
@@ -103,13 +107,31 @@ void	empties_rmv_tk(t_tk_lst ***curr)
 		}
 	}
 	else
+		empties_rmv_tk_util(&curr);
+}
+
+void	empties_rmv_tk_util(t_tk_lst ****curr)
+{
+	t_tk_lst *curr_prev;
+	t_tk_lst *curr_next;
+
+	if ((***curr)->next)
+		(***curr)->next->quotes.sp_case = (***curr)->quotes.sp_case;
+	if ((***curr)->prev && !(***curr)->next)
 	{
-		curr_next = (**curr)->next;
-		(**curr)->next->prev = NULL;
-		free_tokens(**curr, 1); //leaks - added free curr
-		(**curr) = curr_next;
+		(***curr)->prev->quotes.sp_case = (***curr)->quotes.sp_case;
+		curr_prev = (***curr)->prev;
+		(***curr)->prev->next = NULL;
+		free_tokens(***curr, 1); //leaks - added free curr
+		(***curr) = curr_prev;
 	}
-	
+	else
+	{
+		curr_next = (***curr)->next;
+		(***curr)->next->prev = NULL;
+		free_tokens(***curr, 1); //leaks - added free curr
+		(***curr) = curr_next;
+	}
 }
 
 void	first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env)

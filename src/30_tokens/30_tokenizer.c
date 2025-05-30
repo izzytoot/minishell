@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/28 20:34:07 by isabel           ###   ########.fr       */
+/*   Updated: 2025/05/30 15:35:30 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	get_tokens(t_msh **msh, int i)
 	init_qt_struct(&quotes);
 	line = (*msh)->prompt_line;
 	i = -1;
-	if (empty_case(msh, line, 0, true))
+	if (ch_empty_case(msh, line, 0, true))
 		i = empty_case(msh, line, 0, true);
 	while (line[++i])
 	{
