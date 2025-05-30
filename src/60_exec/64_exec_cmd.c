@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 23:23:56 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:21:53 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 	else if (ft_strcmp(node->cmd, "pwd") == 0)
 		status = ft_pwd();
 	else if (ft_strcmp(node->cmd, "export") == 0)
-		status = ft_export(msh, &node);
+		status = ft_export(msh, &node, 0, 0);
 	else if (ft_strcmp(node->cmd, "unset") == 0)
 		status = ft_unset(msh, &node);
 	else if (ft_strcmp(node->cmd, "env") == 0)

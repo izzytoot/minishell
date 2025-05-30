@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/30 14:50:33 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:21:41 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,7 +423,7 @@ int				ft_unset(t_msh **msh, t_tree_nd **node);
 void			ft_delete_var(t_list **env_list, const char *var_name);
 
 //56_export.c
-int				ft_export(t_msh **msh, t_tree_nd **node);
+int				ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export);
 t_list			*sort_env(t_list *env_list, int sort);
 void			disp_exported(t_msh **msh);
 t_list			*copy_env_list(t_list *env_list);

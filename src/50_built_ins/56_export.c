@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 23:18:07 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:20:57 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 //info --> promotes a var to global
 
-int	ft_export(t_msh **msh, t_tree_nd **node)
+int	ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export)
 {
 	char	**var_info;
-	int		i;
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
@@ -25,7 +24,6 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 		return (disp_exported(msh), 0);
 	else
 	{
-		i = 0;
 		while ((*node)->args[i])
 		{
 			if (!export_check(msh, (*node)->args[i]))
@@ -36,9 +34,12 @@ int	ft_export(t_msh **msh, t_tree_nd **node)
 			var_info = ft_split((*node)->args[i], '=');
 			add_export_var(&(*msh)->envp_list, var_info[0], var_info[1]);
 			ft_free_arrays((void **)var_info);
+			valid_export = 1;
 			i++;
 		}
 	}
+	if (!valid_export && i == 1)
+		return (1);
 	return (0);
 }
 
