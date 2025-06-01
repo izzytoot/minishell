@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/28 12:13:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 14:02:56 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,23 @@ void	disp_exported(t_msh **msh)
 {
 	t_list	*current;
 	t_list	*head;
-	char	*equal_sign;
+	char	*equal;
 	int		name_len;
-	char	*var_name;
+	char	*var;
 
 	current = sort_env((*msh)->envp_list, 1);
 	head = current;
 	while (current)
 	{
-		equal_sign = ft_strchr(current->content, '=');
-		if (equal_sign)
+		equal = ft_strchr(current->content, '=');
+		if (equal)
 		{
 			name_len = ft_strlen_until(current->content, '=');
-			var_name = ft_substr(current->content, 0, name_len);
-			if (!var_name)
+			var = ft_substr(current->content, 0, name_len);
+			if (!var)
 				return ;
-			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n",
-				var_name, equal_sign + 1);
-			free(var_name);
+			ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n", var, equal + 1);
+			free(var);
 		}
 		else
 			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", current->content);

@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:33:42 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/29 18:45:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 13:46:18 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	handle_filename(t_msh **msh)
 	t_tk_lst	*curr;
 	bool		hd_flag;
 
-	curr = (*msh)->token_list; //add if !curr
+	curr = (*msh)->token_list; //add if !curr ?
 	hd_flag = false;
 	while (curr)
 	{

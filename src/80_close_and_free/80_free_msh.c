@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/29 17:36:14 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 13:59:29 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,6 @@ void	free_tree(t_tree_nd *node)
 		ft_free_arrays((void **)node->args);
 	if (node->cmd_content) //LEAKS
 		ft_free_arrays((void **)node->cmd_content);
-	/*if (node->cmd_content)
-		ft_free_arrays((void **)node->cmd_content);
-(node->cmd_content);
-	if (node->args && !node->cmd_content)
-		ft_free_arrays((void **)node->cmd_content);
-(node->args);*/
 	if (node->quote_lst)
 		free_qt_lst(node->quote_lst);
 	node = safe_free(node);

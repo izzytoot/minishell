@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/01 13:41:37 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 14:37:44 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,12 +343,17 @@ int 			ch_all_same(char *nl);
 
 //39_rm_empties.c
 void			rm_empties(t_tk_lst **token);
-void			rm_empties_case(t_tk_lst **curr, bool env);
 void			empties_rmv_exp(t_tk_lst ***curr);
 void			empties_rmv_tk(t_tk_lst ***curr);
-void			first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env);
+void			empties_rmv_tk_util(t_tk_lst ****curr);
 
-//40_token_utils.c
+//40_empties_utils.c
+bool			emp_1(char *nl, const char *line, int tmp_i);
+bool			emp_2(char *nl, bool fl);
+void			first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env);
+void			rm_empties_case(t_tk_lst **curr, bool env);
+
+//41_token_utils.c
 bool			tk_in_qts(t_tk_lst *tk);
 char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);

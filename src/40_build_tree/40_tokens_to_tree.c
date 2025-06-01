@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/28 14:54:40 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 13:53:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	app_qt(t_tree_nd *new_nd, t_tk_lst *token)
 	t_quote	*new_quote;
 
 	new_quote = ft_calloc(1, sizeof(t_quote));
-	//new_quote->content = token->content;
 	new_quote->content = ft_strdup(token->content);
 	new_quote->in_dquotes = token->quotes.in_dquotes;
 	new_quote->in_squotes = token->quotes.in_squotes;

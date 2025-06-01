@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/30 15:25:21 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 14:05:59 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,6 @@ void	rm_empties(t_tk_lst **token)
 	}
 }
 
-void	rm_empties_case(t_tk_lst **curr, bool env)
-{
-	if ((*curr)->next && (*curr)->next->type == W_SPACE
-		&& (*curr)->next->next)
-	{
-		if (((*curr)->next->next->type == BT_CMD
-				|| (*curr)->next->next->type == ARG) && !env)
-			empties_rmv_tk(&curr);
-	}
-	else if ((*curr)->next && ((*curr)->next->type == BT_CMD
-			|| (*curr)->next->type == ARG) && !env)
-		empties_rmv_tk(&curr);
-	else if (!(*curr)->next && (*curr)->prev && !(*curr)->quotes.sp_case
-			&& ((*curr)->prev->type == BT_CMD || (*curr)->prev->type == ARG) && !env)
-			empties_rmv_tk(&curr);
-}
-
 void	empties_rmv_exp(t_tk_lst ***curr)
 {
 	t_tk_lst *curr_prev;
@@ -79,7 +62,6 @@ void	empties_rmv_exp(t_tk_lst ***curr)
 		(**curr) = curr_prev;
 	}
 }
-void	empties_rmv_tk_util(t_tk_lst ****curr);
 
 void	empties_rmv_tk(t_tk_lst ***curr)
 {
@@ -131,23 +113,5 @@ void	empties_rmv_tk_util(t_tk_lst ****curr)
 		(***curr)->next->prev = NULL;
 		free_tokens(***curr, 1); //leaks - added free curr
 		(***curr) = curr_next;
-	}
-}
-
-void	first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env)
-{
-	if (curr_f && (**curr_f))
-	{
-		while ((**curr_f)->next)
-			(**curr_f) = (**curr_f)->next;
-	}
-	if (curr_p)
-	{
-		if ((curr_p && curr_p->type == PIPE
-				&& ((curr_p->prev && curr_p->prev->type != ENV_CMD)
-					|| ((curr_p->prev && curr_p->prev->type == W_SPACE)
-						&& (curr_p->prev->prev
-							&& curr_p->prev->prev->type != ENV_CMD)))))
-			*env = true;
 	}
 }

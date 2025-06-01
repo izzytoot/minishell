@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/30 17:04:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 14:36:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int	empty_case(t_msh **msh, const char *line, int i, bool fl)
 	if (!nl[0])
 		return (tmp_i);
 	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
-				&& ((fl || ft_strchr(WS, line[tmp_i - 1]) || !line[i - 1])))
-			|| ((ft_strncmp("\"\"", nl, 2) == 0 || ft_strncmp("''", nl, 2) == 0)
-				&& (((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, nl[2]))
-						|| (fl && ft_strchr(WS, nl[2])) || (fl && !nl[2]))))))
+		&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))) || (i == 0
+		|| !line[i - 1])))) || emp_1(nl, line, tmp_i) || emp_2(nl, fl)))
 	{
 		if (ch_emp_exp(msh, nl))
 			tmp_i = (tmp_i + ch_emp_exp(msh, nl));
@@ -60,10 +58,8 @@ int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
 	if (!nl[0])
 		return (tmp_i);
 	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
-				&& ((fl || ft_strchr(WS, line[tmp_i - 1]) || !line[i - 1])))
-			|| ((ft_strncmp("\"\"", nl, 2) == 0 || ft_strncmp("''", nl, 2) == 0)
-				&& (((ft_strchr(WS, line[tmp_i - 1]) && ft_strchr(WS, nl[2]))
-						|| (fl && ft_strchr(WS, nl[2])) || (fl && !nl[2]))))))
+		&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))) || (i == 0
+		|| !line[i - 1])))) || emp_1(nl, line, tmp_i) || emp_2(nl, fl)))
 		return (1);
 	return (0);
 }
