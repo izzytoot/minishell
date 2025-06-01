@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/27 15:07:26 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 12:58:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ int	ft_exit(t_msh **msh, t_tree_nd **node)
 		exit_value(msh, 1, 1, 0);
 		return (1);
 	}
-	if (args)
-		exit_code = ft_convert_value(msh, args[0]);
-	else
-		exit_code = 0;
+	get_ex_code(msh, &exit_code, args);	
 	exit_value(msh, exit_code, 1, 1);
 	return (exit_code);
 }
@@ -81,4 +78,12 @@ int	ft_strnumeric(char *str)
 		i++;
 	}
 	return (true);
+}
+
+void	get_ex_code(t_msh **msh, unsigned char	*exit_code, char **args)
+{
+	if (args)
+		*exit_code = ft_convert_value(msh, args[0]);
+	else
+		*exit_code = 0;
 }

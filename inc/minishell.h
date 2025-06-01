@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/30 16:59:59 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 13:30:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,6 +363,9 @@ void			app_qt(t_tree_nd *new_nd, t_tk_lst *token);
 
 //41_build_pipe__nodes.c
 t_tree_nd		*build_pipe_nd(t_msh **msh, t_tk_lst **tokens);
+void			build_pipe_nd_util(t_tk_lst	**n_tk, t_tk_lst **c_tk,
+				t_tk_lst **l_tk, t_tk_lst **p_tk);
+void				move_fwd(t_tk_lst **prev_tk, t_tk_lst **curr_tk);
 
 //42_build_redir_nodes.c
 t_tree_nd		*build_redir_nd(t_msh **msh, t_tk_lst **token_list);
@@ -423,6 +426,7 @@ bool			handle_n(t_tree_nd **node, int *i, bool first_flag);
 int				ft_exit(t_msh **msh, t_tree_nd **node);	
 unsigned int	ft_convert_value(t_msh **msh, char *code);
 int				ft_strnumeric(char *str);
+void			get_ex_code(t_msh **msh, unsigned char	*exit_code, char **args);
 
 //55_unset.c
 int				ft_unset(t_msh **msh, t_tree_nd **node);
