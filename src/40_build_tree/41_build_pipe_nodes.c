@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:23 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/29 15:24:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 11:59:08 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ t_tree_nd	*build_pipe_nd(t_msh **msh, t_tk_lst **token_list)
 			left_tokens->prev = NULL;
 			pipe_nd->right = build_redir_nd(msh, token_list);
 			free_tokens(*token_list, 2);
+			*token_list = NULL;
 			pipe_nd->left = build_pipe_nd(msh, &left_tokens);
-			free_tokens(left_tokens, 2);
+			if (left_tokens != NULL)
+				free_tokens(left_tokens, 2);
 			return (pipe_nd);
 		}
 		prev_token = curr_token;
