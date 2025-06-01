@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/30 13:57:44 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 16:04:08 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,18 @@ void	expander(t_msh **msh, t_tree_nd **node, char **arg)
 void	expand_tk(t_msh **msh, char **arg)
 {
 	t_exp_cont	parts;
-	t_kw		**kw_lst;
+	t_kw		*kw_lst; //leaks - changed from **kw_lst
 	int			i;
 
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
 	i = 0;
-	kw_lst = ft_calloc(MAX_KW, sizeof(t_kw *));
+	kw_lst = NULL; //LEAKS - changed from calloc aloccation
 	parts.pre_c = get_pre_cont(*arg, &i);
-	build_kw_list(&(*kw_lst), *arg, &i);
+	build_kw_list(&kw_lst, *arg, &i);
 	parts.post_c = get_post_cont(*arg, &i);
-	expand_kw(msh, kw_lst);
-	parts.new_c = get_exp_cont(kw_lst);
+	expand_kw(msh, &kw_lst);
+	parts.new_c = get_exp_cont(&kw_lst);
 	subst_arg(arg, &parts);
 	//free_kw_structs(&parts, kw_lst);
 }

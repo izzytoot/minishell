@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 14:36:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 15:54:41 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	empty_case(t_msh **msh, const char *line, int i, bool fl)
 		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk((*msh), empty_tk, "''", ARG);
 	}
-	return (tmp_i);
-}
+	return (tmp_i);}
 
 int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
 {

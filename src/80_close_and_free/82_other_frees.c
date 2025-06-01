@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/28 11:54:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 15:58:22 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ void	free_tokens(t_tk_lst *token_list, int n)
 				token_list->content = safe_free(token_list->content);
 			if (token_list->quotes.content)
 				token_list->quotes.content = safe_free(token_list->quotes.content);
-			token_list = safe_free(token_list);	
 			token_list = tmp;
 		}
+		if (token_list)
+			token_list = safe_free(token_list);
 	}
 }
 

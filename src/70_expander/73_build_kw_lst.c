@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   73_build_kw_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/26 15:13:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:11:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 		while (count-- > 0)
 		{
 			next = arg[*i + 1];
-			n_kw = ft_calloc(1, sizeof(t_kw *));
+			n_kw = ft_calloc(1, sizeof(t_kw)); //LEAKS - removed * of tw_kw
 			get_exp_kw(next, n_kw, arg, i);
 			app_kw(kw_lst, n_kw, n_kw->kw, true);
 			if (arg[*i] && check_mid(arg[*i]))
 			{
-				n_kw = ft_calloc(1, sizeof(t_kw *));
+				n_kw = ft_calloc(1, sizeof(t_kw)); //LEAKS - removed * of tw_kw
 				n_kw->kw = get_util(arg, &i, 4);
 				app_kw(kw_lst, n_kw, n_kw->kw, false);
 			}
@@ -92,7 +92,7 @@ void	app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp)
 
 	tmp = *kw_lst;
 	new_kw->kw = ft_strdup(kw);
-	safe_free(kw);
+	kw = safe_free(kw);
 	new_kw->exp = exp;
 	new_kw->next = NULL;
 	if (tmp)
