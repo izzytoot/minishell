@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/20 17:19:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 23:20:42 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	count_exp(char *arg, int i)
 				i++;
 			count++;
 		}
-		i++;
+		if (arg[i]) //leaks - added to prevent invalid read
+			i++;
 	}
 	return (count);
 }

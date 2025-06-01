@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 15:54:41 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 22:39:19 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	ch_emp_exp(t_msh **msh, char *nl)
 		j++;
 	}
 	kw[j] = '\0';
-	if (!get_env_cont((*msh)->envp_list, (*msh)->vars_list, kw))
+	if (!check_env_cont((*msh)->envp_list, (*msh)->vars_list, kw))
 		return (i++);
 	return (0);
 }

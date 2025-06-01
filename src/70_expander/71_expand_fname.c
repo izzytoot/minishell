@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/27 12:00:58 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 21:37:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	expand_fname(t_msh **msh, char **fname)
 {
 	t_exp_cont	parts;
-	t_kw		**kw_lst;
+	t_kw		*kw_lst;
 	int			i;
 	char		*tmp_fname;
 
@@ -23,18 +23,18 @@ void	expand_fname(t_msh **msh, char **fname)
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
 	tmp_fname = ft_strdup(*fname);
-	kw_lst = ft_calloc(MAX_KW, sizeof(t_kw *));
+	kw_lst = NULL;
 	parts.pre_c = get_pre_cont(*fname, &i);
-	build_kw_list(&(*kw_lst), *fname, &i);
+	build_kw_list(&kw_lst, *fname, &i);
 	parts.post_c = get_post_cont(*fname, &i);
-	expand_kw(msh, kw_lst);
-	parts.new_c = get_exp_cont(kw_lst);
+	expand_kw(msh, &kw_lst);
+	parts.new_c = get_exp_cont(&kw_lst);
 	subst_fname(fname, &parts);
 	if (!(*fname))
 		(*msh)->tmp_fname = ft_strdup(tmp_fname);
 	else
 		tmp_fname = safe_free(tmp_fname); //LEAKS
-	free_kw_structs(&parts, kw_lst);
+	free_kw_structs(&parts, &kw_lst);
 }
 
 void	subst_fname(char **fname, t_exp_cont *parts)

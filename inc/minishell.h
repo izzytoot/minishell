@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/01 16:10:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 22:39:50 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -549,8 +549,9 @@ bool			check_dollar_w_qts(char **str);
 //74_expand_key_words.c
 void			expand_kw(t_msh **msh, t_kw **kw_lst);
 int				expand_case(char *kw);
-char			*get_env_cont(t_list *envp_list, t_list *vars_list,
+char			*check_env_cont(t_list *envp_list, t_list *vars_list,
 					char *key_word);
+char			*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word);
 char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);
 
 //75_get_parts.c

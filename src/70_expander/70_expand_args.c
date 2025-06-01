@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/01 16:04:08 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 22:52:46 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	expand_tk(t_msh **msh, char **arg)
 	expand_kw(msh, &kw_lst);
 	parts.new_c = get_exp_cont(&kw_lst);
 	subst_arg(arg, &parts);
-	//free_kw_structs(&parts, kw_lst);
+	free_kw_structs(&parts, &kw_lst);
 }
 
 void	subst_arg(char **arg, t_exp_cont *parts)
@@ -113,6 +113,7 @@ void	subst_arg(char **arg, t_exp_cont *parts)
 	if (parts->new_c)
 	{
 		final_c = get_final_cont(parts);
+		*arg = safe_free(*arg); //leaks - added line
 		*arg = ft_strdup(final_c);
 	}
 	else if (parts->pre_c || parts->post_c)
@@ -121,8 +122,11 @@ void	subst_arg(char **arg, t_exp_cont *parts)
 			final_c = ft_strdup(parts->pre_c);
 		if (parts->post_c)
 			final_c = ft_strjoin(final_c, ft_strdup(parts->post_c));
+		*arg = safe_free(*arg); //leaks - added line
 		*arg = ft_strdup(final_c);
 	}
 	else
-		*arg = NULL;
+		*arg = safe_free(*arg); //leaks - substituted *arg = NULL
+	if (final_c)
+		final_c = safe_free(final_c); //leaks - added free
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   76_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/18 18:23:25 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/01 22:48:47 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*get_exp_cont(t_kw **kw_lst)
 	{
 		curr_c = ft_strdup(curr_kw->kw);
 		exp_c = safe_strjoin(exp_c, curr_c);
+		curr_c = safe_free(curr_c); //leaks added this line
 		curr_kw = curr_kw->next;
 	}
 	return (exp_c);
@@ -51,6 +52,8 @@ char	*get_final_cont(t_exp_cont *parts)
 		if (parts->post_c)
 			final_c = ft_strjoin(final_c, parts->post_c);
 	}
+	if (tmp)
+		tmp = safe_free(tmp);
 	return (final_c);
 }
 
