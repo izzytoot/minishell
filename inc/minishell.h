@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/01 13:30:13 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/01 13:41:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,7 @@ bool			consec_operators_pipe(const char *line);
 
 //23_syntax_redir.c
 bool			conseq_operators_redir(const char *line);
+bool			check_l_and_r(const char *line, int i);
 void			conseq_redir_r_case(const char *line, int i);
 void			conseq_redir_l_case(const char *line, int i);
 bool			misplaced_redir_at_end(const char *line);
