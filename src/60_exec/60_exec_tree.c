@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 23:08:48 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 23:51:31 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ char	**remake_args(t_tree_nd *node)
 	t_flag_str	flags;
 	t_quote		*quote_tmp;
 	char		**new_args;
-
+	char		**tmp_args;
+	
 	init_aux_structs(&flags, &ints, node);
 	quote_tmp = node->quote_lst;
+	tmp_args = node->args;
 	new_args = ft_calloc((node->nb_arg + 1), sizeof(char *));
 	while (ints.i < node->nb_arg)
 	{
@@ -77,12 +79,13 @@ char	**remake_args(t_tree_nd *node)
 	}
 	new_args[ints.j] = NULL;
 	node->quote_lst = quote_tmp;
+	ft_free_arrays((void **)tmp_args);
 	return (new_args);
 }
 
 void	sub_cmd_util(t_tree_nd *node, char **sep_args, int count, char ****new_args)
 {
-	char		**sep_args_tmp; //check if needed
+	char		**sep_args_tmp;
 	char		**joinned_array;
 	
 	sep_args_tmp = sep_args;

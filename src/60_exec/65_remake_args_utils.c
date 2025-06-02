@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   65_remake_args_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:14:35 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/23 14:24:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/03 00:00:53 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void	compose_arg(t_ints *ints, t_flag_str *flags, char **new_args,
 	if ((*ints).j == 0 || (((*flags).space_next || (*flags).space_prev)
 			&& node->args[(*ints).i + 1])) //first of group
 	{
-//		new_args[(*ints).j] = ft_strjoin(node->args[(*ints).i], node->args[(*ints).i + 1]);
-		new_args[(*ints).j] = ft_strdup(ft_strjoin(node->args[(*ints).i],
-					node->args[(*ints).i + 1]));
+		//new_args[(*ints).j] = ft_strjoin(node->args[(*ints).i], node->args[(*ints).i + 1]);
+		new_args[(*ints).j] = ft_strjoin(node->args[(*ints).i], node->args[(*ints).i + 1]);
 		(*ints).i++;
 		if (node->quote_lst->next)
 			node->quote_lst = node->quote_lst->next;
@@ -39,13 +38,12 @@ void	compose_arg(t_ints *ints, t_flag_str *flags, char **new_args,
 		if (!(*flags).space_next && !(*flags).space_prev)
 		{
 			(*ints).j--;
-//			new_args[(*ints).j] = ft_strjoin(new_args[(*ints).j], node->args[(*ints).i]);
-			new_args[(*ints).j] = ft_strdup(ft_strjoin(new_args[(*ints).j],
-						node->args[(*ints).i]));
+			new_args[(*ints).j] = ft_strjoin(new_args[(*ints).j], node->args[(*ints).i]);
+			//new_args[(*ints).j] = ft_strdup(ft_strjoin(new_args[(*ints).j], node->args[(*ints).i]));
 		}
 		else //last arg when lonely (!sp_case)
-//			new_args[(*ints).j] = node->args[(*ints).i];
 			new_args[(*ints).j] = ft_strdup(node->args[(*ints).i]);
+			//new_args[(*ints).j] = node->args[(*ints).i];
 	}
 	(*flags).written = true;
 	(*flags).space_prev = false;
@@ -56,9 +54,8 @@ void	add_last(t_ints *ints, t_flag_str *flags, char **new_args,
 			t_tree_nd *node)
 {
 	(*ints).j--;
-	//new_args[(*ints).j] = ft_strjoin(new_args[(*ints).j], node->args[(*ints).i]);
-	new_args[(*ints).j] = ft_strdup(ft_strjoin(new_args[(*ints).j],
-				node->args[(*ints).i]));
+	new_args[(*ints).j] = ft_strjoin(new_args[(*ints).j], node->args[(*ints).i]);
+	//new_args[(*ints).j] = ft_strdup(ft_strjoin(new_args[(*ints).j], node->args[(*ints).i]));
 	(*flags).written = true;
 	(*flags).space_prev = true;
 	(*ints).j++;

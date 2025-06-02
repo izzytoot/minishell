@@ -1,9 +1,0 @@
-en.subject_minishell.pdf
-inc
-Makefile
-minishell
-out
-readline.supp
-src
-tmp
-zzzicunha-t.txt

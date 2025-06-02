@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 16:11:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 00:28:47 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ bool	check_dollar_w_qts(char **str)
 {
 	int		i;
 	char	c;
-
+	char	*str_tmp;
+	
 	i = 0;
 	while ((*str)[i])
 	{
@@ -122,7 +123,9 @@ bool	check_dollar_w_qts(char **str)
 	}
 	if (c == '$')
 	{
+		str_tmp = (*str);
 		(*str) = ft_strdup_until((*str), c);
+		str_tmp = safe_free(str_tmp); //added str_tmp to free ptr
 		return (true);
 	}
 	return (false);
