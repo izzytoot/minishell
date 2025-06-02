@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/02 15:05:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:43:31 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_qt_lst(t_quote *qt_list)
 
 	while (qt_list)
 	{
-		tmp = qt_list->prev; //leaks - swapped from next to prev
+		tmp = qt_list->next; //leaks - swapped from next to prev
 		if (qt_list->content)
 			qt_list->content = safe_free(qt_list->content);
 		qt_list = safe_free(qt_list);

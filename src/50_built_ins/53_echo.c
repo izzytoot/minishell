@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   53_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/28 09:13:28 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 15:43:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ bool	handle_n(t_tree_nd **node, int *i, bool first_flag)
 {
 	int		j;
 	bool	newline;
-
+	t_quote	*tmp_lst;
+	
 	newline = true;
+	tmp_lst = (*node)->quote_lst;
 	while ((*node)->args[*i] && ft_strncmp((*node)->args[*i], "-n", 2) == 0)
 	{
 		j = 1;
@@ -66,8 +68,8 @@ bool	handle_n(t_tree_nd **node, int *i, bool first_flag)
 		}
 		first_flag = false;
 		(*i)++;
-		if ((*node)->quote_lst->next)
-			(*node)->quote_lst = (*node)->quote_lst->next;
+		if (tmp_lst->next)
+			tmp_lst = tmp_lst->next;
 	}
 	return (newline);
 }
