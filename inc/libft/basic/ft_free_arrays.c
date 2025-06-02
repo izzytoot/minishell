@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_arrays.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 23:40:49 by root              #+#    #+#             */
-/*   Updated: 2025/05/30 16:16:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 14:45:03 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	ft_free_arrays(void **array)
 			array[i] = safe_free(array[i]);
 		i++;
 	}
-	free(array);
+	array = safe_free(array); //substituted free for safe_free
 	return ;
 }

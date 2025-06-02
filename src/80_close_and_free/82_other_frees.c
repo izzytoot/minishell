@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   82_other_frees.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 23:00:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 15:05:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ void	free_qt_lst(t_quote *qt_list)
 {
 	t_quote	*tmp;
 
-	tmp = qt_list;
 	while (qt_list)
 	{
-		tmp = qt_list->next;
+		tmp = qt_list->prev; //leaks - swapped from next to prev
 		if (qt_list->content)
 			qt_list->content = safe_free(qt_list->content);
 		qt_list = safe_free(qt_list);

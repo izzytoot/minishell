@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 14:21:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:47:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ char	**copy_array(int size, char **array)
 	{
 		if (array[++i])
 		{
-			new_array[++n] = array[i]; // leaks - removed strdup
+			new_array[++n] = ft_strdup(array[i]); // leaks - removed strdup
+			array[i] = safe_free(array[i]);
 			if (!new_array[n])
 			{
 				ft_free_arrays((void **)new_array);
