@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   70_expand_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/01 22:52:46 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 12:13:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ void	expand_tk(t_msh **msh, char **arg)
 void	subst_arg(char **arg, t_exp_cont *parts)
 {
 	char	*final_c;
-
+	
+	final_c = NULL;
 	if (parts->new_c)
 	{
 		final_c = get_final_cont(parts);
