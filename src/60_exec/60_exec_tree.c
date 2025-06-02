@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/01 13:55:45 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 23:08:48 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,18 @@ char	**remake_args(t_tree_nd *node)
 
 void	sub_cmd_util(t_tree_nd *node, char **sep_args, int count, char ****new_args)
 {
-	char		**sep_args_tmp;
-
-		sep_args_tmp = sep_args;
-		node->cmd = ft_strdup(sep_args_tmp[0]);
-		if (count > 1)
-			(**new_args) = ft_array_join((ft_array_dup(++sep_args_tmp)),
-					(ft_array_dup(++(**new_args))));
+	char		**sep_args_tmp; //check if needed
+	char		**joinned_array;
+	
+	sep_args_tmp = sep_args;
+	node->cmd = ft_strdup(sep_args_tmp[0]);
+	if (count > 1)
+	{
+		joinned_array = ft_array_join((ft_array_dup(sep_args_tmp + 1)),
+				(ft_array_dup((**new_args) + 1)));
+		ft_free_arrays((void **)**new_args);
+		(**new_args) = joinned_array;
+	}
 }
 
 void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)

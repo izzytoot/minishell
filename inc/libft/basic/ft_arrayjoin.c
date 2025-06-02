@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 00:29:55 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/24 00:37:50 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 22:59:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ char	**ft_array_join(char **arr1, char **arr2)
 		j++;
 	}
 	final_arr[len1 + len2] = NULL;
-	return (final_arr);
+	arr1 = safe_free(arr1);
+	arr2 = safe_free(arr2);
+	return (final_arr);	
 }
