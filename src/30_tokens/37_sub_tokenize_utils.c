@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/02 12:41:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:02:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 	char		*cont;
 
 	cont = safe_strjoin((*src)->content, (*tg)->content);
-	(*src)->content = safe_free((*src)->content);
+	(*src)->content = safe_free((*src)->content); //leaks added line
 	(*src)->content = cont;
-	(*tg)->content = safe_free((*tg)->content);
+	(*tg)->content = safe_free((*tg)->content); //leaks added line
 	(*src)->quotes.sp_case = (*tg)->quotes.sp_case;
 	if ((*tg)->prev)
 	{

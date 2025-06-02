@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/02 13:00:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:03:27 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_tk_lst	*find_w_tk(t_msh **msh)
 	return (NULL);
 }
 
-void	rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n)
+void	rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n) //leaks - created fuction to remove unused tokens
 {
 	if (n == 1)
 	{

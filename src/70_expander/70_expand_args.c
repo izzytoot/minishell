@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 12:13:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:18:37 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 		if (node->args) //leaks - added condition bc of segfault
 			ft_free_arrays((void **)node->args);
 		node->args = ft_array_dup_null(node, args_cpy, node->nb_arg);
-		ft_free_arrays((void**)args_cpy); //LEAKS - WORKED WITH JUST EXTI
+		ft_free_arrays((void**)args_cpy); //LEAKS 
 	}
 	recurs_exp_args(msh, node);
 }
@@ -54,7 +54,7 @@ void	expand_loop(t_msh **msh, t_tree_nd *node, char **args_cpy)
 			continue ;
 		tmp_arg = ft_strdup(node->args[i]);
 		expander(msh, &node, &tmp_arg);
-		args_cpy[i] = tmp_arg; //strdup??
+		args_cpy[i] = tmp_arg;
 	}
 	args_cpy[i] = NULL;
 }
