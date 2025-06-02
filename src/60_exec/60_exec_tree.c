@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 18:41:33 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:07:47 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	{
 		exec_heredocs(msh, node);
 		(*msh)->hd_check = false;
+		if ((*msh)->signal)
+		 	return (exit_value(msh, 130, 1, 0));
 	}
 	if (node->type == PIPE)
 		status = exec_pipe(msh, node);

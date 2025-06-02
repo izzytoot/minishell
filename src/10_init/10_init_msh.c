@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/30 17:08:40 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:16:36 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	ft_init_msh(t_msh **msh, char **envp)
 	// 	close_minishell(*msh, EXIT_FAILURE);
 	(*msh)->hd_check = true;
 	(*msh)->empties = false;
+	(*msh)->signal = false;
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
 	update_shlvl(&(*msh)->envp_list);
 	env_i(&(*msh)->envp_list);
 	(*msh)->msh_pid = getpid();
-	signal(SIGINT, signal_handler);
+	signal(SIGINT, sig_c_main);
 	signal(SIGQUIT, SIG_IGN);
 	exit_value(msh, 0, 1, 0);
 	prompt_and_read(&(*msh));

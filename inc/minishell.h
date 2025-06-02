@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/05/30 17:21:41 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:17:01 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ typedef struct s_msh
 	bool		hd_check;
 	char		*tmp_fname;
 	bool		empties;
+	bool		signal;
 }	t_msh;
 
 /* ************************************************************************** */
@@ -568,8 +569,8 @@ void			free_qt_lst(t_quote *qt_list);
 void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
 
 //90_signals.c
-void			signal_handler(int sig);
-void			signal_handles_hd(int sig);
+void			sig_c_main(int sig);
+void			sig_c_hd(int sig);
 
 /************ others ************/
 //11_debug_utils.c

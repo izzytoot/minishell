@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   64_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/30 17:21:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:48:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = 0;
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		(*msh)->msh_pid = 0;
 		status = choose_path(&(*msh), node, &path);
 		if (status != 0)
@@ -117,6 +118,8 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 			status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 			status = 128 + WTERMSIG(status);
+		if (status == 131)
+			ft_printf("Quit (core dumped)\n");
 	}
 	return (exit_value(msh, status, 1, 0));
 }

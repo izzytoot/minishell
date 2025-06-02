@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/23 18:55:19 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:37:13 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: %s", (*msh)->tmp_fname,
 			ERR_AMBREDIR);
-		printf("ERROR");
 		return (exit_value(msh, 1, 1, 0));
 	}
 	if (node->type != REDIR_HD)
@@ -91,7 +90,6 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 		file_fd = open(node->tmp_file, O_RDONLY);
 	if (file_fd < 0)
 	{
-		printf("ERROR2");
 		close(file_fd);
 		return (exit_value(msh, 1, 0, 0));
 	}
@@ -119,7 +117,7 @@ int	create_file_fd(t_tk_type type, char *file_name)
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: %s\n", ERR_UNKRED, strerror(errno));
-		return (-1);
+		return(-1);
 	}
 	if (file_fd < 0)
 	{

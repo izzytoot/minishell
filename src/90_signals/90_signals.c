@@ -6,18 +6,17 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/23 18:33:45 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:16:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	signal_handler(int sig)
+void	sig_c_main(int sig)//C
 {
 	int	status;
 
 	status = 0;
-	(void)sig;
 	rl_replace_line("", 0);
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
@@ -27,11 +26,8 @@ void	signal_handler(int sig)
 	exit_value(NULL, status, 1, 0);
 }
 
-void	signal_handles_hd(int sig)
+void	sig_c_hd(int sig) //C
 {
-	if (sig == SIGINT)
-	{
-		close(STDIN_FILENO);
-		exit_value(NULL, -1, 1, 0);		
-	}
+	(void)sig;
+	write(1, "\n", 1);
 }
