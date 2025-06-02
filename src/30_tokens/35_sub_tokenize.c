@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/23 18:48:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:00:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,11 @@ void	join_rest(t_msh **msh)
 	{
 		join_parts(&tmp_w, &merge_target);
 		if (!tmp_w->quotes.sp_case && merge_target->prev)
-			merge_target = tmp_w->prev;
+			rm_joined_tk(msh, &merge_target, &tmp_w, 1);
 		else
 		{
 			if (!merge_target->prev)
-			{
-				(*msh)->token_list = tmp_w;
-				tmp_w->prev = NULL;
-			}
+				rm_joined_tk(msh, &merge_target, &tmp_w, 2);
 			break ;
 		}
 	}
@@ -79,4 +76,19 @@ t_tk_lst	*find_w_tk(t_msh **msh)
 		w_tk = w_tk->prev;
 	}
 	return (NULL);
+}
+
+void	rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n)
+{
+	if (n == 1)
+	{
+		free_tokens(*mg_tg, 1);
+		*mg_tg = (*tmp_w)->prev;
+	}
+	if (n == 2)
+	{
+		free_tokens(*mg_tg, 1); // leaks, added line
+		(*msh)->token_list = *tmp_w;
+		(*tmp_w)->prev = NULL;	
+	}
 }

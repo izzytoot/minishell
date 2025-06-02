@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   37_sub_tokenize_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 13:47:32 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 12:41:16 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,9 @@ void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 	char		*cont;
 
 	cont = safe_strjoin((*src)->content, (*tg)->content);
-	free((*src)->content);
-	(*src)->content = ft_strdup(cont);
+	(*src)->content = safe_free((*src)->content);
+	(*src)->content = cont;
+	(*tg)->content = safe_free((*tg)->content);
 	(*src)->quotes.sp_case = (*tg)->quotes.sp_case;
 	if ((*tg)->prev)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/01 22:39:50 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/02 12:59:32 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,6 +319,7 @@ void			check_squote(bool *in_squotes, char c);
 void			sub_tokenize(t_msh **msh);
 void			join_rest(t_msh **msh);
 t_tk_lst		*find_w_tk(t_msh **msh);
+void			rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n);
 
 //36_sub_tokenize_files.c
 void			handle_filename(t_msh **msh);
