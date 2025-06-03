@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   38_token_empties.c                                 :+:      :+:    :+:   */
+/*   40_empties.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 22:39:19 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 17:31:16 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	ch_emp_exp(t_msh **msh, char *nl)
 		j++;
 	}
 	kw[j] = '\0';
-	if (!check_env_cont((*msh)->envp_list, (*msh)->vars_list, kw))
+	if (!ch_env_cont((*msh)->envp_list, (*msh)->vars_list, kw))
 		return (i++);
 	return (0);
 }

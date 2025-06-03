@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   46_tree_utils.c                                    :+:      :+:    :+:   */
+/*   56_tree_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:17:25 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/28 10:04:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 17:25:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,6 @@ t_tk_lst	*safe_prev_tk(t_tk_lst *curr_tk)
 	return (prev_tk);
 }
 
-void	ch_ambg(t_msh **msh, t_tree_nd *new_redir, char *fname, t_tk_lst *tk)
-{
-	int		i;
-	bool	qts;
-
-	i = -1;
-	qts = false;
-	if (tk->quotes.in_dquotes || tk->quotes.in_squotes)
-		qts = true;
-	if (!fname)
-		return ;
-	if (!qts && fname[0])
-	{
-		while (fname[++i])
-		{
-			if (strchr(WS, fname[i]))
-			{
-				(*msh)->tmp_fname = ft_strdup(fname);
-				new_redir->ch_ambg = true;
-				return ;
-			}
-		}
-	}
-	new_redir->ch_ambg = false;
-}
-
 void	add_fname(t_msh **msh, t_tree_nd *new_redir, t_tk_lst *curr_tk)
 {
 	if (new_redir->type == REDIR_HD && curr_tk->prev
@@ -86,6 +60,32 @@ void	add_fname(t_msh **msh, t_tree_nd *new_redir, t_tk_lst *curr_tk)
 	}
 	else
 		new_redir->file = ft_strdup("");
+}
+
+void	ch_ambg(t_msh **msh, t_tree_nd *new_redir, char *fname, t_tk_lst *tk)
+{
+	int		i;
+	bool	qts;
+
+	i = -1;
+	qts = false;
+	if (tk->quotes.in_dquotes || tk->quotes.in_squotes)
+		qts = true;
+	if (!fname)
+		return ;
+	if (!qts && fname[0])
+	{
+		while (fname[++i])
+		{
+			if (strchr(WS, fname[i]))
+			{
+				(*msh)->tmp_fname = ft_strdup(fname);
+				new_redir->ch_ambg = true;
+				return ;
+			}
+		}
+	}
+	new_redir->ch_ambg = false;
 }
 
 t_list	*reverse_args(t_list **head)

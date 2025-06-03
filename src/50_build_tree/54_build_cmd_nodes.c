@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   44_build_cmd_nodes.c                               :+:      :+:    :+:   */
+/*   54_build_cmd_nodes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/01 22:39:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 17:31:23 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 		if (type_is_word(&(*curr_tk)->type))
 		{
 			if ((*curr_tk)->type == ARG && (*curr_tk)->content[0] == '$'
-				&& (*curr_tk)->content[1] && !check_env_cont((*msh)->envp_list,
+				&& (*curr_tk)->content[1] && !ch_env_cont((*msh)->envp_list,
 					(*msh)->vars_list, (*curr_tk)->content + 1))
 				;
 			else
@@ -93,4 +93,26 @@ char	**join_cmd_and_args(char *cmd, char **args)
 	}
 	full_cmd[i + 1] = NULL;
 	return (full_cmd);
+}
+
+char	*ch_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
+{
+	int		key_len;
+	
+	key_len = ft_strlen(key_word);
+	while (envp_list)
+	{
+		if (!ft_strncmp(envp_list->content, key_word, key_len)
+			&& ((char *)envp_list->content)[key_len] == '=')
+			return (&((char *)envp_list->content)[key_len + 1]);
+		envp_list = envp_list->next;
+	}
+	while (vars_list)
+	{
+		if (!ft_strncmp(vars_list->content, key_word, key_len)
+			&& ((char *)vars_list->content)[key_len] == '=')
+			return (&((char *)vars_list->content)[key_len + 1]);
+		vars_list = vars_list->next;
+	}
+	return (NULL);
 }
