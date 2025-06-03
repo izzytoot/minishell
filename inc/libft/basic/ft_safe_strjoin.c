@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:40:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 13:02:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:51:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ char	*join_both(char *s1, char *s2)
 		return (tr_s1);
 	res = ft_strjoin(tr_s1, tr_s2);
 	free_trimmed(&tr_s1, &tr_s2);
+	s1 = safe_free(s1); //leaks - added line for when s1 is result of previous dup
 	return (res);
 }
 
 char	*safe_strjoin(char *s1, char *s2)
 {
 	int		len;
-
+	
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
@@ -68,7 +69,7 @@ char	*safe_strjoin(char *s1, char *s2)
 		if (len > 0 && s1[len - 1] == '\n')
 			return (ft_substr(s1, 0, len - 1));
 		else
-			return (ft_strdup(s1));
+			return (s1);
 	}
 	else
 		return (join_both(s1, s2));

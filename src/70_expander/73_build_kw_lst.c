@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   73_build_kw_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 00:28:47 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 16:47:46 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 	{
 		while (count-- > 0)
 		{
-			next = arg[*i + 1];
+			if (*i < (int)ft_strlen(arg))
+				next = arg[*i + 1];
+			else
+				next = '\0';
 			n_kw = ft_calloc(1, sizeof(t_kw)); //LEAKS - removed * of tw_kw
 			get_exp_kw(next, n_kw, arg, i);
 			app_kw(kw_lst, n_kw, n_kw->kw, true);
