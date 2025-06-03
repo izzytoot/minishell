@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   73_build_kw_lst.c                                  :+:      :+:    :+:   */
+/*   83_build_kw_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 16:47:46 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:43:45 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 	char	next;
 
 	count = count_exp(arg, *i);
-	if (count >= MAX_KW - 1)
-		return (kw_err());
 	while (arg[*i] && !ft_strchr(WS, arg[*i])
 		&& !ft_strchr(SYM_EXP, arg[*i]) && !ft_strchr(QT, arg[*i]))
 	{

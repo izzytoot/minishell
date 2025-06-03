@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   53_echo.c                                          :+:      :+:    :+:   */
+/*   63_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/02 15:43:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:36:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,7 @@ bool	handle_n(t_tree_nd **node, int *i, bool first_flag)
 			if ((*node)->args[*i][j] == 'n')
 				j++;
 			else if ((*node)->args[*i][j] != 'n')
-			{
-				if (first_flag)
-					newline = true;
-				return (newline);
-			}
+				return (get_newline(first_flag, &newline)); //leaks reduced lines with new funct
 		}
 		first_flag = false;
 		(*i)++;
@@ -72,4 +68,11 @@ bool	handle_n(t_tree_nd **node, int *i, bool first_flag)
 			tmp_lst = tmp_lst->next;
 	}
 	return (newline);
+}
+
+bool	get_newline(bool first_flag, bool *newline)
+{
+	if (first_flag)
+		*newline = true;
+	return (*newline);
 }

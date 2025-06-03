@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/03 17:31:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:44:08 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
 # define ERR_CD_ARGS "msh: cd: too many arguments\n"
 # define ERR_UNKRED "unknown redirection type\n"
-# define ERR_KW "msh: too many keywords for expander\n"
 # define ERR_PT "msh: .: filename argument required\n.: usage: . filename [arguments]\n"
 # define ERR_PID_EXP "msh: PID expansion unsupported\n"
 
@@ -92,7 +91,6 @@
 # define SYM_EXP ".,-+:/^&*!~=#?[]{}%\\"
 # define REDIR "<>"
 # define QT "\"\'"
-# define MAX_KW 128
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
@@ -432,6 +430,7 @@ char			*update_var_util(const char *var_name, const char *data);
 //63_echo.c
 int				ft_echo(t_tree_nd **node);
 bool			handle_n(t_tree_nd **node, int *i, bool first_flag);
+bool			get_newline(bool first_flag, bool *newline);
 
 //64_exit.c
 int				ft_exit(t_msh **msh, t_tree_nd **node);	
@@ -592,7 +591,6 @@ void			close_minishell(t_msh	*msh, int exit_code);
 void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char **array);
 
 //102_other_frees.c
-void			kw_err(void);
 void			free_tokens(t_tk_lst *token_list, int n);
 void			free_qt_lst(t_quote *qt_list);
 void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
