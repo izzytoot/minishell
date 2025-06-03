@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   73_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/03 18:35:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 00:41:38 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 
 	curr_nd = node;
 	eof = check_eof(curr_nd, curr_nd->file);
+	lines.ch_exp = false;
 	while (1)
 	{
 		lines.new_l = readline("> ");
@@ -62,9 +63,10 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		expand_line(msh, &lines, curr_nd, hd_fd);
 		ft_putstr_fd("\n", hd_fd);
 		lines.new_l = safe_free(lines.new_l);
+		if (lines.ch_exp)
+			ft_free_arrays((void **)lines.exp_newl); //leaks
 	}
 	eof = safe_free(eof); //leaks
-	ft_free_arrays((void **)lines.exp_newl); //leaks
 }
 
 char	*check_eof(t_tree_nd *node, char *file_name)

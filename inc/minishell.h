@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/03 17:44:08 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 00:41:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ typedef struct s_hd_lines
 {
 	char	*new_l;
 	char	**exp_newl;
+	bool	ch_exp;
 }	t_hd_lines;
 
 typedef struct s_exp_cont

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   82_expand_hd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:50 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 18:37:28 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 00:42:07 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	expand_line(t_msh **msh, t_hd_lines *lines,
 		while (lines->exp_newl[i])
 		{
 			if (count_exp(lines->exp_newl[i], 0))
+			{
 				lines->exp_newl[i] = expand_word(msh, lines->exp_newl[i]);
+				lines->ch_exp = true;
+			}
 			i++;
 		}
 		unsplit = ft_unsplit(lines->exp_newl);
