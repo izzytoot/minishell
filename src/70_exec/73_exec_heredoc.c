@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
+/*   73_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/29 23:31:42 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 18:35:21 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		lines.new_l = safe_free(lines.new_l);
 	}
 	eof = safe_free(eof); //leaks
+	ft_free_arrays((void **)lines.exp_newl); //leaks
 }
 
 char	*check_eof(t_tree_nd *node, char *file_name)

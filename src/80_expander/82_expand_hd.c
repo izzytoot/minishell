@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   72_expand_hd.c                                     :+:      :+:    :+:   */
+/*   82_expand_hd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:50 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 21:37:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 18:37:28 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	expand_line(t_msh **msh, t_hd_lines *lines,
 	t_tree_nd *curr_nd, int hd_fd)
 {
-	int	i;
+	int		i;
+	char	*unsplit;
 
-	(void)msh;
 	i = 0;
 	if (!curr_nd->exp_hd || !count_exp(lines->new_l, 0))
 		ft_putstr_fd(lines->new_l, hd_fd);
@@ -30,7 +30,9 @@ void	expand_line(t_msh **msh, t_hd_lines *lines,
 				lines->exp_newl[i] = expand_word(msh, lines->exp_newl[i]);
 			i++;
 		}
-		ft_putstr_fd(ft_unsplit(lines->exp_newl), hd_fd);
+		unsplit = ft_unsplit(lines->exp_newl);
+		ft_putstr_fd(unsplit, hd_fd);
+		unsplit = safe_free(unsplit);
 	}
 }
 

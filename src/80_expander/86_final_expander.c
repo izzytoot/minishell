@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   76_final_expander.c                                :+:      :+:    :+:   */
+/*   86_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 22:48:47 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 18:42:55 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,30 @@ char	*get_final_cont(t_exp_cont *parts)
 {
 	char	*final_c;
 	int		len;
-	char	*tmp;
-
+	char	*tmp_new_c;
+	char	*tmp_final_c;
+	
 	len = ft_strlen(parts->new_c);
 	if (len > 0 && parts->new_c[len - 1] == '\n')
 	{
-		tmp = get_tmp(parts->new_c, parts->post_c, len);
-		final_c = ultimate_joint(parts->new_c, tmp);
+		tmp_new_c = get_tmp(parts->new_c, parts->post_c, len);
+		final_c = ultimate_joint(parts->new_c, tmp_new_c);
 	}
 	else
 	{
-		tmp = ft_strdup(parts->new_c);
+		tmp_new_c = ft_strdup(parts->new_c);
 		if (parts->pre_c)
-			final_c = ft_strjoin(parts->pre_c, tmp);
+			final_c = ft_strjoin(parts->pre_c, tmp_new_c);
 		else
-			final_c = ft_strdup(tmp);
+			final_c = ft_strdup(tmp_new_c);
+		tmp_final_c = final_c;
 		if (parts->post_c)
 			final_c = ft_strjoin(final_c, parts->post_c);
+		if (tmp_final_c)
+			tmp_final_c = safe_free(tmp_final_c);
 	}
-	if (tmp)
-		tmp = safe_free(tmp);
+	if (tmp_new_c)
+		tmp_new_c = safe_free(tmp_new_c);
 	return (final_c);
 }
 

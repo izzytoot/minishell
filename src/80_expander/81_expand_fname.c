@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 17:58:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:25:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
 			{
 				tmp_mg_prev = merge_tg->prev;
 				merge_tg->prev->next = tmp_fn;
-				free_tokens(tmp_mg_prev, 1);  // leaks, added line
+				free_tokens(merge_tg, 1);  // leaks, added line
 				tmp_fn->prev = tmp_mg_prev;
 			}
 			break ;
