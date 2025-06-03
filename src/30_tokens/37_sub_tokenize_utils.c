@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 13:17:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:41:53 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
 	if ((*tg)->prev)
 	{
 		(*src)->prev = (*tg)->prev;
-		free_tokens(*tg, 1); //check this
 		(*src)->prev->next = (*src);
 	}
 }

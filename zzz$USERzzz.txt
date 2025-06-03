@@ -1,0 +1,10 @@
+en.subject_minishell.pdf
+inc
+Makefile
+minishell
+readline.supp
+src
+tmp
+zzz$USERzzz.txt
+zzzicunha-t.txt
+zzzicunha-tzzz.txt
