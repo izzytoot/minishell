@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   71_expand_fname.c                                  :+:      :+:    :+:   */
+/*   81_expand_fname.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 16:04:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:58:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,11 @@ void	expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
 		expand_fn(msh, &tmp_fn, &merge_tg, hd_flag);
 		join_parts(&tmp_fn, &merge_tg);
 		if (!tmp_fn->quotes.sp_case && merge_tg->prev)
-		{
-			free_tokens(merge_tg, 1); // leaks, added line
-			merge_tg = tmp_fn->prev;
-		}
+			rm_joined_tk(msh, &merge_tg, &tmp_fn, 1);
 		else
 		{
 			if (!merge_tg->prev)
-			{
-				free_tokens(merge_tg, 1); // leaks, added line
-				(*msh)->token_list = tmp_fn;
-				(*msh)->token_list->prev = NULL;
-			}
+				rm_joined_tk(msh, &merge_tg, &tmp_fn, 2);
 			else
 			{
 				tmp_mg_prev = merge_tg->prev;
