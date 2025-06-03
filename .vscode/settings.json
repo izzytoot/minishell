@@ -27,5 +27,6 @@
 		"optional": "c",
 		"cstdlib": "c",
 		"sstream": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }
