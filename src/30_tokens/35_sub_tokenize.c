@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 17:58:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:31:23 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	join_rest(t_msh **msh)
 		{
 			if (!merge_target->prev)
 				rm_joined_tk(msh, &merge_target, &tmp_w, 2);
-			free_tokens(merge_target, 1);
+			else
+				free_tokens(merge_target, 1); //leaks - added line
 			break ;
 		}
 	}
