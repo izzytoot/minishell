@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 15:02:05 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:32:00 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,12 @@ int	exp_to_null(t_msh **msh, int start)
 		return (start);
 	while (line[i] && !ft_strchr(WS, line[i]))
 	{
-		if ((line[i + 1] && (line[i] != line[i + 1]))
+		if ((line[i + 1] && ((line[i] != line[i + 1])))
 			|| !ft_strchr(QT, line[i]))
 			return (start);
 		i++;
+		if (ft_strchr(WS, line[i + 1]))
+			break ;
 	}
 	exp[0] = '\0';
 	new_tk = ft_calloc(1, sizeof(t_tk_lst));
