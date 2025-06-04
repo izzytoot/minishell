@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/04 18:04:25 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:46:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,8 +324,8 @@ void			attribute_type(t_msh **msh, t_tk_lst *curr);
 
 //36_sub_tokenize_files.c
 void			handle_filename(t_msh **msh);
-void			join_filename(t_msh **msh, bool hd_flag);
-t_tk_lst		*find_file(t_msh **msh);
+void			join_filename(t_msh **msh, bool hd_flag, t_tk_lst *tmp_fn);
+t_tk_lst		*find_file(t_msh **msh, t_tk_lst *curr);
 void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
 					t_tk_lst **merge_tg, bool hd_flag);
 

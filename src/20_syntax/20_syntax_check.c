@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   20_syntax_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/05/29 15:45:14 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 18:09:57 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	syntax_is_ok(t_msh **msh)
 	{
 		if (misplaced_redir_at_end(line))
 		{
-			exec_fake_hd(line, hd_index);
+			//exec_fake_hd(line, hd_index); //VER COM DANI
 			ft_putstr_fd(ERR_SYN_REDIR_NL, STDERR_FILENO);
 			return (exit_value(msh, 2, 1, 0));
 		}

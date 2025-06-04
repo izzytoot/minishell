@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:33:42 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 13:04:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:48:47 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	handle_filename(t_msh **msh)
 	t_tk_lst	*curr;
 	bool		hd_flag;
 
-	curr = (*msh)->token_list; //add if !curr ?
+	curr = (*msh)->token_list;
 	hd_flag = false;
 	while (curr)
 	{
@@ -35,15 +35,14 @@ void	handle_filename(t_msh **msh)
 		}
 		curr = curr->next;
 	}
-	join_filename(msh, hd_flag);
+	if (find_file(msh, NULL))
+		join_filename(msh, hd_flag, find_file(msh, NULL));
 }
 
-void	join_filename(t_msh **msh, bool hd_flag)
+void	join_filename(t_msh **msh, bool hd_flag, t_tk_lst *tmp_fn)
 {
-	t_tk_lst	*tmp_fn;
 	t_tk_lst	*merge_tg;
 
-	tmp_fn = find_file(msh);
 	if (!tmp_fn)
 		return ;
 	else if (!tmp_fn->prev || (tmp_fn->prev && tmp_fn->prev->type != W_SPACE
@@ -54,13 +53,18 @@ void	join_filename(t_msh **msh, bool hd_flag)
 		merge_tg = tmp_fn->prev;
 		expand_and_join_fname(msh, tmp_fn, merge_tg, hd_flag);
 	}
+	if (find_file(msh, tmp_fn->next))
+		join_filename(msh, hd_flag, find_file(msh, tmp_fn->next));
 }
 
-t_tk_lst	*find_file(t_msh **msh)
+t_tk_lst	*find_file(t_msh **msh, t_tk_lst *curr)
 {
 	t_tk_lst	*file;
-
-	file = (*msh)->token_list;
+	
+	if (!curr)
+		file = (*msh)->token_list;
+	else
+		file = curr;
 	while (file)
 	{
 		if (file->type == FILE_NAME)
