@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   51_cd.c                                            :+:      :+:    :+:   */
+/*   61_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/30 16:43:37 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 17:34:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 	if (chdir(target_dir) == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: cd: %s: No such file or directory\n",
-			target_dir);
+		 	target_dir);
+		printf("msh: cd: %s:", target_dir);
+		perror("");
 		return (free(target_dir), free(old_pwd), EXIT_FAILURE);
 	}
 	update_cd_env(msh, old_pwd);
