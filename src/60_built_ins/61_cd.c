@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/04 17:34:05 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:03:55 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 int	ft_cd(t_msh **msh, t_tree_nd **node)
 {
-	char	*target_dir;
-	char	cwd[PATH_MAX];
-	char	*old_pwd;
+	char		*target_dir;
+	char		cwd[PATH_MAX];
+	char		*old_pwd;
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
@@ -34,10 +34,7 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 		return (free(target_dir), free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "msh: cd: %s: No such file or directory\n",
-		 	target_dir);
-		printf("msh: cd: %s:", target_dir);
-		perror("");
+		ft_dprintf(STDERR_FILENO, "msh: cd: %s: %s\n", target_dir, get_errmsg());
 		return (free(target_dir), free(old_pwd), EXIT_FAILURE);
 	}
 	update_cd_env(msh, old_pwd);
@@ -119,4 +116,14 @@ int	update_cd_var(t_list **env_list, const char *var_name, const char *data)
 		current = current->next;
 	}
 	return (EXIT_SUCCESS);
+}
+
+char	*get_errmsg()
+{
+	int		errnum;
+	char	*errmsg;
+
+	errnum = errno;
+	errmsg = strerror(errnum);
+	return (errmsg);
 }
