@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_debug_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:43:55 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/16 13:55:28 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 19:46:53 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_tokens(t_msh **msh)
 {
 	t_tk_lst	*curr = (*msh)->token_list;
 	int n = 0;
-	char *token_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD", "SH_V"};
+	char *token_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD"};
 	while(curr)
 	{
 		ft_printf(YLL"token %d is"RES, ++n);
@@ -61,7 +61,7 @@ void	print_tokens(t_msh **msh)
 void	print_tree(t_tree_nd *node)
 {
 	int	i = -1;
-	char *node_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD", "SH_V"};
+	char *node_type[] = {"PIPE", "WORD", "BT_CMD", "ARG", "W_SPACE", "FILE_NAME", "REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "ENV_CMD"};
 
 	if (!node) 
 		return ;

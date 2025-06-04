@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 15:09:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 19:57:13 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		status = exec_redir_before_cmd(msh, node);
 	else if (type_is_word(&node->type))
 	{
-		if (ch_if_sub_cmd(node))
+		if (ch_if_sub_cmd(msh, node))
 			sub_cmd(msh, node, &node->args);
 		status = exec_cmd(msh, node);
 	}
@@ -83,22 +83,6 @@ char	**remake_args(t_tree_nd *node)
 	return (new_args);
 }
 
-void	sub_cmd_util(t_tree_nd *node, char **sep_args, int count, char ****new_args)
-{
-	char		**sep_args_tmp;
-	char		**joinned_array;
-
-	sep_args_tmp = sep_args;
-	node->cmd = ft_strdup(sep_args_tmp[0]);
-	if (count > 1)
-	{
-		joinned_array = ft_array_join((ft_array_dup(sep_args_tmp + 1)),
-				(ft_array_dup((**new_args) + 1)));
-		ft_free_arrays((void **)**new_args);
-		(**new_args) = joinned_array;
-	}
-}
-
 void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 {
 	char		*env_path;
@@ -122,4 +106,32 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 	if (node->type == BT_CMD || node->type == ENV_CMD)
 		sub_cmd_util(node, sep_args, count, &new_args);
 	ft_free_arrays((void **)sep_args);
+}
+
+void	sub_cmd_util(t_tree_nd *node, char **sep_args, int count, char ****new_args)
+{
+	char		**sep_args_tmp;
+	char		**joinned_array;
+	char		*tmp_cmd;
+	
+	sep_args_tmp = sep_args;
+	tmp_cmd = NULL;
+	joinned_array = NULL;
+	if (node->cmd)
+	{
+		tmp_cmd = ft_strdup(node->cmd);
+		node->cmd = safe_free(node->cmd);
+	}
+	node->cmd = ft_strdup(sep_args_tmp[0]);
+	if (tmp_cmd)
+	{
+		sep_args_tmp[0] = safe_free(sep_args_tmp[0]);
+		sep_args_tmp[0] = tmp_cmd;	
+	}
+	if (count > 1)
+	{
+		joinned_array = get_joinned_array(tmp_cmd, sep_args, new_args);
+		ft_free_arrays((void **)**new_args);
+		(**new_args) = joinned_array;	
+	}
 }

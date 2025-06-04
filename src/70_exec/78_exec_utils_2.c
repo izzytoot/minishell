@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:42:59 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 15:20:36 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 19:58:28 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,29 @@ bool	arg_expansions(t_tree_nd *node)
 	return (false);
 }
 
-bool	ch_if_sub_cmd(t_tree_nd *node)
+bool	ch_if_sub_cmd(t_msh **msh, t_tree_nd *node)
 {
-	if (node->cmd || !node->args[0])
+	char	*tmp_cmd;
+
+	tmp_cmd = NULL;
+	if (node->cmd)
+		tmp_cmd = ft_strdup(node->cmd);
+	if ((tmp_cmd && !ch_shlvl(msh, tmp_cmd)) || !node->args[0])
+	{
+		tmp_cmd = safe_free(tmp_cmd);
 		return (false);
-	if ((ft_strcmp(node->args[0], ".") == 0)
-		|| (ft_strcmp(node->args[0], "..") == 0))
+	}
+	if ((ft_strcmp(node->args[0], ".") == 0) 
+		|| (ft_strcmp(node->args[0], "..") == 0) || node->quote_lst->in_quotes)
+	{
+		tmp_cmd = safe_free(tmp_cmd);
 		return (false);
-	if (node->quote_lst->in_quotes)
-		return (false);
-	if (!node->cmd && node->args[0])
+	}
+	if ((!node->cmd || ch_shlvl(msh, tmp_cmd)) && node->args[0])
+	{
+		tmp_cmd = safe_free(tmp_cmd);
 		return (true);
+	}
 	return (false);
 }
 
@@ -51,4 +63,19 @@ int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
 	}
 	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
 	return (exit_value(msh, 127, 1, 0));
+}
+
+char	**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
+	char ****new_args)
+{
+	char		**joinned_array;
+	
+	joinned_array = NULL;
+	if (tmp_cmd)
+		joinned_array = ft_array_join((ft_array_dup(sep_args_tmp)),
+			(ft_array_dup((**new_args) + 1)));
+	else
+		joinned_array = ft_array_join((ft_array_dup(sep_args_tmp + 1)),
+			(ft_array_dup((**new_args) + 1)));
+	return(joinned_array);
 }

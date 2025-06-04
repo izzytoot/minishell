@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/04 18:46:15 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:06:46 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,33 +94,19 @@
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
 
-typedef enum e_cmd_type
-{
-	ECH,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-	//HELP,
-	//PATH
-}	t_cmd_type;
-
 typedef enum e_tk_type
 {
-	PIPE, // |
-	WORD, // cmd or arg
-	BT_CMD, //builtin cmd
-	ARG, //arg for cmd
-	W_SPACE, //space
+	PIPE,
+	WORD,
+	BT_CMD,
+	ARG,
+	W_SPACE,
 	FILE_NAME,
-	REDIR_IN, // < (input)
-	REDIR_OUT, // > (output)
-	REDIR_APP, // >> (append)
-	REDIR_HD, // << (heredoc)
-	ENV_CMD, // envirm. cmd
-	SH_V, //shell var
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APP,
+	REDIR_HD,
+	ENV_CMD,
 }	t_tk_type;
 
 typedef struct s_quote
@@ -216,7 +202,7 @@ typedef struct s_msh
 	t_tk_lst	*token_list;
 	t_tree_nd	*tree_root;
 	char		**envp;
-	t_list		*envp_list; //enviroment variables line user, home, path, etc
+	t_list		*envp_list;
 	t_list		*vars_list;
 	bool		debug_mode;
 	bool		hd_check;
@@ -527,8 +513,10 @@ int				handle_direct_command(t_msh **msh, t_tree_nd *node,
 
 //78_exec_utils_2.c
 bool			arg_expansions(t_tree_nd *node);
-bool			ch_if_sub_cmd(t_tree_nd *node);
+bool			ch_if_sub_cmd(t_msh **msh, t_tree_nd *node);
 int				output_cmd_errors(t_msh **msh, t_tree_nd *node);
+char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
+					char ****new_args);
 
 /************ 80_expander ************/
 //80_expand_args.c
@@ -576,6 +564,8 @@ char			*get_post_cont(char *arg, int *i);
 //86_final_expander.c
 char			*get_exp_cont(t_kw **kw_lst);
 char			*get_final_cont(t_exp_cont *parts);
+void			get_final_cont_util(char **tmp_new_c, char **final_c, 
+					t_exp_cont *parts);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);
 
