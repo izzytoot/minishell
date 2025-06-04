@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   23_syntax_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:01:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/01 13:41:21 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:41:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	conseq_operators_redir(const char *line)
 	in_quotes = false;
 	while (line[++i])
 	{
-		if (!line[i + 1])  //leaks added bc invalid read
+		if (!line[i + 1]) //leaks added bc invalid read
 			return (false);
 		check_in_quotes(line[i], &in_quotes);
 		if (line[i] && !in_quotes && ft_strchr(REDIR, line[i]))

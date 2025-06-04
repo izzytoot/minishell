@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:40:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/03 16:54:17 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:31:19 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*join_both(char *s1, char *s2)
 char	*safe_strjoin(char *s1, char *s2)
 {
 	int		len;
-	
+
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)

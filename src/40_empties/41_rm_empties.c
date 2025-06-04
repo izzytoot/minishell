@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   39_rm_empties.c                                    :+:      :+:    :+:   */
+/*   41_rm_empties.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/01 14:05:59 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:00:14 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	rm_empties(t_tk_lst **token)
 
 void	empties_rmv_exp(t_tk_lst ***curr)
 {
-	t_tk_lst *curr_prev;
-	t_tk_lst *curr_next;
-	
+	t_tk_lst	*curr_prev;
+	t_tk_lst	*curr_next;
+
 	curr_prev = (**curr)->prev;
 	if ((**curr)->next)
 	{
@@ -65,7 +65,7 @@ void	empties_rmv_exp(t_tk_lst ***curr)
 
 void	empties_rmv_tk(t_tk_lst ***curr)
 {
-	t_tk_lst *curr_prev;
+	t_tk_lst	*curr_prev;
 
 	if ((**curr)->prev && (**curr)->next)
 	{
@@ -94,8 +94,8 @@ void	empties_rmv_tk(t_tk_lst ***curr)
 
 void	empties_rmv_tk_util(t_tk_lst ****curr)
 {
-	t_tk_lst *curr_prev;
-	t_tk_lst *curr_next;
+	t_tk_lst	*curr_prev;
+	t_tk_lst	*curr_next;
 
 	if ((***curr)->next)
 		(***curr)->next->quotes.sp_case = (***curr)->quotes.sp_case;

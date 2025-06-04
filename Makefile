@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/06/03 17:09:12 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/06/04 17:20:19 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -159,25 +159,21 @@ $(TMP)/%.o: $(SRC_PATH)%.c
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
-
 valgrind:
 	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
-	/usr/bin/valgrind --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
+	/usr/bin/valgrind -q --track-fds=yes --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
+	
+fullvalgrind:
+	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
+	/usr/bin/valgrind --track-fds=yes --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
 
 sync:
-	@tmux new-window  -n sync
-	@tmux send-keys './minishell' C-m Escape
+	@tmux new-window -n sync
+	@tmux send-keys './minishell' C-m
 	@tmux split-window -h
 	@tmux send-keys -t sync.2 'bash' C-m
 	@tmux select-pane -t sync.1
 	@tmux setw synchronize-panes on
-
-vgdb:
-	tmux new-window  -n vGdb
-	tmux send-keys 'valgrind -q --vgdb-error=0 ./minishell' C-m Escape
-	tmux split-window -h
-	tmux send-keys -t Gdb.2 'gdbtui ./minishell' C-m
-	tmux select-pane -t vGdb.1
 
 clean:
 	@$(RM) $(OBJ)
@@ -193,4 +189,4 @@ fcleanall: fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re cleanall fcleanall
+.PHONY: all clean fclean re cleanall fcleanall sync fullvalgrind valgrind

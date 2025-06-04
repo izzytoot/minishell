@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 17:22:36 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:10:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	other_expand_cases(t_msh **msh, char **kw)
 		*kw = ft_itoa(exit_value(msh, 0, 0, 0));
 		return (true);
 	}
-	return(false);
+	return (false);
 }
 
 int	expand_case(char *kw)
@@ -77,7 +77,7 @@ int	expand_case(char *kw)
 char	*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 {
 	int		key_len;
-	
+
 	key_len = ft_strlen(key_word);
 	while (envp_list)
 	{
@@ -91,7 +91,7 @@ char	*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 	{
 		if (!ft_strncmp(vars_list->content, key_word, key_len)
 			&& ((char *)vars_list->content)[key_len] == '=')
-			return (safe_free(key_word), 
+			return (safe_free(key_word),
 				ft_strdup(&((char *)vars_list->content)[key_len + 1])); //leaks - added free
 		vars_list = vars_list->next;
 	}

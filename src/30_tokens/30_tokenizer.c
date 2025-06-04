@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/01 13:44:07 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:02:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_tokens(t_msh **msh, int i)
 		i = empty_case(msh, line, 0, true);
 	while (line[++i])
 	{
- 		quotes.sp_case = false;
+		quotes.sp_case = false;
 		sort_out_quotes(&i, line, &quotes);
 		if ((!quotes.in_squotes || !quotes.in_dquotes)
 			&& ft_strchr(QT, line [i]))
@@ -83,7 +83,7 @@ void	init_qt_struct(t_quote *quotes)
 	quotes->in_dquotes = false;
 	quotes->in_quotes = false;
 	quotes->content = NULL;
-	quotes->exp	= false;
+	quotes->exp = false;
 	quotes->quote_char = '\0';
 	quotes->sp_case = false;
 }
@@ -125,8 +125,8 @@ void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 	else //leaks
 	{
 		new_tk->content = NULL;
-		new_tk->quotes.content = NULL;	
-	} //leaks
+		new_tk->quotes.content = NULL;
+	}
 	new_tk->next = msh->token_list;
 	new_tk->prev = NULL;
 	if (msh->token_list)

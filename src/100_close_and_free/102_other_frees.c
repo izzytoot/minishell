@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 17:43:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:15:32 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	free_qt_lst(t_quote *qt_list)
 void	free_kw_structs(t_exp_cont *parts, t_kw **kw_lst)
 {
 	t_kw	*tmp_kw;
-	
+
 	if (parts->new_c)
 		parts->new_c = safe_free(parts->new_c);
 	if (parts->post_c)
@@ -68,11 +68,9 @@ void	free_kw_structs(t_exp_cont *parts, t_kw **kw_lst)
 	while (*kw_lst)
 	{
 		tmp_kw = (*kw_lst)->next;
-		if((*kw_lst)->kw)
+		if ((*kw_lst)->kw)
 			safe_free((*kw_lst)->kw);
 		safe_free(*kw_lst);
 		*kw_lst = tmp_kw;
 	}
-	
 }
-

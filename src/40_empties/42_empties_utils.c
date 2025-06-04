@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   40_rm_empties_utils.c                              :+:      :+:    :+:   */
+/*   42_empties_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 13:50:40 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/01 14:37:37 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:05:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ bool	emp_1(char *nl, const char *line, int tmp_i)
 {
 	if ((ft_strncmp("\"\"", nl, 2) == 0 || ft_strncmp("''", nl, 2) == 0)
 		&& ((((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))
-		&& (nl[2] && ft_strchr(WS, nl[2]))))))
-			return (true);
+					&& (nl[2] && ft_strchr(WS, nl[2]))))))
+		return (true);
 	return (false);
 }
 
@@ -59,6 +59,6 @@ void	rm_empties_case(t_tk_lst **curr, bool env)
 			|| (*curr)->next->type == ARG) && !env)
 		empties_rmv_tk(&curr);
 	else if (!(*curr)->next && (*curr)->prev && !(*curr)->quotes.sp_case
-			&& ((*curr)->prev->type == BT_CMD || (*curr)->prev->type == ARG) && !env)
-			empties_rmv_tk(&curr);
+		&& ((*curr)->prev->type == BT_CMD || (*curr)->prev->type == ARG) && !env)
+		empties_rmv_tk(&curr);
 }

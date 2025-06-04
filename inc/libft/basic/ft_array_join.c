@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrayjoin.c                                     :+:      :+:    :+:   */
+/*   ft_array_join.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 00:29:55 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/02 22:59:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:34:31 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,31 @@
 
 int	array_len(char **array)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (array && array[i])
 		i++;
 	return (i);
 }
 
-char	**ft_array_join(char **arr1, char **arr2) 
+char	**ft_array_join(char **arr1, char **arr2)
 {
-	int len1;
-	int len2;
-	char **final_arr;
-	int j;
-	
+	int		len1;
+	int		len2;
+	char	**final_arr;
+	int		j;
+	int		i;
+
 	len1 = array_len(arr1);
 	len2 = array_len(arr2);
 	j = 0;
-	int i = 0;
+	i = -1;
 	final_arr = malloc((len1 + len2 + 1) * sizeof(char *));
 	if (!final_arr)
-		return NULL;
-	while (i < len1) 
-	{
+		return (NULL);
+	while (++i < len1)
 		final_arr[i] = arr1[i];
-		i++;
-	}
 	while (j < len2)
 	{
 		final_arr[i + j] = arr2[j];
@@ -49,5 +47,5 @@ char	**ft_array_join(char **arr1, char **arr2)
 	final_arr[len1 + len2] = NULL;
 	arr1 = safe_free(arr1);
 	arr2 = safe_free(arr2);
-	return (final_arr);	
+	return (final_arr);
 }

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/03 17:36:29 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:18:32 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_echo(t_tree_nd **node)
 	int		i;
 	bool	nline;
 	bool	first_flag;
-	t_quote	*tmp_lst; //leaks - added var to equal tmp_lst
-	
+	t_quote	*tmp_lst;
+
 	i = 0;
 	first_flag = true;
 	nline = true;
@@ -48,7 +48,7 @@ bool	handle_n(t_tree_nd **node, int *i, bool first_flag)
 	int		j;
 	bool	newline;
 	t_quote	*tmp_lst;
-	
+
 	newline = true;
 	tmp_lst = (*node)->quote_lst;
 	while ((*node)->args[*i] && ft_strncmp((*node)->args[*i], "-n", 2) == 0)

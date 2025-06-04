@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 17:31:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:06:33 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	empty_case(t_msh **msh, const char *line, int i, bool fl)
 	if (!nl[0])
 		return (tmp_i);
 	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
-		&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))) || (i == 0
-		|| !line[i - 1])))) || emp_1(nl, line, tmp_i) || emp_2(nl, fl)))
+				&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))) || (i == 0
+							|| !line[i - 1])))) || emp_1(nl, line, tmp_i) || emp_2(nl, fl)))
 	{
 		if (ch_emp_exp(msh, nl))
 			tmp_i = (tmp_i + ch_emp_exp(msh, nl));
@@ -38,7 +38,8 @@ int	empty_case(t_msh **msh, const char *line, int i, bool fl)
 		empty_tk = ft_calloc(1, sizeof(t_tk_lst));
 		app_tk((*msh), empty_tk, "''", ARG);
 	}
-	return (tmp_i);}
+	return (tmp_i);
+}
 
 int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
 {
@@ -57,8 +58,8 @@ int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
 	if (!nl[0])
 		return (tmp_i);
 	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
-		&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))) || (i == 0
-		|| !line[i - 1])))) || emp_1(nl, line, tmp_i) || emp_2(nl, fl)))
+				&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))) || (i == 0
+							|| !line[i - 1])))) || emp_1(nl, line, tmp_i) || emp_2(nl, fl)))
 		return (1);
 	return (0);
 }
@@ -66,13 +67,14 @@ int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
 int	sp_for_empty_case(t_msh **msh, const char *line, int i, int n)
 {
 	int	j;
+
 	if (n == 1)
 	{
 		j = -1;
-		while(line[++j])
+		while (line[++j])
 		{
 			if (!ft_strchr(WS, line[j]))
-				break;
+				break ;
 		}
 		if (line[j] == '\0')
 			return (1);

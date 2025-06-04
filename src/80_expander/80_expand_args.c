@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   80_expand_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 00:48:50 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:16:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 		args_cpy = ft_calloc((node->nb_arg + 1), sizeof(char *));
 		expand_loop(msh, node, args_cpy);
 		node->quote_lst = tmp_qt;
-		if (node->args) //leaks - added condition bc of segfault
-			ft_free_arrays((void **)node->args);
+		if (node->args)
+			ft_free_array_w_null(node->args, node->nb_arg);
 		node->args = ft_array_dup_null(node, args_cpy, node->nb_arg);
-		ft_free_arrays((void**)args_cpy); //LEAKS 
+		ft_free_arrays((void **)args_cpy); //LEAKS 
 	}
 	recurs_exp_args(msh, node);
 }
@@ -89,9 +89,9 @@ void	expander(t_msh **msh, t_tree_nd **node, char **arg)
 
 void	expand_tk(t_msh **msh, char **arg)
 {
-	t_exp_cont	parts;
-	t_kw		*kw_lst; //leaks - changed from **kw_lst
 	int			i;
+	t_exp_cont	parts;
+	t_kw		*kw_lst;
 
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
@@ -109,7 +109,7 @@ void	expand_tk(t_msh **msh, char **arg)
 void	subst_arg(char **arg, t_exp_cont *parts)
 {
 	char	*final_c;
-	
+
 	final_c = NULL;
 	if (parts->new_c)
 	{

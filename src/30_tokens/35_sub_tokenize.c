@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 12:31:23 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:58:34 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,28 @@ void	rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n) //leak
 	{
 		free_tokens(*mg_tg, 1); // leaks, added line
 		(*msh)->token_list = *tmp_w;
-		(*tmp_w)->prev = NULL;	
+		(*tmp_w)->prev = NULL;
+	}
+}
+
+void	attribute_type(t_msh **msh, t_tk_lst *curr)
+{
+	char	*word;
+	char	*env_path;
+
+	env_path = get_path((*msh)->envp_list);
+	if (curr->type == WORD || curr->type == ARG)
+	{
+		word = ft_strdup(curr->content);
+		if (check_builtin(word))
+			curr->type = BT_CMD;
+		else if (((ft_strcmp(word, ".") != 0) && (ft_strcmp(word, "..") != 0))
+			&& (check_env_cmd(word, env_path, -1, 1) || ch_shlvl(msh, word)))
+			curr->type = ENV_CMD;
+		else
+			curr->type = ARG;
+		if (look_for_exp(curr, word))
+			curr->quotes.exp = true;
+		word = safe_free(word);
 	}
 }

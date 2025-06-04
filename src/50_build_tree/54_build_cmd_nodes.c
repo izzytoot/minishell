@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/03 17:31:23 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:07:45 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	**join_cmd_and_args(char *cmd, char **args)
 char	*ch_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 {
 	int		key_len;
-	
+
 	key_len = ft_strlen(key_word);
 	while (envp_list)
 	{

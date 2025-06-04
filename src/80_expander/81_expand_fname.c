@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 18:25:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:17:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
 	t_tk_lst *merge_tg, bool hd_flag)
 {
 	t_tk_lst	*tmp_mg_prev;
+
 	while (tmp_fn && (!tmp_fn->quotes.sp_case && tmp_fn->prev))
 	{
 		if (tk_in_qts(merge_tg))
@@ -83,7 +84,7 @@ void	expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
 			{
 				tmp_mg_prev = merge_tg->prev;
 				merge_tg->prev->next = tmp_fn;
-				free_tokens(merge_tg, 1);  // leaks, added line
+				free_tokens(merge_tg, 1); // leaks, added line
 				tmp_fn->prev = tmp_mg_prev;
 			}
 			break ;

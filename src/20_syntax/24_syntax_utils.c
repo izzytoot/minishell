@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   24_syntax_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/30 16:51:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:42:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ bool	line_and_hd_index(t_msh **msh, const char **line, int *hd_index)
 {
 	char	*tmp_line;
 	int		i;
-	
+
 	i = -1;
 	*line = (*msh)->prompt_line;
 	if (!*line[0])
 		return (false);
 	tmp_line = ft_strdup(*line);
-	while(tmp_line[++i])
+	while (tmp_line[++i])
 	{
 		if (!ft_strchr(WS, tmp_line[i]))
-			break;
+			break ;
 	}
 	if (tmp_line[i] == '\0')
 	{
@@ -34,7 +34,7 @@ bool	line_and_hd_index(t_msh **msh, const char **line, int *hd_index)
 	}
 	tmp_line = safe_free(tmp_line);
 	*hd_index = check_if_hd(*line);
-	return(true);	
+	return (true);
 }
 
 bool	look_for_pipe(const char *line, int i)

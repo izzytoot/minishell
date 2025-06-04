@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 17:43:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:11:10 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ bool	check_dollar_w_qts(char **str)
 	int		i;
 	char	c;
 	char	*str_tmp;
-	
+
 	i = 0;
 	while ((*str)[i])
 	{

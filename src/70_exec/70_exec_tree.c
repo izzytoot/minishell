@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   60_exec_tree.c                                     :+:      :+:    :+:   */
+/*   70_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 23:51:31 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:09:16 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	if (arg_expansions(node))
 		expand_args(msh, node);
 	if (node->nb_arg > 1 && arg_expansions(node)) //only if there are expansions
-		node->args = remake_args(node);	
+		node->args = remake_args(node);
 	if (type_is_word(&node->type) && !node->cmd
 		&& ft_strchr(node->args[0], '/'))
 		node->type = ENV_CMD;
@@ -61,7 +61,7 @@ char	**remake_args(t_tree_nd *node)
 	t_quote		*quote_tmp;
 	char		**new_args;
 	char		**tmp_args;
-	
+
 	init_aux_structs(&flags, &ints, node);
 	quote_tmp = node->quote_lst;
 	tmp_args = node->args;
@@ -87,7 +87,7 @@ void	sub_cmd_util(t_tree_nd *node, char **sep_args, int count, char ****new_args
 {
 	char		**sep_args_tmp;
 	char		**joinned_array;
-	
+
 	sep_args_tmp = sep_args;
 	node->cmd = ft_strdup(sep_args_tmp[0]);
 	if (count > 1)
@@ -105,7 +105,7 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 	int			i;
 	char		**sep_args;
 	int			count;
-	
+
 	env_path = get_path((*msh)->envp_list);
 	i = -1;
 	count = 1;

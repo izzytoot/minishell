@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   54_exit.c                                          :+:      :+:    :+:   */
+/*   64_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/01 12:58:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:08:21 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_exit(t_msh **msh, t_tree_nd **node)
 		ft_printf("exit\n");
 	if (args && args[0] && ft_strcmp(args[0], "--") == 0)
 		args++;
-	if (!args) 
+	if (!args)
 		exit_value(msh, 0, 1, 1); //leaks - changed from exit_value(msh, exit_value(msh, 0, false, false), 1, 1);
 	if (args && !ft_strnumeric(args[0]))
 	{
@@ -38,7 +38,7 @@ int	ft_exit(t_msh **msh, t_tree_nd **node)
 		exit_value(msh, 1, 1, 0);
 		return (1);
 	}
-	get_ex_code(msh, &exit_code, args);	
+	get_ex_code(msh, &exit_code, args);
 	exit_value(msh, exit_code, 1, 1);
 	return (exit_code);
 }

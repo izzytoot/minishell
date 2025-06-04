@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   40_tokens_to_tree.c                                :+:      :+:    :+:   */
+/*   50_tokens_to_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/03 12:56:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:19:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parse_line(t_msh **msh)
 {
 	t_tree_nd	*tree_root;
-	
+
 	if (!(*msh)->token_list)
 		return ;
 	(*msh)->tree_root = build_pipe_nd(msh, &(*msh)->token_list);
@@ -79,7 +79,7 @@ void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
 		curr_tk = curr_tk->next;
 	}
 	if (count <= 0)
-		return ; //LEAKS - removed new_nd->quote_lst = ft_calloc(count, sizeof(t_quote));
+		return ; //LEAKS - removed new_nd->quote_lst = ft_calloc(count, sizeof(t_quote))
 	while (curr_tk_tmp)
 	{
 		if (curr_tk_tmp->type == ARG)

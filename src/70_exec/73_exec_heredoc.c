@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   73_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 00:41:38 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:17:23 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 {
-	int			file_fd;
-	char		*nb; //leaks - created to be freed
 	static int	n;
-	
+	int			file_fd;
+	char		*nb;
+
 	if (!node)
 		return ;
 	if (node->left)
@@ -48,9 +48,9 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 
 	curr_nd = node;
 	eof = check_eof(curr_nd, curr_nd->file);
-	lines.ch_exp = false;
 	while (1)
 	{
+		lines.ch_exp = false;
 		lines.new_l = readline("> ");
 		if (!lines.new_l)
 			break ;

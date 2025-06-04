@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   62_exec_redir.c                                    :+:      :+:    :+:   */
+/*   72_exec_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/26 14:51:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:25:10 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ int	exec_redir(t_msh **msh, t_tree_nd *node)
 	else
 		file_fd = open(node->tmp_file, O_RDONLY);
 	if (file_fd < 0)
-	{
-		close(file_fd);
 		return (exit_value(msh, 1, 1, 0));
-	}
 	if (node->type == REDIR_HD)
 		safe_dup2(msh, file_fd, STDIN_FILENO);
 	else

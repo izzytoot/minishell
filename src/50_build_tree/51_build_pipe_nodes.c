@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   41_build_pipe_nodes.c                              :+:      :+:    :+:   */
+/*   51_build_pipe_nodes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:23 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/01 12:31:45 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:07:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_tree_nd	*build_pipe_nd(t_msh **msh, t_tk_lst **token_list)
 	t_tk_lst	*left_tokens;
 	t_tk_lst	*prev_token;
 	t_tk_lst	*next_token;
-	
+
 	curr_token = *token_list;
 	ft_init_var((void **)&pipe_nd, (void **)&prev_token, NULL, NULL);
 	while (curr_token)

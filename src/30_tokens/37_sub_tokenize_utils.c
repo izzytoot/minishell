@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/03 16:22:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:48:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,19 @@ bool	ch_shlvl(t_msh **msh, char *word)
 	return (false);
 }
 
-bool	look_for_exp(t_tk_lst *curr, char *word) //PUT IN .H
+bool	look_for_exp(t_tk_lst *curr, char *word)
 {
 	int	i;
 
 	i = -1;
 	if (curr->quotes.in_squotes)
 		return (false);
-	while(word[++i])
+	while (word[++i])
 	{
 		if (word[i] == '$')
 			return (true);
 	}
 	return (false);
-}
-
-void	attribute_type(t_msh **msh, t_tk_lst *curr)
-{
-	char	*word;
-	char	*env_path;
-
-	env_path = get_path((*msh)->envp_list);
-	if (curr->type == WORD || curr->type == ARG)
-	{
-		word = ft_strdup(curr->content);
-		if (check_builtin(word))
-			curr->type = BT_CMD;
-		else if (((ft_strcmp(word, ".") != 0) && (ft_strcmp(word, "..") != 0))
-			&& (check_env_cmd(word, env_path, -1, 1) || ch_shlvl(msh, word)))
-			curr->type = ENV_CMD;
-		else
-			curr->type = ARG;
-		if (look_for_exp(curr, word))
-			curr->quotes.exp = true;
-		word = safe_free(word);
-	}
 }
 
 char	*check_env_cmd(char *cmd, char *env_path, int i, int n)
@@ -90,7 +68,7 @@ char	*check_env_cmd(char *cmd, char *env_path, int i, int n)
 			if (n == 1) //leaks - added case 1 for freeing cmd_path when not used
 			{
 				cmd_path = safe_free(cmd_path);
-				return ("true");	
+				return ("true");
 			}
 			return (cmd_path);
 		}
