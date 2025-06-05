@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/22 18:19:21 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:59:05 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	is_valid_identifier(char *arg)
 	while (arg[i] && arg[i] != '=')
 	{
 		if (arg[i] == '+' && arg[i + 1] == '=')
-			break ;
+			return (false);
 		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 			return (false);
 		i++;
