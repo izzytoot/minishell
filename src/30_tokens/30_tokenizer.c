@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 20:32:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 00:33:26 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_tokens(t_msh **msh, int i)
 	while (line[++i])
 	{
 		quotes.sp_case = false;
-		sort_out_quotes(&i, line, &quotes);
+		sort_out_quotes(msh, &i, line, &quotes);
 		if ((!quotes.in_squotes || !quotes.in_dquotes)
 			&& ft_strchr(QT, line [i]))
 			i++;
@@ -60,13 +60,13 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 {
 	if (c == '$' && !quotes->in_quotes)
 		*i = exp_to_null(msh, *i);
-	if (ft_strchr(WS, c) && !quotes->in_quotes)
+	if (ft_strchr(WS, c) && (!quotes->in_quotes || ft_strcmp("/'/'", (*msh)->token_list->content) != 0))
 		*i = tk_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
 	else if (quotes->in_quotes)
 		*i = tk_word_qt(msh, *i, &quotes->in_quotes, &quotes->quote_char);
-	else if (c == '|' && !quotes->in_quotes)
+	else if (c == '|' && (!quotes->in_quotes || ft_strcmp("/'/'", (*msh)->token_list->content) != 0))
 		*i = tk_pipe(msh, *i);
 	else if (c == '>' && !quotes->in_quotes)
 		*i = redir_r(msh, *i);

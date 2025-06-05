@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/05 18:59:50 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 00:10:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,7 +296,8 @@ int				tk_redir_in(t_msh **msh, const char *line,
 					char *redir_in, int i);
 
 //34_handle_quotes.c
-void			sort_out_quotes(int *i, const char *line, t_quote *quotes);
+void			sort_out_quotes(t_msh **msh, int *i, const char *line, t_quote *quotes);
+void			sort_empty_qt(t_msh **msh, t_quote *quotes);
 void			check_dquote(bool *in_dquotes, char c);
 void			check_squote(bool *in_squotes, char c);
 

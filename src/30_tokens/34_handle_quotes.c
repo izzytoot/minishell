@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   34_handle_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:53:10 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/18 16:03:40 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 00:48:49 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	sort_out_quotes(int *i, const char *line, t_quote *quotes)
+void	sort_out_quotes(t_msh **msh, int *i, const char *line, t_quote *quotes)
 {
-	if ((!quotes->in_squotes && !quotes->in_dquotes) && ft_strchr(QT, line[*i]))
+	sort_empty_qt(msh, quotes);
+	if ((*msh)->token_list && (ft_strcmp("/'/')", (*msh)->token_list->content) != 0)) //make sure of this
+		return ;
+	if ((!quotes->in_squotes && !quotes->in_dquotes) && (ft_strchr(QT, line[*i])))
 	{
 		check_squote(&quotes->in_squotes, line[*i]);
 		check_dquote(&quotes->in_dquotes, line[*i]);
@@ -30,6 +33,23 @@ void	sort_out_quotes(int *i, const char *line, t_quote *quotes)
 		quotes->in_quotes = true;
 	else
 		quotes->in_quotes = false;
+}
+
+void	sort_empty_qt(t_msh **msh, t_quote *quotes)
+{
+	t_tk_lst *last;
+	
+	last = (*msh)->token_list;
+	if (!last)
+		return;
+	if (quotes->in_quotes && last->content && (ft_strcmp("/'/')", last->content) != 0))
+	{
+		quotes->in_quotes = false;
+		if (quotes->in_dquotes)
+			quotes->in_dquotes = false;
+		if (quotes->in_squotes)
+			quotes->in_squotes = false;	
+	}
 }
 
 void	check_squote(bool *in_squotes, char c)

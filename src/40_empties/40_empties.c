@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   40_empties.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 15:06:33 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 00:29:01 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,13 @@ int	ch_all_same(char *nl)
 	int	i;
 
 	i = 0;
-	while (nl[i] && (nl[i + 1] && !ft_strchr(WS, nl[i + 1])))
+	while (nl[i] && (nl[i + 1] && !ft_strchr(WS, nl[i + 1]) && !ft_strchr("|", nl[i + 1])))
 	{
 		if ((nl[i + 1] && (nl[i] != nl[i + 1])) || !ft_strchr(QT, nl[i]))
 			return (0);
 		i++;
 	}
-	if (!nl[i + 1] || (nl[i + 1] && ft_strchr(WS, nl[i + 1])))
+	if (!nl[i + 1] || (nl[i + 1] && (ft_strchr(WS, nl[i + 1]) || ft_strchr("|", nl[i + 1]))))
 		return (i);
 	return (0);
 }
