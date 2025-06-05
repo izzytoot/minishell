@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/05 11:34:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:08:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	ft_exit(t_msh **msh, t_tree_nd **node)
 
 	args = (*node)->args;
 	if (isatty(STDIN_FILENO))
-		ft_printf("exit\n");
+		ft_dprintf(STDERR_FILENO, "exit\n");
+		//ft_printf("exit\n");
 	if (args && args[0] && ft_strcmp(args[0], "--") == 0)
 		args++;
 	if (!args || !args[0])

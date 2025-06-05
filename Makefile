@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/06/05 11:02:59 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/06/05 12:29:18 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -161,7 +161,7 @@ $(TMP)/%.o: $(SRC_PATH)%.c
 #==============================================================================#
 valgrind:
 	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
-	/usr/bin/valgrind -q --track-fds=yes --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
+	/usr/bin/valgrind --track-fds=yes --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all -q ./$(NAME)
 	
 fullvalgrind:
 	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp

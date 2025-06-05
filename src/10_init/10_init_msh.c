@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/27 14:39:44 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/05 12:40:32 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ void	prompt_and_read(t_msh **msh)
 		prompt = get_prompt();
 		line = readline(prompt);
 		free(prompt);
-		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
+		if (!line) //corrigir. isto é para quando abre novo prompt antes do tempo
 		{
 			ft_printf("exit\n");
-			break ;
+			free_prompt_line(&(*msh));
+			close_minishell(*msh, 0);
 		}
 		if (*line)
 			add_history (line);

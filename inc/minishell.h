@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/05 12:13:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:59:50 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -584,7 +584,7 @@ void			signal_handler(int sig, char *process);
 //100_free_msh.c
 void			free_msh(t_msh *msh);
 void			free_prompt_line(t_msh **msh);
-void			free_tree(t_tree_nd *node);
+void			free_tree(t_msh *msh, t_tree_nd *node);
 
 //101_close_msh.c
 void			close_minishell(t_msh	*msh, int exit_code);

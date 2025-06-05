@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   64_exec_cmd.c                                      :+:      :+:    :+:   */
+/*   74_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/28 23:32:47 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/05 19:09:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 	}
 	else if (exec_sh_v(&(*msh), node) == 0)
 		return (exit_value(msh, 0, 1, 0));
-	else
-		return (output_cmd_errors(msh, node));
+	return (output_cmd_errors(msh, node));
 }
 
 int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)

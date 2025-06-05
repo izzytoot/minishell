@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   80_free_msh.c                                      :+:      :+:    :+:   */
+/*   100_free_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/03 12:50:17 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:00:33 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_msh(t_msh *msh)
 		msh->tmp_fname = safe_free(msh->tmp_fname); //LEAKS
 	if (msh->tree_root)
 	{
-		free_tree(msh->tree_root);
+		free_tree(msh, msh->tree_root);
 		msh->tree_root = NULL;
 	}
 	msh = safe_free(msh);
@@ -38,24 +38,24 @@ void	free_prompt_line(t_msh **msh)
 		(*msh)->prompt_line = safe_free((*msh)->prompt_line);
 	if ((*msh)->tree_root)
 	{
-		free_tree((*msh)->tree_root);
+		free_tree(*msh, (*msh)->tree_root);
 		(*msh)->tree_root = NULL;
 	}
 	(*msh)->hd_check = true;
 	(*msh)->empties = false;
 }
 
-void	free_tree(t_tree_nd *node)
+void	free_tree(t_msh *msh, t_tree_nd *node)
 {
 	if (!node)
 		return ;
 	if (node->left)
-		free_tree(node->left);
+		free_tree(msh, node->left);
 	if (node->right)
-		free_tree(node->right);
+		free_tree(msh, node->right);
 	if (node->file)
 		node->file = safe_free(node->file);
-	if (node->tmp_file)
+	if (node->tmp_file && !msh->child)
 	{
 		unlink(node->tmp_file);
 		node->tmp_file = safe_free(node->tmp_file);
