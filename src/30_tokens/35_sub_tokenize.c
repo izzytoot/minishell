@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/05 11:16:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 12:14:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,7 @@ void	join_rest(t_msh **msh)
 		&& tmp_w->prev->content[0] != '$')
 	{
 		join_parts(&tmp_w, &merge_target);
-		if (!tmp_w->quotes.sp_case && merge_target->prev)
-			rm_joined_tk(msh, &merge_target, &tmp_w, 1);
-		else
-		{
-			if (!merge_target->prev)
-				rm_joined_tk(msh, &merge_target, &tmp_w, 2);
-			else
-				free_tokens(merge_target, 1); //leaks - added line
-		}
+		join_rest_util(msh, merge_target, tmp_w);
 		if (find_w_tk(msh))
 			join_rest(msh);
 		else
@@ -60,28 +52,17 @@ void	join_rest(t_msh **msh)
 	}
 }
 
-t_tk_lst	*find_w_tk(t_msh **msh)
+void	join_rest_util(t_msh **msh, t_tk_lst *mg_tg, t_tk_lst *tmp_w)
 {
-	t_tk_lst	*w_tk;
-
-	
-	w_tk = (*msh)->token_list;
-	while (w_tk)
+	if (!tmp_w->quotes.sp_case && mg_tg->prev)
+			rm_joined_tk(msh, &mg_tg, &tmp_w, 1);
+	else
 	{
-		w_tk = w_tk->next;
-		if (!w_tk->next)
-			break ;
+		if (!mg_tg->prev)
+			rm_joined_tk(msh, &mg_tg, &tmp_w, 2);
+		else
+			free_tokens(mg_tg, 1); //leaks - added line
 	}
-	while (w_tk)
-	{
-		if (w_tk->type == WORD
-			&& !ft_strnstr(w_tk->content, "$", ft_strlen(w_tk->content))
-			&& w_tk->prev && w_tk->prev->type == WORD
-			&& !w_tk->quotes.sp_case)
-			return (w_tk);
-		w_tk = w_tk->prev;
-	}
-	return (NULL);
 }
 
 void	rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n) //leaks - created fuction to remove unused tokens

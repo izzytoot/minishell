@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/05 11:02:34 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 12:13:45 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,7 @@ void			check_squote(bool *in_squotes, char c);
 //35_sub_tokenize.c
 void			sub_tokenize(t_msh **msh);
 void			join_rest(t_msh **msh);
-t_tk_lst		*find_w_tk(t_msh **msh);
+void			join_rest_util(t_msh **msh, t_tk_lst *mg_tg, t_tk_lst *tmp_w);
 void			rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg,
 					t_tk_lst **tmp_w, int n);
 void			attribute_type(t_msh **msh, t_tk_lst *curr);
@@ -314,14 +314,15 @@ void			join_filename(t_msh **msh, bool hd_flag, t_tk_lst *tmp_fn);
 t_tk_lst		*find_file(t_msh **msh, t_tk_lst *curr);
 void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
 					t_tk_lst **merge_tg, bool hd_flag);
+char			*check_env_cmd(char *cmd, char *env_path, int i, int n);
 
 //37_sub_tokenize_utils.c
 bool			ch_shlvl(t_msh **msh, char *word);
 bool			look_for_exp(t_tk_lst *curr, char *word);
-char			*check_env_cmd(char *cmd, char *env_path, int i, int n);
 void			get_cmd_path(char	*path, char	**part_path,
 					char **cmd_path, char *cmd);
 void			join_parts(t_tk_lst	**src, t_tk_lst **target);
+t_tk_lst		*find_w_tk(t_msh **msh);
 
 //38_token_utils.c
 bool			tk_in_qts(t_tk_lst *tk);

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:42:59 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 19:58:28 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:36:25 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	ch_if_sub_cmd(t_msh **msh, t_tree_nd *node)
 	tmp_cmd = NULL;
 	if (node->cmd)
 		tmp_cmd = ft_strdup(node->cmd);
-	if ((tmp_cmd && !ch_shlvl(msh, tmp_cmd)) || !node->args[0])
+	if ((tmp_cmd && !ch_shlvl(msh, tmp_cmd)) || (!node->args || !node->args[0]))
 	{
 		tmp_cmd = safe_free(tmp_cmd);
 		return (false);

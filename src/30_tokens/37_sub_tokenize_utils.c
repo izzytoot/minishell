@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/05 10:54:35 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 12:16:18 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,27 @@ void	join_parts(t_tk_lst **src, t_tk_lst **tg)
 		(*src)->prev = (*tg)->prev;
 		(*src)->prev->next = (*src);
 	}
+}
+
+t_tk_lst	*find_w_tk(t_msh **msh)
+{
+	t_tk_lst	*w_tk;
+	
+	w_tk = (*msh)->token_list;
+	while (w_tk)
+	{
+		w_tk = w_tk->next;
+		if (!w_tk->next)
+			break ;
+	}
+	while (w_tk)
+	{
+		if (w_tk->type == WORD
+			&& !ft_strnstr(w_tk->content, "$", ft_strlen(w_tk->content))
+			&& w_tk->prev && w_tk->prev->type == WORD
+			&& !w_tk->quotes.sp_case)
+			return (w_tk);
+		w_tk = w_tk->prev;
+	}
+	return (NULL);
 }
