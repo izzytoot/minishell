@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/05 19:06:13 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 23:12:15 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ typedef struct s_msh
 	char		*tmp_fname;
 	bool		empties;
 	bool		signal;
+	t_list		*export_only;
 }	t_msh;
 
 /* ************************************************************************** */
@@ -428,6 +429,7 @@ int				ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export);
 t_list			*sort_env(t_list *env_list, int sort);
 void			disp_exported(t_msh **msh);
 t_list			*copy_env_list(t_list *env_list);
+void			print_only_export(t_msh	*msh);
 
 //57_export_utils.c
 bool			is_valid_identifier(char *arg);
@@ -435,6 +437,7 @@ bool			export_check(t_msh **msh, char *arg);
 void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
 bool			is_single_exp(char *arg);
+void			add_only_to_export(t_msh *msh, const char *var_name);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c

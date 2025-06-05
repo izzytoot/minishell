@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/05 18:01:00 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 23:19:25 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 {
 	int	file_fd;
-	int 		status;
 
-	status = 0;
 	signal(SIGINT, SIG_DFL);
 	if (!node)
 		exit (0);
@@ -36,7 +34,6 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 }
 void	exec_files(t_msh **msh, t_tree_nd *node)
 {
-//	int			file_fd;
 	static int	n;
 
 	if (!node)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_init_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:04:16 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/14 20:12:45 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/05 22:57:38 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_all_null(t_msh **msh)
 	(*msh)->envp = NULL;
 	(*msh)->envp_list = NULL;
 	(*msh)->vars_list = NULL;
+	(*msh)->export_only = NULL;
 	(*msh)->tree_root = NULL;
 	(*msh)->tmp_fname = NULL;
 }

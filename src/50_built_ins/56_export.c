@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   56_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/05 19:12:01 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 23:15:38 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ int	ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export)
 		return (EXIT_FAILURE);
 	if (!(*node)->args[0])
 		return (disp_exported(msh), 0);
-	else
+	while ((*node)->args[i])
 	{
-		while ((*node)->args[i])
+		if (!export_check(msh, (*node)->args[i]))
 		{
-			if (!export_check(msh, (*node)->args[i++]))
-				continue ;
-			var_info = ft_split((*node)->args[i], '=');
-			if (is_single_exp((*node)->args[i]))
-				add_only_to_export();
-			else
-				add_export_var(&(*msh)->envp_list, var_info[0], var_info[1]);
-			ft_free_arrays((void **)var_info);
-			valid_export = 1;
 			i++;
+			continue ;
 		}
+		var_info = ft_split((*node)->args[i], '=');
+		if (is_single_exp((*node)->args[i]))
+			add_only_to_export(*msh, (*node)->args[i]);
+		else
+			add_export_var(&(*msh)->envp_list, var_info[0], var_info[1]);
+		ft_free_arrays((void **)var_info);
+		valid_export = 1;
+		i++;
 	}
 	if (!valid_export && i == 1)
 		return (1);
@@ -68,6 +68,7 @@ void	disp_exported(t_msh **msh)
 			ft_dprintf(STDOUT_FILENO, "declare -x %s\n", current->content);
 		current = current->next;
 	}
+	print_only_export(*msh);
 }
 
 t_list	*sort_env(t_list *env_list, int sort)
@@ -125,4 +126,16 @@ t_list	*copy_env_list(t_list *env_list)
 		env_list = env_list->next;
 	}
 	return (cpy);
+}
+
+void	print_only_export(t_msh	*msh)
+{
+	t_list	*curr;
+
+	curr = msh->export_only;
+	while (curr)
+	{
+		ft_dprintf(STDOUT_FILENO, "declare -x %s\n", (char *)curr->content);
+		curr = curr->next;
+	}
 }

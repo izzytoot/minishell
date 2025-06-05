@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   57_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/05 19:10:05 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 23:18:43 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	is_single_exp(char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		if (!ft_isalpha)
+		if (!ft_isalpha(arg[i]))
 			return (false);
 		if (arg[i] == '=')
 			return (false);
@@ -89,7 +89,29 @@ bool	is_single_exp(char *arg)
 	return (true);
 }
 
-add_only_to_export()
+void	add_only_to_export(t_msh *msh, const char *var_name)
 {
-	
+	t_list	*new;
+	t_list	*tmp;
+	char	*copy;
+
+	if (!var_name)
+		return ;
+	tmp = msh->export_only;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->content, var_name) == 0)
+			return ;
+		tmp = tmp->next;
+	}
+	copy = ft_strdup(var_name);
+	if (!copy)
+		return ;
+	new = ft_lstnew(copy);
+	if (!new)
+	{
+		free(copy);
+		return ;
+	}
+	ft_lstadd_back(&msh->export_only, new);
 }

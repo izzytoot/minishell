@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   80_free_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/05 18:09:44 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 22:57:37 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ void	free_msh(t_msh *msh)
 {
 	if (msh->envp_list)
 		ft_lstclear(&msh->envp_list, free);
+	if (msh->export_only)
+		ft_lstclear(&msh->export_only, free);
 	if (msh->envp)
 		ft_free_arrays((void *)msh->envp);
 	if (msh->vars_list)
-		ft_free_arrays((void *)msh->vars_list);
+		ft_free_arrays((void *)msh->vars_list); //não devia ser ft_lstclear?
 	if (msh->tree_root)
 	{
 		free_tree(msh->tree_root);
