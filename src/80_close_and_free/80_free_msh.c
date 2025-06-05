@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 17:06:59 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:09:44 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_prompt_line(t_msh **msh)
 	}
 //	if ((*msh)->token_list)
 //		free_tokens((*msh)->token_list); //invalid and double frees because feed in tree. have to check
-	(*msh)->hd_check = true;
+	(*msh)->hd_check = false;
 	(*msh)->empties = false;
 	(*msh)->signal = false;
 //	safe_dup2(0, STDIN_FILENO, getpid()); //check if needed
@@ -62,11 +62,11 @@ void	free_tree(t_tree_nd *node)
 		ft_free_str_arr(node->cmd_content);
 	if (node->args && !node->cmd_content)
 		ft_free_str_arr(node->args);
-	if (node->tmp_file)
-	{
-		unlink(node->tmp_file);
-		safe_free(node->tmp_file);
-	}
+	// if (node->tmp_file)
+	// {
+	// 	unlink(node->tmp_file);
+	// 	safe_free(node->tmp_file);
+	// }
 	if (node->quote_lst)
 		free_qt_lst(node->quote_lst);
 	safe_free(node);

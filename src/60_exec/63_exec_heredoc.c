@@ -6,59 +6,50 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 18:14:00 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:01:00 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-
 void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 {
-	int			file_fd;
-	static int	n;
-	int 		pid;
+	int	file_fd;
 	int 		status;
 
+	status = 0;
+	signal(SIGINT, SIG_DFL);
 	if (!node)
-		return ;
+		exit (0);
 	if (node->left)
 		exec_heredocs(msh, node->left);
 	if (node->right)
 		exec_heredocs(msh, node->right);
 	if (node->type == REDIR_HD)
 	{
-		node->tmp_file = ft_strjoin("/tmp/.heredoc_tmp", ft_itoa(n++));
+		file_fd = open(node->tmp_file, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+		if (file_fd < 0)
+			exit_value(msh, 1, 1, 1);
+		handle_hd(msh, node, file_fd);
+		close(file_fd);
+	}
+}
+void	exec_files(t_msh **msh, t_tree_nd *node)
+{
+//	int			file_fd;
+	static int	n;
+
+	if (!node)
+		exit (0);
+	if (node->left)
+		exec_files(msh, node->left);
+	if (node->right)
+		exec_files(msh, node->right);
+	if (node->type == REDIR_HD)
+	{
+		node->tmp_file = ft_strjoin("/tmp/heredoc_tmp", ft_itoa(n++));
 //		node->tmp_file = ft_strjoin(ft_strdup("/tmp/.heredoc_tmp"),
 //			ft_itoa(n++));
-		file_fd = create_file_fd(node->type, node->tmp_file);
-		if (file_fd < 0)
-			exit_value(msh, 1, 1, 0);
-		pid = safe_fork(msh);
-		status = 0;
-		if (pid == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			handle_hd(msh, node, file_fd);
-			close(file_fd);
-			close_minishell(*msh, status);
-		}
-		signal(SIGINT, SIG_IGN);
-		close(file_fd);
-		waitpid(pid, &status, 0);
-		signal(SIGINT, SIG_DFL);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		{
-			(*msh)->signal = true;
-			printf("AQUI");
-			write(1, "\n", 1);
-		}
-
-
-			// else if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-			// 	exit_value(msh, WEXITSTATUS(status), 1, 1);
 	}
 }
 
@@ -73,20 +64,18 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 	while (1)
 	{
 		lines.new_l = readline("> ");
-		// if (exit_value(NULL, 0, 0, 0) == -1)
-		// 	exit_value(msh, 130, 1, 0);
 		if (!lines.new_l)
 		{
 			ft_dprintf(STDERR_FILENO, ERR_HD_EOF);
 			ft_dprintf(STDERR_FILENO, "%s')\n", eof);
 			lines.new_l = safe_free(lines.new_l);
-			exit_value(msh, 0, 1, 0);
+			break ;
 		}
 		else if ((!eof && ft_strcmp(lines.new_l, "\0") == 0) || (ft_strcmp(lines.new_l, eof) == 0))
 		{
 			lines.new_l = safe_free(lines.new_l);
 			exit_value(msh, 0, 1, 0);
-			break;
+			break ;
 		}
 		expand_line(msh, &lines, curr_nd, hd_fd);
 		ft_putstr_fd("\n", hd_fd);

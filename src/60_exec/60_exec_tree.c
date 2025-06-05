@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 17:07:47 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:00:40 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	exec_tree(t_msh **msh, t_tree_nd *node)
 {
 	int	status;
+	int	pid;
 
 	status = 0;
 	if (!node)
@@ -37,10 +38,27 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	}
 	if ((*msh)->hd_check)
 	{
-		exec_heredocs(msh, node);
 		(*msh)->hd_check = false;
-		if ((*msh)->signal)
-		 	return (exit_value(msh, 130, 1, 0));
+		exec_files(msh, node);
+		pid = safe_fork(msh);
+		if (pid == 0)
+		{
+			exec_heredocs(msh, node);
+			exit_value(msh, status, 1, 1);
+		}
+		else
+		{
+			signal(SIGINT, SIG_IGN);
+			waitpid(pid, &status, 0);
+			signal(SIGINT, SIG_DFL);
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			{
+				(*msh)->signal = true;
+				write(1, "\n", 1);
+			}
+			if ((*msh)->signal)
+				return (exit_value(msh, 130, 1, 0));
+		}
 	}
 	if (node->type == PIPE)
 		status = exec_pipe(msh, node);

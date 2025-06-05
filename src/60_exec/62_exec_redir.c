@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 17:37:13 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:52:09 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	exec_redir_before_cmd(t_msh **msh, t_tree_nd *node)
 	redir_data.orig_stdout = -1;
 	status = 0;
 	i = collect_redirs_and_cmd(msh, &curr_node, redir_nodes, &redir_data);
+	printf ("I'm in redir exec\n");
 	while (--i >= 0)
 	{
 		status = exec_redir(msh, redir_nodes[i]); //exec redir from left to right

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 20:36:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:13:06 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,8 @@ void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 	if (msh->token_list)
 		msh->token_list->prev = new_tk;
 	msh->token_list = new_tk;
+	if (type == REDIR_HD)
+	{
+		msh->hd_check = true;
+	}
 }

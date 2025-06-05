@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/02 17:17:01 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:39:00 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -461,6 +461,7 @@ int				create_file_fd(t_tk_type type, char *file_name);
 void			exec_heredocs(t_msh **msh, t_tree_nd *node);
 void			handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd);
 char			*check_eof(t_tree_nd *node, char *file_name);
+void			exec_files(t_msh **msh, t_tree_nd *node);
 
 //64_exec_cmd.c
 int				exec_cmd(t_msh **msh, t_tree_nd *node);

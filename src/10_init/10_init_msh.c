@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 17:16:36 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:13:16 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_init_msh(t_msh **msh, char **envp)
 {
 	// if (!isatty(STDIN_FILENO)) // nao funciona com tester
 	// 	close_minishell(*msh, EXIT_FAILURE);
-	(*msh)->hd_check = true;
+	(*msh)->hd_check = false;
 	(*msh)->empties = false;
 	(*msh)->signal = false;
 	init_all_null(&(*msh));
