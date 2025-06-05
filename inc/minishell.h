@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/05 15:39:00 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:06:13 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -434,6 +434,7 @@ bool			is_valid_identifier(char *arg);
 bool			export_check(t_msh **msh, char *arg);
 void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
+bool			is_single_exp(char *arg);
 
 /************ 60_exec_tree ************/
 //60_exec_tree.c
@@ -571,7 +572,6 @@ void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
 
 //90_signals.c
 void			sig_c_main(int sig);
-void			sig_c_hd(int sig);
 
 /************ others ************/
 //11_debug_utils.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   56_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/30 17:20:57 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:12:01 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export)
 	{
 		while ((*node)->args[i])
 		{
-			if (!export_check(msh, (*node)->args[i]))
-			{
-				i++;
+			if (!export_check(msh, (*node)->args[i++]))
 				continue ;
-			}
 			var_info = ft_split((*node)->args[i], '=');
-			add_export_var(&(*msh)->envp_list, var_info[0], var_info[1]);
+			if (is_single_exp((*node)->args[i]))
+				add_only_to_export();
+			else
+				add_export_var(&(*msh)->envp_list, var_info[0], var_info[1]);
 			ft_free_arrays((void **)var_info);
 			valid_export = 1;
 			i++;

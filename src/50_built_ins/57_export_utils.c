@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/05 18:38:37 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:10:05 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,24 @@ void	add_export_var(t_list **env_list, const char *var_name, const char *data)
 	if (!new_node)
 		return (free(new_entry));
 	ft_lstadd_back(env_list, new_node);
+}
+bool	is_single_exp(char *arg)
+{
+	int	i;
+	
+	i = 0;
+	while (arg[i])
+	{
+		if (!ft_isalpha)
+			return (false);
+		if (arg[i] == '=')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+add_only_to_export()
+{
+	
 }
