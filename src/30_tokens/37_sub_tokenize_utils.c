@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 14:48:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:54:35 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	get_cmd_path(char	*path, char	**part_path, char **cmd_path, char *cmd) //le
 	*part_path = safe_free(*part_path);
 }
 
-void	join_parts(t_tk_lst	**src, t_tk_lst **tg)
+void	join_parts(t_tk_lst **src, t_tk_lst **tg)
 {
 	char		*cont;
 
