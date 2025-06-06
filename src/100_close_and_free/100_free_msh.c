@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   100_free_msh.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 12:47:34 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:50:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_msh(t_msh *msh)
 	if (msh->dir)
 		msh->dir = safe_free(msh->dir);
 	if (msh->vars_list)
-		ft_free_arrays((void *)msh->vars_list);  //não devia ser ft_lstclear?
+		ft_lstclear(&msh->vars_list, free);  //não devia ser ft_lstclear?
 	if (msh->tmp_fname)
 		msh->tmp_fname = safe_free(msh->tmp_fname); //LEAKS
 	if (msh->tree_root)
@@ -58,11 +58,12 @@ void	free_tree(t_msh *msh, t_tree_nd *node)
 		free_tree(msh, node->right);
 	if (node->file)
 		node->file = safe_free(node->file);
+	if (node->eof)
+		node->eof = safe_free(node->eof);
 	if (node->tmp_file && !msh->child)
-	{
 		unlink(node->tmp_file);
+	if (node->tmp_file)
 		node->tmp_file = safe_free(node->tmp_file);
-	}
 	if (node->op_content)
 		node->op_content = safe_free(node->op_content);
 	if (node->cmd) //LEAKS

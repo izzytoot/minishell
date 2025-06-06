@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 16:44:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:07:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct s_tree_nd
 	bool				exp_hd;
 	bool				cmd_r;
 	bool				ch_ambg;
+	char				*eof;
 }	t_tree_nd;
 
 typedef struct s_redir_data

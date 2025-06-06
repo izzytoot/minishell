@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 16:05:41 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:10:47 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	new_tree_nd_util(t_tree_nd	*new_nd)
 	new_nd->exp_hd = false;
 	new_nd->cmd_r = false;
 	new_nd->ch_ambg = false;
+	new_nd->eof = NULL;
 }
 
 void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)

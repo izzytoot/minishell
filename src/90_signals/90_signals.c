@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 16:44:18 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:06:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_msh	*get_msh(t_msh *msh, int flag)
 void	ctrl_c_hd(int sig)
 {
 	t_msh	*msh;
-
+	
 	(void)sig;
 	msh = NULL;
 	msh = get_msh(NULL, 1);

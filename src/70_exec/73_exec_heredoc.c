@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 16:21:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:11:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 	int	file_fd;
 
 	signal(SIGINT, ctrl_c_hd);
-	//signal(SIGINT, SIG_DFL);
 	if (!node)
 		exit (0);
 	if (node->left)
@@ -55,11 +54,10 @@ void	exec_files(t_msh **msh, t_tree_nd *node)
 void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 {
 	t_tree_nd	*curr_nd;
-	char		*eof;
 	t_hd_lines	lines;
 
 	curr_nd = node;
-	eof = check_eof(curr_nd, curr_nd->file);
+	node->eof = check_eof(curr_nd, curr_nd->file);
 	while (1)
 	{
 		lines.ch_exp = false;
@@ -67,15 +65,14 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		if (!lines.new_l)
 		{
 			ft_dprintf(STDERR_FILENO, ERR_HD_EOF);
-			ft_dprintf(STDERR_FILENO, "%s')\n", eof);
+			ft_dprintf(STDERR_FILENO, "%s')\n", node->eof);
 			lines.new_l = safe_free(lines.new_l);
 			break ;
 		}
-		if ((!eof && ft_strcmp(lines.new_l, "\0") == 0)
-			|| (ft_strcmp(lines.new_l, eof) == 0))
+		if ((!node->eof && ft_strcmp(lines.new_l, "\0") == 0)
+			|| (ft_strcmp(lines.new_l, node->eof) == 0))
 		{
 			lines.new_l = safe_free(lines.new_l);
-			// exit_value(msh, 0, 1, 0);
 			break ;
 		}
 		expand_line(msh, &lines, curr_nd, hd_fd);
@@ -84,7 +81,7 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		if (lines.ch_exp)
 			ft_free_arrays((void **)lines.exp_newl); //leaks
 	}
-	eof = safe_free(eof); //leaks
+	//eof = safe_free(eof); //leaks
 }
 
 char	*check_eof(t_tree_nd *node, char *file_name)

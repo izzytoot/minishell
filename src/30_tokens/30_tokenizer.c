@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 15:24:05 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:44:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	get_tokens(t_msh **msh, int i)
 		if ((!quotes.in_squotes || !quotes.in_dquotes)
 			&& ft_strchr(QT, line [i]))
 			i++;
+		if (i >= (int)ft_strlen(line))
+			break;
 		if (line[i] && line[i] != quotes.quote_char
 			&& (extra_check(&(*msh), &i, line[i], &quotes)))
 				;
