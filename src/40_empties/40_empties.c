@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   40_empties.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:44:21 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/06 00:29:01 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/06 15:10:27 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,17 @@ int	empty_case(t_msh **msh, const char *line, int i, bool fl)
 {
 	t_tk_lst	*empty_tk;
 	char		nl[1024];
-	int			j;
 	int			tmp_i;
 
 	i = sp_for_empty_case (msh, line, i, 2);
 	tmp_i = i;
-	j = 0;
-	while (line[i])
-		nl[j++] = line[i++];
-	nl[j] = '\0';
+	rest_of_word(nl, line, i);
 	if (!nl[0])
 		return (tmp_i);
 	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
-				&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))) || (i == 0
-							|| !line[i - 1])))) || emp_1(nl, line, tmp_i) || emp_2(nl, fl)))
+				&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1])))
+						|| (i == 0 || !line[i - 1])))) || emp_1(nl, line, tmp_i)
+			|| emp_2(nl, fl)))
 	{
 		if (ch_emp_exp(msh, nl))
 			tmp_i = (tmp_i + ch_emp_exp(msh, nl));
@@ -58,8 +55,9 @@ int	ch_empty_case(t_msh **msh, const char *line, int i, bool fl)
 	if (!nl[0])
 		return (tmp_i);
 	if (ft_strchr(QT, nl[0]) && (((ch_all_same(nl) || ch_emp_exp(msh, nl))
-				&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1]))) || (i == 0
-							|| !line[i - 1])))) || emp_1(nl, line, tmp_i) || emp_2(nl, fl)))
+				&& ((fl || ((tmp_i > 0 && ft_strchr(WS, line[tmp_i - 1])))
+						|| (i == 0 || !line[i - 1])))) || emp_1(nl, line, tmp_i)
+			|| emp_2(nl, fl)))
 		return (1);
 	return (0);
 }
@@ -123,13 +121,15 @@ int	ch_all_same(char *nl)
 	int	i;
 
 	i = 0;
-	while (nl[i] && (nl[i + 1] && !ft_strchr(WS, nl[i + 1]) && !ft_strchr("|", nl[i + 1])))
+	while (nl[i] && (nl[i + 1] && !ft_strchr(WS, nl[i + 1])
+			&& !ft_strchr("|", nl[i + 1])))
 	{
 		if ((nl[i + 1] && (nl[i] != nl[i + 1])) || !ft_strchr(QT, nl[i]))
 			return (0);
 		i++;
 	}
-	if (!nl[i + 1] || (nl[i + 1] && (ft_strchr(WS, nl[i + 1]) || ft_strchr("|", nl[i + 1]))))
+	if (!nl[i + 1] || (nl[i + 1] && (ft_strchr(WS, nl[i + 1])
+				|| ft_strchr("|", nl[i + 1]))))
 		return (i);
 	return (0);
 }

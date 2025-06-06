@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   35_sub_tokenize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:18:15 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/05 12:14:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:25:54 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,24 @@ void	join_rest(t_msh **msh)
 		if (find_w_tk(msh))
 			join_rest(msh);
 		else
-			break;
+			break ;
 	}
 }
 
 void	join_rest_util(t_msh **msh, t_tk_lst *mg_tg, t_tk_lst *tmp_w)
 {
 	if (!tmp_w->quotes.sp_case && mg_tg->prev)
-			rm_joined_tk(msh, &mg_tg, &tmp_w, 1);
+		rm_joined_tk(msh, &mg_tg, &tmp_w, 1);
 	else
 	{
 		if (!mg_tg->prev)
 			rm_joined_tk(msh, &mg_tg, &tmp_w, 2);
 		else
-			free_tokens(mg_tg, 1); //leaks - added line
+			free_tokens(mg_tg, 1);
 	}
 }
 
-void	rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n) //leaks - created fuction to remove unused tokens
+void	rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n)
 {
 	if (n == 1)
 	{
@@ -74,7 +74,7 @@ void	rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg, t_tk_lst **tmp_w, int n) //leak
 	}
 	if (n == 2)
 	{
-		free_tokens(*mg_tg, 1); // leaks, added line
+		free_tokens(*mg_tg, 1);
 		(*msh)->token_list = *tmp_w;
 		(*tmp_w)->prev = NULL;
 	}

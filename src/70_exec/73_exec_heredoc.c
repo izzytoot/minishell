@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 13:17:37 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:48:30 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 		close(file_fd);
 	}
 }
+
 void	exec_files(t_msh **msh, t_tree_nd *node)
 {
 	static int	n;
@@ -47,7 +48,7 @@ void	exec_files(t_msh **msh, t_tree_nd *node)
 	{
 		nb = ft_itoa(n++);
 		node->tmp_file = ft_strjoin("/tmp/heredoc_tmp", nb);
-		nb = safe_free(nb);		
+		nb = safe_free(nb);
 	}
 }
 
@@ -65,8 +66,7 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		lines.new_l = readline("> ");
 		if (!lines.new_l)
 		{
-			ft_dprintf(STDERR_FILENO, ERR_HD_EOF);
-			ft_dprintf(STDERR_FILENO, "%s')\n", eof);
+			ctrl_d_error(eof);
 			lines.new_l = safe_free(lines.new_l);
 			break ;
 		}
@@ -74,16 +74,20 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 			|| (ft_strcmp(lines.new_l, eof) == 0))
 		{
 			lines.new_l = safe_free(lines.new_l);
-			// exit_value(msh, 0, 1, 0);
 			break ;
 		}
-		expand_line(msh, &lines, curr_nd, hd_fd);
-		ft_putstr_fd("\n", hd_fd);
-		lines.new_l = safe_free(lines.new_l);
-		if (lines.ch_exp)
-			ft_free_arrays((void **)lines.exp_newl); //leaks
+		save_lines(msh, lines, curr_nd, hd_fd);
 	}
-	eof = safe_free(eof); //leaks
+	eof = safe_free(eof);
+}
+
+void	save_lines(t_msh **msh, t_hd_lines lines, t_tree_nd *curr_nd, int hd_fd)
+{
+	expand_line(msh, &lines, curr_nd, hd_fd);
+	ft_putstr_fd("\n", hd_fd);
+	lines.new_l = safe_free(lines.new_l);
+	if (lines.ch_exp)
+		ft_free_arrays((void **)lines.exp_newl);
 }
 
 char	*check_eof(t_tree_nd *node, char *file_name)
@@ -95,17 +99,17 @@ char	*check_eof(t_tree_nd *node, char *file_name)
 	eof = ft_strdup("");
 	if (!file_name)
 	{
-		eof = safe_free(eof); //leaks
+		eof = safe_free(eof);
 		return (NULL);
 	}
 	if (!node->eof_ch && (file_name[i] == '-' || file_name[i] == '!'))
 	{
-		eof = safe_free(eof); //leaks
+		eof = safe_free(eof);
 		eof = ft_substr(file_name, 1, (ft_strlen(file_name)));
 	}
 	else
 	{
-		eof = safe_free(eof); //leaks
+		eof = safe_free(eof);
 		eof = ft_strdup(file_name);
 	}
 	return (eof);

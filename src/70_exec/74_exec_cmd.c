@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 13:13:05 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:08:02 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
 	pid_t	pid;
-	int	status;
+	int		status;
 
 	status = 0;
 	if (node->type == BT_CMD)
@@ -27,26 +27,8 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		return (exit_value(msh, 0, 1, 0));
 	pid = safe_fork(msh);
 	if (pid == 0)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		if (node->type == ENV_CMD)
-		{
-			if (node->cmd_content) //LEAKS - added free before subs
-				ft_free_arrays((void **)node->cmd_content);
-			node->cmd_content = join_cmd_and_args((node->cmd), node->args);
-			status = exec_env_cmd(&(*msh), node);
-			return (exit_value(msh, status, 1, 1));
-		}
-		return (output_cmd_errors(msh, node));
-	}
-	wait(&status);
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		status = 128 + WTERMSIG(status);
-	if (status == 131)
-		ft_printf("Quit (core dumped)\n");
+		exec_cmd_child(msh, node, &status);
+	exec_cmd_parent(pid, &status);
 	return (exit_value(msh, status, 1, 0));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   63_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/04 15:18:32 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:40:47 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	ft_echo(t_tree_nd **node)
 	nline = true;
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if ((*node)->args) //leaks - added line
+	if ((*node)->args)
 		nline = handle_n(node, &i, first_flag);
-	while ((*node)->args && (*node)->args[i]) //leaks - added (*node)->args && 
+	while ((*node)->args && (*node)->args[i])
 	{
 		tmp_lst = (*node)->quote_lst;
 		ft_putstr_fd((*node)->args[i], STDOUT_FILENO);
@@ -36,7 +36,7 @@ int	ft_echo(t_tree_nd **node)
 			&& tmp_lst->next)
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
-		tmp_lst = tmp_lst->next; //leaks , removed if next
+		tmp_lst = tmp_lst->next;
 	}
 	if (nline)
 		ft_putstr_fd("\n", STDOUT_FILENO);
@@ -60,7 +60,7 @@ bool	handle_n(t_tree_nd **node, int *i, bool first_flag)
 			if ((*node)->args[*i][j] == 'n')
 				j++;
 			else if ((*node)->args[*i][j] != 'n')
-				return (get_newline(first_flag, &newline)); //leaks reduced lines with new funct
+				return (get_newline(first_flag, &newline));
 		}
 		first_flag = false;
 		(*i)++;

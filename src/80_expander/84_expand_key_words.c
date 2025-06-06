@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   84_expand_key_words.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 15:10:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:43:20 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 		if (!ft_strncmp(envp_list->content, key_word, key_len)
 			&& ((char *)envp_list->content)[key_len] == '=')
 			return (safe_free(key_word),
-				ft_strdup(&((char *)envp_list->content)[key_len + 1])); //leaks - added free
+				ft_strdup(&((char *)envp_list->content)[key_len + 1]));
 		envp_list = envp_list->next;
 	}
 	while (vars_list)
@@ -92,7 +92,7 @@ char	*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 		if (!ft_strncmp(vars_list->content, key_word, key_len)
 			&& ((char *)vars_list->content)[key_len] == '=')
 			return (safe_free(key_word),
-				ft_strdup(&((char *)vars_list->content)[key_len + 1])); //leaks - added free
+				ft_strdup(&((char *)vars_list->content)[key_len + 1]));
 		vars_list = vars_list->next;
 	}
 	return (safe_free(key_word));

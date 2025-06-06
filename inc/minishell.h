@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 12:40:41 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:38:48 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@
 # define ERR_UNKRED "unknown redirection type\n"
 # define ERR_PT "msh: .: fn argument required\n.: usage: . fn [args]\n"
 # define ERR_PID_EXP "msh: PID expansion unsupported\n"
-# define ERR_HD_EOF "msh: warning: here-document delimited by end-of-file (wanted '"
-# define ERR_2FOLDER "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
+# define ERR_HD_EOF "msh: warning: here-document delimited by end-of-file "
+# define ERR_2FOLDER "cd: error retrieving current directory: getcwd: cannot "
+# define ERR_2FD_2 "access parent directories: No such file or directory\n"
 
 //constants
 # define WS " \t\n\r\v\f"
@@ -239,6 +240,9 @@ void			env_i(t_list **env_list);
 
 //12_init_utils.c
 void			init_all_null(t_msh **msh);
+bool			ch_shlvl(t_msh **msh, char *word);
+char			*get_errmsg(void);
+void			free_and_clear(char *str, t_list *lst);
 
 /************ 20_syntax ************/
 //20_syntax_check.c
@@ -302,7 +306,8 @@ int				tk_redir_in(t_msh **msh, const char *line,
 					char *redir_in, int i);
 
 //34_handle_quotes.c
-void			sort_out_quotes(t_msh **msh, int *i, const char *line, t_quote *quotes);
+void			sort_out_quotes(t_msh **msh, int *i, const char *line,
+					t_quote *quotes);
 void			sort_empty_qt(t_msh **msh, t_quote *quotes);
 void			check_dquote(bool *in_dquotes, char c);
 void			check_squote(bool *in_squotes, char c);
@@ -324,8 +329,8 @@ void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
 char			*check_env_cmd(char *cmd, char *env_path, int i, int n);
 
 //37_sub_tokenize_utils.c
-bool			ch_shlvl(t_msh **msh, char *word);
 bool			look_for_exp(t_tk_lst *curr, char *word);
+char			*check_env_cmd(char *cmd, char *env_path, int i, int n);
 void			get_cmd_path(char	*path, char	**part_path,
 					char **cmd_path, char *cmd);
 void			join_parts(t_tk_lst	**src, t_tk_lst **target);
@@ -357,6 +362,7 @@ bool			emp_1(char *nl, const char *line, int tmp_i);
 bool			emp_2(char *nl, bool fl);
 void			first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env);
 void			rm_empties_case(t_tk_lst **curr, bool env);
+void			rest_of_word(char *nl, const char *line, int i);
 
 /************ 50_build_tree ************/
 //50_tokens_to_tree.c
@@ -368,7 +374,7 @@ void			app_qt(t_tree_nd *new_nd, t_tk_lst *token);
 
 //51_build_pipe__nodes.c
 t_tree_nd		*build_pipe_nd(t_msh **msh, t_tk_lst **tokens);
-void			build_pipe_nd_util(t_tk_lst	**n_tk, t_tk_lst **c_tk,
+void			bd_pp_nd_util(t_tk_lst	**n_tk, t_tk_lst **c_tk,
 					t_tk_lst **l_tk, t_tk_lst **p_tk);
 void			move_fwd(t_tk_lst **prev_tk, t_tk_lst **curr_tk);
 
@@ -418,7 +424,6 @@ int				update_cd_env(t_msh **msh, char *old_pwd);
 int				update_cd_var(t_list **env_list, const char *var_name,
 					const char *data);
 char			*safe_getcwd(t_msh *msh, bool silent);
-char			*get_errmsg();
 
 //62_env.c
 int				print_env(t_msh **msh, t_tree_nd **node);
@@ -446,9 +451,10 @@ int				ft_unset(t_msh **msh, t_tree_nd **node);
 void			ft_delete_var(t_list **env_list, const char *var_name);
 
 //66_export.c
-int				ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export);
+int				ft_export(t_msh **msh, t_tree_nd **node, int i,
+					int valid_export);
 t_list			*sort_env(t_list *env_list, int sort);
-void			disp_exported(t_msh **msh);
+void			disp_exported(t_msh **msh, int name_len);
 t_list			*copy_env_list(t_list *env_list);
 void			print_only_export(t_msh	*msh);
 
@@ -459,7 +465,6 @@ void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
 bool			is_single_exp(char *arg);
 void			add_only_to_export(t_msh *msh, const char *var_name);
-void			free_and_clear(char *str, t_list *lst);
 
 /************ 70_exec_tree ************/
 //70_exec_tree.c
@@ -490,6 +495,8 @@ void			exec_heredocs(t_msh **msh, t_tree_nd *node);
 void			handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd);
 char			*check_eof(t_tree_nd *node, char *file_name);
 void			exec_files(t_msh **msh, t_tree_nd *node);
+void			save_lines(t_msh **msh, t_hd_lines lines, t_tree_nd	*curr_nd,
+					int hd_fd);
 
 //74_exec_cmd.c
 int				exec_cmd(t_msh **msh, t_tree_nd *node);
@@ -531,6 +538,10 @@ int				output_cmd_errors(t_msh **msh, t_tree_nd *node);
 char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
 					char ****new_args);
 
+//79_exec_cmd_utils.c
+int				exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
+void			exec_cmd_parent(pid_t pid, int *status);
+					
 /************ 80_expander ************/
 //80_expand_args.c
 void			expand_args(t_msh **msh, t_tree_nd *node);
@@ -577,7 +588,7 @@ char			*get_post_cont(char *arg, int *i);
 //86_final_expander.c
 char			*get_exp_cont(t_kw **kw_lst);
 char			*get_final_cont(t_exp_cont *parts);
-void			get_final_cont_util(char **tmp_new_c, char **final_c, 
+void			get_final_cont_util(char **tmp_new_c, char **final_c,
 					t_exp_cont *parts);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);
@@ -591,6 +602,7 @@ char			**copy_array(int size, char **array);
 
 /************ 90_signals ************/
 void			signal_handler(int sig, char *process);
+void			ctrl_d_error(char *eof);
 
 /************ 100_close_and_free ************/
 //100_free_msh.c

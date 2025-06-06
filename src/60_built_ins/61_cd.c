@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 12:50:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:40:53 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 		return (free(target_dir), free(old_pwd), EXIT_FAILURE);
 	if (chdir(target_dir) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "msh: cd: %s: %s\n", target_dir, get_errmsg());
+		ft_dprintf(STDERR_FILENO, "msh: cd: %s: %s\n", target_dir,
+			get_errmsg());
 		return (free(target_dir), free(old_pwd), EXIT_FAILURE);
 	}
 	cwd = safe_getcwd(*msh, false);
@@ -42,17 +43,18 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 	return (free(old_pwd), free(cwd), EXIT_SUCCESS);
 }
 
-char *safe_getcwd(t_msh *msh, bool silent)
+char	*safe_getcwd(t_msh *msh, bool silent)
 {
-	char cwd[PATH_MAX];
-	char *backup;
-	static bool error_printed;
+	char		cwd[PATH_MAX];
+	char		*backup;
+	static bool	error_printed;
 
 	if (getcwd(cwd, sizeof(cwd)))
 		return (error_printed = false, ft_strdup(cwd));
 	if (!silent && !error_printed)
 	{
 		ft_putstr_fd(ERR_2FOLDER, STDERR_FILENO);
+		ft_putstr_fd(ERR_2FD_2, STDERR_FILENO);
 		error_printed = true;
 	}
 	backup = get_var_val(msh->envp_list, "PWD");
@@ -76,7 +78,8 @@ int	get_dir(t_msh **msh, t_tree_nd **node, char **target_dir)
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if (!(*node)->args || ((*node)->args[0] && ft_strcmp((*node)->args[0], "~") == 0)) //LEAKS changed from (!(*node)->args[0] || ft_strcmp((*node)->args[0], "~") == 0)
+	if (!(*node)->args || ((*node)->args[0]
+			&& ft_strcmp((*node)->args[0], "~") == 0))
 	{
 		home = get_var_val((*msh)->envp_list, "HOME");
 		if (!home)
@@ -141,14 +144,4 @@ int	update_cd_var(t_list **env_list, const char *var_name, const char *data)
 		current = current->next;
 	}
 	return (EXIT_SUCCESS);
-}
-
-char	*get_errmsg()
-{
-	int		errnum;
-	char	*errmsg;
-
-	errnum = errno;
-	errmsg = strerror(errnum);
-	return (errmsg);
 }

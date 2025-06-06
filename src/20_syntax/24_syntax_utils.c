@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   24_syntax_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 14:42:04 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:10:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	line_and_hd_index(t_msh **msh, const char **line, int *hd_index)
 
 bool	look_for_pipe(const char *line, int i)
 {
-	if (i == 0) //leaks - added to avoid invalid read
+	if (i == 0)
 		return (false);
 	if (line[i] == '>' && line[i - 1] != '>' && line[i + 1] == '|')
 		return (false);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   54_build_cmd_nodes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:38 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 15:07:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:39:14 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_tree_nd	*build_cmd_nd(t_msh **msh, t_tk_lst **token_list)
 	cmd_nd->nb_arg = ft_lstsize(args);
 	if (args)
 		ft_list_to_array(&cmd_nd->args, &args);
-	ft_lstclear(&args, free); //LEAKS - added this line
+	ft_lstclear(&args, free);
 	cmd_nd->cmd_content = join_cmd_and_args(cmd_nd->cmd, cmd_nd->args);
 	return (cmd_nd);
 }
@@ -50,7 +50,8 @@ void	handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 			&& (*curr_tk)->prev)
 			(*curr_tk)->type = (*curr_tk)->type;
 		if (type_is_arg(&(*curr_tk)->type))
-			ft_lstadd_back(&(*args), ft_lstnew(ft_strdup((*curr_tk)->content))); //LEAKS
+			ft_lstadd_back(&(*args),
+				ft_lstnew(ft_strdup((*curr_tk)->content)));
 		if (type_is_cmd(&(*curr_tk)->type))
 		{
 			cmd_nd->cmd = ft_strdup((*curr_tk)->content);
@@ -78,7 +79,7 @@ char	**join_cmd_and_args(char *cmd, char **args)
 	arg_count = 0;
 	full_cmd = NULL;
 	if (!cmd)
-		return (ft_array_dup(args)); //leaks - added dup args for when !cmd
+		return (ft_array_dup(args));
 	while (args && args[arg_count])
 		arg_count++;
 	full_cmd = ft_calloc((arg_count + 2), sizeof(char *));

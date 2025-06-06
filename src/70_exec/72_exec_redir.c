@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:20 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 13:57:10 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:02:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	create_file_fd(t_tk_type type, char *file_name)
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "msh: %s: %s\n", ERR_UNKRED, strerror(errno));
-		return(-1);
+		return (-1);
 	}
 	if (file_fd < 0)
 	{

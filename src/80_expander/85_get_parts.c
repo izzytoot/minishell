@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   75_get_parts.c                                     :+:      :+:    :+:   */
+/*   85_get_parts.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:41:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/03 16:04:08 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:44:06 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*get_mid_cont_w_sp(char *arg, int *i)
 	}
 	if (!len)
 		return (NULL);
-	mid_content = ft_calloc((len + 1), sizeof(char)); //leaks / added 1 due to invalid read
+	mid_content = ft_calloc((len + 1), sizeof(char));
 	len = 0;
 	*i = tmp_i;
 	while (!ft_strchr("$", arg[*i]))
