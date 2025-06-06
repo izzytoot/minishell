@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 15:22:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:44:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -610,6 +610,9 @@ void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
 
 //90_signals.c
 void			sig_c_main(int sig);
+void			ctrl_c_hd(int sig);
+t_msh			*get_msh(t_msh *msh, int flag);
+void			close_fds(void);
 
 /************ others ************/
 //11_debug_utils.c

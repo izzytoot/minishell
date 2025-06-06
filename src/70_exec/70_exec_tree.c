@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 14:05:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:39:08 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		pid = safe_fork(msh);
 		if (pid == 0)
 		{
+			get_msh(*msh, 0);
 			exec_heredocs(msh, node);
 			exit_value(msh, status, 1, 1);
 		}
