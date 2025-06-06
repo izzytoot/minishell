@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 19:23:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:30:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	free_prompt_line(t_msh **msh)
 	(*msh)->hd_check = false;
 	(*msh)->empties = false;
 	(*msh)->signal = false;
+	(*msh)->child = false;
 }
 
 void	free_tree(t_msh *msh, t_tree_nd *node)
