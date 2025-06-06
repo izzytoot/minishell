@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   73_exec_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 18:04:35 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:44:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		lines.new_l = readline("> ");
 		if (!lines.new_l)
 		{
-			ctrl_d_error(node->eof);
+			ctrl_d_error(eof);
 			lines.new_l = safe_free(lines.new_l);
 			break ;
 		}
@@ -77,7 +77,7 @@ void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 		}
 		save_lines(msh, lines, curr_nd, hd_fd);
 	}
-	node->eof = safe_free(node->eof);
+	eof = safe_free(eof);
 }
 
 void	save_lines(t_msh **msh, t_hd_lines lines, t_tree_nd *curr_nd, int hd_fd)
