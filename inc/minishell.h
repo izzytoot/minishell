@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 17:59:28 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:08:50 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -602,8 +602,15 @@ int				count_exp(char *arg, int i);
 char			**copy_array(int size, char **array);
 
 /************ 90_signals ************/
-void			signal_handler(int sig, char *process);
+//90_signals.c
+void			sig_c_main(int sig);
+void			ctrl_c_hd(int sig);
+t_msh			*get_msh(t_msh *msh, int flag);
+void			close_fds(void);
 void			ctrl_d_error(char *eof);
+
+//90_signals_utils.c
+
 
 /************ 100_close_and_free ************/
 //100_free_msh.c
@@ -620,12 +627,6 @@ void			envp_fail(t_msh *msh, char *str, t_list *list_nd,
 void			free_tokens(t_tk_lst *token_list, int n);
 void			free_qt_lst(t_quote *qt_list);
 void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
-
-//90_signals.c
-void			sig_c_main(int sig);
-void			ctrl_c_hd(int sig);
-t_msh			*get_msh(t_msh *msh, int flag);
-void			close_fds(void);
 
 /************ others ************/
 //11_debug_utils.c

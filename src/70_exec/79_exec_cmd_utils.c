@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:54:29 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 17:40:55 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:59:21 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status)
 {
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, sig_c_main);
 	if (node->type == ENV_CMD)
 	{
 		if (node->cmd_content)
