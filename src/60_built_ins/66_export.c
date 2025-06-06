@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 19:43:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:47:27 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_export(t_msh **msh, t_tree_nd **node, int i, int valid_export)
 	if (!node || !*node)
 		return (EXIT_FAILURE);
 	if (!(*node)->args)
-		return (disp_exported(msh), 0);
+		return (disp_exported(msh, 0), 0);
 	tmp_lst = (*node)->quote_lst;
 	while ((*node)->args && (*node)->args[i])
 	{
