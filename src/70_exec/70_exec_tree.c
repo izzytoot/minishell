@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 12:51:40 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 13:59:15 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		{
 			signal(SIGINT, SIG_IGN);
 			waitpid(pid, &status, 0);
-			signal(SIGINT, SIG_DFL);
+			signal(SIGINT, sig_c_main);
 			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			{
 				(*msh)->signal = true;
