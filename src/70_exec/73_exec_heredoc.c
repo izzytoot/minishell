@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:45:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 16:48:30 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:04:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exec_heredocs(t_msh **msh, t_tree_nd *node)
 {
 	int	file_fd;
 
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, ctrl_c_hd);
 	if (!node)
 		exit (0);
 	if (node->left)
@@ -55,30 +55,29 @@ void	exec_files(t_msh **msh, t_tree_nd *node)
 void	handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd)
 {
 	t_tree_nd	*curr_nd;
-	char		*eof;
 	t_hd_lines	lines;
 
 	curr_nd = node;
-	eof = check_eof(curr_nd, curr_nd->file);
+	node->eof = check_eof(curr_nd, curr_nd->file);
 	while (1)
 	{
 		lines.ch_exp = false;
 		lines.new_l = readline("> ");
 		if (!lines.new_l)
 		{
-			ctrl_d_error(eof);
+			ctrl_d_error(node->eof);
 			lines.new_l = safe_free(lines.new_l);
 			break ;
 		}
-		if ((!eof && ft_strcmp(lines.new_l, "\0") == 0)
-			|| (ft_strcmp(lines.new_l, eof) == 0))
+		if ((!node->eof && ft_strcmp(lines.new_l, "\0") == 0)
+			|| (ft_strcmp(lines.new_l, node->eof) == 0))
 		{
 			lines.new_l = safe_free(lines.new_l);
 			break ;
 		}
 		save_lines(msh, lines, curr_nd, hd_fd);
 	}
-	eof = safe_free(eof);
+	node->eof = safe_free(node->eof);
 }
 
 void	save_lines(t_msh **msh, t_hd_lines lines, t_tree_nd *curr_nd, int hd_fd)

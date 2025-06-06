@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:53:10 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 15:33:56 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:03:21 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 void	sort_out_quotes(t_msh **msh, int *i, const char *line, t_quote *quotes)
 {
 	sort_empty_qt(msh, quotes);
-	if ((!quotes->in_squotes && !quotes->in_dquotes)
-		&& (ft_strchr(QT, line[*i])))
+	if ((!quotes->in_squotes && !quotes->in_dquotes) && (ft_strchr(QT, line[*i])))
 	{
 		check_squote(&quotes->in_squotes, line[*i]);
 		check_dquote(&quotes->in_dquotes, line[*i]);

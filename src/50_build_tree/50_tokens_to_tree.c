@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 14:51:22 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:03:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	new_tree_nd_util(t_tree_nd	*new_nd)
 	new_nd->exp_hd = false;
 	new_nd->cmd_r = false;
 	new_nd->ch_ambg = false;
+	new_nd->eof = NULL;
 }
 
 void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
