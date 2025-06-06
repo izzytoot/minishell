@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 00:33:26 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/06 00:59:59 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 		*i = tk_word(msh, *i);
 	else if (quotes->in_quotes)
 		*i = tk_word_qt(msh, *i, &quotes->in_quotes, &quotes->quote_char);
-	else if (c == '|' && (!quotes->in_quotes || ft_strcmp("/'/'", (*msh)->token_list->content) != 0))
+	else if (c == '|' && !quotes->in_quotes)
 		*i = tk_pipe(msh, *i);
 	else if (c == '>' && !quotes->in_quotes)
 		*i = redir_r(msh, *i);
