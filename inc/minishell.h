@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 22:14:35 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:43:27 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -461,7 +461,7 @@ void			print_only_export(t_msh	*msh);
 
 //67_export_utils.c
 bool			is_valid_identifier(char *arg);
-bool			export_check(t_msh **msh, char *arg);
+bool			export_check(t_msh **msh, bool s_qt, char *arg);
 void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
 bool			is_single_exp(char *arg);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   67_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 14:48:45 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:43:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	is_valid_identifier(char *arg)
 	i = 0;
 	if (!arg || (!ft_isalpha(arg[0]) && arg[0] != '_'))
 		return (false);
-	while (arg[i] && arg[i] != '=')
+	while (arg[i] && (arg[i] != '='))
 	{
 		if (arg[i] == '+' && arg[i + 1] == '=')
 			return (false);
@@ -32,9 +32,9 @@ bool	is_valid_identifier(char *arg)
 	return (true);
 }
 
-bool	export_check(t_msh **msh, char *arg)
+bool	export_check(t_msh **msh, bool s_qt, char *arg)
 {
-	if (!is_valid_identifier(arg))
+	if (!s_qt && !is_valid_identifier(arg))
 	{
 		ft_dprintf(STDERR_FILENO, "msh: export: `%s': not a valid identifier\n",
 			arg);
