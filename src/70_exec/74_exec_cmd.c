@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 12:01:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:20:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	status = choose_path(&(*msh), node, &path);
 	if (status != 0)
 		return (exit_value(msh, status, 1, 0));
-	//return (exit_value(msh, status, 1, 0));
 	if (safe_execve(msh, path, node->cmd_content))
 		return (exit_value(msh, status, 1, 0));
 	return (exit_value(msh, status, 1, 0));
-	//return (exit_value(msh, status, 1, 0));
 }
 
 int	exec_sh_v(t_msh **msh, t_tree_nd *node)
