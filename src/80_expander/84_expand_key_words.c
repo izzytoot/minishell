@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   84_expand_key_words.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/06 19:44:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/07 00:07:24 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,23 @@ void	expand_kw(t_msh **msh, t_kw **kw_lst)
 	}
 }
 
+int	expand_case(char *kw)
+{
+	if (!kw || !kw[0])
+		return (1);
+	if (ft_strcmp(kw, "0") == 0)
+		return (2);
+	else if (ft_strcmp(kw, "?") == 0)
+		return (3);
+	else if (ft_strchr(SYM_EXP, kw[0]) || ft_strchr(WS, kw[0]))
+		return (4);
+	else if (ft_strcmp(kw, "$") == 0)
+		return (5);
+	else if (ft_strcmp(kw, "$$") == 0)
+		return (6);
+	return (7);
+}
+
 bool	other_expand_cases(t_msh **msh, char **kw)
 {
 	if (expand_case(*kw) == 6)
@@ -57,73 +74,33 @@ bool	other_expand_cases(t_msh **msh, char **kw)
 	return (false);
 }
 
-int	expand_case(char *kw)
-{
-	if (!kw || !kw[0])
-		return (1);
-	if (ft_strcmp(kw, "0") == 0)
-		return (2);
-	else if (ft_strcmp(kw, "?") == 0)
-		return (3);
-	else if (ft_strchr(SYM_EXP, kw[0]) || ft_strchr(WS, kw[0]))
-		return (4);
-	else if (ft_strcmp(kw, "$") == 0)
-		return (5);
-	else if (ft_strcmp(kw, "$$") == 0)
-		return (6);
-	return (7);
-}
-
 char	*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 {
 	int		key_len;
 	char	*res;
-	
+
 	key_len = ft_strlen(key_word);
-	while (envp_list)
-	{
-		if (!ft_strncmp(envp_list->content, key_word, key_len)
-			&& ((char *)envp_list->content)[key_len] == '=')
-		{
-			res = ft_strdup(&((char *)envp_list->content)[key_len + 1]);
-			if (res && ft_strcmp("", res) == 0)
-				res = safe_free(res);
-			return (safe_free(key_word), res);
-		}
-		envp_list = envp_list->next;
-	}
-	while (vars_list)
-	{
-		if (!ft_strncmp(vars_list->content, key_word, key_len)
-			&& ((char *)vars_list->content)[key_len] == '=')
-		{
-			res = ft_strdup(&((char *)envp_list->content)[key_len + 1]);
-			if (res && ft_strcmp("", res) == 0)
-				res = safe_free(res);
-			return (safe_free(key_word), res);
-		}
-		vars_list = vars_list->next;
-	}
-	return (safe_free(key_word));
+	res = find_env_value(envp_list, key_word, key_len);
+	if (!res)
+		res = find_env_value(vars_list, key_word, key_len);
+	return (safe_free(key_word), res);
 }
 
-char	**ft_array_dup_null(t_tree_nd *node, char **array, int n)
+char	*find_env_value(t_list *list, char *key_word, int key_len)
 {
-	int		i;
-	int		size;
-	char	**new_array;
+	char	*res;
 
-	if (!array)
-		return (NULL);
-	size = 0;
-	i = 0;
-	while (n-- > 0)
+	while (list)
 	{
-		if (array[i])
-			size++;
-		i++;
+		if (!ft_strncmp(list->content, key_word, key_len)
+			&& ((char *)list->content)[key_len] == '=')
+		{
+			res = ft_strdup(&((char *)list->content)[key_len + 1]);
+			if (res && ft_strcmp("", res) == 0)
+				res = safe_free(res);
+			return (res);
+		}
+		list = list->next;
 	}
-	node->nb_arg = size;
-	new_array = copy_array(size, array);
-	return (new_array);
+	return (NULL);
 }

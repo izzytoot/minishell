@@ -6,7 +6,7 @@
 #    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/06/06 23:53:35 by isabel           ###   ########.fr        #
+#    Updated: 2025/06/07 00:09:20 by isabel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							80_expander/85_get_parts.c\
 							80_expander/86_final_expander.c\
 							80_expander/87_expand_utils.c\
+							80_expander/88_expand_utils_2.c\
 							90_signals/90_signals.c\
 							90_signals/91_signals_utils.c\
 							100_close_and_free/100_free_msh.c\

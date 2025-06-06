@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 23:52:48 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/07 00:08:37 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -584,7 +584,7 @@ bool			other_expand_cases(t_msh **msh, char **kw);
 int				expand_case(char *kw);
 char			*get_env_cont(t_list *envp_list, t_list *vars_list,
 					char *key_word);
-char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);
+char			*find_env_value(t_list *list, char *key_word, int key_len);
 
 //85_get_parts.c
 char			*get_pre_cont(char *arg, int *i);
@@ -607,6 +607,11 @@ int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
 bool			check_mid(char c);
 int				count_exp(char *arg, int i);
 char			**copy_array(int size, char **array);
+
+//88_expand_utils_2.c
+char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);
+char			**copy_array(int size, char **array);
+
 
 /************ 90_signals ************/
 //90_signals.c
