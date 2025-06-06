@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:42:59 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/05 11:36:25 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 11:50:21 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,17 @@ bool	ch_if_sub_cmd(t_msh **msh, t_tree_nd *node)
 int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
 {
 	if (node->type == ARG && !node->args[0])
-		return (exit_value(msh, 0, 1, 0));
+		return (exit_value(msh, 0, 1, 1));
+	//return (exit_value(msh, 0, 1, 0));
 	else if (node->type == ARG && (ft_strcmp(".", node->args[0]) == 0))
 	{
 		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_PT);
-		return (exit_value(msh, 2, 1, 0));
+		return (exit_value(msh, 2, 1, 1));
+		//return (exit_value(msh, 2, 1, 0));
 	}
 	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
-	return (exit_value(msh, 127, 1, 0));
+	return (exit_value(msh, 127, 1, 1));
+	//return (exit_value(msh, 127, 1, 0));
 }
 
 char	**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/05 19:26:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:00:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 	{
 		perf_left_pipe(msh, fd[0], fd[1]);
 		status = exec_tree(msh, node->left);
-		close_minishell((*msh), status);
+		exit_value(msh, status, 1, 1);
+		//close_minishell((*msh), status);
 	}
 	right_pid = safe_fork(msh);
 	if (right_pid == 0)
 	{
 		perf_right_pipe(msh, fd[1], fd[0]);
 		status = exec_tree(msh, node->right);
-		close_minishell((*msh), status);
+		exit_value(msh, status, 1, 1);
+		//close_minishell((*msh), status);
 	}
 	close_fd(fd[0], fd[1]);
 	status = safe_waitpid(left_pid, right_pid);
@@ -64,6 +66,7 @@ int	safe_waitpid(int pid1, int pid2)
 	status = 0;
 	if (pid1)
 	{
+		wait(&status);
 		waitpid(pid1, &status, 0);
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
@@ -72,6 +75,7 @@ int	safe_waitpid(int pid1, int pid2)
 	}
 	if (pid2)
 	{
+		wait(&status);
 		waitpid(pid2, &status, 0);
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);

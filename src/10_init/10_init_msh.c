@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/05 12:40:32 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:02:00 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_init_msh(t_msh **msh, char **envp)
 {
-	// if (!isatty(STDIN_FILENO)) // nao funciona com tester
-	// 	close_minishell(*msh, EXIT_FAILURE);
 	(*msh)->hd_check = true;
 	(*msh)->empties = false;
 	(*msh)->child = false;

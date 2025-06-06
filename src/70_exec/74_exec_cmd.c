@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/05 19:09:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:01:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
+	pid_t	pid;
 	int	status;
 
 	status = 0;
@@ -22,17 +23,28 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		status = exec_bt_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
 	}
-	else if (node->type == ENV_CMD)
-	{
-		if (node->cmd_content) //LEAKS - added free before subs
-			ft_free_arrays((void **)node->cmd_content);
-		node->cmd_content = join_cmd_and_args((node->cmd), node->args);
-		status = exec_env_cmd(&(*msh), node);
-		return (exit_value(msh, status, 1, 0));
-	}
-	else if (exec_sh_v(&(*msh), node) == 0)
+	else if (node->type != ENV_CMD && (exec_sh_v(&(*msh), node) == 0))
 		return (exit_value(msh, 0, 1, 0));
-	return (output_cmd_errors(msh, node));
+	pid = safe_fork(msh);
+	if (pid == 0)
+	{
+		if (node->type == ENV_CMD)
+		{
+			if (node->cmd_content) //LEAKS - added free before subs
+				ft_free_arrays((void **)node->cmd_content);
+			node->cmd_content = join_cmd_and_args((node->cmd), node->args);
+			status = exec_env_cmd(&(*msh), node);
+			return (exit_value(msh, status, 1, 1));
+		}
+		return (output_cmd_errors(msh, node));
+	}
+	wait(&status);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		status = 128 + WTERMSIG(status);
+	return (exit_value(msh, status, 1, 0));
 }
 
 int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
@@ -64,29 +76,17 @@ int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 
 int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 {
-	pid_t	pid;
 	char	*path;
 	int		status;
 
-	pid = safe_fork(msh);
-	status = 0;
-	if (pid == 0)
-	{
-		status = choose_path(&(*msh), node, &path);
-		if (status != 0)
-			return (exit_value(msh, status, 1, 0));
-		if (safe_execve(msh, path, node->cmd_content))
-			close_minishell((*msh), status);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			status = 128 + WTERMSIG(status);
-	}
+	status = choose_path(&(*msh), node, &path);
+	if (status != 0)
+		return (exit_value(msh, status, 1, 0));
+	//return (exit_value(msh, status, 1, 0));
+	if (safe_execve(msh, path, node->cmd_content))
+		return (exit_value(msh, status, 1, 0));
 	return (exit_value(msh, status, 1, 0));
+	//return (exit_value(msh, status, 1, 0));
 }
 
 int	exec_sh_v(t_msh **msh, t_tree_nd *node)
