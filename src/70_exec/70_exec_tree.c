@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 16:39:08 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:22:57 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		{
 			signal(SIGINT, SIG_IGN);
 			waitpid(pid, &status, 0);
-			signal(SIGINT, SIG_DFL);
+			signal(SIGINT, sig_c_main);
 			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			{
 				(*msh)->signal = true;
