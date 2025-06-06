@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 12:47:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:24:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	get_tokens(t_msh **msh, int i)
 	while (line[++i])
 	{
 		quotes.sp_case = false;
+		if (ft_strchr(QT, line [i]) && ((*msh)->token_list
+			&& (ft_strcmp("\'\'", (*msh)->token_list->content) == 0)))
+			i++;
 		sort_out_quotes(msh, &i, line, &quotes);
 		if ((!quotes.in_squotes || !quotes.in_dquotes)
 			&& ft_strchr(QT, line [i]))

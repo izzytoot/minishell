@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:48:17 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 15:10:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:53:08 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,31 @@ int	expand_case(char *kw)
 char	*get_env_cont(t_list *envp_list, t_list *vars_list, char *key_word)
 {
 	int		key_len;
-
+	char	*res;
+	
 	key_len = ft_strlen(key_word);
 	while (envp_list)
 	{
 		if (!ft_strncmp(envp_list->content, key_word, key_len)
 			&& ((char *)envp_list->content)[key_len] == '=')
-			return (safe_free(key_word),
-				ft_strdup(&((char *)envp_list->content)[key_len + 1])); //leaks - added free
+		{
+			res = ft_strdup(&((char *)envp_list->content)[key_len + 1]);
+			if (res && ft_strcmp("", res) == 0)
+				res = safe_free(res);
+			return (safe_free(key_word), res);
+		}
 		envp_list = envp_list->next;
 	}
 	while (vars_list)
 	{
 		if (!ft_strncmp(vars_list->content, key_word, key_len)
 			&& ((char *)vars_list->content)[key_len] == '=')
-			return (safe_free(key_word),
-				ft_strdup(&((char *)vars_list->content)[key_len + 1])); //leaks - added free
+		{
+			res = ft_strdup(&((char *)envp_list->content)[key_len + 1]);
+			if (res && ft_strcmp("", res) == 0)
+				res = safe_free(res);
+			return (safe_free(key_word), res);
+		}
 		vars_list = vars_list->next;
 	}
 	return (safe_free(key_word));

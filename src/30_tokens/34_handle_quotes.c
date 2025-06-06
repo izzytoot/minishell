@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   34_handle_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:53:10 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 00:48:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/06 15:24:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	sort_out_quotes(t_msh **msh, int *i, const char *line, t_quote *quotes)
 {
 	sort_empty_qt(msh, quotes);
-	if ((*msh)->token_list && (ft_strcmp("/'/')", (*msh)->token_list->content) != 0)) //make sure of this
-		return ;
 	if ((!quotes->in_squotes && !quotes->in_dquotes) && (ft_strchr(QT, line[*i])))
 	{
 		check_squote(&quotes->in_squotes, line[*i]);
