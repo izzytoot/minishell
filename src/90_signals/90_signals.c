@@ -3,42 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   90_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 19:02:24 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:57:26 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-void	if_child(t_msh **msh);
 
 void	sig_c_main(int sig)
 {
-	int		status;
-	t_msh	*msh;
-	
-	msh = NULL;
-	msh = get_msh(NULL, 1);
+	(void)sig;
+	ft_putstr_fd("\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	exit_value(NULL, 130, 1, 0);
+}
+void	sig_c_child(int sig)
+{
+	int	status;
+
 	status = 128 + sig;
 	ft_putstr_fd("\n", 1);
-	if_child(&msh);
 	exit_value(NULL, status, 1, 0);
-}
-void	if_child(t_msh **msh)
-{
-	if (*msh && ((*msh)->child))
-	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		(*msh)->child = false;
-	}
-	else
-	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
 }
 
 t_msh	*get_msh(t_msh *msh, int flag)

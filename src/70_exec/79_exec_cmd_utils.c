@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   79_exec_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:54:29 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 18:59:21 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:53:32 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status)
 {
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, sig_c_main);
+	signal(SIGINT, sig_c_child);
 	if (node->type == ENV_CMD)
 	{
 		if (node->cmd_content)
@@ -29,9 +29,10 @@ int	exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status)
 
 void	exec_cmd_parent(pid_t pid, int *status)
 {
-	signal(SIGINT, sig_c_main);
+	signal(SIGINT, SIG_IGN);
 	wait(&(*status));
 	waitpid(pid, &(*status), 0);
+	signal(SIGINT, sig_c_main);
 	if (WIFEXITED(*status))
 		*status = WEXITSTATUS(*status);
 	else if (WIFSIGNALED(*status))

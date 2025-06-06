@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 18:08:50 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:00:21 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -610,7 +610,7 @@ void			close_fds(void);
 void			ctrl_d_error(char *eof);
 
 //90_signals_utils.c
-
+void			sig_c_child(int sig);
 
 /************ 100_close_and_free ************/
 //100_free_msh.c
