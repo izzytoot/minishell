@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   70_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 19:43:48 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:43:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 			{
 				(*msh)->signal = true;
 				write(1, "\n", 1);
+				return (exit_value(msh, 130, 1, 0));
 			}
 			if ((*msh)->signal)
 				return (exit_value(msh, 130, 1, 0));

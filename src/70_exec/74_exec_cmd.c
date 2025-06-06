@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   74_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 18:53:29 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:07:18 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		return (exit_value(msh, 0, 1, 0));
 	pid = safe_fork(msh);
 	if (pid == 0)
-	{
-		get_msh(*msh, 0);
 		exec_cmd_child(msh, node, &status);
-	}
 	exec_cmd_parent(pid, &status);
 	return (exit_value(msh, status, 1, 0));
 }
