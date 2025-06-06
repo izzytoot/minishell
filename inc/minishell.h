@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 21:00:21 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:14:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -605,12 +605,12 @@ char			**copy_array(int size, char **array);
 //90_signals.c
 void			sig_c_main(int sig);
 void			ctrl_c_hd(int sig);
+void			sig_c_child(int sig);
+
+//91_signals_utils.c
 t_msh			*get_msh(t_msh *msh, int flag);
 void			close_fds(void);
 void			ctrl_d_error(char *eof);
-
-//90_signals_utils.c
-void			sig_c_child(int sig);
 
 /************ 100_close_and_free ************/
 //100_free_msh.c
