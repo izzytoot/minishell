@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   67_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 19:43:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 23:51:30 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	add_export_var(t_list **env_lst, const char *var_name, const char *data)
 	ft_lstadd_back(env_lst, new_node);
 }
 
-bool	is_single_exp(char *arg)
+bool	sing_exp(char *arg)
 {
 	int	i;
 

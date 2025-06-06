@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 23:03:16 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/06 23:52:48 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -466,8 +466,13 @@ bool			is_valid_identifier(char *arg);
 bool			export_check(t_msh **msh, bool s_qt, char *arg);
 void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
-bool			is_single_exp(char *arg);
+bool			sing_exp(char *arg);
 void			add_only_to_export(t_msh *msh, const char *var_name);
+
+//68_export_utils_2.c
+void	ft_export_util(t_msh **msh, bool s_qt, char *arg, char	**var_inf);
+void	get_var_info(t_tree_nd **node, t_quote *tmp_lst, int i, char ***var_inf);
+void	move_on(int *i, t_quote **tmp_lst);
 
 /************ 70_exec_tree ************/
 //70_exec_tree.c

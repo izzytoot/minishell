@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 22:56:03 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/06 23:51:53 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,26 @@
 
 int	ft_export(t_msh **msh, t_tree_nd **node, int i, int valid_export)
 {
-	char	**var_info;
-	char	*s_qt_info;
+	char	**var_inf;
 	t_quote	*tmp_lst;
 	
 	if (!node || !*node)
 		return (EXIT_FAILURE);
 	if (!(*node)->args)
 		return (disp_exported(msh, 0), 0);
+	var_inf = NULL;
 	tmp_lst = (*node)->quote_lst;
 	while ((*node)->args && (*node)->args[i])
 	{
 		if (!export_check(msh, tmp_lst->in_squotes, (*node)->args[i]))
 		{
-			i++;
-			tmp_lst = tmp_lst->next;
+			move_on(&i, &tmp_lst);
 			continue ;
 		}
-		if (((*node)->args && (*node)->args[i]) && (tmp_lst->next && tmp_lst->next->in_squotes))
-		{
-			s_qt_info = ft_strjoin((*node)->args[i], (*node)->args[i + 1]);
-			var_info = ft_split(s_qt_info, '=');
-			s_qt_info = safe_free(s_qt_info);
-		}
-		else
-			var_info = ft_split((*node)->args[i], '=');
-		if (!tmp_lst->in_squotes && (*node)->args && is_single_exp((*node)->args[i]))
-			add_only_to_export(*msh, (*node)->args[i]);
-		else
-			add_export_var(&(*msh)->envp_list, var_info[0], var_info[1]);
-		ft_free_arrays((void **)var_info);
-		valid_export = 1;
-		i++;
-		tmp_lst = tmp_lst->next;
+		get_var_info(node, tmp_lst, i, &var_inf);
+		ft_export_util(msh, tmp_lst->in_squotes, (*node)->args[i], var_inf);
+		ft_free_arrays((void **)var_inf);
+		move_on(&i, &tmp_lst);
 	}
 	if (!valid_export && i == 1)
 		return (1);
