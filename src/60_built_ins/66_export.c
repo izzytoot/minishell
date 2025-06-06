@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   66_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 12:50:54 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:15:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,38 @@
 int	ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export)
 {
 	char	**var_info;
-
+	char	*s_qt_info;
+	t_quote	*tmp_lst;
+	
 	if (!node || !*node)
 		return (EXIT_FAILURE);
 	if (!(*node)->args) //leaks, changed from !(*node)->args[0]
 		return (disp_exported(msh), 0);
-	while ((*node)->args[i])
+	tmp_lst = (*node)->quote_lst;
+	while ((*node)->args && (*node)->args[i])
 	{
-		if (!export_check(msh, (*node)->args[i]))
+		if (!export_check(msh, tmp_lst->in_squotes, (*node)->args[i]))
 		{
 			i++;
+			tmp_lst = tmp_lst->next;
 			continue ;
 		}
-		var_info = ft_split((*node)->args[i], '=');
-		if (is_single_exp((*node)->args[i]))
+		if (((*node)->args && (*node)->args[i]) && (tmp_lst->next && tmp_lst->next->in_squotes))
+		{
+			s_qt_info = ft_strjoin((*node)->args[i], (*node)->args[i + 1]);
+			var_info = ft_split(s_qt_info, '=');
+			s_qt_info = safe_free(s_qt_info);
+		}
+		else
+			var_info = ft_split((*node)->args[i], '=');
+		if (!tmp_lst->in_squotes && (*node)->args && is_single_exp((*node)->args[i]))
 			add_only_to_export(*msh, (*node)->args[i]);
 		else
 			add_export_var(&(*msh)->envp_list, var_info[0], var_info[1]);
 		ft_free_arrays((void **)var_info);
 		valid_export = 1;
 		i++;
+		tmp_lst = tmp_lst->next;
 	}
 	if (!valid_export && i == 1)
 		return (1);

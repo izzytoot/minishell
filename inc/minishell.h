@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/06 17:07:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:15:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -455,7 +455,7 @@ void			print_only_export(t_msh	*msh);
 
 //67_export_utils.c
 bool			is_valid_identifier(char *arg);
-bool			export_check(t_msh **msh, char *arg);
+bool			export_check(t_msh **msh, bool s_qt, char *arg);
 void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
 bool			is_single_exp(char *arg);
