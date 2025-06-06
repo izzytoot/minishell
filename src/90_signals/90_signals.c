@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 19:31:12 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:32:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	close_fds(void)
 		close(fd);
 		fd++;
 	}
+}
+
 void	ctrl_d_error(char *eof)
 {
 	ft_dprintf(STDERR_FILENO, ERR_HD_EOF);
