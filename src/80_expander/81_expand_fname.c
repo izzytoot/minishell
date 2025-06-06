@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   81_expand_fname.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:43:18 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 15:17:05 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:42:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	expand_fname(t_msh **msh, char **fname)
 	parts.new_c = get_exp_cont(&kw_lst);
 	subst_fname(fname, &parts);
 	if (!(*fname))
-		(*msh)->tmp_fname = tmp_fname; //leaks - removed strdup
+		(*msh)->tmp_fname = tmp_fname;
 	else
-		tmp_fname = safe_free(tmp_fname); //LEAKS
+		tmp_fname = safe_free(tmp_fname);
 	free_kw_structs(&parts, &kw_lst);
 }
 
@@ -45,7 +45,7 @@ void	subst_fname(char **fname, t_exp_cont *parts)
 	if (parts->new_c)
 	{
 		final_c = get_final_cont(parts);
-		*fname = safe_free((*fname)); //leaks - added line
+		*fname = safe_free((*fname));
 		*fname = ft_strdup(final_c);
 	}
 	else if (parts->pre_c || parts->post_c)
@@ -54,13 +54,13 @@ void	subst_fname(char **fname, t_exp_cont *parts)
 			final_c = ft_strdup(parts->pre_c);
 		if (parts->post_c)
 			final_c = ft_strjoin(final_c, ft_strdup(parts->post_c));
-		*fname = safe_free((*fname)); //leaks - added line
+		*fname = safe_free((*fname));
 		*fname = ft_strdup(final_c);
 	}
 	else
-		*fname = safe_free(*fname); //leaks - substituted *fname = NULL
+		*fname = safe_free(*fname);
 	if (final_c)
-		final_c = safe_free(final_c); //leaks - added free
+		final_c = safe_free(final_c);
 }
 
 void	expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
@@ -84,7 +84,7 @@ void	expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
 			{
 				tmp_mg_prev = merge_tg->prev;
 				merge_tg->prev->next = tmp_fn;
-				free_tokens(merge_tg, 1); // leaks, added line
+				free_tokens(merge_tg, 1);
 				tmp_fn->prev = tmp_mg_prev;
 			}
 			break ;

@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 12:52:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:00:59 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 
 	status = 0;
 	if (safe_pipe(msh, fd) < 0)
-		return (exit_value(msh, 32, 1, 0)); //broken pipe is 32?
+		return (exit_value(msh, 141, 1, 0));
 	left_pid = safe_fork(msh);
 	if (left_pid == 0)
 	{
 		perf_left_pipe(msh, fd[0], fd[1]);
 		status = exec_tree(msh, node->left);
 		exit_value(msh, status, 1, 1);
-		//close_minishell((*msh), status);
 	}
 	right_pid = safe_fork(msh);
 	if (right_pid == 0)
@@ -36,7 +35,6 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 		perf_right_pipe(msh, fd[1], fd[0]);
 		status = exec_tree(msh, node->right);
 		exit_value(msh, status, 1, 1);
-		//close_minishell((*msh), status);
 	}
 	close_fd(fd[0], fd[1]);
 	status = safe_waitpid(left_pid, right_pid);

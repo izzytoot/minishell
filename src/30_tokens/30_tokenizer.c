@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 17:44:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:25:00 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_tokens(t_msh **msh, int i)
 	{
 		quotes.sp_case = false;
 		if (ft_strchr(QT, line [i]) && ((*msh)->token_list
-			&& (ft_strcmp("\'\'", (*msh)->token_list->content) == 0)))
+				&& (ft_strcmp("\'\'", (*msh)->token_list->content) == 0)))
 			i++;
 		sort_out_quotes(msh, &i, line, &quotes);
 		if ((!quotes.in_squotes || !quotes.in_dquotes)
@@ -65,7 +65,8 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 {
 	if (c == '$' && !quotes->in_quotes)
 		*i = exp_to_null(msh, *i);
-	if (ft_strchr(WS, c) && (!quotes->in_quotes || ft_strcmp("/'/'", (*msh)->token_list->content) != 0))
+	if (ft_strchr(WS, c) && (!quotes->in_quotes
+			|| ft_strcmp("/'/'", (*msh)->token_list->content) != 0))
 		*i = tk_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
@@ -127,9 +128,9 @@ void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 	if (content)
 	{
 		new_tk->content = ft_strdup(content);
-		new_tk->quotes.content = ft_strdup(content); //leaks
+		new_tk->quotes.content = ft_strdup(content);
 	}
-	else //leaks
+	else
 	{
 		new_tk->content = NULL;
 		new_tk->quotes.content = NULL;

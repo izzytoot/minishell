@@ -6,7 +6,7 @@
 #    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/06/06 12:27:42 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/06/06 16:55:48 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							70_exec/76_exec_dir_path.c\
 							70_exec/77_exec_utils.c\
 							70_exec/78_exec_utils_2.c\
+							70_exec/79_exec_cmd_utils.c\
 							80_expander/80_expand_args.c\
 							80_expander/81_expand_fname.c\
 							80_expander/82_expand_hd.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   83_build_kw_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:26:34 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 15:11:10 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:43:01 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	build_kw_list(t_kw **kw_lst, char *arg, int *i)
 				next = arg[*i + 1];
 			else
 				next = '\0';
-			n_kw = ft_calloc(1, sizeof(t_kw)); //LEAKS - removed * of tw_kw
+			n_kw = ft_calloc(1, sizeof(t_kw));
 			get_exp_kw(next, n_kw, arg, i);
 			app_kw(kw_lst, n_kw, n_kw->kw, true);
 			if (arg[*i] && check_mid(arg[*i]))
 			{
-				n_kw = ft_calloc(1, sizeof(t_kw)); //LEAKS - removed * of tw_kw
+				n_kw = ft_calloc(1, sizeof(t_kw));
 				n_kw->kw = get_util(arg, &i, 4);
 				app_kw(kw_lst, n_kw, n_kw->kw, false);
 			}
@@ -126,7 +126,7 @@ bool	check_dollar_w_qts(char **str)
 	{
 		str_tmp = (*str);
 		(*str) = ft_strdup_until((*str), c);
-		str_tmp = safe_free(str_tmp); //added str_tmp to free ptr
+		str_tmp = safe_free(str_tmp);
 		return (true);
 	}
 	return (false);

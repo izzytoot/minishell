@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   52_env.c                                           :+:      :+:    :+:   */
+/*   62_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:38:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/05/27 14:17:23 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/06 14:40:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	print_env(t_msh **msh, t_tree_nd **node)
 
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if ((*node)->args && (*node)->args[0]) //leaks - added (*node)->args
+	if ((*node)->args && (*node)->args[0])
 	{
 		ft_dprintf(STDERR_FILENO, "env: '%s': No such file or directory\n",
 			(*node)->args[0]);

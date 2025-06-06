@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   86_final_expander.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 18:53:13 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 20:06:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:44:30 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_exp_cont(t_kw **kw_lst)
 	{
 		curr_c = ft_strdup(curr_kw->kw);
 		exp_c = safe_strjoin(exp_c, curr_c);
-		curr_c = safe_free(curr_c); //leaks added this line
+		curr_c = safe_free(curr_c);
 		curr_kw = curr_kw->next;
 	}
 	return (exp_c);
@@ -52,7 +52,7 @@ char	*get_final_cont(t_exp_cont *parts)
 void	get_final_cont_util(char **tmp_new_c, char **final_c, t_exp_cont *parts)
 {
 	char	*tmp_final_c;
-	
+
 	*tmp_new_c = ft_strdup(parts->new_c);
 	if (parts->pre_c)
 		*final_c = ft_strjoin(parts->pre_c, *tmp_new_c);

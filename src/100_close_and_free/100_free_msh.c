@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:06:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 17:50:01 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:23:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_msh(t_msh *msh)
 	if (msh->vars_list)
 		ft_lstclear(&msh->vars_list, free);  //não devia ser ft_lstclear?
 	if (msh->tmp_fname)
-		msh->tmp_fname = safe_free(msh->tmp_fname); //LEAKS
+		msh->tmp_fname = safe_free(msh->tmp_fname);
 	if (msh->tree_root)
 	{
 		free_tree(msh, msh->tree_root);
@@ -66,11 +66,11 @@ void	free_tree(t_msh *msh, t_tree_nd *node)
 		node->tmp_file = safe_free(node->tmp_file);
 	if (node->op_content)
 		node->op_content = safe_free(node->op_content);
-	if (node->cmd) //LEAKS
+	if (node->cmd)
 		node->cmd = safe_free(node->cmd);
-	if (node->args) //LEAKS
+	if (node->args)
 		ft_free_arrays((void **)node->args);
-	if (node->cmd_content) //LEAKS
+	if (node->cmd_content)
 		ft_free_arrays((void **)node->cmd_content);
 	if (node->quote_lst)
 		free_qt_lst(node->quote_lst);

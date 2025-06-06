@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 17:06:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:30:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sig_c_main(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 	if (WIFSIGNALED(sig))
-			status = 128 + WTERMSIG(sig);
+		status = 128 + WTERMSIG(sig);
 	exit_value(NULL, status, 1, 0);
 }
 
@@ -58,4 +58,8 @@ void	close_fds(void)
 		close(fd);
 		fd++;
 	}
+void	ctrl_d_error(char *eof)
+{
+	ft_dprintf(STDERR_FILENO, ERR_HD_EOF);
+	ft_dprintf(STDERR_FILENO, "(wanted '%s')\n", eof);
 }

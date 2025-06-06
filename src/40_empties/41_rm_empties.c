@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   41_rm_empties.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 15:00:14 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:11:48 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	empties_rmv_exp(t_tk_lst ***curr)
 	{
 		curr_next = (**curr)->next;
 		(**curr)->next->quotes.sp_case = (**curr)->quotes.sp_case;
-		free_tokens(**curr, 1); //leaks - added free curr
+		free_tokens(**curr, 1);
 		(**curr)->prev->next = curr_next;
 		(**curr)->next->prev = curr_prev;
 	}
 	else
 	{
 		(**curr)->prev->next = NULL;
-		free_tokens(**curr, 1); //leaks - added free curr
+		free_tokens(**curr, 1);
 		(**curr) = curr_prev;
 	}
 }
@@ -72,11 +72,11 @@ void	empties_rmv_tk(t_tk_lst ***curr)
 		(**curr)->next->quotes.sp_case = (**curr)->quotes.sp_case;
 		if ((**curr)->prev->type == W_SPACE && (**curr)->prev->prev)
 		{
-			curr_prev = (**curr)->prev->prev; // add for curr->prev - free_tokens(**curr, 1); //leaks - added free curr
+			curr_prev = (**curr)->prev->prev;
 			free_tokens((**curr)->prev, 1);
 			(**curr)->next->prev = (**curr)->prev->prev;
 			(**curr)->prev->prev->next = (**curr)->next;
-			free_tokens(**curr, 1); //leaks - added free curr
+			free_tokens(**curr, 1);
 			(**curr) = curr_prev;
 		}
 		else
@@ -84,7 +84,7 @@ void	empties_rmv_tk(t_tk_lst ***curr)
 			curr_prev = (**curr)->prev;
 			(**curr)->next->prev = (**curr)->prev;
 			(**curr)->prev->next = (**curr)->next;
-			free_tokens(**curr, 1); //leaks - added free curr
+			free_tokens(**curr, 1);
 			(**curr) = curr_prev;
 		}
 	}
@@ -104,14 +104,14 @@ void	empties_rmv_tk_util(t_tk_lst ****curr)
 		(***curr)->prev->quotes.sp_case = (***curr)->quotes.sp_case;
 		curr_prev = (***curr)->prev;
 		(***curr)->prev->next = NULL;
-		free_tokens(***curr, 1); //leaks - added free curr
+		free_tokens(***curr, 1);
 		(***curr) = curr_prev;
 	}
 	else
 	{
 		curr_next = (***curr)->next;
 		(***curr)->next->prev = NULL;
-		free_tokens(***curr, 1); //leaks - added free curr
+		free_tokens(***curr, 1);
 		(***curr) = curr_next;
 	}
 }

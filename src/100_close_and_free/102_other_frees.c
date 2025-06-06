@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   102_other_frees.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:52:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 15:15:32 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:51:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	free_tokens(t_tk_lst *token_list, int n)
 			if (token_list->content)
 				token_list->content = safe_free(token_list->content);
 			if (token_list->quotes.content)
-				token_list->quotes.content = safe_free(token_list->quotes.content);
+				token_list->quotes.content
+					= safe_free(token_list->quotes.content);
 			token_list = safe_free(token_list);
 			token_list = tmp;
 		}

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 19:14:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:26:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_valid_identifier(char *arg)
 	{
 		if (arg[i] == '+' && arg[i + 1] == '=')
 			return (false);
-		if (!ft_isalnum(arg[i]) && arg[i] != '_') //if single quotes
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 			return (false);
 		i++;
 	}
@@ -74,17 +74,10 @@ void	add_export_var(t_list **env_lst, const char *var_name, const char *data)
 	ft_lstadd_back(env_lst, new_node);
 }
 
-void	free_and_clear(char *str, t_list *lst) //leaks - created to reduce lines in copy_env_list
-{
-	if (str)
-		str = safe_free(str);
-	if (lst)
-		ft_lstclear(&lst, free);
-}
 bool	is_single_exp(char *arg)
 {
 	int	i;
-	
+
 	i = 0;
 	while (arg[i])
 	{

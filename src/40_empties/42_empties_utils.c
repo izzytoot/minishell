@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42_empties_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 13:50:40 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/04 15:05:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:10:53 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ void	rm_empties_case(t_tk_lst **curr, bool env)
 			|| (*curr)->next->type == ARG) && !env)
 		empties_rmv_tk(&curr);
 	else if (!(*curr)->next && (*curr)->prev && !(*curr)->quotes.sp_case
-		&& ((*curr)->prev->type == BT_CMD || (*curr)->prev->type == ARG) && !env)
+		&& ((*curr)->prev->type == BT_CMD || (*curr)->prev->type == ARG)
+		&& !env)
 		empties_rmv_tk(&curr);
+}
+
+void	rest_of_word(char *nl, const char *line, int i)
+{
+	int		j;
+
+	j = 0;
+	while (line[i])
+		nl[j++] = line[i++];
+	nl[j] = '\0';
 }

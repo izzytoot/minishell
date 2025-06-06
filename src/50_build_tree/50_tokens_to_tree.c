@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 17:10:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:25:32 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	parse_line(t_msh **msh)
 		return ;
 	(*msh)->tree_root = build_pipe_nd(msh, &(*msh)->token_list);
 	if ((*msh)->tree_root->type != PIPE)
-		free_tokens((*msh)->token_list, 2); //LEAKS
+		free_tokens((*msh)->token_list, 2);
 	tree_root = (*msh)->tree_root;
-	if ((*msh)->debug_mode) //FOR DEBUGGING
+	if ((*msh)->debug_mode) //FOR DEBUGGING REMOVE
 		print_tree(tree_root);
 }
 
@@ -34,7 +34,6 @@ t_tree_nd	*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)
 	if (!new_nd)
 		return (NULL);
 	if (content)
-	//	new_nd->op_content = content;
 		new_nd->op_content = ft_strdup(content);
 	new_nd->cmd_content = NULL;
 	if (type)
@@ -80,7 +79,7 @@ void	add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token)
 		curr_tk = curr_tk->next;
 	}
 	if (count <= 0)
-		return ; //LEAKS - removed new_nd->quote_lst = ft_calloc(count, sizeof(t_quote))
+		return ;
 	while (curr_tk_tmp)
 	{
 		if (curr_tk_tmp->type == ARG)

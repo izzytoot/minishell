@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 12:50:27 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:45:31 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ int	ft_exit(t_msh **msh, t_tree_nd **node)
 	args = (*node)->args;
 	if (isatty(STDIN_FILENO))
 		ft_dprintf(STDERR_FILENO, "exit\n");
-		//ft_printf("exit\n");
 	if (args && args[0] && ft_strcmp(args[0], "--") == 0)
 		args++;
 	if (!args || !args[0])
-		exit_value(msh, 0, 1, 1); //leaks - changed from exit_value(msh, exit_value(msh, 0, false, false), 1, 1);
+		exit_value(msh, 0, 1, 1);
 	if (args && !ft_strnumeric(args[0]))
 	{
 		ft_dprintf(STDERR_FILENO,

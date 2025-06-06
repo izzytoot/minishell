@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   77_expand_utils.c                                  :+:      :+:    :+:   */
+/*   87_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:24:53 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/02 14:47:51 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:44:46 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	count_exp(char *arg, int i)
 				i++;
 			count++;
 		}
-		if (arg[i]) //leaks - added to prevent invalid read
+		if (arg[i])
 			i++;
 	}
 	return (count);
@@ -81,7 +81,7 @@ char	**copy_array(int size, char **array)
 	{
 		if (array[++i])
 		{
-			new_array[++n] = ft_strdup(array[i]); // leaks - removed strdup
+			new_array[++n] = ft_strdup(array[i]);
 			array[i] = safe_free(array[i]);
 			if (!new_array[n])
 			{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   36_sub_tokenize_files.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:33:42 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 18:48:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:20:28 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	join_filename(t_msh **msh, bool hd_flag, t_tk_lst *tmp_fn)
 t_tk_lst	*find_file(t_msh **msh, t_tk_lst *curr)
 {
 	t_tk_lst	*file;
-	
+
 	if (!curr)
 		file = (*msh)->token_list;
 	else

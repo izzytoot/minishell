@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 19:15:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:26:14 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //info --> promotes a var to global
 
-int	ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export)
+int	ft_export(t_msh **msh, t_tree_nd **node, int i, int valid_export)
 {
 	char	**var_info;
 	char	*s_qt_info;
@@ -22,7 +22,7 @@ int	ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export)
 	
 	if (!node || !*node)
 		return (EXIT_FAILURE);
-	if (!(*node)->args) //leaks, changed from !(*node)->args[0]
+	if (!(*node)->args)
 		return (disp_exported(msh), 0);
 	tmp_lst = (*node)->quote_lst;
 	while ((*node)->args && (*node)->args[i])
@@ -55,12 +55,11 @@ int	ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export)
 	return (0);
 }
 
-void	disp_exported(t_msh **msh)
+void	disp_exported(t_msh **msh, int name_len)
 {
 	t_list	*current;
 	t_list	*head;
 	char	*equal;
-	int		name_len;
 	char	*var;
 
 	current = sort_env((*msh)->envp_list, 1);
@@ -82,7 +81,7 @@ void	disp_exported(t_msh **msh)
 		current = current->next;
 	}
 	print_only_export(*msh);
-	free_and_clear(NULL, head); //LEAKS added this line
+	free_and_clear(NULL, head);
 }
 
 t_list	*sort_env(t_list *env_list, int sort)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   80_expand_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 18:01:12 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/04 15:16:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:41:49 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	expand_args(t_msh **msh, t_tree_nd *node)
 		if (node->args)
 			ft_free_array_w_null(node->args, node->nb_arg);
 		node->args = ft_array_dup_null(node, args_cpy, node->nb_arg);
-		ft_free_arrays((void **)args_cpy); //LEAKS 
+		ft_free_arrays((void **)args_cpy);
 	}
 	recurs_exp_args(msh, node);
 }
@@ -96,7 +96,7 @@ void	expand_tk(t_msh **msh, char **arg)
 	ft_init_var((void **)&parts.pre_c, (void **)&parts.new_c,
 		(void **)&parts.post_c, NULL);
 	i = 0;
-	kw_lst = NULL; //LEAKS - changed from calloc aloccation
+	kw_lst = NULL;
 	parts.pre_c = get_pre_cont(*arg, &i);
 	build_kw_list(&kw_lst, *arg, &i);
 	parts.post_c = get_post_cont(*arg, &i);
@@ -114,7 +114,7 @@ void	subst_arg(char **arg, t_exp_cont *parts)
 	if (parts->new_c)
 	{
 		final_c = get_final_cont(parts);
-		*arg = safe_free(*arg); //leaks - added line
+		*arg = safe_free(*arg);
 		*arg = ft_strdup(final_c);
 	}
 	else if (parts->pre_c || parts->post_c)
@@ -123,11 +123,11 @@ void	subst_arg(char **arg, t_exp_cont *parts)
 			final_c = ft_strdup(parts->pre_c);
 		if (parts->post_c)
 			final_c = ft_strjoin(final_c, ft_strdup(parts->post_c));
-		*arg = safe_free(*arg); //leaks - added line
+		*arg = safe_free(*arg);
 		*arg = ft_strdup(final_c);
 	}
 	else
-		*arg = safe_free(*arg); //leaks - substituted *arg = NULL
+		*arg = safe_free(*arg);
 	if (final_c)
-		final_c = safe_free(final_c); //leaks - added free
+		final_c = safe_free(final_c);
 }

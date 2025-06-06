@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 19:22:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:26:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 
 	status = 0;
 	if (!node)
-		return (exit_value(msh, 0, 0, 0)); //changed exit status from 2 to 0
+		return (exit_value(msh, 0, 0, 0));
 	if (arg_expansions(node))
 		expand_args(msh, node);
-	if (node->nb_arg > 1 && arg_expansions(node)) //only if there are expansions
+	if (node->nb_arg > 1 && arg_expansions(node))
 		node->args = remake_args(node);
 	if (type_is_word(&node->type) && !node->cmd
 		&& ft_strchr(node->args[0], '/'))
@@ -36,7 +36,7 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 			printf(BMAG"%s "RES, node->args[i]);
 		printf("\n");
 		printf("------------------------------\n");
-	}
+	} //TO DELETE
 	if ((*msh)->hd_check)
 	{
 		(*msh)->hd_check = false;
@@ -121,7 +121,7 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 	if (sep_args[0] && check_builtin(sep_args[0]))
 		node->type = BT_CMD;
 	else if (sep_args[0] && (check_env_cmd(sep_args[0], env_path, -1, 1)
-		|| (ch_shlvl(msh, sep_args[0]))))
+			|| (ch_shlvl(msh, sep_args[0]))))
 		node->type = ENV_CMD;
 	i = 0;
 	if (node->type == BT_CMD || node->type == ENV_CMD)
@@ -129,12 +129,13 @@ void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 	ft_free_arrays((void **)sep_args);
 }
 
-void	sub_cmd_util(t_tree_nd *node, char **sep_args, int count, char ****new_args)
+void	sub_cmd_util(t_tree_nd *node, char **sep_args, int count,
+			char ****new_args)
 {
 	char		**sep_args_tmp;
 	char		**joinned_array;
 	char		*tmp_cmd;
-	
+
 	sep_args_tmp = sep_args;
 	tmp_cmd = NULL;
 	joinned_array = NULL;
@@ -147,12 +148,12 @@ void	sub_cmd_util(t_tree_nd *node, char **sep_args, int count, char ****new_args
 	if (tmp_cmd)
 	{
 		sep_args_tmp[0] = safe_free(sep_args_tmp[0]);
-		sep_args_tmp[0] = tmp_cmd;	
+		sep_args_tmp[0] = tmp_cmd;
 	}
 	if (count > 1)
 	{
 		joinned_array = get_joinned_array(tmp_cmd, sep_args, new_args);
 		ft_free_arrays((void **)**new_args);
-		(**new_args) = joinned_array;	
+		(**new_args) = joinned_array;
 	}
 }

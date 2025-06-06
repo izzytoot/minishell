@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 16:34:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:24:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_init_msh(t_msh **msh, char **envp)
 {
-	// if (!isatty(STDIN_FILENO)) // nao funciona com tester
-	// 	close_minishell(*msh, EXIT_FAILURE);
 	(*msh)->hd_check = false;
 	(*msh)->empties = false;
 	(*msh)->signal = false;
@@ -40,7 +38,7 @@ void	prompt_and_read(t_msh **msh)
 		prompt = get_prompt(*msh);
 		line = readline(prompt);
 		free(prompt);
-		if (!line) //corrigir. isto é para quando abre novo prompt antes do tempo
+		if (!line)
 		{
 			ft_printf("exit\n");
 			free_prompt_line(&(*msh));
@@ -73,7 +71,7 @@ char	*get_display_path(t_msh *msh)
 		return (cwd);
 	backup = get_var_val(msh->envp_list, "PWD");
 	if (backup)
-		return (ft_strtrim(backup,"\n"));
+		return (ft_strtrim(backup, "\n"));
 	return (ft_strdup("[unknown]"));
 }
 
