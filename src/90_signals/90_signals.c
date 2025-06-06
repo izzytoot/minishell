@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   90_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 19:44:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:59:50 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	sig_c_main(int sig)
 	if_child(&msh);
 	exit_value(NULL, status, 1, 0);
 }
+
 void	if_child(t_msh **msh)
 {
 	if (*msh && ((*msh)->child))

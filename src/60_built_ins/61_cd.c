@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   61_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 15:40:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:53:25 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-//info --> executes cd, updates env var
 
 int	ft_cd(t_msh **msh, t_tree_nd **node)
 {
@@ -70,8 +68,6 @@ char	*safe_getcwd(t_msh *msh, bool silent)
 	return (ft_strdup(backup));
 }
 
-//info --> get target dir
-
 int	get_dir(t_msh **msh, t_tree_nd **node, char **target_dir)
 {
 	char	*home;
@@ -93,8 +89,6 @@ int	get_dir(t_msh **msh, t_tree_nd **node, char **target_dir)
 		*target_dir = ft_strdup((*node)->args[0]);
 	return (EXIT_SUCCESS);
 }
-
-//info --> updates OLDPWD and PWD
 
 int	update_cd_env(t_msh **msh, char *old_pwd)
 {

@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   34_handle_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:53:10 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 19:42:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:45:00 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	sort_out_quotes(t_msh **msh, int *i, const char *line, t_quote *quotes)
+void	sort_out_quotes(t_msh **msh, const char *line, int *i, t_quote *quotes)
+{
+	quotes->sp_case = false;
+	if (ft_strchr(QT, line[*i]) && ((*msh)->token_list
+			&& (ft_strcmp("\'\'", (*msh)->token_list->content) == 0)))
+		(*i)++;
+	sort_quotes_util(msh, i, line, quotes);
+	if ((!quotes->in_squotes || !quotes->in_dquotes)
+		&& ft_strchr(QT, line[*i]))
+		(*i)++;
+}
+
+void	sort_quotes_util(t_msh **msh, int *i, const char *line, t_quote *quotes)
 {
 	sort_empty_qt(msh, quotes);
 	if ((!quotes->in_squotes && !quotes->in_dquotes)

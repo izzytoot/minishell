@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 19:42:48 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:49:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,7 @@ void	get_tokens(t_msh **msh, int i)
 		i = empty_case(msh, line, 0, true);
 	while (line[++i])
 	{
-		quotes.sp_case = false;
-		if (ft_strchr(QT, line [i]) && ((*msh)->token_list
-				&& (ft_strcmp("\'\'", (*msh)->token_list->content) == 0)))
-			i++;
-		sort_out_quotes(msh, &i, line, &quotes);
-		if ((!quotes.in_squotes || !quotes.in_dquotes)
-			&& ft_strchr(QT, line [i]))
-			i++;
+		sort_out_quotes(msh, line, &i, &quotes);
 		if (i >= (int)ft_strlen(line))
 			break;
 		if (line[i] && line[i] != quotes.quote_char
@@ -54,10 +47,6 @@ void	get_tokens(t_msh **msh, int i)
 		ft_printf("------------------------------\n");
 	}
 	parse_line(&(*msh));
-	// ft_printf("------------------------------\n");
-	// if ((*msh)->debug_mode)
-	// 	print_tokens(&(*msh)); //DEBUG TO DELETE
-	// ft_printf("------------------------------\n");
 	return ;
 }
 

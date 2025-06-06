@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   63_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 14:40:47 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:53:56 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-//info --> prints the array using binary tree
 
 int	ft_echo(t_tree_nd **node)
 {

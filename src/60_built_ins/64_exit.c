@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   64_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:09:25 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 14:45:31 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:54:29 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-//info --> clean up and exit shell with correct value
 
 int	ft_exit(t_msh **msh, t_tree_nd **node)
 {
@@ -43,8 +41,6 @@ int	ft_exit(t_msh **msh, t_tree_nd **node)
 	return (exit_code);
 }
 
-//info --> convert the exit code given as arg into 8-bit unsigned integer
-
 unsigned int	ft_convert_value(t_msh **msh, char *code)
 {
 	long long	nbr;
@@ -59,8 +55,6 @@ unsigned int	ft_convert_value(t_msh **msh, char *code)
 	}
 	return ((unsigned char)nbr);
 }
-
-//info --> check if a str is numeric
 
 int	ft_strnumeric(char *str)
 {

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   66_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 19:47:27 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:56:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-//info --> promotes a var to global
 
 int	ft_export(t_msh **msh, t_tree_nd **node, int i, int valid_export)
 {

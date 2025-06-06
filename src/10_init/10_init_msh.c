@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 19:42:42 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:49:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	prompt_and_read(t_msh **msh)
 		free_prompt_line(&(*msh));
 	}
 }
-
-//info --> create prompt wih current dir
 
 char	*get_display_path(t_msh *msh)
 {

@@ -12,8 +12,6 @@
 
 #include "../../inc/minishell.h"
 
-//info --> delete the content of a var
-
 int	ft_unset(t_msh **msh, t_tree_nd **node)
 {
 	int	i;
@@ -30,8 +28,6 @@ int	ft_unset(t_msh **msh, t_tree_nd **node)
 	}
 	return (0);
 }
-
-//info --> delete a env var, free it's memory
 
 void	ft_delete_var(t_list **env_list, const char *var_name)
 {
