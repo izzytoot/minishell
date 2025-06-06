@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:52 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/22 15:23:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:15:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int			ft_lstsize(t_list *lst);
 int			ft_atoi_base(const char *str, int base);
 int			ft_is_space(char c);
 int			ft_strcmp(const char *s1, const char *s2);
+int			ft_is_dir(const char *path);
+long long	ft_atoll(const char *nptr);
 
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
@@ -62,9 +64,9 @@ char		*ft_unsplit(char **args);
 char		*safe_strjoin(char *s1, char *s2);
 char		*ft_strcpy(char *dest, char *src);
 char		**ft_split(char const *str, char c);
-char		**ft_list_to_array(t_list *list);
 char		**ft_array_dup(char **array);
 char		**ft_array_dup_w_null(char **array, int n);
+char		**ft_array_join(char **arr1, char **arr2);
 
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
@@ -89,8 +91,8 @@ void		ft_free_matrix(void ***matrix);
 void		ft_error_msg(char *message, char *complete, int if_exit);
 void		ft_close_pipe(int *fd);
 void		ft_init_var(void **var1, void **var2, void **var3, void **var4);
-long long	ft_atoll(const char *nptr);
-int			ft_is_dir(const char *path);
+void		ft_free_array_w_null(char **array, int n);
+void		ft_list_to_array(char ***str, t_list **list);
 
 t_list		*ft_lstnew(void *data);
 t_list		*ft_lstlast(t_list *lst);

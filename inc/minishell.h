@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/05 23:12:15 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:40:41 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@
 # define ERR_SYN_UNS_OP "msh: syntax error - unsupported operator\n"
 # define ERR_CD_ARGS "msh: cd: too many arguments\n"
 # define ERR_UNKRED "unknown redirection type\n"
-# define ERR_KW "msh: too many keywords for expander\n"
+# define ERR_PT "msh: .: fn argument required\n.: usage: . fn [args]\n"
+# define ERR_PID_EXP "msh: PID expansion unsupported\n"
 # define ERR_HD_EOF "msh: warning: here-document delimited by end-of-file (wanted '"
 # define ERR_2FOLDER "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
 
@@ -88,41 +89,26 @@
 # define WS " \t\n\r\v\f"
 # define OPERATOR "|<>"
 # define NON_EOF "|<>&" //check if there are more
-# define SYM_EXP ".,-+:/@^&*!~=#?[]{}%"
+# define SYM_EXP ".,-+:/^&*!~=#?[]{}%\\"
 # define REDIR "<>"
 # define QT "\"\'"
-# define MAX_KW 128
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
 
-typedef enum e_cmd_type
-{
-	ECH,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-	//HELP,
-	//PATH
-}	t_cmd_type;
-
 typedef enum e_tk_type
 {
-	PIPE, // |
-	WORD, // cmd or arg
-	BT_CMD, //builtin cmd
-	ARG, //arg for cmd
-	W_SPACE, //space
+	PIPE,
+	WORD,
+	BT_CMD,
+	ARG,
+	W_SPACE,
 	FILE_NAME,
-	REDIR_IN, // < (input)
-	REDIR_OUT, // > (output)
-	REDIR_APP, // >> (append)
-	REDIR_HD, // << (heredoc)
-	ENV_CMD, // envirm. cmd
-	SH_V, //shell var
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APP,
+	REDIR_HD,
+	ENV_CMD,
 }	t_tk_type;
 
 typedef struct s_quote
@@ -133,6 +119,7 @@ typedef struct s_quote
 	bool			sp_case;
 	char			quote_char;
 	char			*content;
+	bool			exp;
 	struct s_quote	*next;
 	struct s_quote	*prev;
 }	t_quote;
@@ -164,6 +151,7 @@ typedef struct s_tree_nd
 	struct s_quote		*quote_lst;
 	bool				exp_hd;
 	bool				cmd_r;
+	bool				ch_ambg;
 }	t_tree_nd;
 
 typedef struct s_redir_data
@@ -190,6 +178,7 @@ typedef struct s_hd_lines
 {
 	char	*new_l;
 	char	**exp_newl;
+	bool	ch_exp;
 }	t_hd_lines;
 
 typedef struct s_exp_cont
@@ -211,12 +200,11 @@ typedef struct s_msh
 {
 	bool		active;
 	char		*dir;
-	int			msh_pid;
 	char		*prompt_line;
 	t_tk_lst	*token_list;
 	t_tree_nd	*tree_root;
 	char		**envp;
-	t_list		*envp_list; //enviroment variables line user, home, path, etc
+	t_list		*envp_list;
 	t_list		*vars_list;
 	bool		debug_mode;
 	bool		hd_check;
@@ -224,6 +212,7 @@ typedef struct s_msh
 	bool		empties;
 	bool		signal;
 	t_list		*export_only;
+	bool		child;
 }	t_msh;
 
 /* ************************************************************************** */
@@ -269,11 +258,14 @@ bool			consec_operators_pipe(const char *line);
 
 //23_syntax_redir.c
 bool			conseq_operators_redir(const char *line);
+bool			check_l_and_r(const char *line, int i);
 void			conseq_redir_r_case(const char *line, int i);
 void			conseq_redir_l_case(const char *line, int i);
 bool			misplaced_redir_at_end(const char *line);
 
 //24_syntax_utils.c
+bool			line_and_hd_index(t_msh **msh, const char **line,
+					int *hd_index);
 bool			look_for_pipe(const char *line, int i);
 bool			check_in_quotes(char c, bool *in_quotes);
 int				check_if_hd(const char *line);
@@ -310,99 +302,125 @@ int				tk_redir_in(t_msh **msh, const char *line,
 					char *redir_in, int i);
 
 //34_handle_quotes.c
-void			sort_out_quotes(int *i, const char *line, t_quote *quotes);
+void			sort_out_quotes(t_msh **msh, int *i, const char *line, t_quote *quotes);
+void			sort_empty_qt(t_msh **msh, t_quote *quotes);
 void			check_dquote(bool *in_dquotes, char c);
 void			check_squote(bool *in_squotes, char c);
 
 //35_sub_tokenize.c
 void			sub_tokenize(t_msh **msh);
-void			handle_filename(t_msh **msh);
-void			join_filename(t_msh **msh, bool hd_flag);
 void			join_rest(t_msh **msh);
-char			*check_env_cmd(char *cmd, char *env_path, int i);
+void			join_rest_util(t_msh **msh, t_tk_lst *mg_tg, t_tk_lst *tmp_w);
+void			rm_joined_tk(t_msh **msh, t_tk_lst **mg_tg,
+					t_tk_lst **tmp_w, int n);
+void			attribute_type(t_msh **msh, t_tk_lst *curr);
 
-//36_sub_tokenize_utils.c
-t_tk_lst		*find_file(t_msh **msh);
-t_tk_lst		*find_w_tk(t_msh **msh);
-void			join_parts(t_tk_lst	**src, t_tk_lst **target);
-bool			ch_shlvl(t_msh **msh, char *word);
+//36_sub_tokenize_files.c
+void			handle_filename(t_msh **msh);
+void			join_filename(t_msh **msh, bool hd_flag, t_tk_lst *tmp_fn);
+t_tk_lst		*find_file(t_msh **msh, t_tk_lst *curr);
 void			expand_fn(t_msh **msh, t_tk_lst **tmp_fn,
 					t_tk_lst **merge_tg, bool hd_flag);
+char			*check_env_cmd(char *cmd, char *env_path, int i, int n);
 
-//37_token_utils.c
+//37_sub_tokenize_utils.c
+bool			ch_shlvl(t_msh **msh, char *word);
+bool			look_for_exp(t_tk_lst *curr, char *word);
+void			get_cmd_path(char	*path, char	**part_path,
+					char **cmd_path, char *cmd);
+void			join_parts(t_tk_lst	**src, t_tk_lst **target);
+t_tk_lst		*find_w_tk(t_msh **msh);
+
+//38_token_utils.c
 bool			tk_in_qts(t_tk_lst *tk);
 char			*get_path(t_list *envp_list);
 void			check_rep_cmd(t_msh **msh);
 bool			check_builtin(char *str);
 bool			check_shell_var(char *str);
 
-//38_token_empties.c
+/************ 40_empties ************/
+//40_empties.c
 int				empty_case(t_msh **msh, const char *line, int i, bool flag);
-int				sp_for_empty_case (t_msh **msh, const char *line, int i);
-bool 			ch_all_same(char *nl);
-bool 			ch_emp_exp(t_msh **msh, char *nl);
+int				ch_empty_case(t_msh **msh, const char *line, int i, bool fl);
+int				sp_for_empty_case(t_msh **msh, const char *line, int i, int n);
+int				ch_emp_exp(t_msh **msh, char *nl);
+int				ch_all_same(char *nl);
 
-//39_rm_empties.c
+//41_rm_empties.c
 void			rm_empties(t_tk_lst **token);
-void			rm_empties_case(t_tk_lst **curr, bool env);
 void			empties_rmv_exp(t_tk_lst ***curr);
 void			empties_rmv_tk(t_tk_lst ***curr);
-void			first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env);
+void			empties_rmv_tk_util(t_tk_lst ****curr);
 
-/************ 40_build_tree ************/
-//40_tokens_to_tree.c
+//42_empties_utils.c
+bool			emp_1(char *nl, const char *line, int tmp_i);
+bool			emp_2(char *nl, bool fl);
+void			first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env);
+void			rm_empties_case(t_tk_lst **curr, bool env);
+
+/************ 50_build_tree ************/
+//50_tokens_to_tree.c
 void			parse_line(t_msh **msh);
 t_tree_nd		*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content);
+void			new_tree_nd_util(t_tree_nd	*new_nd);
 void			add_quote_structs(t_tree_nd *new_nd, t_tk_lst *token);
 void			app_qt(t_tree_nd *new_nd, t_tk_lst *token);
 
-//41_build_pipe__nodes.c
+//51_build_pipe__nodes.c
 t_tree_nd		*build_pipe_nd(t_msh **msh, t_tk_lst **tokens);
+void			build_pipe_nd_util(t_tk_lst	**n_tk, t_tk_lst **c_tk,
+					t_tk_lst **l_tk, t_tk_lst **p_tk);
+void			move_fwd(t_tk_lst **prev_tk, t_tk_lst **curr_tk);
 
-//42_build_redir_nodes.c
+//52_build_redir_nodes.c
 t_tree_nd		*build_redir_nd(t_msh **msh, t_tk_lst **token_list);
-t_tree_nd		*handle_redir(t_tree_nd *redir_nd, t_tk_lst **curr_tk);
+t_tree_nd		*handle_redir(t_msh **msh, t_tree_nd *redir_nd,
+					t_tk_lst **curr_tk);
 bool			check_cmd(t_tk_lst **token_list);
 bool			search_cmd(t_tk_lst *curr_tk, int way);
 
-//43_build_redir_nodes_utils.c
+//53_build_redir_nodes_utils.c
 bool			next_is_redir(t_tk_lst *curr_tk);
 bool			check_prev(t_tk_lst *curr_tk);
 t_tree_nd		*add_left(t_tree_nd *redir_nd, t_tree_nd *cmd_nd);
 t_tree_nd		*attach_redir(t_tree_nd *redir_nd, t_tree_nd *new_redir);
 
-
-//44_build_cmd_nodes.c
+//54_build_cmd_nodes.c
 t_tree_nd		*build_cmd_nd(t_msh **msh, t_tk_lst **token_list);
 void			handle_cmd(t_msh **msh, t_tree_nd *cmd_nd, t_tk_lst **curr_tk,
 					t_list **args);
 char			**join_cmd_and_args(char *cmd, char **args);
+char			*ch_env_cont(t_list *envp_list, t_list *vars_list,
+					char *key_word);
 
-//45_type_is_utils.c
+//55_type_is_utils.c
 bool			type_is_redir(t_tk_type *type);
 bool			type_is_word(t_tk_type *type);
 bool			type_is_cmd(t_tk_type *type);
 bool			type_is_arg(t_tk_type *type);
 
-//46_tree_utils.c
+//56_tree_utils.c
 t_tk_lst		*safe_next_tk(t_tk_lst *curr_tk);
 t_tk_lst		*safe_prev_tk(t_tk_lst *curr_tk);
-void			add_fname(t_tree_nd *new_redir, t_tk_lst *curr_tk);
+void			add_fname(t_msh **msh, t_tree_nd *new_redir, t_tk_lst *curr_tk);
 t_list			*reverse_args(t_list **head);
+void			ch_ambg(t_msh **msh, t_tree_nd *new_redir, char *fname,
+					t_tk_lst *tk);
 
-/************ 50_built_ins ************/
-//50_pwd.c
+/************ 60_built_ins ************/
+//60_pwd.c
 int				ft_pwd(void);
 
-//51_cd.c
+//61_cd.c
 int				ft_cd(t_msh **msh, t_tree_nd **node);
 int				get_dir(t_msh **msh, t_tree_nd **node, char **target_dir);
 int				update_cd_env(t_msh **msh, char *old_pwd);
 int				update_cd_var(t_list **env_list, const char *var_name,
 					const char *data);
 char			*safe_getcwd(t_msh *msh, bool silent);
+char			*get_errmsg();
 
-//52_env.c
+//62_env.c
 int				print_env(t_msh **msh, t_tree_nd **node);
 int				update_var(t_list **env_list, const char *var_name,
 					const char *content);
@@ -411,70 +429,76 @@ int				add_new_var(t_list **env_list, const char *var_name,
 char			*get_var_val(t_list *env_list, const char *var_name);
 char			*update_var_util(const char *var_name, const char *data);
 
-//53_echo.c
+//63_echo.c
 int				ft_echo(t_tree_nd **node);
 bool			handle_n(t_tree_nd **node, int *i, bool first_flag);
+bool			get_newline(bool first_flag, bool *newline);
 
-//54_exit.c
+//64_exit.c
 int				ft_exit(t_msh **msh, t_tree_nd **node);	
 unsigned int	ft_convert_value(t_msh **msh, char *code);
 int				ft_strnumeric(char *str);
+void			get_ex_code(t_msh **msh, unsigned char	*exit_code,
+					char **args);
 
-//55_unset.c
+//65_unset.c
 int				ft_unset(t_msh **msh, t_tree_nd **node);
 void			ft_delete_var(t_list **env_list, const char *var_name);
 
-//56_export.c
+//66_export.c
 int				ft_export(t_msh **msh, t_tree_nd **node, int i, int	valid_export);
 t_list			*sort_env(t_list *env_list, int sort);
 void			disp_exported(t_msh **msh);
 t_list			*copy_env_list(t_list *env_list);
 void			print_only_export(t_msh	*msh);
 
-//57_export_utils.c
+//67_export_utils.c
 bool			is_valid_identifier(char *arg);
 bool			export_check(t_msh **msh, char *arg);
 void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
 bool			is_single_exp(char *arg);
 void			add_only_to_export(t_msh *msh, const char *var_name);
+void			free_and_clear(char *str, t_list *lst);
 
-/************ 60_exec_tree ************/
-//60_exec_tree.c
+/************ 70_exec_tree ************/
+//70_exec_tree.c
 int				exec_tree(t_msh **msh, t_tree_nd *node);
-char			**remake_args(t_msh **msh, t_tree_nd *node);
+char			**remake_args(t_tree_nd *node);
 void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
+void			sub_cmd_util(t_tree_nd *node, char **sep_args, int count,
+					char ****new_args);
 
-//61_exec_pipe.c
+//71_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
-void			perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd,
-					int curr_pid);
-void			perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd,
-					int curr_pid);
+void			perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd);
+void			perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd);
 int				safe_waitpid(int pid1, int pid2);
 void			close_fd(int fd_1, int fd_2);
 
-//62_exec_redir.c
+//72_exec_redir.c
 int				exec_redir_before_cmd(t_msh **msh, t_tree_nd *node);
 int				collect_redirs_and_cmd(t_msh **msh, t_tree_nd **curr_nd,
 					t_tree_nd **redir_nd, t_redir_data *redir_data);
 int				exec_redir(t_msh **msh, t_tree_nd *node);
 int				create_file_fd(t_tk_type type, char *file_name);
+void			init_str_reset_std(t_msh **msh, t_redir_data *redir_data,
+					int n);
 
-//63_exec_heredoc.c
+//73_exec_heredoc.c
 void			exec_heredocs(t_msh **msh, t_tree_nd *node);
 void			handle_hd(t_msh **msh, t_tree_nd *node, int hd_fd);
 char			*check_eof(t_tree_nd *node, char *file_name);
 void			exec_files(t_msh **msh, t_tree_nd *node);
 
-//64_exec_cmd.c
+//74_exec_cmd.c
 int				exec_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_bt_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_env_cmd(t_msh **msh, t_tree_nd *node);
 int				exec_sh_v(t_msh **msh, t_tree_nd *node);
 int				safe_execve(t_msh **msh, char *path, char **argv);
 
-//65_remake_args_utils.c
+//75_remake_args_utils.c
 void			init_aux_structs(t_flag_str *flags, t_ints *ints,
 					t_tree_nd *node);
 void			compose_arg(t_ints *ints, t_flag_str *flags,
@@ -486,35 +510,41 @@ void			lonely_arg(t_ints *ints, t_flag_str *flags,
 void			handle_written(t_ints *ints, t_flag_str *flags,
 					t_tree_nd **node);
 
-//66_exec_utils.c
+//76_exec_utils.c
 int				safe_fork(t_msh **msh);
-int				safe_dup(t_msh **msh, int old_fd, int curr_pid);
-void			safe_dup2(t_msh **msh, int new_fd, int old_fd, int curr_pid);
+int				safe_dup(t_msh **msh, int old_fd);
+void			safe_dup2(t_msh **msh, int new_fd, int old_fd);
 int				safe_pipe(t_msh **msh, int pipe_fd[2]);
 void			update_shlvl(t_list **env_list);
 
-//67_exec_dir_path.c
+//77_exec_dir_path.c
 int				choose_path(t_msh **msh, t_tree_nd *node, char **path);
 int				direct_path(t_tree_nd *node);
 int				is_direct_command(t_tree_nd *node);
 int				handle_direct_command(t_msh **msh, t_tree_nd *node,
 					char **path);
 
-/************ 70_expander ************/
+//78_exec_utils_2.c
+bool			arg_expansions(t_tree_nd *node);
+bool			ch_if_sub_cmd(t_msh **msh, t_tree_nd *node);
+int				output_cmd_errors(t_msh **msh, t_tree_nd *node);
+char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
+					char ****new_args);
 
-//70_expand_args.c
+/************ 80_expander ************/
+//80_expand_args.c
 void			expand_args(t_msh **msh, t_tree_nd *node);
 void			expand_loop(t_msh **msh, t_tree_nd *node, char **args_cpy);
 void			expander(t_msh **msh, t_tree_nd **node, char **arg);
 void			expand_tk(t_msh **msh, char **arg);
 void			subst_arg(char **arg, t_exp_cont *parts);
 
-//71_expand_fname.c
+//81_expand_fname.c
 void			expand_fname(t_msh **msh, char **fname);
 void			subst_fname(char **fname, t_exp_cont *parts);
 void			expand_and_join_fname(t_msh **msh, t_tk_lst *tmp_fn,
 					t_tk_lst *merge_tg, bool hd_flag);
-//72_expand_hd.c
+//82_expand_hd.c
 void			expand_line(t_msh **msh, t_hd_lines *lines,
 					t_tree_nd *curr_nd, int hd_fd);
 char			*expand_word(t_msh **msh, char *word);
@@ -522,54 +552,59 @@ char			*get_pre_cont_hd(char *arg, int *i);
 int				len_pre_cont_hd(char *arg, int i);
 int				wr_pre_cont_hd(char *arg, char **pre_content, int i, int len);
 
-//73_build_kw_lst.c 
+//83_build_kw_lst.c 
 void			build_kw_list(t_kw **kw_lst, char *arg, int *i);
 void			get_exp_kw(int next, t_kw *n_kw, char *arg, int *i);
 char			*get_util(char *arg, int **i, int n);
 void			app_kw(t_kw **kw_lst, t_kw *new_kw, char *kw, bool exp);
-void			check_dollar_w_qts(char **str);
+bool			check_dollar_w_qts(char **str);
 
-//74_expand_key_words.c
+//84_expand_key_words.c
 void			expand_kw(t_msh **msh, t_kw **kw_lst);
+bool			other_expand_cases(t_msh **msh, char **kw);
 int				expand_case(char *kw);
 char			*get_env_cont(t_list *envp_list, t_list *vars_list,
 					char *key_word);
 char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);
 
-//75_get_parts.c
+//85_get_parts.c
 char			*get_pre_cont(char *arg, int *i);
 char			*get_key_word(char *arg, int *i);
 char			*get_mid_cont(char *arg, int *i);
 char			*get_mid_cont_w_sp(char *arg, int *i);
 char			*get_post_cont(char *arg, int *i);
 
-//76_final_expander.c
+//86_final_expander.c
 char			*get_exp_cont(t_kw **kw_lst);
 char			*get_final_cont(t_exp_cont *parts);
+void			get_final_cont_util(char **tmp_new_c, char **final_c, 
+					t_exp_cont *parts);
 char			*get_tmp(char *new_c, char *post_c, int len);
 char			*ultimate_joint(char *pre_c, char *tmp);
 
-//77_expand_utils.c
+//87_expand_utils.c
 void			recurs_exp_args(t_msh **msh, t_tree_nd *node);
 int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
 bool			check_mid(char c);
 int				count_exp(char *arg, int i);
 char			**copy_array(int size, char **array);
 
-/************ 80_close_and_free ************/
-//80_free_msh.c
+/************ 90_signals ************/
+void			signal_handler(int sig, char *process);
+
+/************ 100_close_and_free ************/
+//100_free_msh.c
 void			free_msh(t_msh *msh);
 void			free_prompt_line(t_msh **msh);
-void			free_tree(t_tree_nd *node);
+void			free_tree(t_msh *msh, t_tree_nd *node);
 
-//81_close_msh.c
+//101_close_msh.c
 void			close_minishell(t_msh	*msh, int exit_code);
-void			envp_fail(t_msh *msh, char *str, t_list *list_nd, char **array);
+void			envp_fail(t_msh *msh, char *str, t_list *list_nd,
+					char **array);
 
-//82_other_frees.c
-void			kw_err(void);
-void			ft_free_str_arr(char **array); //check if needed
-void			free_tokens(t_tk_lst *token_list);
+//102_other_frees.c
+void			free_tokens(t_tk_lst *token_list, int n);
 void			free_qt_lst(t_quote *qt_list);
 void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
 

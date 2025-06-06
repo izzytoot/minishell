@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/05 15:13:06 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:47:53 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	get_tokens(t_msh **msh, int i)
 	init_qt_struct(&quotes);
 	line = (*msh)->prompt_line;
 	i = -1;
-	empty_case(msh, line, 0, true);
+	if (ch_empty_case(msh, line, 0, true))
+		i = empty_case(msh, line, 0, true);
 	while (line[++i])
 	{
 		quotes.sp_case = false;
-		sort_out_quotes(&i, line, &quotes);
+		sort_out_quotes(msh, &i, line, &quotes);
 		if ((!quotes.in_squotes || !quotes.in_dquotes)
 			&& ft_strchr(QT, line [i]))
 			i++;
@@ -59,7 +60,7 @@ bool	extra_check(t_msh **msh, int *i, char c, t_quote *quotes)
 {
 	if (c == '$' && !quotes->in_quotes)
 		*i = exp_to_null(msh, *i);
-	if (ft_strchr(WS, c) && !quotes->in_quotes)
+	if (ft_strchr(WS, c) && (!quotes->in_quotes || ft_strcmp("/'/'", (*msh)->token_list->content) != 0))
 		*i = tk_space(msh, *i);
 	else if (!ft_strchr(OPERATOR, c) && !quotes->in_quotes)
 		*i = tk_word(msh, *i);
@@ -80,7 +81,11 @@ void	init_qt_struct(t_quote *quotes)
 {
 	quotes->in_squotes = false;
 	quotes->in_dquotes = false;
+	quotes->in_quotes = false;
+	quotes->content = NULL;
+	quotes->exp = false;
 	quotes->quote_char = '\0';
+	quotes->sp_case = false;
 }
 
 int	exp_to_null(t_msh **msh, int start)
@@ -96,10 +101,12 @@ int	exp_to_null(t_msh **msh, int start)
 		return (start);
 	while (line[i] && !ft_strchr(WS, line[i]))
 	{
-		if ((line[i + 1] && (line[i] != line[i + 1]))
+		if ((line[i + 1] && ((line[i] != line[i + 1])))
 			|| !ft_strchr(QT, line[i]))
 			return (start);
 		i++;
+		if (ft_strchr(WS, line[i + 1]))
+			break ;
 	}
 	exp[0] = '\0';
 	new_tk = ft_calloc(1, sizeof(t_tk_lst));
@@ -113,7 +120,15 @@ void	app_tk(t_msh *msh, t_tk_lst *new_tk, char *content, t_tk_type type)
 	if (ft_strcmp("''", content) == 0)
 		msh->empties = true;
 	if (content)
+	{
 		new_tk->content = ft_strdup(content);
+		new_tk->quotes.content = ft_strdup(content); //leaks
+	}
+	else //leaks
+	{
+		new_tk->content = NULL;
+		new_tk->quotes.content = NULL;
+	}
 	new_tk->next = msh->token_list;
 	new_tk->prev = NULL;
 	if (msh->token_list)

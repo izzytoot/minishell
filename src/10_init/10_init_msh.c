@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/05 15:13:16 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:43:27 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_init_msh(t_msh **msh, char **envp)
 	(*msh)->hd_check = false;
 	(*msh)->empties = false;
 	(*msh)->signal = false;
+	(*msh)->child = false;
 	init_all_null(&(*msh));
 	copy_envp(*msh, envp);
 	update_shlvl(&(*msh)->envp_list);
 	env_i(&(*msh)->envp_list);
-	(*msh)->msh_pid = getpid();
 	signal(SIGINT, sig_c_main);
 	signal(SIGQUIT, SIG_IGN);
 	exit_value(msh, 0, 1, 0);
@@ -40,10 +40,11 @@ void	prompt_and_read(t_msh **msh)
 		prompt = get_prompt(*msh);
 		line = readline(prompt);
 		free(prompt);
-		if (!line) //corrigir. isto é para quando abre nove prompt antes do tempo
+		if (!line) //corrigir. isto é para quando abre novo prompt antes do tempo
 		{
 			ft_printf("exit\n");
-			break ;
+			free_prompt_line(&(*msh));
+			close_minishell(*msh, 0);
 		}
 		if (*line)
 			add_history (line);
@@ -110,9 +111,9 @@ int	exit_value(t_msh **msh, int exit_code, int upd_exit, int close)
 
 	if (!msh)
 		(void)msh;
-	if (upd_exit == true)
+	if (upd_exit == 1)
 		current_code = exit_code;
-	if (close == true)
+	if (close == 1)
 		close_minishell(*msh, current_code);
 	return (current_code);
 }

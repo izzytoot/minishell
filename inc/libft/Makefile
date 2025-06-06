@@ -6,7 +6,7 @@
 #    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 13:30:18 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/22 16:57:15 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/06/04 14:35:17 by icunha-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,11 @@ DPRINTF_PATH = ./dprintf
 
 SRCS = $(addprefix $(BASIC_PATH)/, ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
 			ft_strcpy.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memcmp.c \
-			ft_memcpy.c ft_memmove.c ft_memset.c ft_memchr.c ft_strchr.c ft_strlcat.c \
+			ft_memcpy.c ft_memmove.c ft_array_join.c ft_memset.c ft_memchr.c ft_strchr.c ft_strlcat.c \
 			ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strcmp.c ft_strnstr.c ft_strrchr.c \
 			ft_tolower.c ft_safe_strjoin.c ft_toupper.c ft_strdup_until.c ft_strdup.c ft_calloc.c ft_substr.c ft_strjoin.c \
 			ft_strjoin_w_space.c ft_safe_free.c ft_safe_malloc.c ft_array_dup_w_null.c ft_array_dup.c ft_strtrim.c ft_strmapi.c ft_striteri.c \
-			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_itoa.c ft_split.c ft_unsplit.c \
+			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_free_array_w_null.c ft_putnbr_fd.c ft_itoa.c ft_split.c ft_unsplit.c \
 			ft_lstnew.c ft_lstdelone.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstiter.c \
 			ft_lstlast.c ft_char_to_str.c ft_lstmap.c ft_init_var.c ft_lstsize.c ft_list_to_array.c ft_strlen_until.c \
 			ft_free_arrays.c ft_free_matrix.c ft_error_msg.c ft_close_pipe.c ft_atoi_base.c ft_atol.c \

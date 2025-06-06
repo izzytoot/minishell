@@ -3,17 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   24_syntax_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:17:48 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 15:42:57 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:42:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+bool	line_and_hd_index(t_msh **msh, const char **line, int *hd_index)
+{
+	char	*tmp_line;
+	int		i;
+
+	i = -1;
+	*line = (*msh)->prompt_line;
+	if (!*line[0])
+		return (false);
+	tmp_line = ft_strdup(*line);
+	while (tmp_line[++i])
+	{
+		if (!ft_strchr(WS, tmp_line[i]))
+			break ;
+	}
+	if (tmp_line[i] == '\0')
+	{
+		tmp_line = safe_free(tmp_line);
+		return (false);
+	}
+	tmp_line = safe_free(tmp_line);
+	*hd_index = check_if_hd(*line);
+	return (true);
+}
+
 bool	look_for_pipe(const char *line, int i)
 {
+	if (i == 0) //leaks - added to avoid invalid read
+		return (false);
 	if (line[i] == '>' && line[i - 1] != '>' && line[i + 1] == '|')
 		return (false);
 	i++;

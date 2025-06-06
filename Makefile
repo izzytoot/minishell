@@ -6,7 +6,7 @@
 #    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/05/23 14:26:22 by ddo-carm         ###   ########.fr        #
+#    Updated: 2025/06/06 12:27:42 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,45 +31,48 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							30_tokens/33_token_redir_l.c\
 							30_tokens/34_handle_quotes.c\
 							30_tokens/35_sub_tokenize.c\
-							30_tokens/36_sub_tokenize_utils.c\
-							30_tokens/37_token_utils.c\
-							30_tokens/38_token_empties.c\
-							30_tokens/39_rm_empties.c\
-							40_build_tree/40_tokens_to_tree.c\
-							40_build_tree/41_build_pipe_nodes.c\
-							40_build_tree/42_build_redir_nodes.c\
-							40_build_tree/43_build_redir_nodes_utils.c\
-							40_build_tree/44_build_cmd_nodes.c\
-							40_build_tree/45_type_is_utils.c\
-							40_build_tree/46_tree_utils.c\
-							50_built_ins/50_pwd.c\
-							50_built_ins/51_cd.c\
-							50_built_ins/52_env.c\
-							50_built_ins/53_echo.c\
-							50_built_ins/54_exit.c\
-							50_built_ins/55_unset.c\
-							50_built_ins/56_export.c\
-							50_built_ins/57_export_utils.c\
-							60_exec/60_exec_tree.c\
-							60_exec/61_exec_pipe.c\
-							60_exec/62_exec_redir.c\
-							60_exec/63_exec_heredoc.c\
-							60_exec/64_exec_cmd.c\
-							60_exec/65_remake_args_utils.c\
-							60_exec/66_exec_utils.c\
-							60_exec/67_exec_dir_path.c\
-							70_expander/70_expand_args.c\
-							70_expander/71_expand_fname.c\
-							70_expander/72_expand_hd.c\
-							70_expander/73_build_kw_lst.c\
-							70_expander/74_expand_key_words.c\
-							70_expander/75_get_parts.c\
-							70_expander/76_final_expander.c\
-							70_expander/77_expand_utils.c\
-							80_close_and_free/80_free_msh.c\
-							80_close_and_free/81_close_msh.c\
-							80_close_and_free/82_other_frees.c\
+							30_tokens/36_sub_tokenize_files.c\
+							30_tokens/37_sub_tokenize_utils.c\
+							30_tokens/38_token_utils.c\
+							40_empties/40_empties.c\
+							40_empties/41_rm_empties.c\
+							40_empties/42_empties_utils.c\
+							50_build_tree/50_tokens_to_tree.c\
+							50_build_tree/51_build_pipe_nodes.c\
+							50_build_tree/52_build_redir_nodes.c\
+							50_build_tree/53_build_redir_nodes_utils.c\
+							50_build_tree/54_build_cmd_nodes.c\
+							50_build_tree/55_type_is_utils.c\
+							50_build_tree/56_tree_utils.c\
+							60_built_ins/60_pwd.c\
+							60_built_ins/61_cd.c\
+							60_built_ins/62_env.c\
+							60_built_ins/63_echo.c\
+							60_built_ins/64_exit.c\
+							60_built_ins/65_unset.c\
+							60_built_ins/66_export.c\
+							60_built_ins/67_export_utils.c\
+							70_exec/70_exec_tree.c\
+							70_exec/71_exec_pipe.c\
+							70_exec/72_exec_redir.c\
+							70_exec/73_exec_heredoc.c\
+							70_exec/74_exec_cmd.c\
+							70_exec/75_remake_args_utils.c\
+							70_exec/76_exec_dir_path.c\
+							70_exec/77_exec_utils.c\
+							70_exec/78_exec_utils_2.c\
+							80_expander/80_expand_args.c\
+							80_expander/81_expand_fname.c\
+							80_expander/82_expand_hd.c\
+							80_expander/83_build_kw_lst.c\
+							80_expander/84_expand_key_words.c\
+							80_expander/85_get_parts.c\
+							80_expander/86_final_expander.c\
+							80_expander/87_expand_utils.c\
 							90_signals/90_signals.c\
+							100_close_and_free/100_free_msh.c\
+							100_close_and_free/101_close_msh.c\
+							100_close_and_free/102_other_frees.c\
 							11_debug_utils.c)
 TMP = ./tmp
 OBJ = $(patsubst $(SRC_PATH)%,$(TMP)/%,$(SRC:.c=.o))
@@ -157,10 +160,21 @@ $(TMP)/%.o: $(SRC_PATH)%.c
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
-
 valgrind:
 	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
-	/usr/bin/valgrind --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
+	/usr/bin/valgrind --track-fds=yes --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all -q ./$(NAME)
+	
+fullvalgrind:
+	@echo "{\n readline leaks\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
+	/usr/bin/valgrind --track-fds=yes --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
+
+sync:
+	@tmux new-window -n sync
+	@tmux send-keys './minishell' C-m
+	@tmux split-window -h
+	@tmux send-keys -t sync.2 'bash' C-m
+	@tmux select-pane -t sync.1
+	@tmux setw synchronize-panes on
 
 clean:
 	@$(RM) $(OBJ)
@@ -176,4 +190,4 @@ fcleanall: fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re cleanall fcleanall
+.PHONY: all clean fclean re cleanall fcleanall sync fullvalgrind valgrind

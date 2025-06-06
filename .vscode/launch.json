@@ -5,7 +5,7 @@
             "name": "minishell",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/icunha-t/Commoncore/minishell/minishell",
+            "program": "/home/isabel/minishell/minishell",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -16,13 +16,11 @@
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                },
-				{
+                    "ignoreFailures": true,
 					"description": "Set gdb to follow child process after fork",
-					"text": "set follow-fork-mode child",
-					"ignoreFailures": true
-				}
+                    "text": "set follow-fork-mode child",
+                    "ignoreFailures": true,
+                },
             ],
             "logging": {
                 "engineLogging": true

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   22_syntax_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:07:29 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/05/15 16:56:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:58:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ bool	consec_operators_pipe(const char *line)
 		{
 			if (ft_strchr("|", line[i]) && !ft_strchr("|", line[i + 1]))
 			{
-				if (look_for_pipe(line, i))
+				if (line[i + 1] != '\0' && look_for_pipe(line, i)) //leaks - added to avoid invalid read
 					return (true);
 			}
 			else if (ft_strchr(REDIR, line[i]))
 			{
 				if (line[i] == line[i + 1])
 					i++;
-				if (look_for_pipe(line, i))
+				if (line[i + 1] != '\0' && look_for_pipe(line, i)) //leaks - added to avoid invalid read
 					return (true);
 			}
 		}

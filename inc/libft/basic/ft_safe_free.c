@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 10:16:31 by isabel            #+#    #+#             */
-/*   Updated: 2025/05/14 20:06:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/03 00:30:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	*safe_free(void *ptr)
 {
+	if (!ptr)
+		return (NULL);
 	if (ptr)
 		free(ptr);
 	return (NULL);
