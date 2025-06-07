@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/07 16:00:28 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/07 16:54:21 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,4 @@ void	ctrl_c_hd(int sig)
 	close_fds();
 	exit_value(&msh, 130, 1, 1);
 }
+	

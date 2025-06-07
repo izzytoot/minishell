@@ -6,11 +6,18 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:54:29 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/07 16:01:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/07 16:54:08 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	deal_with_cmd(t_msh **msh, t_tree_nd *node, int *status)
+{
+	if (ch_if_sub_cmd(msh, node))
+		sub_cmd(msh, node, &node->args);
+	*status = exec_cmd(msh, node);
+}
 
 int	exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status)
 {

@@ -6,16 +6,41 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/07 16:23:24 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/07 16:53:58 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+int	deal_with_hd(t_msh **msh, t_tree_nd *node, int status)
+{
+	int	pid;
+	
+	(*msh)->hd_check = false;
+	exec_files(msh, node);
+	pid = safe_fork(msh);
+	if (pid == 0)
+	{
+		get_msh(*msh, 0);
+		exec_heredocs(msh, node);
+		exit_value(msh, status, 1, 1);
+	}
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		waitpid(pid, &status, 0);
+		signal(SIGINT, sig_c_main);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			(*msh)->signal = true;	
+		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+			(*msh)->signal = true;
+	}
+	return (0);
+}
+
 int	exec_tree(t_msh **msh, t_tree_nd *node)
 {
 	int	status;
-	int	pid;
 
 	status = 0;
 	if (!node)
@@ -38,37 +63,15 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 		printf("------------------------------\n");
 	} //TO DELETE
 	if ((*msh)->hd_check)
-	{
-		(*msh)->hd_check = false;
-		exec_files(msh, node);
-		pid = safe_fork(msh);
-		if (pid == 0)
-		{
-			get_msh(*msh, 0);
-			exec_heredocs(msh, node);
-			exit_value(msh, status, 1, 1);
-		}
-		else
-		{
-			signal(SIGINT, SIG_IGN);
-			waitpid(pid, &status, 0);
-			signal(SIGINT, sig_c_main);
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-				return (exit_value(msh, 130, 1, 0));
-			else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-				return (exit_value(msh, 130, 1, 0));
-		}
-	}
+		status = deal_with_hd(msh, node, status);
+	if ((*msh)->signal)
+		return (exit_value(msh, 130, 1, 0));
 	if (node->type == PIPE)
 		status = exec_pipe(msh, node);
 	else if (type_is_redir(&node->type))
 		status = exec_redir_before_cmd(msh, node);
 	else if (type_is_word(&node->type))
-	{
-		if (ch_if_sub_cmd(msh, node))
-			sub_cmd(msh, node, &node->args);
-		status = exec_cmd(msh, node);
-	}
+		deal_with_cmd(msh, node, &status);
 	return (exit_value(msh, status, 1, 0));
 }
 
