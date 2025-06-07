@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   67_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 23:51:30 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/07 22:35:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ bool	sing_exp(char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		if (!ft_isalpha(arg[i]))
-			return (false);
 		if (arg[i] == '=')
 			return (false);
 		i++;
