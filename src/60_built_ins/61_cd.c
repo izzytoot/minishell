@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   61_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/07 17:48:28 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/07 18:16:26 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 	if (!old_pwd)
 		return (EXIT_FAILURE);
 	if (get_dir(msh, node, &target_dir) == EXIT_FAILURE)
-		return (free(target_dir), free(old_pwd), EXIT_FAILURE);
+		return (free(old_pwd), EXIT_FAILURE); //leaks - removed free(target_dir)
 	if (chdir(target_dir) == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "msh: cd: %s: %s\n", target_dir,
