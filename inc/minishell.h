@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/07 00:08:37 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/07 16:46:35 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -547,6 +547,7 @@ char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
 					char ****new_args);
 
 //79_exec_cmd_utils.c
+void			deal_with_cmd(t_msh **msh, t_tree_nd *node, int *status);
 int				exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
 void			exec_cmd_parent(pid_t pid, int *status);
 					
