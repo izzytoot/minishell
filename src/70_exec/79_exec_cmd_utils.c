@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   79_exec_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:54:29 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 23:03:47 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/07 16:01:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	exec_cmd_parent(pid_t pid, int *status)
 	if (WIFEXITED(*status))
 		*status = WEXITSTATUS(*status);
 	else if (WIFSIGNALED(*status))
+	{
+		write(1, "\n", 1);
 		*status = 128 + WTERMSIG(*status);
+	}
 	if (*status == 131)
 		ft_printf("Quit (core dumped)\n");
 }
