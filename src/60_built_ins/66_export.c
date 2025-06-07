@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 23:51:53 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/07 17:12:54 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_export(t_msh **msh, t_tree_nd **node, int i, int valid_export)
 		get_var_info(node, tmp_lst, i, &var_inf);
 		ft_export_util(msh, tmp_lst->in_squotes, (*node)->args[i], var_inf);
 		ft_free_arrays((void **)var_inf);
+		valid_export = 1;
 		move_on(&i, &tmp_lst);
 	}
 	if (!valid_export && i == 1)
