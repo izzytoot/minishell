@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/07 16:02:31 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/07 16:23:24 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,16 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 			exec_heredocs(msh, node);
 			exit_value(msh, status, 1, 1);
 		}
-		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		signal(SIGINT, sig_c_main);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		else
 		{
-			(*msh)->signal = true;
-			write(1, "\n", 1);
-			return (exit_value(msh, 130, 1, 0));
+			signal(SIGINT, SIG_IGN);
+			waitpid(pid, &status, 0);
+			signal(SIGINT, sig_c_main);
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+				return (exit_value(msh, 130, 1, 0));
+			else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+				return (exit_value(msh, 130, 1, 0));
 		}
-		if ((*msh)->signal)
-			return (exit_value(msh, 130, 1, 0));
 	}
 	if (node->type == PIPE)
 		status = exec_pipe(msh, node);
