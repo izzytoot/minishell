@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   67_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/07 22:35:07 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 13:58:29 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool	is_valid_identifier(char *arg)
+bool	is_valid_identifier(char *arg, bool next_qt)
 {
 	int	i;
 
 	i = 0;
+	if (next_qt)
+		return (true);
 	if (!arg || (!ft_isalpha(arg[0]) && arg[0] != '_'))
 		return (false);
 	while (arg[i] && (arg[i] != '='))
@@ -32,9 +34,13 @@ bool	is_valid_identifier(char *arg)
 	return (true);
 }
 
-bool	export_check(t_msh **msh, bool s_qt, char *arg)
+bool	export_check(t_msh **msh, t_quote *tmp_lst, char *arg)
 {
-	if (!s_qt && !is_valid_identifier(arg))
+	bool	next;
+
+	if (tmp_lst->next)
+		next = tmp_lst->next->in_quotes;
+	if (!tmp_lst->in_squotes && !is_valid_identifier(arg, next))
 	{
 		ft_dprintf(STDERR_FILENO, "msh: export: `%s': not a valid identifier\n",
 			arg);
