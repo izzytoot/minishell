@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   66_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/07 17:12:54 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/08 14:15:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_export(t_msh **msh, t_tree_nd **node, int i, int valid_export)
 	tmp_lst = (*node)->quote_lst;
 	while ((*node)->args && (*node)->args[i])
 	{
-		if (!export_check(msh, tmp_lst->in_squotes, (*node)->args[i]))
+		if (!export_check(msh, &tmp_lst, (*node)->args[i]))
 		{
 			move_on(&i, &tmp_lst);
 			continue ;
