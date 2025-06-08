@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/07 11:59:37 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 11:38:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*get_display_path(t_msh *msh)
 	cwd = safe_getcwd(msh, true);
 	if (cwd && access(cwd, F_OK) == 0)
 		return (cwd);
+	if (cwd)
+		free(cwd);
 	backup = get_var_val(msh->envp_list, "PWD");
 	if (backup)
 		return (ft_strtrim(backup, "\n"));
@@ -85,7 +87,7 @@ char	*get_prompt(t_msh *msh)
 		return (ft_strdup("$ "));
 	colored_prefix = ft_strjoin(BBLU "Minishell: ", RES);
 	if (!colored_prefix)
-		return (ft_strdup("$ "));
+		return (free(path), ft_strdup("$ "));
 	tmp = ft_strjoin(colored_prefix, path);
 	free(colored_prefix);
 	free(path);
