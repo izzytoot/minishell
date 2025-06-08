@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/08 15:47:34 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/08 16:25:33 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@
 # define ERR_HD_EOF "msh: warning: here-document delimited by end-of-file "
 # define ERR_2FOLDER "cd: error retrieving current directory: getcwd: cannot "
 # define ERR_2FD_2 "access parent directories: No such file or directory\n"
+# define ERR_BIN "cannot access "
 
 //constants
 # define WS " \t\n\r\v\f"
