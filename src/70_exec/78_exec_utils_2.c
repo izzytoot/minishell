@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:42:59 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/09 15:21:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:21:12 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
 			ERR_DIRNOTFOUND);
 		return (exit_value(msh, 127, 1, 1));
 	}
-	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
-	return (exit_value(msh, 127, 1, 1));
+	return (0);
+//	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+//	return (exit_value(msh, 127, 1, 1));
 }
 
 char	**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
