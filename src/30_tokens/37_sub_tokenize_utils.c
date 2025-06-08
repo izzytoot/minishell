@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   37_sub_tokenize_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:37:44 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/06 14:18:31 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 12:20:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ t_tk_lst	*find_w_tk(t_msh **msh)
 	w_tk = (*msh)->token_list;
 	while (w_tk)
 	{
+		if (!w_tk->next)
+			break ;
 		w_tk = w_tk->next;
 		if (!w_tk->next)
 			break ;

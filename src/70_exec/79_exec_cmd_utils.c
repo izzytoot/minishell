@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   79_exec_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:54:29 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/07 16:54:08 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 12:13:57 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status)
 		*status = exec_env_cmd(&(*msh), node);
 		return (exit_value(msh, *status, 1, 1));
 	}
+	//return (exit_value(msh, *status, 1, 1));
 	return (output_cmd_errors(msh, node));
 }
 
