@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   68_export_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 23:49:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/06 23:51:25 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/08 15:26:08 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,9 @@ void	move_on(int *i, t_quote **tmp_lst)
 {
 	(*i)++;
 	*tmp_lst = (*tmp_lst)->next;
+	if (*tmp_lst && (*tmp_lst)->in_squotes)
+	{
+		(*i)++;
+		*tmp_lst = (*tmp_lst)->next;
+	}
 }
