@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   66_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:08:45 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/08 15:24:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 22:21:45 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_export(t_msh **msh, t_tree_nd **node, int i, int valid_export)
 {
 	char	**var_inf;
 	t_quote	*tmp_lst;
-	
+
 	if (!node || !*node)
 		return (EXIT_FAILURE);
 	if (!(*node)->args)

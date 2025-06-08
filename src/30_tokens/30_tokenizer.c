@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/08 16:00:09 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/08 22:16:40 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_tokens(t_msh **msh, int i)
 	{
 		sort_out_quotes(msh, line, &i, &quotes);
 		if (i >= (int)ft_strlen(line))
-			break;
+			break ;
 		if (line[i] && line[i] != quotes.quote_char
 			&& (extra_check(&(*msh), &i, line[i], &quotes)))
 				;

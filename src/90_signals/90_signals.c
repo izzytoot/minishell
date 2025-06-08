@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/07 16:54:21 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 22:22:07 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	sig_c_main(int sig)
 	rl_redisplay();
 	exit_value(NULL, 130, 1, 0);
 }
+
 void	sig_c_child(int sig)
 {
 	(void)sig;
@@ -31,7 +32,7 @@ void	sig_c_child(int sig)
 void	ctrl_c_hd(int sig)
 {
 	t_msh	*msh;
-	
+
 	(void)sig;
 	msh = NULL;
 	msh = get_msh(NULL, 1);
@@ -39,4 +40,3 @@ void	ctrl_c_hd(int sig)
 	close_fds();
 	exit_value(&msh, 130, 1, 1);
 }
-	

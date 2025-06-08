@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   68_export_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 23:49:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/08 15:26:08 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 22:26:03 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_export_util(t_msh **msh, bool s_qt, char *arg, char	**var_inf)
 void	get_var_info(t_tree_nd **node, t_quote *tmp_lst, int i, char ***var_inf)
 {
 	char	*s_qt_info;
-	
+
 	if (((*node)->args && (*node)->args[i]) && (tmp_lst->next
-			&& tmp_lst->next->in_squotes))		
+			&& tmp_lst->next->in_squotes))
 	{
 		s_qt_info = ft_strjoin((*node)->args[i], (*node)->args[i + 1]);
 		*var_inf = ft_split(s_qt_info, '=');

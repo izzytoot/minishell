@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/08 16:25:33 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 22:13:43 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -471,9 +471,11 @@ bool			sing_exp(char *arg);
 void			add_only_to_export(t_msh *msh, const char *var_name);
 
 //68_export_utils_2.c
-void	ft_export_util(t_msh **msh, bool s_qt, char *arg, char	**var_inf);
-void	get_var_info(t_tree_nd **node, t_quote *tmp_lst, int i, char ***var_inf);
-void	move_on(int *i, t_quote **tmp_lst);
+void			ft_export_util(t_msh **msh, bool s_qt, char *arg,
+					char	**var_inf);
+void			get_var_info(t_tree_nd **node, t_quote *tmp_lst, int i,
+					char ***var_inf);
+void			move_on(int *i, t_quote **tmp_lst);
 
 /************ 70_exec_tree ************/
 //70_exec_tree.c
@@ -551,7 +553,7 @@ char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
 void			deal_with_cmd(t_msh **msh, t_tree_nd *node, int *status);
 int				exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
 void			exec_cmd_parent(pid_t pid, int *status);
-					
+
 /************ 80_expander ************/
 //80_expand_args.c
 void			expand_args(t_msh **msh, t_tree_nd *node);
@@ -613,7 +615,6 @@ int				count_exp(char *arg, int i);
 char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);
 char			**copy_array(int size, char **array);
 
-
 /************ 90_signals ************/
 //90_signals.c
 void			sig_c_main(int sig);
@@ -647,7 +648,6 @@ void			print_tokens(t_msh **msh);
 void			print_envp_in_struct(t_msh **msh);
 void			print_tree(t_tree_nd *node);
 
-
-void	attr_qts(t_tk_lst *new_tk);
+void			attr_qts(t_tk_lst *new_tk);
 
 #endif

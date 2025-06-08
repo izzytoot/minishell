@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   56_tree_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:17:25 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/07 20:21:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/08 22:23:08 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ch_ambg(t_msh **msh, t_tree_nd *new_redir, char *fname, t_tk_lst *tk)
 		{
 			if (strchr(WS, fname[i]))
 			{
-				if ((*msh)->tmp_fname) //leaks - added line and clean
+				if ((*msh)->tmp_fname)
 					(*msh)->tmp_fname = safe_free((*msh)->tmp_fname);
 				(*msh)->tmp_fname = ft_strdup(fname);
 				new_redir->ch_ambg = true;
