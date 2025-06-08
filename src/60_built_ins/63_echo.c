@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:10:15 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 22:53:56 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/08 22:36:32 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_echo(t_tree_nd **node)
 		tmp_lst = (*node)->quote_lst;
 		ft_putstr_fd((*node)->args[i], STDOUT_FILENO);
 		if ((*node)->args[i + 1] && tmp_lst
-			&& tmp_lst->next)
+			&& tmp_lst->next && tmp_lst->sp_case) //added tmp_lst->sp_case
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 		tmp_lst = tmp_lst->next;
