@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/08 14:05:49 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 15:08:30 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,8 +462,8 @@ t_list			*copy_env_list(t_list *env_list);
 void			print_only_export(t_msh	*msh);
 
 //67_export_utils.c
-bool			is_valid_identifier(char *arg, bool next_qt);
-bool			export_check(t_msh **msh, t_quote *tmp_lst, char *arg);
+bool			is_valid_identifier(char *arg, t_quote *tmp_lst);
+bool			export_check(t_msh **msh, t_quote **tmp_lst, char *arg);
 void			add_export_var(t_list **env_list, const char *var_name,
 					const char *data);
 bool			sing_exp(char *arg);
