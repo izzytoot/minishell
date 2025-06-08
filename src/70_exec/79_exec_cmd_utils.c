@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   79_exec_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:54:29 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/08 12:13:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 00:56:47 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status)
 {
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, sig_c_child);
-	if (node->type == ENV_CMD)
+	if (node->type == ENV_CMD || node->type == ARG)
 	{
 		if (node->cmd_content)
 			ft_free_arrays((void **)node->cmd_content);
