@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/07 16:53:58 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 22:24:52 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	deal_with_hd(t_msh **msh, t_tree_nd *node, int status)
 {
 	int	pid;
-	
+
 	(*msh)->hd_check = false;
 	exec_files(msh, node);
 	pid = safe_fork(msh);
@@ -31,7 +31,7 @@ int	deal_with_hd(t_msh **msh, t_tree_nd *node, int status)
 		waitpid(pid, &status, 0);
 		signal(SIGINT, sig_c_main);
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			(*msh)->signal = true;	
+			(*msh)->signal = true;
 		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 			(*msh)->signal = true;
 	}

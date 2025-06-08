@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   67_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:04:04 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/08 15:09:14 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 22:21:35 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	is_valid_identifier(char *arg, t_quote *tmp_lst)
 {
 	int	i;
-	
+
 	i = 0;
 	if (tmp_lst->next && tmp_lst->next->in_quotes)
 		return (true);

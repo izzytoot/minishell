@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/08 23:08:31 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/09 00:33:18 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_tokens(t_msh **msh, int i)
 	{
 		sort_out_quotes(msh, line, &i, &quotes);
 		if (i >= (int)ft_strlen(line))
-			break;
+			break ;
 		if (line[i] && line[i] != quotes.quote_char
 			&& (extra_check(&(*msh), &i, line[i], &quotes)))
 				;

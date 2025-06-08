@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/09 00:26:50 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/09 00:32:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -473,8 +473,10 @@ bool			sing_exp(char *arg);
 void			add_only_to_export(t_msh *msh, const char *var_name);
 
 //68_export_utils_2.c
-void			ft_export_util(t_msh **msh, bool s_qt, char *arg, char	**var_inf);
-void			get_var_info(t_tree_nd **node, t_quote *tmp_lst, int i, char ***var_inf);
+void			ft_export_util(t_msh **msh, bool s_qt, char *arg,
+					char	**var_inf);
+void			get_var_info(t_tree_nd **node, t_quote *tmp_lst, int i,
+					char ***var_inf);
 void			move_on(int *i, t_quote **tmp_lst);
 
 /************ 70_exec_tree ************/
@@ -553,7 +555,7 @@ char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
 void			deal_with_cmd(t_msh **msh, t_tree_nd *node, int *status);
 int				exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
 void			exec_cmd_parent(pid_t pid, int *status);
-					
+
 /************ 80_expander ************/
 //80_expand_args.c
 void			expand_args(t_msh **msh, t_tree_nd *node);
@@ -614,7 +616,6 @@ int				count_exp(char *arg, int i);
 //88_expand_utils_2.c
 char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);
 char			**copy_array(int size, char **array);
-
 
 /************ 90_signals ************/
 //90_signals.c
