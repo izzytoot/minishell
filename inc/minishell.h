@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/07 20:16:11 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/08 11:08:20 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -607,7 +607,6 @@ void			recurs_exp_args(t_msh **msh, t_tree_nd *node);
 int				get_kw_len(char *arg, int **i, int tmp_i, bool *flag);
 bool			check_mid(char c);
 int				count_exp(char *arg, int i);
-char			**copy_array(int size, char **array);
 
 //88_expand_utils_2.c
 char			**ft_array_dup_null(t_tree_nd *node, char **array, int n);

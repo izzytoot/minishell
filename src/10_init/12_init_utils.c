@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_init_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:04:16 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 14:48:52 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 11:20:50 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	ch_shlvl(t_msh **msh, char *word)
 
 	if (!word)
 		return (false);
-	if (ft_strchr(word, '/'))
+	if (ft_strncmp(word, "./", 2) == 0)
 		return (true);
 	if (ft_strcmp(word, "minishell") == 0)
 	{
