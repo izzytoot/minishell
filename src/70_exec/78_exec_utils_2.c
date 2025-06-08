@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:42:59 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/06 15:54:56 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/08 15:43:24 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
 	else if (node->type == ARG && (ft_strcmp(".", node->args[0]) == 0))
 	{
 		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_PT);
+		return (exit_value(msh, 2, 1, 1));
+	}
+	else if (ft_strncmp(node->args[0], "/bin/", 5) == 0)
+	{
+		ft_dprintf(STDERR_FILENO, "%s: %s'%s': %s", node->args[0], ERR_BIN, node->cmd, ERR_DIRNOTFOUND);
 		return (exit_value(msh, 2, 1, 1));
 	}
 	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
