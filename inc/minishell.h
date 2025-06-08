@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/08 16:25:33 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 00:26:50 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,7 @@ int				tk_word(t_msh **msh, int start);
 int				tk_word_qt(t_msh **msh, int start,
 					bool *in_quotes, char *quote_char);
 int				tk_space(t_msh **msh, int start);
+void			attr_qts(t_tk_lst *new_tk);
 
 //32_token_pipes_and_redir_r.c
 int				tk_pipe(t_msh **msh, int start);
@@ -360,6 +361,7 @@ void			rm_empties(t_tk_lst **token);
 void			empties_rmv_exp(t_tk_lst ***curr);
 void			empties_rmv_tk(t_tk_lst ***curr);
 void			empties_rmv_tk_util(t_tk_lst ****curr);
+void			empties_rmv_doll(t_tk_lst ***tk);
 
 //42_empties_utils.c
 bool			emp_1(char *nl, const char *line, int tmp_i);
@@ -471,9 +473,9 @@ bool			sing_exp(char *arg);
 void			add_only_to_export(t_msh *msh, const char *var_name);
 
 //68_export_utils_2.c
-void	ft_export_util(t_msh **msh, bool s_qt, char *arg, char	**var_inf);
-void	get_var_info(t_tree_nd **node, t_quote *tmp_lst, int i, char ***var_inf);
-void	move_on(int *i, t_quote **tmp_lst);
+void			ft_export_util(t_msh **msh, bool s_qt, char *arg, char	**var_inf);
+void			get_var_info(t_tree_nd **node, t_quote *tmp_lst, int i, char ***var_inf);
+void			move_on(int *i, t_quote **tmp_lst);
 
 /************ 70_exec_tree ************/
 //70_exec_tree.c
@@ -646,8 +648,5 @@ void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
 void			print_tokens(t_msh **msh);
 void			print_envp_in_struct(t_msh **msh);
 void			print_tree(t_tree_nd *node);
-
-
-void	attr_qts(t_tk_lst *new_tk);
 
 #endif

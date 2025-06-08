@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   41_rm_empties.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 15:11:48 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 00:25:26 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rm_empties(t_tk_lst **token)
 	while (*curr)
 	{
 		if (ft_strcmp("\'\'", (*curr)->content) == 0 && (*curr)->prev
-			&& (*curr)->prev->content[0] == '$')
+			&& (*curr)->prev->content[0] == '$' && !(tk_in_qts(*curr)))
 		{
 			empties_rmv_exp(&curr);
 			return ;
@@ -113,5 +113,26 @@ void	empties_rmv_tk_util(t_tk_lst ****curr)
 		(***curr)->next->prev = NULL;
 		free_tokens(***curr, 1);
 		(***curr) = curr_next;
+	}
+}
+
+void	empties_rmv_doll(t_tk_lst ***tk)
+{
+	t_tk_lst	*curr;
+	t_tk_lst	*prev;
+	
+	curr = (**tk)->next;
+	prev = curr->prev;
+	if (curr->next)
+	{
+		curr->next->prev = curr->prev;
+		curr->prev->next = curr->next;
+		free_tokens(curr, 1);
+	}
+	else
+	{
+		curr->prev->next = NULL;
+		free_tokens(curr, 1);
+		curr = prev;
 	}
 }
