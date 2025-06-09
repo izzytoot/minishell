@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/09 13:51:55 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:29:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,26 @@
 /*                                  LIBRARIES                                 */
 /* ************************************************************************** */
 
-# include <stdio.h> //printf
-# include <unistd.h> //ttyslot, ttyname, isatty, chdir, close, read, open, write
-# include <sys/stat.h> //fstat, lstat,stat
-# include <fcntl.h> // stat struct ??????
-# include <sys/wait.h> // wait()
-# include <sys/types.h> //closedir, opendir
-# include <sys/ioctl.h> //ioctl
-# include <dirent.h> // closedir, readdir,opendir
-# include <string.h> // perror, strerror
-# include <stdlib.h> //getenv, malloc
-# include <termios.h> //tcsetattr
-# include <readline/history.h> //shell history
-# include <readline/readline.h> //readline
-# include <signal.h> // signal()
-# include <stdbool.h> //bools
-# include <errno.h> //strerror, errno
-# include <linux/limits.h> //kernel macros
-# include <limits.h> //macros
+# include <stdio.h>
+# include <unistd.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/ioctl.h>
+# include <dirent.h>
+# include <string.h>
+# include <stdlib.h>
+# include <termios.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdbool.h>
+# include <errno.h>
+# include <linux/limits.h>
+# include <limits.h>
 # include "libft/libft.h"
+
 /* ************************************************************************** */
 /*                                    MACROS                                  */
 /* ************************************************************************** */
@@ -58,12 +59,7 @@
 # define RES "\033[0m"
 
 //error messages
-/*
-# define ERR_MEM "Error allocating memory\n"
-# define ERR_STDIN "Error with stdin\n"
-# define ERR_PRC "Error creating process\n"
-# define ERR_ENVP "Error duplicating environment variables\n"
-*/
+
 # define ERR_CNOTFOUND "command not found\n"
 # define ERR_DIRNOTFOUND "No such file or directory\n"
 # define ERR_AMBREDIR "ambiguous redirect\n"
@@ -90,10 +86,11 @@
 //constants
 # define WS " \t\n\r\v\f"
 # define OPERATOR "|<>"
-# define NON_EOF "|<>&" //check if there are more
+# define NON_EOF "|<>&"
 # define SYM_EXP ".,-+:/^&*!~=#?[]{}%\\"
 # define REDIR "<>"
 # define QT "\"\'"
+
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
