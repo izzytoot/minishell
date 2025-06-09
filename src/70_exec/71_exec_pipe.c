@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   71_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 18:23:03 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:30:21 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,7 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 	}
 	right_pid = safe_fork(msh);
 	if (right_pid == 0)
-	{
-		get_msh(*msh, 0);
-		signal(SIGINT, ctrl_c_hd);
-		signal(SIGPIPE, sig_ig);
-		perf_right_pipe(msh, fd[1], fd[0]);
-		status = exec_tree(msh, node->right);
-		exit_value(msh, status, 1, 1);
-	}
+		pipe_right_child(msh, node, &status, fd);
 	close_fd(fd[0], fd[1]);
 	status = safe_waitpid(left_pid, right_pid);
 	return (exit_value(msh, status, 1, 0));
@@ -63,7 +56,6 @@ void	perf_right_pipe(t_msh **msh, int useless_fd, int dup_fd)
 	return ;
 }
 
-
 int	safe_waitpid(int pid1, int pid2)
 {
 	int	status;
@@ -81,28 +73,13 @@ int	safe_waitpid(int pid1, int pid2)
 			status = 130;
 			write(1, "\n", 1);
 		}
-		else if(WIFEXITED(status))
+		else if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
 		else
 			status = 0;
 	}
 	if (pid2)
-	{
-		signal(SIGINT, SIG_IGN);
-		waitpid(pid2, &status, 0);
-		signal (SIGINT, sig_c_main);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			status = 130;
-		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-		{
-			status = 130;
-			write(1, "\n", 1);
-		}
-		else if(WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else
-			status = 0;
-	}
+		status = pid2_handler(pid2, status);
 	return (status);
 }
 

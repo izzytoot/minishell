@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:26:11 by root              #+#    #+#             */
-/*   Updated: 2025/06/09 15:32:08 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:26:53 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	syntax_is_ok(t_msh **msh)
 	{
 		if (misplaced_redir_at_end(line))
 		{
-			//exec_fake_hd(line, hd_index); //VER COM DANI
 			ft_putstr_fd(ERR_SYN_REDIR_NL, STDERR_FILENO);
 			return (exit_value(msh, 2, 1, 0));
 		}

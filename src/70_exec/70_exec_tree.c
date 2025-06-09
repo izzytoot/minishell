@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   70_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 15:53:25 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:02:20 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	if (type_is_word(&node->type) && !node->cmd
 		&& ft_strchr(node->args[0], '/'))
 		node->type = ENV_CMD;
-	if ((*msh)->debug_mode && node->args) //TO DELETE
-	{
-		printf("------------------------------\n");
-		printf(GR"new args are: "RES);
-		int	i = -1;
-		while (node->args[++i])
-			printf(BMAG"%s "RES, node->args[i]);
-		printf("\n");
-		printf("------------------------------\n");
-	} //TO DELETE
 	if ((*msh)->hd_check)
 		status = deal_with_hd(msh, node, status);
 	if ((*msh)->signal)
@@ -103,7 +93,6 @@ int	deal_with_hd(t_msh **msh, t_tree_nd *node, int status)
 	}
 	return (0);
 }
-
 
 void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 {

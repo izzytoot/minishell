@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/09 18:20:29 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:29:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@
 # define RES "\033[0m"
 
 //error messages
-
 # define ERR_CNOTFOUND "command not found\n"
 # define ERR_DIRNOTFOUND "No such file or directory\n"
 # define ERR_AMBREDIR "ambiguous redirect\n"
@@ -230,6 +229,7 @@ void			prompt_and_read(t_msh **msh);
 char			*get_prompt(t_msh *msh);
 char			*get_display_path(t_msh *msh);
 int				exit_value(t_msh **msh, int exit_code, int upd_exit, int close);
+
 //11_envp_copies.c
 void			copy_envp(t_msh *msh, char **envp);
 char			**envp_to_array(t_msh *msh, char **envp);
@@ -528,19 +528,20 @@ void			lonely_arg(t_ints *ints, t_flag_str *flags,
 void			handle_written(t_ints *ints, t_flag_str *flags,
 					t_tree_nd **node);
 
-//76_exec_utils.c
-int				safe_fork(t_msh **msh);
-int				safe_dup(t_msh **msh, int old_fd);
-void			safe_dup2(t_msh **msh, int new_fd, int old_fd);
-int				safe_pipe(t_msh **msh, int pipe_fd[2]);
-void			update_shlvl(t_list **env_list);
-
-//77_exec_dir_path.c
+//76_exec_dir_path.c
 int				choose_path(t_msh **msh, t_tree_nd *node, char **path);
 int				direct_path(t_tree_nd *node);
 int				is_direct_command(t_tree_nd *node);
 int				handle_direct_command(t_msh **msh, t_tree_nd *node,
 					char **path);
+int				handle_no_path(t_msh **msh, t_tree_nd *node);
+
+//77_exec_utils.c
+int				safe_fork(t_msh **msh);
+int				safe_dup(t_msh **msh, int old_fd);
+void			safe_dup2(t_msh **msh, int new_fd, int old_fd);
+int				safe_pipe(t_msh **msh, int pipe_fd[2]);
+void			update_shlvl(t_list **env_list);
 
 //78_exec_utils_2.c
 bool			arg_expansions(t_tree_nd *node);
@@ -553,6 +554,11 @@ char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
 void			deal_with_cmd(t_msh **msh, t_tree_nd *node, int *status);
 int				exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
 void			exec_cmd_parent(pid_t pid, int status);
+
+//79_1_exec_pipe_utils.c
+void			pipe_right_child(t_msh **msh, t_tree_nd *node, int *status,
+					int *fd);
+int				pid2_handler(int pid2, int status);
 
 /************ 80_expander ************/
 //80_expand_args.c
@@ -621,6 +627,7 @@ void			sig_c_main(int sig);
 void			ctrl_c_hd(int sig);
 void			sig_c_child(int sig);
 void			sig_ig(int sig);
+void			start_sigs(void);
 
 //91_signals_utils.c
 t_msh			*get_msh(t_msh *msh, int flag);
@@ -637,16 +644,11 @@ void			free_tree(t_msh *msh, t_tree_nd *node);
 void			close_minishell(t_msh	*msh, int exit_code);
 void			envp_fail(t_msh *msh, char *str, t_list *list_nd,
 					char **array);
+void			close_msh_prompt(t_msh **msh);
 
 //102_other_frees.c
 void			free_tokens(t_tk_lst *token_list, int n);
 void			free_qt_lst(t_quote *qt_list);
 void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
-
-/************ others ************/
-//11_debug_utils.c
-void			print_tokens(t_msh **msh);
-void			print_envp_in_struct(t_msh **msh);
-void			print_tree(t_tree_nd *node);
 
 #endif

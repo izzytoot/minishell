@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   74_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 18:49:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:01:12 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 	else if (node->type == ENV_CMD)
 	{
 		if (node->cmd_content)
-				ft_free_arrays((void **)node->cmd_content);
+			ft_free_arrays((void **)node->cmd_content);
 		node->cmd_content = join_cmd_and_args((node->cmd), node->args);
 		status = exec_env_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
@@ -33,14 +33,6 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 	else if (exec_sh_v(&(*msh), node) == 0)
 		return (exit_value(msh, 0, 1, 0));
 	return (output_cmd_errors(msh, node));
-	// else if (node->type != ENV_CMD && (exec_sh_v(&(*msh), node) == 0))
-	// 	return (exit_value(msh, 0, 1, 0));
-	// pid = safe_fork(msh);
-	// if (pid == 0)
-	// 	exec_cmd_child(msh, node, &status);
-	// exec_cmd_parent(pid, &status);
-	// //return (output_cmd_errors(msh, node));
-	// return (exit_value(msh, status, 1, 0));
 }
 
 int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
@@ -76,7 +68,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	char	*path;
 	int		status;
 	int		sig;
-	
+
 	(void)sig;
 	pid = safe_fork(msh);
 	status = 0;
@@ -88,7 +80,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		status = choose_path(&(*msh), node, &path);
 		if (status != 0)
 			return (exit_value(msh, status, 1, 0));
-		if(safe_execve(msh, path, node->cmd_content))
+		if (safe_execve(msh, path, node->cmd_content))
 			return (exit_value(msh, status, 1, 1));
 		return (exit_value(msh, status, 1, 1));
 	}
@@ -96,7 +88,6 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
-		//wait(&status);
 		waitpid(pid, &status, 0);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -107,11 +98,11 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		}
 		else if (status == 131)
 			ft_putstr_fd("Quit (core dumped)\n", 1);
-		else if(WIFEXITED(status))
+		else if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
 		else
 			status = 0;
-		}
+	}
 	return (exit_value(msh, status, 1, 0));
 }
 
@@ -151,7 +142,6 @@ int	safe_execve(t_msh **msh, char *path, char **argv)
 		return (EXIT_FAILURE);
 	if (execve(path, argv, envp_array) == -1)
 	{
-		// print_exec_error(argv[0]);
 		perror("msh: execve:");
 		ft_free_arrays((void **)envp_array);
 		return (EXIT_FAILURE);

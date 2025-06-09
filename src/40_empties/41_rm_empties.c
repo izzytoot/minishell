@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   41_rm_empties.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 11:17:54 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:30:57 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	empties_rmv_doll(t_tk_lst ***tk)
 {
 	t_tk_lst	*curr;
 	t_tk_lst	*prev;
-	
+
 	curr = (**tk)->next;
 	prev = curr->prev;
 	if (curr->next)

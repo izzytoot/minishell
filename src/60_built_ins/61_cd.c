@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   61_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:08:37 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/08 22:25:53 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:34:39 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_cd(t_msh **msh, t_tree_nd **node)
 	cwd = safe_getcwd(*msh, false);
 	if (!cwd)
 		return (free(target_dir), free(old_pwd),
-		ft_putstr_fd(ERR_2FOLDER, STDERR_FILENO), EXIT_FAILURE);
+			ft_putstr_fd(ERR_2FOLDER, STDERR_FILENO), EXIT_FAILURE);
 	update_cd_env(msh, old_pwd);
 	return (free(target_dir), free(old_pwd), free(cwd), EXIT_SUCCESS);
 }

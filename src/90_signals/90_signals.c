@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   90_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/09 18:34:26 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:10:13 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@ void	sig_ig(int sig)
 		return ;
 }
 
-// void	sig_c_main(int sig)
-// {
-// 	(void)sig;
-// 	rl_replace_line("", 0);
-// 	ft_putstr_fd("\n", 1);
-// 	rl_on_new_line();
-// 	rl_redisplay();
-// 	exit_value(NULL, 130, 1, 0);
-// }
-
 void	sig_c_child(int sig)
 {
 	(void)sig;
@@ -58,4 +48,16 @@ void	ctrl_c_hd(int sig)
 	ft_putstr_fd("\n", 1);
 	close_fds();
 	exit_value(&msh, 130, 1, 1);
+}
+
+void	start_sigs(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = &sig_c_main;
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	sigaddset(&sa.sa_mask, SIGINT);
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }

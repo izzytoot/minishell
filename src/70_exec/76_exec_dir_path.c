@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   76_exec_dir_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/09 15:21:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:07:00 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,8 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 	}
 	env_path = get_path((*msh)->envp_list);
 	*path = check_env_cmd(node->cmd, env_path, -1, 2);
-	if (!(*path)) //ver com dani
-	{
-		if (!node->args[0])
-			return (exit_value(msh, 0, 1, 1));
-		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
-		return (exit_value(msh, 127, 1, 1));
-	}
+	if (!(*path))
+		handle_no_path(msh, node);
 	return (0);
 }
 
@@ -90,4 +85,12 @@ int	handle_direct_command(t_msh **msh, t_tree_nd *node, char **path)
 		*path = node->cmd;
 	status = direct_path(node);
 	return (exit_value(msh, status, 1, 0));
+}
+
+int	handle_no_path(t_msh **msh, t_tree_nd *node)
+{
+	if (!node->args[0])
+		return (exit_value(msh, 0, 1, 1));
+	ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
+	return (exit_value(msh, 127, 1, 1));
 }

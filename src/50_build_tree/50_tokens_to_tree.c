@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   50_tokens_to_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/06 19:43:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:00:42 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	parse_line(t_msh **msh)
 	if ((*msh)->tree_root->type != PIPE)
 		free_tokens((*msh)->token_list, 2);
 	tree_root = (*msh)->tree_root;
-	if ((*msh)->debug_mode) //FOR DEBUGGING REMOVE
-		print_tree(tree_root);
 }
 
 t_tree_nd	*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42_empties_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 13:50:40 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/09 11:17:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:31:23 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	first_and_pipe(t_tk_lst ***curr_f, t_tk_lst *curr_p, bool *env)
 
 void	rm_empties_case(t_tk_lst **curr, bool env)
 {
-	if (tk_in_qts(*curr) && ((*curr)->next && ft_strcmp((*curr)->next->content, "$") == 0))
+	if (tk_in_qts(*curr) && ((*curr)->next
+			&& ft_strcmp((*curr)->next->content, "$") == 0))
 		empties_rmv_doll(&curr);
 	else if ((*curr)->next && (*curr)->next->type == W_SPACE
 		&& (*curr)->next->next)

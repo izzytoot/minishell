@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isabel <isabel@student.42.fr>              +#+  +:+       +#+         #
+#    By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 12:06:47 by icunha-t          #+#    #+#              #
-#    Updated: 2025/06/07 00:09:20 by isabel           ###   ########.fr        #
+#    Updated: 2025/06/09 20:14:25 by ddo-carm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							70_exec/77_exec_utils.c\
 							70_exec/78_exec_utils_2.c\
 							70_exec/79_exec_cmd_utils.c\
+							70_exec/79_1_exec_pipe_utils.c\
 							80_expander/80_expand_args.c\
 							80_expander/81_expand_fname.c\
 							80_expander/82_expand_hd.c\
@@ -77,7 +78,7 @@ SRC = $(addprefix $(SRC_PATH), 00_main/00_main.c \
 							100_close_and_free/100_free_msh.c\
 							100_close_and_free/101_close_msh.c\
 							100_close_and_free/102_other_frees.c\
-							11_debug_utils.c)
+							)
 TMP = ./tmp
 OBJ = $(patsubst $(SRC_PATH)%,$(TMP)/%,$(SRC:.c=.o))
 
