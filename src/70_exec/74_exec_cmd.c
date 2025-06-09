@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   74_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/08 12:13:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 13:49:55 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	safe_execve(t_msh **msh, char *path, char **argv)
 		return (EXIT_FAILURE);
 	if (execve(path, argv, envp_array) == -1)
 	{
+		// print_exec_error(argv[0]);
 		perror("msh: execve:");
 		ft_free_arrays((void **)envp_array);
 		return (EXIT_FAILURE);

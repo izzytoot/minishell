@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:04:16 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/08 14:06:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 13:43:54 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,31 @@ bool	ch_shlvl(t_msh **msh, char *word)
 
 	if (!word)
 		return (false);
-	if (ft_strncmp(word, "./", 2) == 0)
+	if (ft_strchr(word, '/'))
+		return (true);
+	if (ft_strcmp(word, "minishell") == 0)
+	{
+		curr = (*msh)->envp_list;
+		while (curr)
+		{
+			if (ft_strncmp((*msh)->envp_list->content, "PATH=", 5) == 0)
+				return (false);
+			curr = curr->next;
+		}
+		return (true);
+	}
+	return (false);
+}
+
+bool	ch_shlvl_bin(t_msh **msh, char *word)
+{
+	t_list	*curr;
+
+	if (!word)
+		return (false);
+	if (ft_strncmp(word, "/bin/", 5) == 0)
+		return (false);
+	if (ft_strchr(word, '/'))
 		return (true);
 	if (ft_strcmp(word, "minishell") == 0)
 	{

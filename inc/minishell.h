@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/08 22:13:43 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 13:46:33 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ void			init_all_null(t_msh **msh);
 bool			ch_shlvl(t_msh **msh, char *word);
 char			*get_errmsg(void);
 void			free_and_clear(char *str, t_list *lst);
+bool			ch_shlvl_bin(t_msh **msh, char *word);
 
 /************ 20_syntax ************/
 //20_syntax_check.c

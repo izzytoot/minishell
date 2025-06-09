@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   78_exec_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:42:59 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/08 22:24:15 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 13:44:14 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	ch_if_sub_cmd(t_msh **msh, t_tree_nd *node)
 	tmp_cmd = NULL;
 	if (node->cmd)
 		tmp_cmd = ft_strdup(node->cmd);
-	if ((tmp_cmd && !ch_shlvl(msh, tmp_cmd)) || (!node->args || !node->args[0]))
+	if ((tmp_cmd && !ch_shlvl_bin(msh, tmp_cmd)) || (!node->args || !node->args[0]))
 	{
 		tmp_cmd = safe_free(tmp_cmd);
 		return (false);
@@ -44,7 +44,7 @@ bool	ch_if_sub_cmd(t_msh **msh, t_tree_nd *node)
 		tmp_cmd = safe_free(tmp_cmd);
 		return (false);
 	}
-	if ((!node->cmd || ch_shlvl(msh, tmp_cmd)) && node->args[0])
+	if ((!node->cmd || ch_shlvl_bin(msh, tmp_cmd)) && node->args[0])
 	{
 		tmp_cmd = safe_free(tmp_cmd);
 		return (true);
@@ -59,12 +59,6 @@ int	output_cmd_errors(t_msh **msh, t_tree_nd *node)
 	else if (node->type == ARG && (ft_strcmp(".", node->args[0]) == 0))
 	{
 		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_PT);
-		return (exit_value(msh, 2, 1, 1));
-	}
-	else if (ft_strncmp(node->args[0], "/bin/", 5) == 0)
-	{
-		ft_dprintf(STDERR_FILENO, "%s: %s'%s': %s", node->args[0], ERR_BIN,
-			node->cmd, ERR_DIRNOTFOUND);
 		return (exit_value(msh, 2, 1, 1));
 	}
 	else if (get_path((*msh)->envp_list) == NULL)
