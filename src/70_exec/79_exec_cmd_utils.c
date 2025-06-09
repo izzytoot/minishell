@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:54:29 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/09 20:36:46 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:37:51 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	exec_cmd_parent(pid_t pid, int *status)
 	}
 	else if (*status == 131)
 		ft_putstr_fd("Quit (core dumped)\n", 1);
-	else if(WIFEXITED(*status))
+	else if (WIFEXITED(*status))
 		*status = WEXITSTATUS(*status);
 	else
 		*status = 0;
