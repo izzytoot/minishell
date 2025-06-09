@@ -5,7 +5,7 @@
             "name": "minishell",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/isabel/minishell/minishell",
+            "program": "/home/icunha-t/Commoncore/minishell/minishell",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

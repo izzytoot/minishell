@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:52:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/08 11:56:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 14:21:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 	left_pid = safe_fork(msh);
 	if (left_pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, sig_c_child);
 		perf_left_pipe(msh, fd[0], fd[1]);
 		status = exec_tree(msh, node->left);
 		exit_value(msh, status, 1, 1);
@@ -32,6 +34,8 @@ int	exec_pipe(t_msh **msh, t_tree_nd *node)
 	right_pid = safe_fork(msh);
 	if (right_pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, sig_c_child);
 		perf_right_pipe(msh, fd[1], fd[0]);
 		status = exec_tree(msh, node->right);
 		exit_value(msh, status, 1, 1);
@@ -64,21 +68,33 @@ int	safe_waitpid(int pid1, int pid2)
 	status = 0;
 	if (pid1)
 	{
+		signal(SIGINT, SIG_IGN);
 		wait(&status);
 		waitpid(pid1, &status, 0);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			status = 128 + WTERMSIG(status);
+		signal(SIGINT, sig_c_main);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			status = 130;
+		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+			status = 130;
+		else if (WIFEXITED(status))
+		 	status = WEXITSTATUS(status);
+		 else
+			status = 0;
 	}
 	if (pid2)
 	{
+		signal(SIGINT, SIG_IGN);
 		wait(&status);
 		waitpid(pid2, &status, 0);
-		if (WIFEXITED(status))
+		signal(SIGINT, sig_c_main);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			status = 130;
+		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+			status = 130;
+		else if(WIFEXITED(status))
 			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			status = 128 + WTERMSIG(status);
+		else
+			status = 0;
 	}
 	return (status);
 }

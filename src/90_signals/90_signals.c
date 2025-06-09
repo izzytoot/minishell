@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   90_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/08 22:22:07 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 13:01:01 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	sig_c_child(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
+	close_fds();
 	exit_value(NULL, 130, 1, 0);
 }
 

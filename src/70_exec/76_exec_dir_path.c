@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:42:21 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/09 15:19:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:20:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	choose_path(t_msh **msh, t_tree_nd *node, char **path)
 	*path = check_env_cmd(node->cmd, env_path, -1, 2);
 	if (!(*path)) //ver com dani
 	{
+		if (!node->args[0])
+			return (exit_value(msh, 0, 1, 1));
 		ft_dprintf(STDERR_FILENO, "%s: %s", node->args[0], ERR_CNOTFOUND);
 		return (exit_value(msh, 127, 1, 1));
 	}

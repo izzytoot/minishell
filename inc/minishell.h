@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/09 13:51:55 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:20:13 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,7 +487,7 @@ char			**remake_args(t_tree_nd *node);
 void			sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args);
 void			sub_cmd_util(t_tree_nd *node, char **sep_args, int count,
 					char ****new_args);
-
+int				deal_with_hd(t_msh **msh, t_tree_nd *node, int status);
 //71_exec_pipe.c
 int				exec_pipe(t_msh **msh, t_tree_nd *node);
 void			perf_left_pipe(t_msh **msh, int useless_fd, int dup_fd);
@@ -555,7 +555,7 @@ char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
 //79_exec_cmd_utils.c
 void			deal_with_cmd(t_msh **msh, t_tree_nd *node, int *status);
 int				exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
-void			exec_cmd_parent(pid_t pid, int *status);
+void			exec_cmd_parent(pid_t pid, int status);
 
 /************ 80_expander ************/
 //80_expand_args.c

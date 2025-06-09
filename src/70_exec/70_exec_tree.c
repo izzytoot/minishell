@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   70_exec_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 13:47:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:20:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	deal_with_hd(t_msh **msh, t_tree_nd *node, int status)
-{
-	int	pid;
-
-	(*msh)->hd_check = false;
-	exec_files(msh, node);
-	pid = safe_fork(msh);
-	if (pid == 0)
-	{
-		get_msh(*msh, 0);
-		exec_heredocs(msh, node);
-		exit_value(msh, status, 1, 1);
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		signal(SIGINT, sig_c_main);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			(*msh)->signal = true;
-		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-			(*msh)->signal = true;
-	}
-	return (0);
-}
 
 int	exec_tree(t_msh **msh, t_tree_nd *node)
 {
@@ -103,6 +77,33 @@ char	**remake_args(t_tree_nd *node)
 	ft_free_arrays((void **)tmp_args);
 	return (new_args);
 }
+
+int	deal_with_hd(t_msh **msh, t_tree_nd *node, int status)
+{
+	int	pid;
+
+	(*msh)->hd_check = false;
+	exec_files(msh, node);
+	pid = safe_fork(msh);
+	if (pid == 0)
+	{
+		get_msh(*msh, 0);
+		exec_heredocs(msh, node);
+		exit_value(msh, status, 1, 1);
+	}
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		waitpid(pid, &status, 0);
+		signal(SIGINT, sig_c_main);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			(*msh)->signal = true;
+		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+			(*msh)->signal = true;
+	}
+	return (0);
+}
+
 
 void	sub_cmd(t_msh **msh, t_tree_nd *node, char ***new_args)
 {
