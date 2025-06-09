@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 12:24:21 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:21:34 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ int	exit_value(t_msh **msh, int exit_code, int upd_exit, int close)
 	if (upd_exit == 1)
 		current_code = exit_code;
 	if (close == 1)
-		close_minishell(*msh, current_code);
+	{
+	//	close_fds();
+		close_minishell(*msh, current_code);	
+	}
 	return (current_code);
 }
