@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 17:14:52 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 18:20:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,16 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	int		pid;
 	char	*path;
 	int		status;
+	int		sig;
 	
+	(void)sig;
 	pid = safe_fork(msh);
 	status = 0;
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, sig_c_child);
+		signal(SIGINT, sig_c_main);
+		signal(SIGPIPE, sig_ig);
 		status = choose_path(&(*msh), node, &path);
 		if (status != 0)
 			return (exit_value(msh, status, 1, 0));
@@ -94,13 +97,31 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		signal(SIGINT, SIG_IGN);
 		wait(&status);
 		waitpid(pid, &status, 0);
-		signal(SIGINT, sig_c_main);
+		signal(SIGINT, SIG_DFL);
+		// if (WIFSIGNALED(status))
+		// {
+		// 	sig = WTERMSIG(status);
+		// 	if (sig == SIGINT)
+		// 	{
+		// 		ft_putstr_fd("\n", 1);
+		// 		return (exit_value(msh, 130, 1, 0));
+		// 	}
+		// 	else if (sig == SIGQUIT)
+		// 	{
+		// 		ft_putstr_fd("Quit (core dumped)\n", 1);
+		// 		return (exit_value(msh, 131, 1, 0));
+		// 	}
+		// 	else if (WIFEXITED(status))
+		// 		return (exit_value(msh, WEXITSTATUS(status), 1, 0));
+		// 	else
+		// 		return(0);
+		// 	//signal(SIGINT, SIG_DFL);
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			status = 130;
 		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 		{
 			status = 130;
-		//	write(1, "\n", 1);
+			write(1, "\n", 1);
 		}
 		else if (WIFEXITED(status) && WEXITSTATUS(status) == 131)
 		{
@@ -111,7 +132,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 			status = WEXITSTATUS(status);
 		else
 			status = 0;
-	}
+		}
 	return (exit_value(msh, status, 1, 0));
 }
 

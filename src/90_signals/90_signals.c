@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:52:16 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/09 17:14:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 18:20:42 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,31 @@
 
 void	sig_c_main(int sig)
 {
-	(void)sig;
-	rl_replace_line("", 0);
-	ft_putstr_fd("\n", 1);
-	rl_on_new_line();
-	rl_redisplay();
-	exit_value(NULL, 130, 1, 0);
+	if (sig == SIGINT)
+	{
+		ft_putstr_fd("\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		exit_value(NULL, 130, 1, 0);
+	}
 }
+
+void	sig_ig(int sig)
+{
+	if (sig == SIGPIPE)
+		return ;
+}
+
+// void	sig_c_main(int sig)
+// {
+// 	(void)sig;
+// 	rl_replace_line("", 0);
+// 	ft_putstr_fd("\n", 1);
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// 	exit_value(NULL, 130, 1, 0);
+// }
 
 void	sig_c_child(int sig)
 {

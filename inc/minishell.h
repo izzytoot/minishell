@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/09 16:12:05 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 18:20:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -620,6 +620,7 @@ char			**copy_array(int size, char **array);
 void			sig_c_main(int sig);
 void			ctrl_c_hd(int sig);
 void			sig_c_child(int sig);
+void			sig_ig(int sig);
 
 //91_signals_utils.c
 t_msh			*get_msh(t_msh *msh, int flag);
