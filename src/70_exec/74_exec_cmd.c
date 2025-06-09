@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 18:20:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 18:49:57 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, sig_c_main);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGPIPE, sig_ig);
 		status = choose_path(&(*msh), node, &path);
 		if (status != 0)
@@ -95,39 +95,18 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		wait(&status);
+		signal(SIGQUIT, SIG_IGN);
+		//wait(&status);
 		waitpid(pid, &status, 0);
 		signal(SIGINT, SIG_DFL);
-		// if (WIFSIGNALED(status))
-		// {
-		// 	sig = WTERMSIG(status);
-		// 	if (sig == SIGINT)
-		// 	{
-		// 		ft_putstr_fd("\n", 1);
-		// 		return (exit_value(msh, 130, 1, 0));
-		// 	}
-		// 	else if (sig == SIGQUIT)
-		// 	{
-		// 		ft_putstr_fd("Quit (core dumped)\n", 1);
-		// 		return (exit_value(msh, 131, 1, 0));
-		// 	}
-		// 	else if (WIFEXITED(status))
-		// 		return (exit_value(msh, WEXITSTATUS(status), 1, 0));
-		// 	else
-		// 		return(0);
-		// 	//signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			status = 130;
-		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 		{
 			status = 130;
 			write(1, "\n", 1);
 		}
-		else if (WIFEXITED(status) && WEXITSTATUS(status) == 131)
-		{
-			status = 131;
-			ft_printf("Quit (core dumped)\n");
-		}
+		else if (status == 131)
+			ft_putstr_fd("Quit (core dumped)\n", 1);
 		else if(WIFEXITED(status))
 			status = WEXITSTATUS(status);
 		else
