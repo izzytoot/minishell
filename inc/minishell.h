@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/09 18:20:29 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:19:16 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -551,8 +551,8 @@ char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
 
 //79_exec_cmd_utils.c
 void			deal_with_cmd(t_msh **msh, t_tree_nd *node, int *status);
-int				exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
-void			exec_cmd_parent(pid_t pid, int status);
+void			exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
+void			exec_cmd_parent(pid_t pid, int *status);
 
 /************ 80_expander ************/
 //80_expand_args.c
