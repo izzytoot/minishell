@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/08 22:16:40 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 00:35:09 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ int	exp_to_null(t_msh **msh, int start)
 	}
 	exp[0] = '\0';
 	new_tk = ft_calloc(1, sizeof(t_tk_lst));
-	app_tk(*msh, new_tk, exp, ARG);
+	if (start == 0)
+		app_tk(*msh, new_tk, "\'\'", ARG);
+	else
+		app_tk(*msh, new_tk, exp, ARG);
 	return (i - 1);
 }
 

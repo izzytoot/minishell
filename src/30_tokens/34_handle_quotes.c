@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   34_handle_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:53:10 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/08 16:08:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 00:28:02 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	sort_empty_qt(t_msh **msh, t_quote *quotes)
 	if (!last)
 		return ;
 	if (quotes->in_quotes && last->content && (ft_strcmp("\'\'",
-				last->content) == 0)) //changed this to ==0 from !=0
+				last->content) == 0))
 	{
 		quotes->in_quotes = false;
 		if (quotes->in_dquotes)
