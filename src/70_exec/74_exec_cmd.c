@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 15:21:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:14:52 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,22 @@ int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 		wait(&status);
 		waitpid(pid, &status, 0);
 		signal(SIGINT, sig_c_main);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			status = 130;
+		else if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 		{
-			write(1, "\n", 1);
-			status = 128 + WTERMSIG(status);
+			status = 130;
+		//	write(1, "\n", 1);
 		}
-		if (status == 131)
-			ft_printf("Quit (core dumped)\n");	
+		else if (WIFEXITED(status) && WEXITSTATUS(status) == 131)
+		{
+			status = 131;
+			ft_printf("Quit (core dumped)\n");
+		}
+		else if(WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		else
+			status = 0;
 	}
 	return (exit_value(msh, status, 1, 0));
 }
