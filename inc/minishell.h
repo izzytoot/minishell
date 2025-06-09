@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/09 20:29:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:36:02 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -552,8 +552,8 @@ char			**get_joinned_array(char *tmp_cmd, char **sep_args_tmp,
 
 //79_exec_cmd_utils.c
 void			deal_with_cmd(t_msh **msh, t_tree_nd *node, int *status);
-int				exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
-void			exec_cmd_parent(pid_t pid, int status);
+void			exec_cmd_child(t_msh **msh, t_tree_nd *node, int *status);
+void			exec_cmd_parent(pid_t pid, int *status);
 
 //79_1_exec_pipe_utils.c
 void			pipe_right_child(t_msh **msh, t_tree_nd *node, int *status,
