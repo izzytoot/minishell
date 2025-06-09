@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:24:34 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 20:03:37 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:23:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ int	exec_tree(t_msh **msh, t_tree_nd *node)
 	if (type_is_word(&node->type) && !node->cmd
 		&& ft_strchr(node->args[0], '/'))
 		node->type = ENV_CMD;
-	if ((*msh)->debug_mode && node->args) //TO DELETE
-	{
-		printf("------------------------------\n");
-		printf(GR"new args are: "RES);
-		int	i = -1;
-		while (node->args[++i])
-			printf(BMAG"%s "RES, node->args[i]);
-		printf("\n");
-		printf("------------------------------\n");
-	} //TO DELETE
 	if ((*msh)->hd_check)
 		status = deal_with_hd(msh, node, status);
 	if ((*msh)->signal)
