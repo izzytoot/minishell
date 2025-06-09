@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 18:49:57 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:58:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,54 @@
 int	exec_cmd(t_msh **msh, t_tree_nd *node)
 {
 	int		status;
+	int		pid;
 
 	status = 0;
+	pid = 0;
 	if (node->type == BT_CMD)
 	{
 		status = exec_bt_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
 	}
-	else if (node->type == ENV_CMD)
+	pid = safe_fork(msh);
+	if (pid == 0)
 	{
-		if (node->cmd_content)
-				ft_free_arrays((void **)node->cmd_content);
-		node->cmd_content = join_cmd_and_args((node->cmd), node->args);
-		status = exec_env_cmd(&(*msh), node);
-		return (exit_value(msh, status, 1, 0));
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGPIPE, sig_ig);
+		if (node->type == ENV_CMD)
+		{
+			if (node->cmd_content)
+					ft_free_arrays((void **)node->cmd_content);
+			node->cmd_content = join_cmd_and_args((node->cmd), node->args);
+			status = exec_env_cmd(&(*msh), node);
+		}
+		else if (exec_sh_v(&(*msh), node) == 0)
+			status = exit_value(msh, 0, 1, 0);
+		else
+			status = output_cmd_errors(msh, node);
+		return (exit_value(msh, status, 1, 1));
 	}
-	else if (exec_sh_v(&(*msh), node) == 0)
-		return (exit_value(msh, 0, 1, 0));
-	return (output_cmd_errors(msh, node));
-	// else if (node->type != ENV_CMD && (exec_sh_v(&(*msh), node) == 0))
-	// 	return (exit_value(msh, 0, 1, 0));
-	// pid = safe_fork(msh);
-	// if (pid == 0)
-	// 	exec_cmd_child(msh, node, &status);
-	// exec_cmd_parent(pid, &status);
-	// //return (output_cmd_errors(msh, node));
-	// return (exit_value(msh, status, 1, 0));
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		waitpid(pid, &status, 0);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			status = 130;
+			write(1, "\n", 1);
+		}
+		else if (status == 131)
+			ft_putstr_fd("Quit (core dumped)\n", 1);
+		else if(WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		else
+			status = 0;
+	}
+	return (exit_value(msh, status, 1, 0));
 }
 
 int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
@@ -72,47 +94,15 @@ int	exec_bt_cmd(t_msh **msh, t_tree_nd *node)
 
 int	exec_env_cmd(t_msh **msh, t_tree_nd *node)
 {
-	int		pid;
 	char	*path;
 	int		status;
-	int		sig;
 	
-	(void)sig;
-	pid = safe_fork(msh);
-	status = 0;
-	if (pid == 0)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGPIPE, sig_ig);
-		status = choose_path(&(*msh), node, &path);
-		if (status != 0)
-			return (exit_value(msh, status, 1, 0));
-		if(safe_execve(msh, path, node->cmd_content))
-			return (exit_value(msh, status, 1, 1));
+	status = choose_path(&(*msh), node, &path);
+	if (status != 0)
+		return (exit_value(msh, status, 1, 0));
+	if(safe_execve(msh, path, node->cmd_content))
 		return (exit_value(msh, status, 1, 1));
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
-		//wait(&status);
-		waitpid(pid, &status, 0);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		{
-			status = 130;
-			write(1, "\n", 1);
-		}
-		else if (status == 131)
-			ft_putstr_fd("Quit (core dumped)\n", 1);
-		else if(WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else
-			status = 0;
-		}
-	return (exit_value(msh, status, 1, 0));
+	return (exit_value(msh, status, 1, 1));
 }
 
 int	exec_sh_v(t_msh **msh, t_tree_nd *node)
