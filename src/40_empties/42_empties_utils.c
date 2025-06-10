@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42_empties_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 13:50:40 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/09 19:31:23 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:55:38 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	rm_empties_case(t_tk_lst **curr, bool env)
 		&& (*curr)->next->next)
 	{
 		if (((*curr)->next->next->type == BT_CMD
-				|| (*curr)->next->next->type == ARG) && !env)
+				|| (*curr)->next->next->type == ARG))
 			empties_rmv_tk(&curr);
 	}
 	else if ((*curr)->next && ((*curr)->next->type == BT_CMD
-			|| (*curr)->next->type == ARG) && !env)
+			|| (*curr)->next->type == ARG))
 		empties_rmv_tk(&curr);
 	else if (!(*curr)->next && (*curr)->prev && !(*curr)->quotes.sp_case
 		&& ((*curr)->prev->type == BT_CMD || (*curr)->prev->type == ARG)
