@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   68_export_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 23:49:51 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/08 22:26:03 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/10 21:20:18 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,25 @@
 
 void	ft_export_util(t_msh **msh, bool s_qt, char *arg, char	**var_inf)
 {
+	t_list *current;
+	bool	fl;
+	
+	fl = false;
 	if (!s_qt && sing_exp(arg))
-		add_only_to_export(*msh, arg);
+	{
+		current = (*msh)->envp_list;
+		while (current)
+		{
+			if (ft_strncmp(current->content, arg, ft_strlen(arg)) == 0)
+			{
+				fl = true;
+				break;	
+			}
+			current = current->next;
+		}
+		if (!fl)
+			add_only_to_export(*msh, arg);	
+	}
 	else
 		add_export_var(&(*msh)->envp_list, var_inf[0], var_inf[1]);
 }
