@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   41_rm_empties.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:18:59 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 19:30:57 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:42:06 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	empties_rmv_tk(t_tk_lst ***curr)
 		{
 			curr_prev = (**curr)->prev->prev;
 			free_tokens((**curr)->prev, 1);
-			(**curr)->next->prev = (**curr)->prev->prev;
-			(**curr)->prev->prev->next = (**curr)->next;
+			(**curr)->next->prev = curr_prev;
+			curr_prev->next = (**curr)->next;
 			free_tokens(**curr, 1);
 			(**curr) = curr_prev;
 		}
