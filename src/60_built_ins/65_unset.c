@@ -23,13 +23,14 @@ int	ft_unset(t_msh **msh, t_tree_nd **node)
 	{
 		if (ft_strncmp((*node)->args[i], "-", 1) == 0)
 			return (0);
-		ft_delete_var(&(*msh)->envp_list, (*node)->args[i]);
+		ft_delete_env_var(&(*msh)->envp_list, (*node)->args[i]);
+		ft_del_export_only(&(*msh)->export_only, (*node)->args[i]);
 		i++;
 	}
 	return (0);
 }
 
-void	ft_delete_var(t_list **env_list, const char *var_name)
+void	ft_delete_env_var(t_list **env_list, const char *var_name)
 {
 	t_list	*current;
 	t_list	*del;
@@ -39,8 +40,9 @@ void	ft_delete_var(t_list **env_list, const char *var_name)
 	prev = NULL;
 	while (current)
 	{
-		if (ft_strncmp((char *)current->content, var_name, ft_strlen(var_name))
-			== 0 && ((char *)current->content)[ft_strlen(var_name)] == '=')
+		if (current->content && ft_strncmp((char *)current->content, var_name,
+				ft_strlen(var_name)) == 0
+			&& ((char *)current->content)[ft_strlen(var_name)] == '=')
 		{
 			del = current;
 			if (prev)
@@ -54,5 +56,33 @@ void	ft_delete_var(t_list **env_list, const char *var_name)
 		}
 		prev = current;
 		current = current->next;
+	}
+}
+
+void	ft_del_export_only(t_list **export_only, const char *var_name)
+{
+	t_list	*tmp;
+	t_list	*del;
+	t_list	*prev;
+
+	tmp = *export_only;
+	prev = NULL;
+	while (tmp)
+	{
+		if (tmp->content && ft_strncmp((char *)tmp->content, var_name,
+				ft_strlen(var_name)) == 0)
+		{
+			del = tmp;
+			if (prev)
+				prev->next = tmp->next;
+			else
+				*export_only = tmp->next;
+			tmp = tmp->next;
+			free(del->content);
+			free(del);
+			continue ;
+		}
+		prev = tmp;
+		tmp = tmp->next;
 	}
 }
