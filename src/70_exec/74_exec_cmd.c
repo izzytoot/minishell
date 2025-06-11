@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   74_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 20:37:39 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:32:23 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,20 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		status = exec_bt_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
 	}
-	pid = safe_fork(msh);
-	if (pid == 0)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGPIPE, sig_ig);
-		exec_cmd_child(msh, node, &status);
-		return (exit_value(msh, status, 1, 1));
-	}
+	if (exec_sh_v(&(*msh), node) == 0)
+		status = exit_value(msh, 0, 1, 0);
 	else
-		exec_cmd_parent(pid, &status);
+	{
+		pid = safe_fork(msh);
+		if (pid == 0)
+		{
+			sig_cmd_child();
+			exec_cmd_child(msh, node, &status);
+			return (exit_value(msh, status, 1, 1));
+		}
+		else
+			exec_cmd_parent(pid, &status);
+	}
 	return (exit_value(msh, status, 1, 0));
 }
 

@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 17:58:26 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/06/06 22:14:09 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:31:14 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,11 @@ t_msh	*get_msh(t_msh *msh, int flag)
 		return (ptr);
 	ptr = msh;
 	return (ptr);
+}
+
+void	sig_cmd_child(void)
+{
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGPIPE, sig_ig);
 }

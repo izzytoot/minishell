@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/11 17:28:58 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:31:49 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -634,6 +634,7 @@ void			start_sigs(void);
 t_msh			*get_msh(t_msh *msh, int flag);
 void			close_fds(void);
 void			ctrl_d_error(char *eof);
+void			sig_cmd_child(void);
 
 /************ 100_close_and_free ************/
 //100_free_msh.c
