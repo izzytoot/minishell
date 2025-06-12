@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   50_tokens_to_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:07:28 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/10 18:23:00 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/12 16:53:14 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 void	parse_line(t_msh **msh)
 {
+	t_tree_nd	*tree_root;
+
+	tree_root = NULL;
 	if (!(*msh)->token_list)
 		return ;
 	(*msh)->tree_root = build_pipe_nd(msh, &(*msh)->token_list);
 	if ((*msh)->tree_root->type != PIPE)
 		free_tokens((*msh)->token_list, 2);
+	if ((*msh)->debug_mode)
+		print_tree(tree_root);
 }
 
 t_tree_nd	*new_tree_nd(t_tk_lst *curr_tk, t_tk_type *type, char *content)

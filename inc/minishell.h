@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/12 12:03:16 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:51:50 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -653,5 +653,11 @@ void			close_msh_prompt(t_msh **msh);
 void			free_tokens(t_tk_lst *token_list, int n);
 void			free_qt_lst(t_quote *qt_list);
 void			free_kw_structs(t_exp_cont *parts, t_kw **kw_lst);
+
+/************ others ************/
+//11_debug_utils.c
+void			print_tokens(t_msh **msh);
+void			print_envp_in_struct(t_msh **msh);
+void			print_tree(t_tree_nd *node);
 
 #endif

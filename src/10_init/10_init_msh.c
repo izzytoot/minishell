@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   10_init_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 20:19:55 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:42:36 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	prompt_and_read(t_msh **msh)
 			get_tokens(&(*msh), -1);
 			exec_tree(&(*msh), (*msh)->tree_root);
 		}
+		if ((*msh)->debug_mode)
+			ft_printf("status is %d\n", exit_value(msh, 0, 0, 0));
 		free_prompt_line(&(*msh));
 	}
 }

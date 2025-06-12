@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   30_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:33:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/09 20:27:31 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:44:49 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,17 @@ void	get_tokens(t_msh **msh, int i)
 		else
 			break ;
 	}
+	if ((*msh)->debug_mode)
+	{
+		print_tokens(&(*msh));
+		ft_printf("------------------------------\n");
+	}
 	sub_tokenize(&(*msh));
+	if ((*msh)->debug_mode)
+	{
+		print_tokens(&(*msh));
+		ft_printf("------------------------------\n");
+	}
 	parse_line(&(*msh));
 	return ;
 }
