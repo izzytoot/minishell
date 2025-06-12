@@ -70,7 +70,7 @@ void	ft_del_export_only(t_list **export_only, const char *var_name)
 	while (tmp)
 	{
 		if (tmp->content && ft_strncmp((char *)tmp->content, var_name,
-				ft_strlen(var_name)) == 0)
+				ft_strlen(var_name + 2)) == 0)
 		{
 			del = tmp;
 			if (prev)
