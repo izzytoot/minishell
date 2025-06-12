@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:50:18 by root              #+#    #+#             */
-/*   Updated: 2025/06/11 18:31:49 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:03:16 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,6 +454,7 @@ void			get_ex_code(t_msh **msh, unsigned char	*exit_code,
 int				ft_unset(t_msh **msh, t_tree_nd **node);
 void			ft_delete_env_var(t_list **env_list, const char *var_name);
 void			ft_del_export_only(t_list **export_only, const char *var_name);
+void			ft_del_vars_list(t_list **vars_list, const char *var_name);
 
 //66_export.c
 int				ft_export(t_msh **msh, t_tree_nd **node, int i,

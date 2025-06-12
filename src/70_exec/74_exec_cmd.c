@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   74_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:50:08 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/11 18:32:23 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/06/12 11:55:26 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,18 @@ int	exec_cmd(t_msh **msh, t_tree_nd *node)
 		status = exec_bt_cmd(&(*msh), node);
 		return (exit_value(msh, status, 1, 0));
 	}
-	if (exec_sh_v(&(*msh), node) == 0)
-		status = exit_value(msh, 0, 1, 0);
+	pid = safe_fork(msh);
+	if (pid == 0)
+	{
+		sig_cmd_child();
+		exec_cmd_child(msh, node, &status);
+		return (exit_value(msh, status, 1, 1));
+	}
 	else
 	{
-		pid = safe_fork(msh);
-		if (pid == 0)
-		{
-			sig_cmd_child();
-			exec_cmd_child(msh, node, &status);
-			return (exit_value(msh, status, 1, 1));
-		}
-		else
-			exec_cmd_parent(pid, &status);
+		if (exec_sh_v(&(*msh), node) == 0)
+			status = exit_value(msh, 0, 1, 0);
+		exec_cmd_parent(pid, &status);
 	}
 	return (exit_value(msh, status, 1, 0));
 }
@@ -88,20 +87,22 @@ int	exec_sh_v(t_msh **msh, t_tree_nd *node)
 	char	**split;
 
 	status = 0;
-	i = 0;
-	while (node->args[i])
+	i = -1;
+	if (node->args)
 	{
-		if (check_shell_var(node->args[i]))
+		while (node->args[++i])
 		{
-			split = ft_split(node->args[i], '=');
-			if (!split || !split[0])
-				return (ft_free_arrays((void *)split), EXIT_FAILURE);
-			if (update_var(&(*msh)->vars_list, split[0], split[1])
-				!= EXIT_SUCCESS)
-				return (ft_free_arrays((void *)split), EXIT_FAILURE);
-			ft_free_arrays((void *)split);
+			if (check_shell_var(node->args[i]))
+			{
+				split = ft_split(node->args[i], '=');
+				if (!split || !split[0])
+					return (ft_free_arrays((void *)split), EXIT_FAILURE);
+				if (update_var(&(*msh)->vars_list, split[0], split[1])
+					!= EXIT_SUCCESS)
+					return (ft_free_arrays((void *)split), EXIT_FAILURE);
+				ft_free_arrays((void *)split);
+			}
 		}
-		i++;
 	}
 	if (!(*msh)->vars_list)
 		return (-1);
