@@ -121,4 +121,4 @@ make
 
 Feel free to test our Minishell. Here is our own list of tests which we compiled troughout this loooooong journey. Have fun!
 
-## 😱 **[OUR LIST OF TESTS](https://www.notion.so/meeru/1d02544e44e2807d9013fd3eefbfebf4?v=1d02544e44e28087a970000c7fb78979)** 😱
+## 😱 **[OUR LIST OF 282 TESTS](https://www.notion.so/meeru/1d02544e44e2807d9013fd3eefbfebf4?v=1d02544e44e28087a970000c7fb78979)** 😱
