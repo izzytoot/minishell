@@ -3,7 +3,7 @@
 ## 1. About the project
 This project was done in partnership with [**Daniela Padilha**](https://github.com/Daniela-Padilha).
 
-A polished, mini‑version of a Unix shell written in pure C. This isn’t just an exercise - it’s about building a real, working Command-Line Interface interpreter that plays nicely with pipes, redirections, heredocs, expansions, signals, and error handling.
+It's a polished, mini‑version of a Unix shell written in pure C. This isn’t just an exercise - it’s about building a real, working Command-Line Interface interpreter that plays nicely with pipes, redirections, heredocs, expansions, signals, and error handling.
 
 ## 2. What It Does
 1. Reads user input (with readline support for line editing and history);
@@ -19,18 +19,18 @@ The program manages heredocs, multi‑stage redirections, pipes, signals, and ex
 ## 3. Implementation Phases
 Here's how it all comes together:
 
-#### <ins>1. Syntax Check</ins>
+#### <ins>a. Syntax Check</ins>
 - It scans the raw input for basic syntax sanity;
 - It detects unclosed quotes, misplaced pipes/redirections, usage of unsuppported operators (&& and ||);
 - It refuses to parse broken commands early, printing errors like bash would;
 
-#### <ins>2. Tokenization & Sub‑tokenization</ins>
+#### <ins>b. Tokenization & Sub‑tokenization</ins>
 - It keeps track of quoting modes to prevent unintended word-splitting;
 - It splits input into tokens: words, pipes, redirections;
 - It further splits word tokens into filenames, type of command (builtin or environment) or arguments;
 - It checks for repeated command words and empty quote situations;
 
-#### <ins>3. Binary Tree (AST) Building</ins>
+#### <ins>c. Binary Tree (AST) Building</ins>
 - It parses the token stream into a binary tree:
 - Pipes (|) create left and right branches;
 - Redirections link to command nodes and filename nodes;
@@ -54,16 +54,16 @@ Here's how it all comes together:
 
 Executes left branch first (cat file.txt) and writes into pipe, and right branch after (grep hello > out.txt), reading from pipe.
 
-#### <ins>4. Tree Execution</ins>
+#### <ins>d. Tree Execution</ins>
 Traverses and executes the AST:
 
-4.1 Expansions
+d-1 Expansions
 
 - It handles "$VAR", "$?", "$0" and "$EMPTY" expansions;
 - It performs word-splitting or joining after expansions unless inside single quotes;
 - It replaces the node-argument array;
 
-4.2 Heredoc Execution
+d-2 Heredoc Execution
 
 - It detects how many heredocs are there in the input line;
 - It performs the existant heredocs by:
@@ -72,19 +72,19 @@ Traverses and executes the AST:
   - opening a heredoc buffer in a child process,
   - expanding variables inside heredoc if EOF not quoted.
 
-4.3 Pipe Execution
+d-3 Pipe Execution
 
 - It chains tree nodes through pipes;
 - It uses fork(), pipe(), and dup2() to connect child processes;
 
-4.4 Redirections Execution
+d-4 Redirections Execution
 
 - It applies <, >, and >> to redirect stdin/stdout;
 - It opens files with correct flags and uses dup2() to hook them;
 - It handles FD opening, duplicating and closing;
 - It performs the command linked to the redirect token te correct stdin/stdout;
 
-4.5 Command Execution
+d-5 Command Execution
 
 -  Builtin Commands
   - cd, echo, pwd, export, unset, env, exit;
@@ -110,7 +110,7 @@ These mechanics touch every part of the shell:
 - Exit codes can be checked by expanding $?;
 - Child processes inherit parent’s signal-derived or exec-derived exit status;
 
-## 4. Build & Run - test my Minishell
+## 4. Build, run and test
 
 ```
 git clone <https://github.com/izzytoot/minishell.git>
