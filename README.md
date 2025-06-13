@@ -57,13 +57,13 @@ Executes left branch first (cat file.txt) and writes into pipe, and right branch
 #### <ins>d. Tree Execution</ins>
 Traverses and executes the AST:
 
-d-1 Expansions
+##### d-1 Expansions
 
 - It handles "$VAR", "$?", "$0" and "$EMPTY" expansions;
 - It performs word-splitting or joining after expansions unless inside single quotes;
 - It replaces the node-argument array;
 
-d-2 Heredoc Execution
+##### d-2 Heredoc Execution
 
 - It detects how many heredocs are there in the input line;
 - It performs the existant heredocs by:
@@ -72,19 +72,19 @@ d-2 Heredoc Execution
   - opening a heredoc buffer in a child process,
   - expanding variables inside heredoc if EOF not quoted.
 
-d-3 Pipe Execution
+##### d-3 Pipe Execution
 
 - It chains tree nodes through pipes;
 - It uses fork(), pipe(), and dup2() to connect child processes;
 
-d-4 Redirections Execution
+##### d-4 Redirections Execution
 
 - It applies <, >, and >> to redirect stdin/stdout;
 - It opens files with correct flags and uses dup2() to hook them;
 - It handles FD opening, duplicating and closing;
 - It performs the command linked to the redirect token te correct stdin/stdout;
 
-d-5 Command Execution
+##### d-5 Command Execution
 
 -  Builtin Commands
   - cd, echo, pwd, export, unset, env, exit;
@@ -95,7 +95,7 @@ d-5 Command Execution
   - Launch external executables using execve()
   - Executed in child process, it searches PATH, handles ENOENT and prints meaningful error messages like bash.
 
-#### <ins>e.Transversal Mechanics</ins>
+#### <ins>e. Transversal Mechanics</ins>
 These mechanics touch every part of the shell:
 
 <ins>Signal Handling</ins>
