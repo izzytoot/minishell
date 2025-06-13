@@ -95,7 +95,7 @@ d-5 Command Execution
   - Launch external executables using execve()
   - Executed in child process, it searches PATH, handles ENOENT and prints meaningful error messages like bash.
 
-#### Transversal Mechanics
+#### <ins>e.Transversal Mechanics</ins>
 These mechanics touch every part of the shell:
 
 <ins>Signal Handling</ins>
@@ -104,7 +104,7 @@ These mechanics touch every part of the shell:
 - SIGQUIT (Ctrl+\): ignored, same behavior as bash;
 - Interactive handling during heredoc, builtins, execution phases.
 
-<ins>Exit Code Handling,/ins>
+<ins>Exit Code Handling</ins>
 
 - Every command sets the correct exit code;
 - Exit codes can be checked by expanding $?;
