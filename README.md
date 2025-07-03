@@ -1,11 +1,11 @@
 # 🐚 MINISHELL 
 
-## 1. About the project
+## ℹ️ About the project
 This project was done in partnership with [**Daniela Padilha**](https://github.com/Daniela-Padilha).
 
 It's a polished, mini‑version of a Unix shell written in pure C. This isn’t just an exercise - it’s about building a real, working Command-Line Interface interpreter that plays nicely with pipes, redirections, heredocs, expansions, signals, and error handling.
 
-## 2. What It Does
+## 💪 What It Does
 1. Reads user input (with readline support for line editing and history);
 2. Validates syntax (no unclosed quotes, misplaced operators, etc.);
 3. Tokenizes the input and attributed different categories: pipes, redirections, commands (builtins or environment), arguments;
@@ -16,7 +16,7 @@ The program manages heredocs, multi‑stage redirections, pipes, signals, and ex
 
 ⚠️ We took each piece step by step, ending with a code that works and handles everything gracefully.
 
-## 3. 🧠 Implementation Phases
+## 🧠 Implementation Phases
 Here's how it all comes together:
 
 #### <ins>a. Syntax Check</ins>
@@ -110,7 +110,7 @@ These mechanics touch every part of the shell:
 - Exit codes can be checked by expanding $?;
 - Child processes inherit parent’s signal-derived or exec-derived exit status;
 
-## 4. Build, run and test
+## 🔥 Build, run and test
 
 ```
 git clone <https://github.com/izzytoot/minishell.git>
