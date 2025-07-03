@@ -16,7 +16,7 @@ The program manages heredocs, multi‑stage redirections, pipes, signals, and ex
 
 ⚠️ We took each piece step by step, ending with a code that works and handles everything gracefully.
 
-## 3. Implementation Phases
+## 3. 🧠 Implementation Phases
 Here's how it all comes together:
 
 #### <ins>a. Syntax Check</ins>
